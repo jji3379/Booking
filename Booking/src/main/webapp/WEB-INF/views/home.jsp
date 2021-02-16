@@ -4,10 +4,9 @@
 <head>
 	<title>Home</title>
 </head>
+<jsp:include page="include/resource.jsp"></jsp:include>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<jsp:include page="include/navbar.jsp"></jsp:include>
 
 <P>  The time on the server is ${serverTime}. </P>
 </body>
