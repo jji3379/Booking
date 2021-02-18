@@ -173,7 +173,12 @@
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
 		    <version>4.0.0.RELEASE</version>
-		</dependency>	     
+		</dependency>	
+		 <dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>xmlpull-xpp3</artifactId>
+            <version>3.0.0.20130526</version>
+        </dependency>
 	</dependencies>
     <build>
         <plugins>
