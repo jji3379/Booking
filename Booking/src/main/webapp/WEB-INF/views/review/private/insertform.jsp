@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +12,22 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
+<div style="margin-top:100px"></div>
 <div class="container">
 	<h1>리뷰 작성 폼 입니다.</h1>
+	<a href="${pageContext.request.contextPath }/bookList.do">책 검색</a>
 	<form action="insert.do" method="post">
 		<div class="form-group">
-			<label for="title">제목</label>
+			<c:forEach var="tmp" items="${list }">
+				<a href="bookList.do?isbn=${tmp.isbn }"></a>	
+			</c:forEach>
+		</div>
+		<div class="form-group">
+			<label for="title">리뷰 제목</label>
 			<input class="form-control" type="text" name="title" id="title"/>
 		</div>
 		<div class="form-group">
-			<label for="content">내용</label>
+			<label for="content">리뷰 내용</label>
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>

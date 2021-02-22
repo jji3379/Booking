@@ -11,6 +11,7 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
+<div style="margin-top:100px"></div>
 <div class="container">
 	<h1>리뷰 수정 폼 입니다.</h1>
 	<form action="update.do" method="post">
