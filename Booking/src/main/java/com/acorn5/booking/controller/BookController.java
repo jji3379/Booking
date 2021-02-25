@@ -21,8 +21,8 @@ public class BookController {
     //키워드가 있을때도 있고 없을때도있음 
     //있을때는 가져가고 없을때는 안가져가고 
     @RequestMapping(value = "/bookList.do", method = RequestMethod.GET)
-    public ModelAndView bookList(@RequestParam(required=false)String d_cont,@RequestParam("d_catg")String d_catg, HttpServletRequest request, int start){
-    	ModelAndView mav=new ModelAndView();
+    public ModelAndView bookList(@RequestParam(required=false)String d_cont, @RequestParam("d_catg")String d_catg, 
+    		HttpServletRequest request, int start, ModelAndView mav){    	
     	mav.addObject("d_catg", d_catg);
         if(d_cont !=null)
         {

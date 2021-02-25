@@ -48,7 +48,7 @@
 						<c:choose>
 							<c:when test="${startPageNum != 1 }">
 								<li class="page-item">
-									<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&start=${startPageNum-1 }">Prev</a>
+									<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*display+1}">Prev</a>
 								</li>
 							</c:when>
 							<c:otherwise>
@@ -59,19 +59,14 @@
 						</c:choose>
 						<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 							<c:choose>
-								<c:when test="${i eq 1 }">
-									<li class="page-item">
-										<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&start=${i}">${i }</a>
-									</li>
-								</c:when>
 								<c:when test="${i eq pageNum }">
 									<li class="page-item active">
-										<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&start=${(i-1)*display+1}">${i }</a>
+										<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&pageNum=${i}&start=${(i-1)*display+1}">${i }</a>
 									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item">
-										<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&start=${(i-1)*display+1}">${i }</a>
+										<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&pageNum=${i}&start=${(i-1)*display+1}">${i }</a>
 									</li>
 								</c:otherwise>
 							</c:choose>
@@ -79,7 +74,7 @@
 						<c:choose>
 							<c:when test="${endPageNum lt totalPageCount }">
 								<li class="page-item">
-									<a class="page-link" href="bookList.do?d_catg=100&d_cont=1&start=${5*display+1 }">Next</a><!-- by 준익, PAGE_DISPLAY_COUNT -->
+									<a class="page-link" href="bookList.do?d_catg=${d_catg}&d_cont=1&pageNum=${endPageNum+1}&start=${(endPageNum)*display+1 }">Next</a><!-- by 준익, PAGE_DISPLAY_COUNT -->
 								</li>
 							</c:when>
 							<c:otherwise>

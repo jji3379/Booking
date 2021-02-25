@@ -164,6 +164,7 @@ public class NaverBookService {
 	    		mav.addObject("totalPageCount",totalPageCount);
 	    		mav.addObject("display",display);
 	    		mav.addObject("pageNum",pageNum);
+	    		mav.addObject("PAGE_DISPLAY_COUNT",PAGE_DISPLAY_COUNT);
 	            
 	            
 	        } catch (MalformedURLException e) {
