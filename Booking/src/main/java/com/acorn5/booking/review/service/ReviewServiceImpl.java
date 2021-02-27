@@ -1,5 +1,6 @@
 package com.acorn5.booking.review.service;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -7,28 +8,55 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
-import com.acorn5.booking.exception.DBFailException;
-import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
-	//의존객체 DI 
+	// by남기._2021224
+	
+	// 빈에서 핵심 의존객체(ReviewDao)를 DI 할 준비를 한다.
 	@Autowired
 	private ReviewDao reviewDao;
-	//의존객체 DI
-	@Autowired
-	private ReviewCommentDao reviewCommentDao;
 	
+	// 새 리뷰를 저장하는 메소드
 	@Override
-	public void saveContent(ReviewDto dto) {
-		reviewDao.insert(dto);
-	}
+	public void saveContent(ReviewDto dto, HttpServletRequest request) {
+		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
+		MultipartFile myFile=dto.getImage();
+		//원본 파일명
+		String orgFileName=myFile.getOriginalFilename();
 
+		// webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+		String realPath=request.getServletContext().getRealPath("/upload");
+		//저장할 파일의 상세 경로
+		String filePath=realPath+File.separator;
+		//디렉토리를 만들 파일 객체 생성
+		File upload=new File(filePath);
+		if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+			upload.mkdir(); //만들어 준다.
+		}
+		//저장할 파일 명을 구성한다.
+		String saveFileName=
+				System.currentTimeMillis()+orgFileName;
+		try {
+			//upload 폴더에 파일을 저장한다.
+			myFile.transferTo(new File(filePath+saveFileName));
+			System.out.println(filePath+saveFileName);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		//dto 에 업로드된 파일의 정보를 담는다.
+		String id=(String)request.getSession().getAttribute("id");
+		dto.setWriter(id); //세션에서 읽어낸 파일 업로더의 아이디 
+		dto.setImagePath("/upload/"+saveFileName);
+		//GalleryDao 를 이용해서 DB 에 저장하기;
+		reviewDao.insert(dto);		
+	}
+	// 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 
 	@Override
 	public void getList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
@@ -80,15 +108,17 @@ public class ReviewServiceImpl implements ReviewService{
 		//만일 검색 키워드가 넘어온다면 
 		if(!keyword.equals("")){
 			//검색 조건이 무엇이냐에 따라 분기 하기
-			if(condition.equals("title_content")){//제목 + 내용 검색인 경우
+			if(condition.equals("reviewTitle_content")){//제목 + 내용 검색인 경우
 				//검색 키워드를 ReviewDto 에 담아서 전달한다.
-				dto.setTitle(keyword);
+				dto.setReviewTitle(keyword);
 				dto.setContent(keyword);	
 			}else if(condition.equals("title")){ //제목 검색인 경우
-				dto.setTitle(keyword);			
+				dto.setReviewTitle(keyword);			
 			}else if(condition.equals("writer")){ //작성자 검색인 경우
 				dto.setWriter(keyword);	
-			} // 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
+			}else if(condition.equals("isbn")){ //고유번호 검색인 경우
+				dto.setWriter(keyword);	
+			}// 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
 		}
 		//글목록 얻어오기
 		list=reviewDao.getList(dto);
@@ -118,146 +148,31 @@ public class ReviewServiceImpl implements ReviewService{
 		mView.addObject("encodedK", encodedK);
 		mView.addObject("totalRow", totalRow);
 	}
-
+	
 	@Override
-	public void getDetail(int num, ModelAndView mView) {
-		//글번호를 이용해서 글정보를 얻어오고 
-		ReviewDto dto=reviewDao.getData(num);
-		//글정보를 ModelAndView 객체에 담고
-		mView.addObject("dto", dto);
-		//글 조회수를 증가 시킨다.
-		reviewDao.addViewCount(num);
-		
-		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
-		final int PAGE_ROW_COUNT=5;
-
-		//보여줄 페이지의 번호
-		int pageNum=1;
-
-		//보여줄 페이지 데이터의 시작 ResultSet row 번호
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		//보여줄 페이지 데이터의 끝 ResultSet row 번호
-		int endRowNum=pageNum*PAGE_ROW_COUNT;
-
-		//전체 row 의 갯수를 읽어온다.
-		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
-		int totalRow=reviewCommentDao.getCount(num);
-		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-
-		// ReviewCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
-		ReviewCommentDto commentDto=new ReviewCommentDto();
-		commentDto.setStartRowNum(startRowNum);
-		commentDto.setEndRowNum(endRowNum);
-		//ref_group 번호도 담는다.
-		commentDto.setRef_group(num);
-
-		//DB 에서 댓글 목록을 얻어온다.
-		List<ReviewCommentDto> commentList=reviewCommentDao.getList(commentDto);
-		//ModelAndView 객체에 댓글 목록도 담아준다.
-		mView.addObject("commentList", commentList);
-		mView.addObject("totalPageCount", totalPageCount);
-	}
-
-	@Override
-	public void updateContent(ReviewDto dto) {
-		reviewDao.update(dto);
-	}
-
-	@Override
-	public void deleteContent(int num) {
-		reviewDao.delete(num);
-	}
-
-	@Override
-	public void saveComment(HttpServletRequest request) {
-		//댓글 작성자(로그인된 아이디)
-		String writer=(String)request.getSession().getAttribute("id");
-		//폼 전송되는 댓글의 정보 얻어내기
-		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
-		String target_id=request.getParameter("target_id");
-		String content=request.getParameter("content");
-		/*
-		 * 원글의 댓글은 comment_group 번호가 전송이 안되고
-		 * 댓글의 댓글은 comment_group 번호가 전송이 된다.
-		 * 따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판별할수 있다.
-		 */
-		String comment_group=request.getParameter("comment_group");
-		//새 댓글의 글번호는 미리 얻어낸다.
-		int seq=reviewCommentDao.getSequence();
-		//저장할 새 댓글 정보를 dto 에 담기
-		ReviewCommentDto dto=new ReviewCommentDto();
-		dto.setNum(seq);
-		dto.setWriter(writer);
-		dto.setTarget_id(target_id);
-		dto.setContent(content);
-		dto.setRef_group(ref_group);
-		if(comment_group == null) {//원글의 댓글인 경우 
-			//댓글의 글번호와 comment_group 번호를 같게 한다.
-			dto.setComment_group(seq);
-		}else {//댓글의 댓글인 경우 
-			//폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다.
-			dto.setComment_group(Integer.parseInt(comment_group));
+	public String saveImage(MultipartFile image, HttpServletRequest request) {
+		//원본 파일명
+		String orgFileName=image.getOriginalFilename();
+		// webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+		String realPath=request.getServletContext().getRealPath("/upload");
+		//저장할 파일의 상세 경로
+		String filePath=realPath+File.separator;
+		//디렉토리를 만들 파일 객체 생성
+		File upload=new File(filePath);
+		if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+			upload.mkdir(); //만들어 준다.
 		}
-		//댓글 정보를 DB 에 저장한다.
-		reviewCommentDao.insert(dto);
-	}
-
-	@Override
-	public void deleteComment(HttpServletRequest request) {
-		//GET 방식 파라미터로 전달되는 삭제할 댓글 번호 
-		int num=Integer.parseInt(request.getParameter("num"));
-		//세션에 저장된 로그인된 아이디
-		String id=(String)request.getSession().getAttribute("id");
-		//댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다.
-		String writer=reviewCommentDao.getData(num).getWriter();
-		if(!writer.equals(id)) {
-			throw new DBFailException("남의 댓글을 삭제 할수 없습니다.");
+		//저장할 파일 명을 구성한다.
+		String saveFileName=
+				System.currentTimeMillis()+orgFileName;
+		try {
+			//upload 폴더에 파일을 저장한다.
+			image.transferTo(new File(filePath+saveFileName));
+			System.out.println(filePath+saveFileName);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		reviewCommentDao.delete(num);
-	}
-
-	@Override
-	public void updateComment(ReviewCommentDto dto) {
-		reviewCommentDao.update(dto);
-	}
-
-	@Override
-	public void moreCommentList(HttpServletRequest request) {
-		//파라미터로 전달된 pageNum 과 ref_group 번호를 읽어온다. 
-		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
-		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
-
-		ReviewDto dto=reviewDao.getData(ref_group);
-		request.setAttribute("dto", dto);
-
-		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
-		final int PAGE_ROW_COUNT=5;
-
-		//보여줄 페이지 데이터의 시작 ResultSet row 번호
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		//보여줄 페이지 데이터의 끝 ResultSet row 번호
-		int endRowNum=pageNum*PAGE_ROW_COUNT;
-
-		//전체 row 의 갯수를 읽어온다.
-		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
-		int totalRow=reviewCommentDao.getCount(ref_group);
-		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-
-		// ReviewCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
-		ReviewCommentDto commentDto=new ReviewCommentDto();
-		commentDto.setStartRowNum(startRowNum);
-		commentDto.setEndRowNum(endRowNum);
-		//ref_group 번호도 담는다.
-		commentDto.setRef_group(ref_group);
-
-		//DB 에서 댓글 목록을 얻어온다.
-		List<ReviewCommentDto> commentList=reviewCommentDao.getList(commentDto);
-		//request 에 담아준다.
-		request.setAttribute("commentList", commentList);
-		request.setAttribute("totalPageCount", totalPageCount);		
+		//업로드 경로를 리턴한다.
+		return "/upload/"+saveFileName;
 	}
 }

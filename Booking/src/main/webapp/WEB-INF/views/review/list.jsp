@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>/review/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	/* 리뷰 이미지를 작은 사각형으로 만든다 */
+	#reviewImage{
+		width: 50px;
+		height: 50px;
+		
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
@@ -27,25 +35,29 @@
 	<table class="table table-striped">
 		<thead class="thead-dark">
 			<tr>
-				<th>작성자</th>
-				<th>이미지</th>
-				<th>책이름</th>
+				<th>리뷰 이미지</th>
 				<th>리뷰 제목</th>
+				<th>작성자</th>
 				<th>조회수</th>
 				<th>등록일</th>
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="tmp" items="${list }">
-			<tr>
-				<td>${tmp.writer }</td>
-				<td>${tmp.image }</td>
-				<td>${tmp.title }</td>
-				<td><a href="detail.do?num=${tmp.num }">${tmp.title }</a></td>
-				<td>${tmp.viewCount }</td>
-				<td>${tmp.regdate }</td>
-			</tr>
-		</c:forEach>
+			<c:forEach var="t" items="${list }">
+				<tr>
+					<td>
+						<div id="reviewImage">
+							<a href="detail.do?num=${t.num }">
+								<img src="${pageContext.request.contextPath }${t.imagePath }"/>
+							</a>
+						</div>
+					</td>
+					<td>${t.reviewTitle }</td>
+					<td>${t.writer }</td>
+					<td>${t.viewCount }</td>
+					<td>${t.regdate }</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	<nav>
@@ -93,8 +105,9 @@
 	<form action="list.do" method="get">
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">
-			<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+			<option value="reviewTitle_content" ${condition eq 'reviewTitle_content' ? 'selected' : '' }>제목+내용</option>
+			<option value="reviewTitle" ${condition eq 'reviewTitle' ? 'selected' : '' }>제목</option>
+			<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>책 고유번호</option>
 			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
@@ -107,5 +120,8 @@
 		</div>
 	</c:if>
 </div>
+<script>
+	
+</script>
 </body>
 </html>

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -19,22 +18,21 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.acorn5.booking.book.dto.BookDto;
 
 @Service
-public class BookSelectService{
+public class ReviewBookService{
 	private static String clientID = "RFTx71xgYkvn9AtCl3sH";
     private static String clientSecret = "5i1UxM9vSW";
  
     //display ==> 몇개 출력
     //start==>몇번쨰부터 (item)
-    // d_isbn 고유번호를 가지고 책을 찾는 메소드.
-    public List<BookDto> selectBook(String d_isbn, int display, int start, ModelAndView mView){
+    //d_isbn 고유번호를 가지고 책을 찾는 메소드.
+    public List<BookDto> bookReview(String d_isbn, int display){
     	List<BookDto> list = null;
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
                     + "book_adv.xml?d_isbn="
                     + URLEncoder.encode(d_isbn, "UTF-8")
-                    + (display !=0 ? "&display=" +display :"")
-                    + (start !=0 ? "&start=" +start :""));
+                    + (display !=0 ? "&display=" +display :""));
  
             URLConnection urlConn = url.openConnection();
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID);

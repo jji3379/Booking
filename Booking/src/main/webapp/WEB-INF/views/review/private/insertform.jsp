@@ -9,22 +9,38 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="../../include/navbar.jsp">
-	<jsp:param value="review" name="thisPage"/>
-</jsp:include>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div style="margin-top:100px"></div>
 <div class="container">
+	<nav>
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="${pageContext.request.contextPath }/">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="${pageContext.request.contextPath }/review/list.do">리뷰 목록</a>
+			</li>
+			<li class="breadcrumb-item active">리뷰 작성 폼</li>
+		</ul>
+	</nav>
 	<h1>리뷰 작성 폼 입니다.</h1>
-	<a href="${pageContext.request.contextPath }/bookList.do">책 검색</a>
-	<form action="insert.do" method="post">
+	<!-- 북 리스트로 이동해서 책을 검색하고 정보를 가져온다. -->
+	<a href="${pageContext.request.contextPath }/review/bookList.do">책 검색</a>
+	<form action="insert.do" method="post" enctype="multipart/form-data">
 		<div class="form-group">
-			<c:forEach var="tmp" items="${list }">
-				<a href="bookList.do?isbn=${tmp.isbn }"></a>	
+			<c:forEach var="b" items="${reviewBook }">
+				<img src="${b.image }"/>
+				<input type="hidden" name="isbn" value="${b.isbn }" />
 			</c:forEach>
 		</div>
 		<div class="form-group">
-			<label for="title">리뷰 제목</label>
-			<input class="form-control" type="text" name="title" id="title"/>
+			<label for="image">이미지</label>
+			<input type="file" name="image" id="image"
+				accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		</div>
+		<div class="form-group">
+			<label for="reviewTitle">리뷰 제목</label>
+			<input class="form-control" type="text" name="reviewTitle" id="reviewTitle"/>
 		</div>
 		<div class="form-group">
 			<label for="content">리뷰 내용</label>

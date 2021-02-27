@@ -14,7 +14,7 @@ public class BookDto {
 
     @Override
     public String toString() {
-        return "Book [title=" + title + ", link=" + link + ", image=" + image + ", author=" + author + ", price=" + price
+        return "BookDto [title=" + title + ", link=" + link + ", image=" + image + ", author=" + author + ", price=" + price
                 + ", discount=" + discount + ", publisher=" + publisher + ", pubdate=" + pubdate + ", isbn=" + isbn
                 + ", description=" + description + "]";
     }

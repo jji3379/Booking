@@ -11,35 +11,26 @@ import com.acorn5.booking.review.dto.ReviewDto;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
-	//핵심 의존객체 DI
+	// by남기._2021224
+	
+	// 빈에서 핵심 의존객체(SqlSession)를 DI 할 준비를 한다.
 	@Autowired
 	private SqlSession session;
 	
+	// 새로운 리뷰 추가하는 메소드
 	@Override
 	public void insert(ReviewDto dto) {
 		session.insert("review.insert", dto);
 	}
-
-	@Override
-	public void update(ReviewDto dto) {
-		session.update("review.update", dto);
-	}
-
-	@Override
-	public void delete(int num) {
-		//삭제된 row 의 갯수를 얻어낸다 
-		int count=session.delete("review.delete", num);
-		if(count==0) {//0 이면 삭제 실패이다.
-			throw new DBFailException(num+" 번 글을 삭제 할수가 없습니다.");
-		}
-	}
-
+	
+	// 리뷰 하나의 정보를 가져오는 메소드
 	@Override
 	public ReviewDto getData(int num) {
 		ReviewDto dto=session.selectOne("review.getData", num);
 		return dto;
 	}
-
+	
+	// 리뷰 전체 리스트를 가져오는 메소드
 	@Override
 	public List<ReviewDto> getList(ReviewDto dto) {
 		/*
@@ -57,7 +48,8 @@ public class ReviewDaoImpl implements ReviewDao{
 		List<ReviewDto> list=session.selectList("review.getList", dto);
 		return list;
 	}
-
+	
+	// 리뷰의 갯수를 가져오는 메소드
 	@Override
 	public int getCount(ReviewDto dto) {
 		/*
@@ -69,9 +61,11 @@ public class ReviewDaoImpl implements ReviewDao{
 		int count=session.selectOne("review.getCount", dto);
 		return count;
 	}
-
+	
+	// 리뷰의 조회수를 가져오는 메소드
 	@Override
 	public void addViewCount(int num) {
 		session.update("review.addViewCount", num);
 	}
+
 }

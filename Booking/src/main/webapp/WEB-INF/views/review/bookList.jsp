@@ -30,7 +30,7 @@
                 <td width="200">${b.publisher }</td>
                 <td width="200">${b.pubdate }</td>
                 <td width="200">${b.isbn }
-                	<a href="https://openapi.naver.com/v1/search/book_adv.xml?d_isbn="+${b.isbn } >선택</a>
+               		<a href="${pageContext.request.contextPath }/review/private/insertform.do?d_isbn=${b.isbn }" >선택</a>
                 </td>
             </tr>
             <tr>
