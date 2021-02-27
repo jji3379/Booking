@@ -16,9 +16,8 @@
 	  	<div class="row">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
-				
 			    <table>
-			        <c:forEach items="${categoryList}" var ="b">
+			        <c:forEach items="${categoryList}" var ="b"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 			        	<tr>
 							<td colspan="7" bgcolor="#f1f1f1"></td>
 			        	</tr>
@@ -41,14 +40,13 @@
 			            	</td>
 			             	<td style="text-align:center; color:red ">
 				             		할인가 ${b.discount }
-			             		</span>
 			             	</td>
 			            </tr>
 			            <tr>
 			            </tr>
 			            <tr>
 			            	<td style="background:#f1f1f1;" rowspan="3"width="60%">
-								<div style="display:inline-block; margin:20px 20px">
+								<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
 			            			${b.description}
 			            			<a href="${b.link}">더보기</a>
 								</div>
@@ -75,43 +73,43 @@
 			            </tr>
 			        </c:forEach>
 			    </table>
-			    <!-- 페이징 처리 -->
+			    <!-- by 준익, 페이징 처리_2021.02.26 -->
 			    <nav>
 					<ul class="pagination justify-content-center">
 						<c:choose>
-							<c:when test="${startPageNum != 1 }">
+							<c:when test="${startPageNum != 1 }"> <!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
 								<li class="page-item">
-									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&d_isbn=9&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*display+1}">Prev</a>
+									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
 								</li>
 							</c:when>
-							<c:otherwise>
+							<c:otherwise> <!-- by 준익, 시작페이지가 1인 경우 Prev 비활성화_2021.02.28 -->
 								<li class="page-item disabled">
 									<a class="page-link" href="javascript:">Prev</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
-						<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }"> <!-- by 준익, 페이징 시작부터 끝까지 만들기_2021.02.28 -->
 							<c:choose>
-								<c:when test="${i eq pageNum }">
-									<li class="page-item active">
-										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&d_isbn=9&pageNum=${i}&start=${(i-1)*display+1}">${i }</a>
+								<c:when test="${i eq pageNum }"> <!-- by 준익, 순서가 pageNum 과 같을 때 -->
+									<li class="page-item active">  <!-- by 준익, active 활성화_2021.02.28 -->
+										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item">
-										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&d_isbn=9&pageNum=${i}&start=${(i-1)*display+1}">${i }</a>
+										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 									</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 						<c:choose>
-							<c:when test="${endPageNum lt totalPageCount }">
+							<c:when test="${endPageNum lt totalPageCount }"> <!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   --> 
 								<li class="page-item">
-									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&d_isbn=9&pageNum=${endPageNum+1}&start=${(endPageNum)*display+1 }">Next</a><!-- by 준익, PAGE_DISPLAY_COUNT -->
+									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a><!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 -->
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item disabled">
+								<li class="page-item disabled"> <!-- by 준익, 전체페이지 끝일 때 Next 비활성화 -->
 									<a class="page-link" href="javascript:">Next</a>
 								</li>
 							</c:otherwise>

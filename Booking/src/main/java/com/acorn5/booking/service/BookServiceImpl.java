@@ -26,23 +26,23 @@ public class BookServiceImpl implements BookService{
 
 	//의존 객체 DI
 	
-	//by 준익, 페이징 처리된 카테고리별 검색 리스트 
+	//by 준익, 페이징 처리된 카테고리별 검색 리스트_2021.02.28
 	@Override
-	public List<BookDto> pagingCategory(String d_isbn, int display, int start, String d_catg, HttpServletRequest request,
+	public List<BookDto> pagingCategory(String d_cont, int display, int start, String d_catg, HttpServletRequest request,
 			ModelAndView mav) {
 		//필드 
-		String clientID = "hqIK81ATna87kVfkpjD9"; //by 준익, 네이버 도서 검색 api Client ID
-		String clientSecret = "pXqyhElpGp"; //by 준익, 네이버 도서 검색 api Client Secret
+		String clientID = "hqIK81ATna87kVfkpjD9"; //by 준익, 네이버 도서 검색 api Client ID_2021.02.28
+		String clientSecret = "pXqyhElpGp"; //by 준익, 네이버 도서 검색 api Client Secret_2021.02.28
 
 		List<BookDto> list = null;
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
-                    + "book_adv.xml?d_cont="
-                    + URLEncoder.encode(d_isbn, "UTF-8")
-                    + (d_catg !=null ? "&d_catg=" +d_catg :"")
-                    + (display !=0 ? "&display=" +display :"")
-                    + (start !=0 ? "&start=" +start :""));
+                    + "book_adv.xml?d_cont=" //by 준익, 상세검색을 받기 위한 book_adv.xml 작성_2021.02.28 
+                    + URLEncoder.encode(d_cont, "UTF-8") //by 준익, 전체 검색을 하기 위한 목차 "1" 받기_2021.02.28
+                    + (d_catg !=null ? "&d_catg=" +d_catg :"") //by 준익, 카테고리 검색 코드 받기_2021.02.28
+                    + (display !=0 ? "&display=" +display :"") //by 준익, 화면에 표시할 개수_2021.02.28
+                    + (start !=0 ? "&start=" +start :"")); //by 준익, 화면 시작값_2021.02.28
  
             URLConnection urlConn = url.openConnection();
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID);
@@ -125,7 +125,7 @@ public class BookServiceImpl implements BookService{
             
             // < 페이징 처리 > -----------------------------------------------------
             //한 페이지에 몇개씩 표시할 것인지
-    		final int PAGE_ROW_COUNT=display;
+    		final int PAGE_ROW_COUNT=display; //by 준익, 한 페이지에 표시할 개수 display 넣어줌_2021.02.28
     		//하단 페이지를 몇개씩 표시할 것인지
     		final int PAGE_DISPLAY_COUNT=5;
     		
@@ -146,7 +146,7 @@ public class BookServiceImpl implements BookService{
     		int endRowNum=pageNum*PAGE_ROW_COUNT;
     		
     		//전체 row 의 갯수를 담을 지역변수를 미리 만든다.
-    		int totalRow=1000;
+    		int totalRow=1000; //by 준익, 네이버 api start 최대값이 1000_2021.02.28
     		
     		
     		//하단 시작 페이지 번호 
@@ -162,13 +162,15 @@ public class BookServiceImpl implements BookService{
     		}
     		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
     		mav.addObject("list",list);
+    		mav.addObject("d_catg",d_catg);
     		mav.addObject("start",start);
+    		mav.addObject("display",display);
+    		mav.addObject("PAGE_DISPLAY_COUNT",PAGE_DISPLAY_COUNT);
+    		mav.addObject("pageNum",pageNum);
     		mav.addObject("startPageNum",startPageNum);
     		mav.addObject("endPageNum",endPageNum);
     		mav.addObject("totalPageCount",totalPageCount);
-    		mav.addObject("display",display);
-    		mav.addObject("pageNum",pageNum);
-    		mav.addObject("PAGE_DISPLAY_COUNT",PAGE_DISPLAY_COUNT);
+    		mav.addObject("PAGE_ROW_COUNT",PAGE_ROW_COUNT);
             
             
         } catch (MalformedURLException e) {
@@ -184,7 +186,7 @@ public class BookServiceImpl implements BookService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return list;
+        return list; //by 준익, 정보를 담은 list return_2021.02.28
 	}
 	
 
