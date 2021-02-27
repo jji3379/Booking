@@ -13,7 +13,7 @@
 <div style="margin-top:100px" class="container">
 	<div class="row">
 		<jsp:include page="include/sideindex.jsp"></jsp:include>
-		<div style="border:solid" class="col-10">
+		<div style="border:1px solid #f1f1f1" class="col-10">
 			
 		</div>
 	</div>

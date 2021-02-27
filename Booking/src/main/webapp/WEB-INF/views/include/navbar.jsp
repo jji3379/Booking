@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="height:100px; color:#000000; background-color:black;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="font-size:38px; margin-left:244px; font-family: 'Roboto', sans-serif;">
+    <a class="navbar-brand" href="#" style="font-size:38px; margin-left:244px; font-family: 'Roboto', sans-serif;">
     	<img src="${pageContext.request.contextPath }/resources/images/bookings.png"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="background-color:black;">
       <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse row justify-content-end" id="navbarSupportedContent" style="margin-right:200px;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#" style="font-size:18px; font-family: 'Roboto', sans-serif;">전체도서</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/home.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">전체도서</a>
         </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
         <li class="nav-item">
           <a class="nav-link" href="#" style="font-size:18px; font-family: 'Roboto', sans-serif;">인기도서</a>
