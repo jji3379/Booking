@@ -16,10 +16,10 @@
           <a class="nav-link" href="#" style="font-size:18px; font-family: 'Roboto', sans-serif;">전체도서</a>
         </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
         <li class="nav-item ${param.thisPage eq 'BS' ? 'active' : '' }">
-          <a class="nav-link" href="bookList.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif;">인기도서</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif;">인기도서</a>
         </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/community/list.jsp" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/review/list.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
         </li>
       </ul>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
       <form class="d-flex">
@@ -28,6 +28,20 @@
         	<img src="${pageContext.request.contextPath }/resources/images/magnifier.png"/>
         </button>
       </form>
+      <c:choose>
+      	<c:when test="${not empty sessionScope.id }">
+      		<div style="margin-left:20px;">
+      			<a href="${pageContext.request.contextPath }/users/private/info.do" style="color:white; margin-right:10px;">${id }</a>
+      			<a href="${pageContext.request.contextPath }/users/logout.do" class="btn btn-warning">로그아웃</a>
+      		</div>
+      	</c:when>
+      	<c:otherwise>
+      		<div class="usersBtn" style="margin-left:20px;">
+		      <a href="${pageContext.request.contextPath }/users/login_form.do" class="btn btn-dark">로그인</a>
+		      <a href="${pageContext.request.contextPath }/users/signup_form.do" class="btn btn-dark" style="background-color:#5e5d5d;">회원가입</a>
+		    </div>
+      	</c:otherwise>
+      </c:choose>
     </div>
   </div>
 </nav>
