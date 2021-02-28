@@ -11,6 +11,10 @@ public class BookDto {
     private String pubdate;
     private String isbn;
     private String description;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
     public String getTitle() {
         return title;
     }
@@ -77,4 +81,8 @@ public class BookDto {
                 + ", discount=" + discount + ", publisher=" + publisher + ", pubdate=" + pubdate + ", isbn=" + isbn
                 + ", description=" + description + "]";
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
 }

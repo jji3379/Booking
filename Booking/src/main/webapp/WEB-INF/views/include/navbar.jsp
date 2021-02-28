@@ -5,7 +5,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="height:100px; color:#000000; background-color:black;">
   <div class="container-fluid">
+<<<<<<< HEAD
     <a class="navbar-brand" href="#" style="font-size:38px; margin-left:244px; font-family: 'Roboto', sans-serif;">
+=======
+    <a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="font-size:38px; margin-left:244px; font-family: 'Roboto', sans-serif;">
+>>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
     	<img src="${pageContext.request.contextPath }/resources/images/bookings.png"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="background-color:black;">
       <span class="navbar-toggler-icon"></span>
@@ -13,6 +17,7 @@
     <div class="collapse navbar-collapse row justify-content-end" id="navbarSupportedContent" style="margin-right:200px;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link" href="${pageContext.request.contextPath }/home.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">전체도서</a>
         </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
         <li class="nav-item">
@@ -20,6 +25,15 @@
         </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath }/community/list.jsp" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
+=======
+          <a class="nav-link" href="#" style="font-size:18px; font-family: 'Roboto', sans-serif;">전체도서</a>
+        </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        <li class="nav-item ${param.thisPage eq 'BS' ? 'active' : '' }">
+          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif;">인기도서</a>
+        </li>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath }/review/list.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
+>>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
         </li>
       </ul>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
       <form class="d-flex">
@@ -28,6 +42,23 @@
         	<img src="${pageContext.request.contextPath }/resources/images/magnifier.png"/>
         </button>
       </form>
+<<<<<<< HEAD
+=======
+      <c:choose>
+      	<c:when test="${not empty sessionScope.id }">
+      		<div style="margin-left:20px;">
+      			<a href="${pageContext.request.contextPath }/users/private/info.do" style="color:white; margin-right:10px;">${id }</a>
+      			<a href="${pageContext.request.contextPath }/users/logout.do" class="btn btn-warning">로그아웃</a>
+      		</div>
+      	</c:when>
+      	<c:otherwise>
+      		<div class="usersBtn" style="margin-left:20px;">
+		      <a href="${pageContext.request.contextPath }/users/login_form.do" class="btn btn-dark">로그인</a>
+		      <a href="${pageContext.request.contextPath }/users/signup_form.do" class="btn btn-dark" style="background-color:#5e5d5d;">회원가입</a>
+		    </div>
+      	</c:otherwise>
+      </c:choose>
+>>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
     </div>
   </div>
 </nav>

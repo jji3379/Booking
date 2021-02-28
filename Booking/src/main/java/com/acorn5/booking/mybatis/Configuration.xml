@@ -4,10 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-	
+		<typeAlias type="com.acorn5.booking.review.dto.ReviewDto"
+			alias="reviewDto"/>
+		<typeAlias type="com.acorn5.booking.users.dto.UsersDto"
+			alias="usersDto"/>
 	</typeAliases>
-	
 	<mappers>
-	
+		<mapper resource="com/acorn5/booking/mybatis/ReviewMapper.xml"/>
+		<mapper resource="com/acorn5/booking/mybatis/UsersMapper.xml"/>
 	</mappers>
 </configuration>
