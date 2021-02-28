@@ -1,6 +1,6 @@
-package com.acorn5.booking.model;
+package com.acorn5.booking.book.dto;
 
-public class Book {
+public class BookDto {
 	private String title;
     private String link;
     private String image;

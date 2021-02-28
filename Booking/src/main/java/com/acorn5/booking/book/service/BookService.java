@@ -1,4 +1,4 @@
-package com.acorn5.booking.service;
+package com.acorn5.booking.book.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.book.BookDto;
+import com.acorn5.booking.book.dto.BookDto;
 
 //by 준익, 네이버 도서 api 관련 서비스 관리 인터페이스_2021.02.26
 public interface BookService {

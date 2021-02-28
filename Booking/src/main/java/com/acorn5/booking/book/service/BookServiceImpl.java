@@ -1,4 +1,4 @@
-package com.acorn5.booking.service;
+package com.acorn5.booking.book.service;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +18,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.acorn5.booking.book.BookDto;
+import com.acorn5.booking.book.dto.BookDto;
 
 
 @Service
