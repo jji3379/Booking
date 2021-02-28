@@ -112,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService{
 				//검색 키워드를 ReviewDto 에 담아서 전달한다.
 				dto.setReviewTitle(keyword);
 				dto.setContent(keyword);	
-			}else if(condition.equals("title")){ //제목 검색인 경우
+			}else if(condition.equals("reviewTitle")){ //제목 검색인 경우
 				dto.setReviewTitle(keyword);			
 			}else if(condition.equals("writer")){ //작성자 검색인 경우
 				dto.setWriter(keyword);	

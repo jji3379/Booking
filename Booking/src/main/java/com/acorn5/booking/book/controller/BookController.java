@@ -5,15 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.service.BookService;
-<<<<<<< HEAD
  
 @Controller
 public class BookController {
@@ -28,14 +24,6 @@ public class BookController {
     	mav.setViewName("bookList/CategoryList");
         return mav;
     }
-}
-=======
-
-@Controller
-public class BookController {
-
-	@Autowired
-	private BookService service;
 	
 	@RequestMapping(value = "/bookList/CategoryList.do", method = RequestMethod.GET)
     public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, 
@@ -113,6 +101,3 @@ public class BookController {
         return mav;
     }
 }
-
-
->>>>>>> aaabdbfa4d7c429e094458570e48308b633467ae
