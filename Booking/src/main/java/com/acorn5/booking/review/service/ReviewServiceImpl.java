@@ -1,7 +1,14 @@
 package com.acorn5.booking.review.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.review.dao.ReviewDao;
 
 @Service
@@ -175,4 +186,5 @@ public class ReviewServiceImpl implements ReviewService{
 		//업로드 경로를 리턴한다.
 		return "/upload/"+saveFileName;
 	}
+	
 }

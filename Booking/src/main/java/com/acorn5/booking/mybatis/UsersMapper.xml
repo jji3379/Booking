@@ -40,4 +40,9 @@
 		FROM users
 		WHERE id=#{id}
 	</select>
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd
+		FROM users
+		WHERE id=#{id}
+	</select>
 </mapper>

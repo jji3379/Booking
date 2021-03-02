@@ -159,9 +159,11 @@
 	});
 	
 	$owl.owlCarousel({
+	  navigation:true,
 	  center: true,
 	  loop: true,
-	  
+	  mouseDrag:true,
+      mouseDraggable:true,
       touchDrag: true,
 	  responsiveClass: true,
 	  responsive:{

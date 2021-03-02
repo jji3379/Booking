@@ -85,65 +85,55 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void loginLogic(HttpServletRequest request, HttpServletResponse response) {
 		//로그인후 가야하는 목적지 정보
-		String url=request.getParameter("url");
-		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
-		String encodedUrl=URLEncoder.encode(url);
-		//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
-		String id=request.getParameter("id");
-		String pwd=request.getParameter("pwd");
-		
-		/*
-		 	인코딩되 저장된 패스워드와 비교
-		 */
-		UsersDto dto = new UsersDto();
-		
-		String savedPwd = dao.getData(id).getPwd(); 
-		if(savedPwd==null) {
-			throw new DBFailException("존재하지 않는 회원입니다.");
-		}
-		boolean isEqual = BCrypt.checkpw(pwd, savedPwd);
-		if(isEqual) {
-			dto.setId(id);
-			dto.setPwd(savedPwd);
-		} else {
-			throw new DBFailException("does not match password!");
-		}
-	
-		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=dao.isValid(dto);
-		//3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
-		if(isValid) {
-			//HttpSession 객체를 이용해서 로그인 처리를 한다. 
-			request.getSession().setAttribute("id", id);
-		}
-		//체크박스를 체크 하지 않았으면 null 이다. 
-		String isSave=request.getParameter("isSave");
-		
-		if(isSave == null){//체크 박스를 체크 안했다면
-			//저장된 쿠키 삭제 
-			Cookie idCook=new Cookie("savedId", id);
-			idCook.setMaxAge(0);//삭제하기 위해 0 으로 설정 
-			response.addCookie(idCook);
-			
-			Cookie pwdCook=new Cookie("savedPwd", pwd);
-			pwdCook.setMaxAge(0);
-			response.addCookie(pwdCook);
-		}else{//체크 박스를 체크 했다면 
-			//아이디와 비밀번호를 쿠키에 저장
-			Cookie idCook=new Cookie("savedId", id);
-			idCook.setMaxAge(60*60*24);//하루동안 유지
-			response.addCookie(idCook);
-			
-			Cookie pwdCook=new Cookie("savedPwd", pwd);
-			pwdCook.setMaxAge(60*60*24);
-			response.addCookie(pwdCook);
-		}
-		//view page 에서 필요한 데이터를 request 에 담고
-		request.setAttribute("dto", dto);
-		request.setAttribute("encodedUrl", encodedUrl);
-		request.setAttribute("url", url);
-		request.setAttribute("isValid", isValid);		
-	}
+				String url=request.getParameter("url");
+				//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
+				String encodedUrl=URLEncoder.encode(url);
+				//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
+				String id=request.getParameter("id");
+				String pwd=request.getParameter("pwd");
+				//유효한 정보인지 여부를 담을 지역변수 초기값 false;
+				boolean isValid=false;
+				UsersDto dto=new UsersDto();
+				//2. 아이디를 이용해서 암호화된 비밀번호 select 한다
+				String savedPwd=dao.getPwd(id);
+				//3. 비밀번호가 null 이 아니면 (존재하는 아이디)
+				if(savedPwd != null) {
+					//4. 폼 전송되는 비밀번호와 일치하는지 확인한다
+					isValid=BCrypt.checkpw(pwd, savedPwd);
+				}
+				
+				//3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
+				if(isValid) {
+					//HttpSession 객체를 이용해서 로그인 처리를 한다. 
+					request.getSession().setAttribute("id", id);
+				}
+				//체크박스를 체크 하지 않았으면 null 이다. 
+				String isSave=request.getParameter("isSave");
+				
+				if(isSave == null){//체크 박스를 체크 안했다면
+					//저장된 쿠키 삭제 
+					Cookie idCook=new Cookie("savedId", id);
+					idCook.setMaxAge(0);//삭제하기 위해 0 으로 설정 
+					response.addCookie(idCook);
+					
+					Cookie pwdCook=new Cookie("savedPwd", pwd);
+					pwdCook.setMaxAge(0);
+					response.addCookie(pwdCook);
+				}else{//체크 박스를 체크 했다면 
+					//아이디와 비밀번호를 쿠키에 저장
+					Cookie idCook=new Cookie("savedId", id);
+					idCook.setMaxAge(60*60*24);//하루동안 유지
+					response.addCookie(idCook);
+					
+					Cookie pwdCook=new Cookie("savedPwd", pwd);
+					pwdCook.setMaxAge(60*60*24);
+					response.addCookie(pwdCook);
+				}
+				//view page 에서 필요한 데이터를 request 에 담고
+				request.setAttribute("dto", dto);
+				request.setAttribute("encodedUrl", encodedUrl);
+				request.setAttribute("url", url);
+				request.setAttribute("isValid", isValid);			}
 	
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override

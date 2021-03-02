@@ -78,4 +78,10 @@ public class UsersDaoImpl implements UsersDao {
 		session.insert("users.insert", dto);
 	}
 
+	@Override
+	public String getPwd(String id) {
+		String pwd=session.selectOne("users.getPwd",id);
+		return pwd;
+	}
+
 }

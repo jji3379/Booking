@@ -1,10 +1,13 @@
 package com.acorn5.booking.review.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 
 public interface ReviewService {
@@ -16,4 +19,5 @@ public interface ReviewService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	//이미지를 저장하는 메소드
 	public String saveImage(MultipartFile image, HttpServletRequest request);
+	
 }

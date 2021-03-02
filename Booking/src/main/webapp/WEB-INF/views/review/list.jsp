@@ -10,9 +10,7 @@
 <style>
 	/* 리뷰 이미지를 작은 사각형으로 만든다 */
 	#reviewImage{
-		width: 50px;
-		height: 50px;
-		
+		width:100px; height:60px;
 	}
 </style>
 </head>
@@ -46,9 +44,9 @@
 			<c:forEach var="t" items="${list }">
 				<tr>
 					<td>
-						<div id="reviewImage">
+						<div>
 							<a href="detail.do?num=${t.num }">
-								<img src="${pageContext.request.contextPath }${t.image}"/>
+								<img id="reviewImage" class="rounded-sm" src="${pageContext.request.contextPath }${t.imagePath }"/>
 							</a>
 						</div>
 					</td>

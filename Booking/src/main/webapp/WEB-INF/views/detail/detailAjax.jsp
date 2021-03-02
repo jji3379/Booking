@@ -4,9 +4,9 @@
 
 <center><h2>이 작가의 책들</h2></center>
 <div id="owl-demo" class="owl-carousel">
-<c:forEach var="b" items="${detailAjax }">
-	<div><a id="Link" href="bookDetail.do?d_isbn=${b.isbn }"><img src="${b.image }"></a></div>
-</c:forEach>
+	<c:forEach var="b" items="${detailAjax }">
+		<div><a id="Link" href="bookDetail.do?d_isbn=${b.isbn }"><img src="${b.image }"></a></div>
+	</c:forEach>
 </div>
 <script type="text/javascript">
 	//by 준영,반응형 캐러셀 정의_210224
@@ -17,6 +17,7 @@
 	});
 	
 	$owl.owlCarousel({
+	  navigation:true,
 	  center: true,
 	  loop: true,
 	  mouseDrag:true,
