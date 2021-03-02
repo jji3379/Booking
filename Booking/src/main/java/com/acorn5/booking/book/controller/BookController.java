@@ -25,14 +25,6 @@ public class BookController {
         return mav;
     }
 	
-	@RequestMapping(value = "/bookList/CategoryList.do", method = RequestMethod.GET)
-    public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, 
-    		HttpServletRequest request, int start, ModelAndView mav){
-    		mav.addObject("categoryList", service.pagingCategory("9", 10, start, d_catg, request, mav));
-    	mav.setViewName("bookList/CategoryList");
-        return mav;
-    }
-	
     //by준영, bookList.jsp 에 cont, sort 를 인자로 리스트 검색하는 서비스_210222
     @RequestMapping("/bookList/bestSeller.do")
     public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort){
