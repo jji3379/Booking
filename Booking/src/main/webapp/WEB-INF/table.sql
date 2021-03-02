@@ -1,3 +1,13 @@
+-- 리뷰의 댓글을 저장할 테이블 
+CREATE TABLE board_review_comment(
+	num NUMBER PRIMARY KEY, --글번호
+	isbn VARCHAR2(200), -- 책 고유번호
+	imagePath VARCHAR2(300), -- 이미지 경로
+	writer VARCHAR2(100), --작성자
+	content VARCHAR2(500), --내용
+	viewCount NUMBER, --조회수
+	regdate DATE --리뷰 작성일
+);
 
 -- 리뷰의 글번호를 얻어낼 시퀀스
 CREATE SEQUENCE board_review_seq;

@@ -117,7 +117,7 @@ public class ReviewServiceImpl implements ReviewService{
 			}else if(condition.equals("writer")){ //작성자 검색인 경우
 				dto.setWriter(keyword);	
 			}else if(condition.equals("isbn")){ //고유번호 검색인 경우
-				dto.setWriter(keyword);	
+				dto.setIsbn(keyword);	
 			}// 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
 		}
 		//글목록 얻어오기

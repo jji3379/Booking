@@ -7,14 +7,6 @@
 <meta charset="UTF-8">
 <title>/review/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<style>
-	/* 리뷰 이미지를 작은 사각형으로 만든다 */
-	#reviewImage{
-		width: 50px;
-		height: 50px;
-		
-	}
-</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
@@ -40,15 +32,17 @@
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>등록일</th>
+				<th>리뷰내용</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="t" items="${list }">
 				<tr>
 					<td>
-						<div id="reviewImage">
+						<div>
 							<a href="detail.do?num=${t.num }">
-								<img src="${pageContext.request.contextPath }${t.imagePath }"/>
+								<img style="width:100px;height:60px" class="rounded-sm" 
+								src="${pageContext.request.contextPath }${t.imagePath }"/>
 							</a>
 						</div>
 					</td>
@@ -56,6 +50,7 @@
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>
+					<td>${t.content }</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -120,8 +115,5 @@
 		</div>
 	</c:if>
 </div>
-<script>
-	
-</script>
 </body>
 </html>
