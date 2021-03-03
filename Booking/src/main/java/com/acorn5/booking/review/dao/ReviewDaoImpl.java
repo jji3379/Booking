@@ -22,7 +22,20 @@ public class ReviewDaoImpl implements ReviewDao{
 	public void insert(ReviewDto dto) {
 		session.insert("review.insert", dto);
 	}
-	
+	// 리뷰를 수정하는 메소드
+	@Override
+	public void update(ReviewDto dto) {
+		session.update("review.update", dto);
+	}
+	// 리뷰를 삭제하는 메소드
+	@Override
+	public void delete(int num) {
+		//삭제된 row 의 갯수를 얻어낸다 
+		int count=session.delete("review.delete", num);
+		if(count==0) {//0 이면 삭제 실패이다.
+			throw new DBFailException(num+" 번 글을 삭제 할수가 없습니다.");
+		}
+	}
 	// 리뷰 하나의 정보를 가져오는 메소드
 	@Override
 	public ReviewDto getData(int num) {

@@ -39,14 +39,10 @@
 			<c:forEach var="t" items="${list }">
 				<tr>
 					<td>
-						<div>
-							<a href="detail.do?num=${t.num }">
-								<img style="width:100px;height:60px" class="rounded-sm" 
-								src="${pageContext.request.contextPath }${t.imagePath }"/>
-							</a>
-						</div>
+						<img style="width:100px; height:60px" class="rounded-sm" 
+						src="${pageContext.request.contextPath }${t.imagePath }"/>
 					</td>
-					<td>${t.reviewTitle }</td>
+					<td><a href="detail.do?num=${t.num }">${t.reviewTitle }</a></td>
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>

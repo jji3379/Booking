@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 
 public interface ReviewService {
@@ -16,4 +17,19 @@ public interface ReviewService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	//이미지를 저장하는 메소드
 	public String saveImage(MultipartFile image, HttpServletRequest request);
+	//리뷰를 수정하는 메소드
+	public void updateContent(ReviewDto dto);
+	//리뷰를 삭제하는 메소드
+	public void deleteContent(int num);
+	//글하나의 정보를 ModelAndView 객체에 담아주는 메소드
+	public void getDetail(int num, ModelAndView mView);
+	
+	//댓글을 저장하는 메소드
+	public void saveComment(HttpServletRequest request);
+	//댓글 삭제
+	public void deleteComment(HttpServletRequest request);
+	//댓글 수정
+	public void updateComment(ReviewCommentDto dto);
+	//댓글 추가 응답
+	public void moreCommentList(HttpServletRequest request);
 }
