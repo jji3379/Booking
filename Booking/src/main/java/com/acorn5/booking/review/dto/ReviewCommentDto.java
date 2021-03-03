@@ -1,18 +1,19 @@
 package com.acorn5.booking.review.dto;
 
 public class ReviewCommentDto {
-	private int num;
-	private String writer;
-	private String content;
-	private String target_id; //댓글 대상자
-	private int ref_group; //원글의 글번호
-	private int comment_group; //댓글 내에서의 그룹번호
-	private String deleted; //삭제된 댓글인지 여부 "yes" or "no"
-	private String regdate;
-	private String profile; //프로필 이미지 경로
-	private int startRowNum;
-	private int endRowNum;
-	//디폴트 생성자
+	// by남기 _210303
+	private int num; // 댓글 번호
+	private String writer; // 댓글 작성자
+	private String content; // 댓글 내용
+	private String target_id; // 댓글 대상자
+	private int ref_group; // 원글의 글번호
+	private int comment_group; // 댓글 내에서의 그룹번호
+	private String deleted; // 삭제된 댓글인지 여부 "yes" or "no"
+	private String regdate; // 댓글 작성일자
+	private String profile; // 프로필 이미지 경로
+	private int startRowNum; // 댓글 페이지 넘버 시작 번호
+	private int endRowNum; // 댓글 페이지 넘버 끝 번호
+	// 디폴트 생성자
 	public ReviewCommentDto() {}
 	public ReviewCommentDto(int num, String writer, String content, String target_id, int ref_group, int comment_group,
 			String deleted, String regdate, String profile, int startRowNum, int endRowNum) {

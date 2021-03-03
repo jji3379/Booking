@@ -66,22 +66,21 @@ public class BookController {
         }
 	
     
-    //여기서부터 남기(모의테스트) 
-    @RequestMapping("/review/bookList.do")
-    public ModelAndView bookList(@RequestParam(required=false)String keyword){
+    //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
+    @RequestMapping("/review/reviewBookList.do")
+    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword){
         ModelAndView mav = new ModelAndView();
         
         if(keyword !=null)
         {
-            mav.addObject("bookList", service.searchBook(keyword, 10, 1));
+            mav.addObject("reviewBookList", service.searchBookList(keyword, 10, 1));
         }
-        mav.setViewName("review/bookList");
+        mav.setViewName("review/reviewBookList");
         return mav;
     }
     
-    //키워드가 있을때도 있고 없을때도있음 
-    //있을때는 가져가고 없을때는 안가져가고 
-    @RequestMapping("/review/private/insertform.do")
+    //by남기, reviewInsertform.jsp 에 d_isbn 을 인자로 도서 정보를 가져오는 서비스_210303
+    @RequestMapping("/review/private/reviewInsertform.do")
     public ModelAndView reviewBook(@RequestParam(required=false)String d_isbn){
         ModelAndView mav = new ModelAndView();
         
@@ -89,7 +88,7 @@ public class BookController {
         {
             mav.addObject("reviewBook", service.bookReview(d_isbn, 1));
         }
-        mav.setViewName("review/private/insertform");
+        mav.setViewName("review/private/reviewInsertform");
         return mav;
     }
 }

@@ -18,15 +18,15 @@
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/review/list.do">리뷰 목록</a>
+				<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
 			</li>
 			<li class="breadcrumb-item active">리뷰 작성 폼</li>
 		</ul>
 	</nav>
 	<h1>리뷰 작성 폼 입니다.</h1>
-	<!-- 북 리스트로 이동해서 책을 검색하고 정보를 가져온다. -->
-	<a href="${pageContext.request.contextPath }/review/bookList.do">책 검색</a>
-	<form action="insert.do" method="post" enctype="multipart/form-data">
+	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
+	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
+	<form action="reviewInsert.do" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
 				<img src="${b.image }"/>
@@ -49,21 +49,7 @@
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
 </div>
-<%--
-	[ SmartEditor 를 사용하기 위한 설정 ]
-	
-	1. WebContent 에 SmartEditor  폴더를 복사해서 붙여 넣기
-	2. WebContent 에 upload 폴더 만들어 두기
-	3. WebContent/WEB-INF/lib 폴더에 
-	   commons-io.jar 파일과 commons-fileupload.jar 파일 붙여 넣기
-	4. <textarea id="content" name="content"> 
-	   content 가 아래의 javascript 에서 사용 되기때문에 다른 이름으로 바꾸고 
-	      싶으면 javascript 에서  content 를 찾아서 모두 다른 이름으로 바꿔주면 된다. 
-	5. textarea 의 크기가 SmartEditor  의 크기가 된다.
-	6. 폼을 제출하고 싶으면  submitContents(this) 라는 javascript 가 
-	      폼 안에 있는 버튼에서 실행되면 된다.
- --%>
-<!-- SmartEditor 에서 필요한 javascript 로딩  -->
+<!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
 	var oEditors = [];

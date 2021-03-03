@@ -533,17 +533,17 @@ public class BookServiceImpl implements BookService {
         }
         return list;
 	}
-	//여기서부터 남기(내가 테스트로함)
+	//by 남기, 리뷰를 추가할 도서 검색 리스트_2021.03.03
 	@Override
-	public List<BookDto> searchBook(String keyword, int display, int start) {
-		String clientID = "RFTx71xgYkvn9AtCl3sH";
-	    String clientSecret = "5i1UxM9vSW";
+	public List<BookDto> searchBookList(String keyword, int display, int start) {
+		String clientID = "RFTx71xgYkvn9AtCl3sH"; //by 남기, 네이버 도서 검색 api Client ID_2021.03.03
+	    String clientSecret = "5i1UxM9vSW"; //by 남기, 네이버 도서 검색 api Client Secret_2021.02.03
 	 
         List<BookDto> list = null;
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
-                    + "book.xml?query="
+                    + "book.xml?query=" //by 남기, 도서 기본 검색을 담당하는 book.xml 작성_2021.03.03 
                     + URLEncoder.encode(keyword, "UTF-8")
                     + (display !=0 ? "&display=" +display :"")
                     + (start !=0 ? "&start=" +start :""));
@@ -645,17 +645,17 @@ public class BookServiceImpl implements BookService {
         }
         return list;
 	}
-
+	//by 남기, 리뷰를 추가할 도서 정보 d_isbn 값으로 가져오기_2021.03.03
 	@Override
 	public List<BookDto> bookReview(String d_isbn, int display) {
-		String clientID = "RFTx71xgYkvn9AtCl3sH";
-	    String clientSecret = "5i1UxM9vSW";
+		String clientID = "RFTx71xgYkvn9AtCl3sH"; //by 남기, 네이버 도서 검색 api Client ID_2021.03.03
+	    String clientSecret = "5i1UxM9vSW"; //by 남기, 네이버 도서 검색 api Client Secret_2021.02.03
 	 
     	List<BookDto> list = null;
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
-                    + "book_adv.xml?d_isbn="
+                    + "book_adv.xml?d_isbn=" //by 남기, 도서 상세 검색을 담당하는 book_adv.xml 작성_2021.03.03
                     + URLEncoder.encode(d_isbn, "UTF-8")
                     + (display !=0 ? "&display=" +display :""));
  

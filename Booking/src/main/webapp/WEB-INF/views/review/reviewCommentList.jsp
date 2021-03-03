@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-<c:forEach var="tmp" items="${commentList }">
+<c:forEach var="tmp" items="${reviewCommentList }">
 	<c:choose>
 		<c:when test="${tmp.deleted eq 'yes' }">
 			<li>삭제된 댓글 입니다.</li>
@@ -32,16 +32,16 @@
 						<span>${tmp.regdate }</span>
 						<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
 						<c:if test="${tmp.writer eq id }">
-							| <a data-num="${tmp.num }" href="javascript:" class="comment-update-link">수정</a>
-							| <a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">삭제</a>
+							| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-update-link">수정</a>
+							| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-delete-link">삭제</a>
 						</c:if>
 					</dt>
 					<dd>
 						<pre>${tmp.content }</pre>
 					</dd>
 				</dl>
-				<form class="comment-form re-insert-form" 
-					action="private/comment_insert.do" method="post">
+				<form class="comment-form re-reviewInsert-form" 
+					action="private/reviewComment_insert.do" method="post">
 					<input type="hidden" name="ref_group"
 						value="${dto.num }"/>
 					<input type="hidden" name="target_id"
@@ -51,10 +51,10 @@
 					<textarea name="content"></textarea>
 					<button type="submit">등록</button>
 				</form>
-				<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
+				<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 				<c:if test="${tmp.writer eq id }">
-					<form class="comment-form update-form" 
-						action="private/comment_update.do" method="post">
+					<form class="comment-form reviewUpdate-form" 
+						action="private/reviewComment_update.do" method="post">
 						<input type="hidden" name="num" value="${tmp.num }"/>
 						<textarea name="content">${tmp.content }</textarea>
 						<button type="submit">수정</button>

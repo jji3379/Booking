@@ -11,42 +11,43 @@ import com.acorn5.booking.review.dto.ReviewDto;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
-	// by남기._2021224
 	
-	// 빈에서 핵심 의존객체(SqlSession)를 DI 할 준비를 한다.
+	// by남기, 빈에서 핵심 의존객체(SqlSession)를 DI 할 준비를 한다_210303
 	@Autowired
 	private SqlSession session;
 	
-	// 새로운 리뷰 추가하는 메소드
+	// by남기, 새로운 리뷰 추가하는 메소드_210303
 	@Override
 	public void insert(ReviewDto dto) {
 		session.insert("review.insert", dto);
 	}
-	// 리뷰를 수정하는 메소드
+	// by남기, 리뷰를 수정하는 메소드_210303
 	@Override
 	public void update(ReviewDto dto) {
 		session.update("review.update", dto);
 	}
-	// 리뷰를 삭제하는 메소드
+	// by남기, 리뷰를 삭제하는 메소드_210303
 	@Override
 	public void delete(int num) {
-		//삭제된 row 의 갯수를 얻어낸다 
+		// by남기, 삭제된 row 의 갯수를 얻어낸다 _210303
 		int count=session.delete("review.delete", num);
-		if(count==0) {//0 이면 삭제 실패이다.
+		if(count==0) {// by남기, 0 이면 삭제 실패이다_210303
+			// by남기, 삭제 실패하면 DBFailException 으로 메세지를 떠넘긴다_210303
 			throw new DBFailException(num+" 번 글을 삭제 할수가 없습니다.");
 		}
 	}
-	// 리뷰 하나의 정보를 가져오는 메소드
+	// by남기, 리뷰 하나의 정보를 가져오는 메소드_210303
 	@Override
 	public ReviewDto getData(int num) {
 		ReviewDto dto=session.selectOne("review.getData", num);
 		return dto;
 	}
 	
-	// 리뷰 전체 리스트를 가져오는 메소드
+	// by남기, 리뷰 전체 리스트를 가져오는 메소드_210303
 	@Override
 	public List<ReviewDto> getList(ReviewDto dto) {
 		/*
+		 *  by남기, 
 		 *  parameterType => ReviewDto
 		 *  
 		 *  parameterType  에는 페이징 처리를 위한 startRowNum 과 endRowNum 이 들어 있고
@@ -56,26 +57,27 @@ public class ReviewDaoImpl implements ReviewDao{
 		 *  title+content 검색이면 title and content 필드에 검색 키워드가 들어 있다.
 		 *  검색 키워드가 없으면 title,writer,content 필드는 모두 null 이다.
 		 *  
-		 *  resultType => ReviewDto 
+		 *  resultType => ReviewDto _210303
 		 */
 		List<ReviewDto> list=session.selectList("review.getList", dto);
 		return list;
 	}
 	
-	// 리뷰의 갯수를 가져오는 메소드
+	// by남기, 리뷰의 갯수를 가져오는 메소드_210303
 	@Override
 	public int getCount(ReviewDto dto) {
 		/*
+		 * 	by남기, 
 		 *  parameterType => ReviewDto
 		 *  parameterType  에는 검색키워드가 존재한다면 들어 있다.
 		 *  
-		 *  resultType => int
+		 *  resultType => int _210303
 		 */
 		int count=session.selectOne("review.getCount", dto);
 		return count;
 	}
 	
-	// 리뷰의 조회수를 가져오는 메소드
+	// by남기, 리뷰의 조회수를 가져오는 메소드_210303
 	@Override
 	public void addViewCount(int num) {
 		session.update("review.addViewCount", num);

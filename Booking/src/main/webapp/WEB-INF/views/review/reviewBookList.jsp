@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>/review/reviewBookList.jsp</title>
 </head>
 <body>
     <center>
-        <form action="bookList.do">
+        <form action="reviewBookList.do">
             <input type="text" name="keyword" >
             <input type="submit" value="검색">
         </form>
@@ -18,7 +18,7 @@
         <tr>
             <td colspan="7" width="100%" bgcolor="pink"></td>
         </tr>
-        <c:forEach items="${bookList}" var ="b">
+        <c:forEach items="${reviewBookList}" var ="b">
             <tr>
                 <td rowspan="2"><img src="${b.image}"></td>
                 <td rowspan="4" width="800">"${b.title}"</td>
@@ -30,7 +30,7 @@
                 <td width="200">${b.publisher }</td>
                 <td width="200">${b.pubdate }</td>
                 <td width="200">${b.isbn }
-               		<a href="${pageContext.request.contextPath }/review/private/insertform.do?d_isbn=${b.isbn }" >선택</a>
+               		<a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" >선택</a>
                 </td>
             </tr>
             <tr>

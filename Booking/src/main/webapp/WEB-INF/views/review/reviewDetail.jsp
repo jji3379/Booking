@@ -5,22 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/detail.jsp</title>
+<title>/review/reviewDetail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	/* 글 내용을 출력할 div 에 적용할 css */
+	/* by남기, 글 내용을 출력할 div 에 적용할 css _210303 */
 	.contents{
 		width: 100%;
 		border: 1px dotted #cecece;
 	}
-	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
+	/* by남기, 댓글 프로필 이미지를 작은 원형으로 만든다. _210303 */
 	.profile-image{
 		width: 50px;
 		height: 50px;
 		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
-	/* ul 요소의 기본 스타일 제거 */
+	/* by남기, ul 요소의 기본 스타일 제거 _210303 */
 	.comments ul{
 		padding: 0;
 		margin: 0;
@@ -49,11 +49,11 @@
 		width: 15%;
 		height: 100px;
 	}
-	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
+	/* by남기, 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다 _210303 */
 	.comments .comment-form{
 		display: none;
 	}
-	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
+	/* by남기, .reply_icon 을 li 요소를 기준으로 배치 하기  _210303 */
 	.comments li{
 		position: relative;
 	}
@@ -76,18 +76,18 @@
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
 	}
-	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 */
+	/* by남기, 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 _210303 */
 	.contents img{
 		max-width: 100%;
 	}
 	.loader{
-		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
+		position: fixed; /* by남기, 좌하단 고정된 위치에 배치 하기 위해 _210303 */
 		width: 100%;
 		left: 0;
 		bottom: 0;
-		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
+		text-align: center; /* by남기, 이미지를 좌우로 가운데  정렬 _210303 */
 		z-index: 1000;
-		display: none; /* 일단 숨겨 놓기 */
+		display: none; /* by남기, 일단 숨겨 놓기 _210303 */
 	}	
 	#image{
 		object-fit;
@@ -109,7 +109,7 @@
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/review/list.do">리뷰 목록</a>
+				<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
 			</li>
 			<li class="breadcrumb-item active">리뷰 상세보기</li>
 		</ul>
@@ -143,26 +143,26 @@
 		</tr>
 	</table>
 	<ul>
-		<li><a href="list.do">목록보기</a></li>
+		<li><a href="reviewList.do">목록보기</a></li>
 		<c:if test="${dto.writer eq id }">
-			<li><a href="private/updateform.do?num=${dto.num }">수정</a></li>
-			<li><a href="private/delete.do?num=${dto.num }">삭제</a></li>
+			<li><a href="private/reviewUpdateform.do?num=${dto.num }">수정</a></li>
+			<li><a href="private/reviewDelete.do?num=${dto.num }">삭제</a></li>
 		</c:if>
 	</ul>
 	<hr/>
-	<!-- 원글에 댓글을 작성하는 form -->
-	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">
-		<!-- 원글의 글번호가 ref_group 번호가 된다. -->
+	<!-- by남기, 원글에 댓글을 작성하는 form _210303 -->
+	<form class="comment-form reviewInsert-form" action="private/reviewComment_insert.do" method="post">
+		<!-- by남기, 원글의 글번호가 ref_group 번호가 된다. _210303 -->
 		<input type="hidden" name="ref_group" value="${dto.num }"/>
-		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
+		<!-- by남기, 원글의 작성자가 댓글의 수신자가 된다. _210303 -->
 		<input type="hidden" name="target_id" value="${dto.writer }"/>
 		<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
 		<button class="btn btn-dark" type="submit">등록</button>
 	</form>	
-	<!-- 댓글 목록 -->
+	<!-- by남기, 댓글 목록 _210303 -->
 	<div class="comments">
 		<ul>
-			<c:forEach var="tmp" items="${commentList }">
+			<c:forEach var="tmp" items="${reviewCommentList }">
 				<c:choose>
 					<c:when test="${tmp.deleted eq 'yes' }">
 						<li>삭제된 댓글 입니다.</li>
@@ -193,16 +193,16 @@
 									<span>${tmp.regdate }</span>
 									<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
 									<c:if test="${tmp.writer eq id }">
-										| <a data-num="${tmp.num }" href="javascript:" class="comment-update-link">수정</a>
-										| <a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">삭제</a>
+										| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-update-link">수정</a>
+										| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-delete-link">삭제</a>
 									</c:if>
 								</dt>
 								<dd>
 									<pre>${tmp.content }</pre>
 								</dd>
 							</dl>
-							<form class="comment-form re-insert-form" 
-								action="private/comment_insert.do" method="post">
+							<form class="comment-form re-reviewInsert-form" 
+								action="private/reviewComment_insert.do" method="post">
 								<input type="hidden" name="ref_group"
 									value="${dto.num }"/>
 								<input type="hidden" name="target_id"
@@ -212,10 +212,10 @@
 								<textarea name="content"></textarea>
 								<button class="btn btn-dark" type="submit">등록</button>
 							</form>
-							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
+							<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 							<c:if test="${tmp.writer eq id }">
-								<form class="comment-form update-form" 
-									action="private/comment_update.do" method="post">
+								<form class="comment-form reviewUpdate-form" 
+									action="private/reviewComment_update.do" method="post">
 									<input type="hidden" name="num" value="${tmp.num }"/>
 									<textarea name="content">${tmp.content }</textarea>
 									<button type="submit">수정</button>
@@ -233,8 +233,9 @@
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
+	// by남기. _210303
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
-	$(document).on("click",".comment-update-link", function(){
+	$(document).on("click",".reviewComment-update-link", function(){
 		/*
 			click 이벤트가 일어난 댓글 수정 링크에 저장된 data-num 속성의 값을 
 			읽어와서 id 선택자를 구성한다.
@@ -242,12 +243,12 @@
 		var selector="#comment"+$(this).attr("data-num");
 		//구성된 id  선택자를 이용해서 원하는 li 요소에서 .update-form 을 찾아서 동작하기
 		$(selector)
-		.find(".update-form")
+		.find(".reviewUpdate-form")
 		.slideToggle();
 	});
 	//로딩한 jquery.form.min.js jquery플러그인의 기능을 이용해서 댓글 수정폼을 
 	//ajax 요청을 통해 전송하고 응답받기
-	$(document).on("submit", ".update-form", function(){
+	$(document).on("submit", ".reviewUpdate-form", function(){
 		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
 		$(this).ajaxSubmit(function(data){
 			//console.log(data);
@@ -255,7 +256,7 @@
 			var selector="#comment"+data.num; //"#comment6" 형식의 선택자 구성
 			
 			//댓글 수정 폼을 안보이게 한다. 
-			$(selector).find(".update-form").slideUp();
+			$(selector).find(".reviewUpdate-form").slideUp();
 			//pre 요소에 출력된 내용 수정하기
 			$(selector).find("pre").text(data.content);
 		});
@@ -263,13 +264,13 @@
 		return false;
 	});
 	
-	$(document).on("click",".comment-delete-link", function(){
+	$(document).on("click",".reviewComment-delete-link", function(){
 		//삭제할 글번호 
 		var num=$(this).attr("data-num");
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }"+
-			"/review/private/comment_delete.do?num="+num+"&ref_group=${dto.num}";
+			"/review/private/reviewComment_delete.do?num="+num+"&ref_group=${dto.num}";
 		}
 	});
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
@@ -279,12 +280,12 @@
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/review/detail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
 		}
 		
 		var selector="#comment"+$(this).attr("data-num");
 		$(selector)
-		.find(".re-insert-form")
+		.find(".re-reviewInsert-form")
 		.slideToggle();
 		
 		if($(this).text()=="답글"){//링크 text를 답글일때 클릭하면 
@@ -293,20 +294,20 @@
 			$(this).text("답글");//답들로 바꾼다.
 		}	
 	});
-	$(document).on("submit",".insert-form", function(){
+	$(document).on("submit",".reviewInsert-form", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/review/detail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
 			return false; //폼 전송 막기 		
 		}
 	});
 	function deleteConfirm(){
 		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
 		if(isDelete){
-			location.href="delete.do?num=${dto.num}";
+			location.href="reviewDelete.do?num=${dto.num}";
 		}
 	}
 	
@@ -332,7 +333,7 @@
 		currentPage++; //페이지를 1 증가 시키고 
 		//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
 		$.ajax({
-			url:"commentList.do",
+			url:"reviewCommentList.do",
 			method:"get",
 			data:{pageNum:currentPage, ref_group:${dto.num}},
 			success:function(data){
@@ -366,9 +367,9 @@
 			$(".loader").show();
 			
 			currentPage++; //페이지를 1 증가 시키고 
-			//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
+			//해당 페이지의 내용을 ajax  요청을 해서 받아온다
 			$.ajax({
-				url:"commentList.do",
+				url:"reviewCommentList.do",
 				method:"get",
 				data:{pageNum:currentPage, ref_group:${dto.num}},
 				success:function(data){

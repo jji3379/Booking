@@ -25,8 +25,9 @@ public interface BookService {
 	public List<BookDto> bookDetail(String d_isbn,int display);
 	//by 준영, 네이버 도서 api 해당 auth 값 도서 검색 메소드_210228
 	public List<BookDto> detailAjax(String d_auth,int display, String sort);
-	//(남기거 테스트)
-	public List<BookDto> searchBook(String keyword, int display, int start);
+	//by 남기, 네이버 도서 api 해당 keyword 값 도서 검색 메소드_210303
+	public List<BookDto> searchBookList(String keyword, int display, int start);
+	//by 남기, 네이버 도서 api 해당 d_isbn 값 도서 정보 가져오는 메소드_210303
 	public List<BookDto> bookReview(String d_isbn, int display);
 	//(욱현이거 테스트)
 	public List<BookDto> recommendBook(String d_cont, int display, int start, String sort, ModelAndView mView);
