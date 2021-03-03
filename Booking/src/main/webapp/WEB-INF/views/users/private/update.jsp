@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/users/private/update.jsp</title>
 </head>
 <body>
-	<script>
-		alert('${id} 님 회원가입 성공하셨습니다.');
-		location.href='${pageContext.request.contextPath }/home.do';
-	</script>
+<script>
+	alert("수정 했습니다.");
+	location.href="${pageContext.request.contextPath }/users/private/info.do";
+</script>	
 </body>
 </html>

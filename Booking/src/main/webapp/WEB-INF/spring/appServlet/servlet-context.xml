@@ -26,7 +26,7 @@
         위는 아래의 코드와 같다
         dataSource = new JndiObjectFactoryBean();
         dataSource.setJndiName("java:comp/env/jdbc/myoracle");
-    -->
+     -->
     
     
     <!-- SqlSessionFactory 객체 -->
@@ -40,7 +40,7 @@
         sessionFactory=new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setConfigLocation("classpath:com/gura/xxx");
-    -->
+     -->
     
 
     <!-- 
@@ -54,9 +54,9 @@
     </beans:bean>
     <!-- 
         new SqlSessionTemplate(sessionFactory);
-    -->
+     -->
          
-    <!-- Multipart 폼 전송 처리를 위한 bean 설정 -->
+     <!-- Multipart 폼 전송 처리를 위한 bean 설정 -->
     <beans:bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="maxUploadSize" value="102400000"/>
@@ -74,5 +74,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.acorn5.booking" />
-
+	
+	
+	
 </beans:beans>

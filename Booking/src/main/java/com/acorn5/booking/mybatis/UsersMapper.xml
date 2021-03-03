@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users"><!--by.욱현 _2021222 -->
+	<select id="isValid" parameterType="usersDto" resultType="String">
+		select id
+		from users
+		where id=#{id} AND pwd=#{pwd}
+	</select>
+    <select id="isExist" parameterType="String" resultType="usersDto">
+    	select id
+    	from users
+    	where id=#{id}
+    </select>
+    <insert id="insert" parameterType="usersDto">
+    	insert into users(num, id, pwd, regdate, email, care) 
+    	values(users_seq.NEXTVAL, #{id}, #{pwd}, sysdate, #{email}, #{care})
+    </insert>
+    <update id="updateProfile" parameterType="usersDto">
+		UPDATE users
+		SET profile=#{profile}
+		WHERE id=#{id}
+	</update>
+	<update id="updatePwd" parameterType="usersDto">
+		UPDATE users
+		SET pwd=#{newPwd}
+		WHERE id=#{id} AND pwd=#{pwd}
+	</update>
+	<update id="update" parameterType="usersDto">
+		UPDATE users
+		SET email=#{email}, care=#{care}
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM users
+		WHERE id=#{id}
+	</delete>
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT pwd, email,care, profile,
+			TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
+		FROM users
+		WHERE id=#{id}
+	</select>
+</mapper>
