@@ -100,6 +100,8 @@
 			</c:choose>
 		</ul>
 	</nav>
+	
+	
 	<form action="list.do" method="get">
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">

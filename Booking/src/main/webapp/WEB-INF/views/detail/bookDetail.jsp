@@ -139,11 +139,11 @@
 	var inputIsbn=$("#isbn").text();
 	
 	$.ajax({//by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
-		
+		async:false,
 		url:"${pageContext.request.contextPath }/review/list.do?condition=isbn",
 		method:"GET",
 		data:"&keyword="+inputIsbn,
-		async:false,//by 준영, Ajax 의 비동기실행을 위한 ajax 옵션_210302 
+		 //by 준영, Ajax 의 비동기실행을 위한 ajax 옵션_210302 
 		success:function(data){
 			console.log(data);
 			$("#reviewList").html(data);
@@ -198,6 +198,7 @@
 	   }
 	   e.preventDefault();
 	});
+	
 	
 </script>
 
