@@ -19,7 +19,7 @@
 		<input type="hidden" name="num" value="${dto.num }"/>
 		<div class="form-group">
 			<label for="imagePath">이미지</label>
-			<img style="width:100px; height:60px" src="${pageContext.request.contextPath }${dto.imagePath }"/>
+			<img style="width:100px; height:60px" src="${dto.imagePath }"/>
 		</div>
 		<div class="form-group">
 			<label>작성자</label>

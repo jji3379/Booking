@@ -117,7 +117,7 @@
 	<table class="table table-striped">
 		<tr>
 			<th>이미지</th>
-			<td><img id="image" src="${pageContext.request.contextPath }${dto.imagePath }"/></td>
+			<td><img id="image" src="${dto.imagePath }"/></td>
 		</tr>
 		<tr>
 			<th>작성자</th>

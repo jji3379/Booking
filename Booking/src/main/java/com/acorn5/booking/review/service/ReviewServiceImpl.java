@@ -31,36 +31,13 @@ public class ReviewServiceImpl implements ReviewService{
 	// by남기, 새 리뷰를 저장하는 메소드_210303
 	@Override
 	public void saveContent(ReviewDto dto, HttpServletRequest request) {
-		// by남기, 업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 _210303
-		MultipartFile myFile=dto.getImage();
-		// by남기, 원본 파일명_210303
-		String orgFileName=myFile.getOriginalFilename();
-
-		// by남기, webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)_210303
-		String realPath=request.getServletContext().getRealPath("/upload");
-		// by남기, 저장할 파일의 상세 경로_210303
-		String filePath=realPath+File.separator;
-		// by남기, 디렉토리를 만들 파일 객체 생성_210303
-		File upload=new File(filePath);
-		if(!upload.exists()) {// by남기, 만일 디렉토리가 존재하지 않으면 _210303
-			upload.mkdir(); // by남기, 만들어 준다_210303
-		}
-		// by남기, 저장할 파일 명을 구성한다_210303
-		String saveFileName=
-				System.currentTimeMillis()+orgFileName;
-		try {
-			// by남기, upload 폴더에 파일을 저장한다_210303
-			myFile.transferTo(new File(filePath+saveFileName));
-			System.out.println(filePath+saveFileName);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
 		String id=(String)request.getSession().getAttribute("id");
+		String imagePath=request.getParameter("imagePath");
 		dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
-		dto.setImagePath("/upload/"+saveFileName);
-		// by남기, GalleryDao 를 이용해서 DB 에 저장하기_210303
-		reviewDao.insert(dto);		
+		dto.setImagePath(imagePath);
+		// by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
+		reviewDao.insert(dto);	
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
@@ -219,16 +196,16 @@ public class ReviewServiceImpl implements ReviewService{
 				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 
 		// by남기, CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다 _210303
-		ReviewCommentDto commentDto=new ReviewCommentDto();
-		commentDto.setStartRowNum(startRowNum);
-		commentDto.setEndRowNum(endRowNum);
+		ReviewCommentDto reviewCommentDto=new ReviewCommentDto();
+		reviewCommentDto.setStartRowNum(startRowNum);
+		reviewCommentDto.setEndRowNum(endRowNum);
 		// by남기, ref_group 번호도 담는다 _210303
-		commentDto.setRef_group(num);
+		reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		List<ReviewCommentDto> commentList=reviewCommentDao.getList(commentDto);
+		List<ReviewCommentDto> reviewCommentList=reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
-		mView.addObject("commentList", commentList);
+		mView.addObject("reviewCommentList", reviewCommentList);
 		mView.addObject("totalPageCount", totalPageCount);
 		
 	}

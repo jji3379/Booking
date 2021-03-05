@@ -40,7 +40,7 @@
 				<tr>
 					<td>
 						<img style="width:100px; height:60px" class="rounded-sm" 
-						src="${pageContext.request.contextPath }${t.imagePath }"/>
+						src="${t.imagePath }"/>
 					</td>
 					<td><a href="reviewDetail.do?num=${t.num }">${t.reviewTitle }</a></td>
 					<td>${t.writer }</td>
