@@ -69,9 +69,6 @@
 			<li class="breadcrumb-item">
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
-			<li class="breadcrumb-item">
-				<a href="bookList.do?d_cont=1&sort=count">Best Seller</a>
-			</li>
 			<li class="breadcrumb-item active">Detail</li>
 		</ul>
 	</nav>
@@ -126,29 +123,48 @@
 
 <script type="text/javascript">
 	var inputAuth=$("#auth").text();
-	
-	$.ajax({ //by 준영, bookAjax.do Ajax 로 호출_210218
-		url:"detailAjax.do?sort=sim",
-	    method:"GET",
-	    data:"d_auth="+inputAuth,
-	    success:function(data){
-	       console.log(data);
-	       $("#simList").html(data);//by 준영, 해당 문자열을 #simList div 에 html 로 추가_200222
-	    }
-	 });
 	var inputIsbn=$("#isbn").text();
 	
-	$.ajax({//by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
-		async:false,
-		url:"${pageContext.request.contextPath }/review/list.do?condition=isbn",
-		method:"GET",
-		data:"&keyword="+inputIsbn,
-		 //by 준영, Ajax 의 비동기실행을 위한 ajax 옵션_210302 
-		success:function(data){
-			console.log(data);
-			$("#reviewList").html(data);
-		}
-	})
+	function bookAuthor(){//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+		return new Promise((resolve, reject) => {
+			$.ajax({ 
+				url:"detailAjax.do?sort=sim",
+			    method:"GET",
+			    data:"d_auth="+inputAuth,
+			    success:function(data){
+			       resolve(data);
+			       $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+			    },
+			    error:function(error){
+			    	reject(error)
+			    },
+			})
+		})
+	}
+	function bookReview(){//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+		return new Promise((resolve, reject) => {
+			$.ajax({
+		   		url:"${pageContext.request.contextPath }/review/list.do?condition=isbn",
+		   		method:"GET",
+		   		data:"&keyword="+inputIsbn,
+		   		success:function(data){
+		   			resolve(data);
+		   			$("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
+		   		},
+			    error:function(error){
+			    	reject(error)
+			    },
+			})
+		})
+	}
+	//by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
+	bookAuthor()
+		.then((data) => {
+			bookReview()
+		})
+		.catch((error) => {
+			console.log(error)
+		})
 	
 	
 	//by 준영,반응형 캐러셀 정의_210224
@@ -179,7 +195,7 @@
 	            items:5,
 	            nav:true,
 	            loop:false
-	  }
+	  		}
 	  }
 	});
 	
