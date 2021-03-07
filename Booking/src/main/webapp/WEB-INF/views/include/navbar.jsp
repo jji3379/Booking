@@ -21,6 +21,9 @@
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath }/review/reviewList.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">지도</a>
+        </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" aria-label="Search" style="border-radius:20px; height:34px; width:214px; margin-left: 30px">
