@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewDto {
 	// by남기 _210303
+
 	private int num; // 리뷰 번호
 	private String writer; // 리뷰 작성자
 	private String imagePath; // 리뷰 이미지 경로

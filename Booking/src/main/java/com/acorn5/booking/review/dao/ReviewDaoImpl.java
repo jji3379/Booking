@@ -17,6 +17,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	private SqlSession session;
 	
 	// by남기, 새로운 리뷰 추가하는 메소드_210303
+
 	@Override
 	public void insert(ReviewDto dto) {
 		session.insert("review.insert", dto);
@@ -58,6 +59,7 @@ public class ReviewDaoImpl implements ReviewDao{
 		 *  검색 키워드가 없으면 title,writer,content 필드는 모두 null 이다.
 		 *  
 		 *  resultType => ReviewDto _210303
+
 		 */
 		List<ReviewDto> list=session.selectList("review.getList", dto);
 		return list;
@@ -82,5 +84,5 @@ public class ReviewDaoImpl implements ReviewDao{
 	public void addViewCount(int num) {
 		session.update("review.addViewCount", num);
 	}
-
 }
+

@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.acorn5.booking.review.dto.ReviewDto;
 
-public interface ReviewDao {
-	
+public interface ReviewDao {	
 	// by남기, 리뷰 추가_210303
 	public void insert(ReviewDto dto);
 	// by남기, 리뷰 수정_210303
@@ -19,5 +18,6 @@ public interface ReviewDao {
 	// by남기, 리뷰의 갯수 얻어오기(검색 키워드에 해당하는 갯수)_210303
 	public int getCount(ReviewDto dto);
 	// by남기, 리뷰 조회수 올리기_210303
+
 	public void addViewCount(int num);
 }
