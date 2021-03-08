@@ -92,7 +92,7 @@
 			</c:choose>
 		</ul>
 	</nav>
-	<form action="list.do" method="get">
+	<form action="reviewList.do" method="get">
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">
 			<option value="reviewTitle_content" ${condition eq 'reviewTitle_content' ? 'selected' : '' }>제목+내용</option>
