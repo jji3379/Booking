@@ -50,9 +50,10 @@ public class ReviewCommentDaoImpl implements ReviewCommentDao{
 	 */
 	@Override
 	public int getSequence() {
-		/*  by남기,
+		/*  
+		 *  by남기,
 		 *  parameterType => x
-		 *  resultType => int 
+		 *  resultType => int
 		 *  sql id => getSequence _210303
 		 */
 		int seq=session.selectOne("reviewComment.getSequence");

@@ -327,7 +327,7 @@ public class BookServiceImpl implements BookService {
             url = new URL("https://openapi.naver.com/v1/search/"
                     + "book_adv.xml?d_isbn="
                     + URLEncoder.encode(d_isbn, "UTF-8")
-                    + (display !=0 ? "&display=" +display :""));
+                    + (display != 0 ? "&display=" +display :""));
     
             URLConnection urlConn = url.openConnection();
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID);
@@ -638,9 +638,6 @@ public class BookServiceImpl implements BookService {
                 eventType = parser.next();
             }
             
-            
-            
-            
         } catch (MalformedURLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -780,9 +777,7 @@ public class BookServiceImpl implements BookService {
                     + (sort !=null ? "&sort=" +sort :"") 
                     + (display !=0 ? "&display=" +display :"")
                     + (start !=0 ? "&start=" +start :""));
-  
 
- 
             URLConnection urlConn = url.openConnection(); //요청할 url을 URLConnection 객체에 담는다.
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID); //아이디, 비번인증
             urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);

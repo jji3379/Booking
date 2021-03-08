@@ -212,16 +212,16 @@ public class ReviewServiceImpl implements ReviewService{
 				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 
 		// by남기, CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다 _210303
-		ReviewCommentDto commentDto=new ReviewCommentDto();
-		commentDto.setStartRowNum(startRowNum);
-		commentDto.setEndRowNum(endRowNum);
+		ReviewCommentDto reviewCommentDto=new ReviewCommentDto();
+		reviewCommentDto.setStartRowNum(startRowNum);
+		reviewCommentDto.setEndRowNum(endRowNum);
 		// by남기, ref_group 번호도 담는다 _210303
-		commentDto.setRef_group(num);
+		reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		List<ReviewCommentDto> commentList=reviewCommentDao.getList(commentDto);
+		List<ReviewCommentDto> reviewCommentList=reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
-		mView.addObject("commentList", commentList);
+		mView.addObject("reviewCommentList", reviewCommentList);
 		mView.addObject("totalPageCount", totalPageCount);
 		
 	}
