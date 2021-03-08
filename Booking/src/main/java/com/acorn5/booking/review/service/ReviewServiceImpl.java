@@ -1,7 +1,14 @@
 package com.acorn5.booking.review.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.acorn5.booking.review.dto.ReviewCommentDto;
-import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.exception.DBFailException;
 import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
+import com.acorn5.booking.review.dto.ReviewCommentDto;
+import com.acorn5.booking.review.dto.ReviewDto;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -31,40 +42,17 @@ public class ReviewServiceImpl implements ReviewService{
 	// by남기, 새 리뷰를 저장하는 메소드_210303
 	@Override
 	public void saveContent(ReviewDto dto, HttpServletRequest request) {
-		// by남기, 업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 _210303
-		MultipartFile myFile=dto.getImage();
-		// by남기, 원본 파일명_210303
-		String orgFileName=myFile.getOriginalFilename();
-
-		// by남기, webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)_210303
-		String realPath=request.getServletContext().getRealPath("/upload");
-		// by남기, 저장할 파일의 상세 경로_210303
-		String filePath=realPath+File.separator;
-		// by남기, 디렉토리를 만들 파일 객체 생성_210303
-		File upload=new File(filePath);
-		if(!upload.exists()) {// by남기, 만일 디렉토리가 존재하지 않으면 _210303
-			upload.mkdir(); // by남기, 만들어 준다_210303
-		}
-		// by남기, 저장할 파일 명을 구성한다_210303
-		String saveFileName=
-				System.currentTimeMillis()+orgFileName;
-		try {
-			// by남기, upload 폴더에 파일을 저장한다_210303
-			myFile.transferTo(new File(filePath+saveFileName));
-			System.out.println(filePath+saveFileName);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
 		String id=(String)request.getSession().getAttribute("id");
+		String imagePath=request.getParameter("imagePath");
 		dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
-		dto.setImagePath("/upload/"+saveFileName);
+		dto.setImagePath(imagePath);
 		// by남기, GalleryDao 를 이용해서 DB 에 저장하기_210303
 		reviewDao.insert(dto);		
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
-	public void getList(ModelAndView mView, HttpServletRequest request) {
+	public List<ReviewDto> getList(ModelAndView mView, HttpServletRequest request) {
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=5;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
@@ -142,7 +130,7 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
-		}
+		}		
 		
 		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
 		mView.addObject("list", list);
@@ -154,6 +142,8 @@ public class ReviewServiceImpl implements ReviewService{
 		mView.addObject("keyword", keyword);
 		mView.addObject("encodedK", encodedK);
 		mView.addObject("totalRow", totalRow);
+		
+		return list;
 	}
 	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
 	@Override

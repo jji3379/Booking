@@ -26,21 +26,15 @@
 	<h1>리뷰 작성 폼 입니다.</h1>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
-	<form action="reviewInsert.do" method="post" enctype="multipart/form-data">
+	<form action="reviewInsert.do" method="post">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
-				<img src="${b.image }"/>
+				<img name="image" src="${b.image }"/>				
+				<input type="hidden" name="imagePath" value="${b.image }" />
 				<input type="hidden" name="isbn" value="${b.isbn }" />
+				<label for="reviewTitle">리뷰 제목</label>
+				<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${b.title }"/>
 			</c:forEach>
-		</div>
-		<div class="form-group">
-			<label for="image">이미지</label>
-			<input type="file" name="image" id="image"
-				accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-		</div>
-		<div class="form-group">
-			<label for="reviewTitle">리뷰 제목</label>
-			<input class="form-control" type="text" name="reviewTitle" id="reviewTitle"/>
 		</div>
 		<div class="form-group">
 			<label for="content">리뷰 내용</label>

@@ -36,11 +36,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="t" items="${list }">
+			<c:forEach var="t" items="${list}">
 				<tr>
 					<td>
-						<img style="width:100px; height:60px" class="rounded-sm" 
-						src="${pageContext.request.contextPath }${t.imagePath }"/>
+						<img src="${t.imagePath}"/>
 					</td>
 					<td><a href="reviewDetail.do?num=${t.num }">${t.reviewTitle }</a></td>
 					<td>${t.writer }</td>

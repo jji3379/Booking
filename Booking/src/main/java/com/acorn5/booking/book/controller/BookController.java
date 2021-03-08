@@ -21,7 +21,7 @@ public class BookController {
     public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
     								HttpServletRequest request, ModelAndView mav){
     	mav.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mav)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
-    	mav.setViewName("bookList/CategoryList");
+    	mav.setViewName("bookList/CategoryList"); 
         return mav;
     }
 	
@@ -91,4 +91,16 @@ public class BookController {
         mav.setViewName("review/private/reviewInsertform");
         return mav;
     }
+    
+    @RequestMapping("/bookList/conditionSearch.do")
+    public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
+          HttpServletRequest request, ModelAndView mView){    
+       if(keyword !=null) {
+          mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, start, request, mView));
+       }
+        mView.setViewName("bookList/conditionSearch");
+        return mView;
+    }
+
+    
 }

@@ -31,10 +31,12 @@ public class ReviewController {
 			HttpServletRequest request) {
 		// by남기, 글 목록 요청 처리한 리스트가 넘어온다_210303
 		service.getList(mView, request);
+		
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.setViewName("review/reviewList");
 		return mView;
 	}
+	
 	// by남기, 글 상세정보 요청처리_210303
 	@RequestMapping("/review/reviewDetail")
 	public ModelAndView detail(@RequestParam int num, ModelAndView mView) {

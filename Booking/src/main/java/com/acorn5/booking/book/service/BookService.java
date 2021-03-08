@@ -1,17 +1,14 @@
 package com.acorn5.booking.book.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.dto.BookDto;
-	
-import java.util.Map;
-
-
-import org.springframework.stereotype.Service;
 
 //by 준익, 네이버 도서 api 관련 서비스 관리 인터페이스_2021.02.26
 @Service
@@ -35,4 +32,6 @@ public interface BookService {
 	public List<BookDto> recommendBook(int display,int start,String sort, String query, ModelAndView mView);
 	//부킹서비스용
 	public Map<String, Object> recommendBook(String d_cont,int display, int start);
+	//by준익, 검색어 페이징_2021.03.09 
+	public List<BookDto> conditionSearch(String keyword,int display, int start, HttpServletRequest request, ModelAndView mView);
 }

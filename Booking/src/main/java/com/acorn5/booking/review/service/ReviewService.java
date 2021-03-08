@@ -1,5 +1,7 @@
 package com.acorn5.booking.review.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +14,7 @@ public interface ReviewService {
 	// by남기, 새 리뷰를 저장하는 메소드 _210303
 	public void saveContent(ReviewDto dto, HttpServletRequest request);
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
-	public void getList(ModelAndView mView, HttpServletRequest request);
+	public List<ReviewDto> getList(ModelAndView mView, HttpServletRequest request);
 	// by남기, 이미지를 저장하는 메소드_210303
 	public String saveImage(MultipartFile image, HttpServletRequest request);
 	// by남기, 리뷰를 수정하는 메소드_210303
