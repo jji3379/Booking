@@ -21,4 +21,6 @@ public interface UsersDao {
 	public boolean isValid(UsersDto dto);
 	//회원정보를 저장
 	public void insert(UsersDto dto);
+	//최근검색어 저장
+	public void searchInput(UsersDto dto);
 }

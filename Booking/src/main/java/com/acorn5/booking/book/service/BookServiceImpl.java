@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
@@ -32,10 +33,14 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.parsing.XmlParsing;
+import com.acorn5.booking.users.dao.UsersDao;
+import com.acorn5.booking.users.dto.UsersDto;
 
 @Service
 public class BookServiceImpl implements BookService {
 	//의존 객체 DI
+	@Autowired
+	private UsersDao dao; //recentsearch 저장 로직을위한 di준비
 	
 	//by 준익, 페이징 처리된 카테고리별 검색 리스트_2021.02.28
 	@Override
@@ -1282,5 +1287,15 @@ public class BookServiceImpl implements BookService {
 		mav.addObject("keyword", keyword); // 검색 조건이 있을 경우
 
 		return list;
+	}
+
+	@Override
+	public void recentSearchInput(String keyword, String id) {
+		//파라미터들을 dto객체에 담고
+		UsersDto dto = new UsersDto();
+		dto.setRecentSearch(keyword);
+		dto.setId(id);
+		//di된 dao메소드의 인자로 전달
+		dao.searchInput(dto);
 	}
 }

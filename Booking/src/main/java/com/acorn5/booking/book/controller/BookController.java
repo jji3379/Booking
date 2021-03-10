@@ -1,6 +1,7 @@
 package com.acorn5.booking.book.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,6 +97,12 @@ public class BookController {
     public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
           HttpServletRequest request, ModelAndView mView){    
        if(keyword !=null) {
+    	 //by욱현.검색시 최근검색어 칼럼에 검색키워드를 담기_2021308
+          HttpSession session = request.getSession();
+          String id = (String) session.getAttribute("id");
+          if(id != null) {
+         	 service.recentSearchInput(keyword, id);
+          }
           mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, start, request, mView));
        }
         mView.setViewName("bookList/conditionSearch");

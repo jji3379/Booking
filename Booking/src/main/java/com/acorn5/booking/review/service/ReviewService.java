@@ -3,6 +3,7 @@ package com.acorn5.booking.review.service;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,4 +33,7 @@ public interface ReviewService {
 	public void updateComment(ReviewCommentDto dto);
 	// by남기, 댓글 추가 응답_210303
 	public void moreCommentList(HttpServletRequest request);
+	
+	// by욱현, 내가 쓴 리뷰 모아보기 메소드_2021309
+	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request);
 }

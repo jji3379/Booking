@@ -1,6 +1,7 @@
 package com.acorn5.booking.users.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.service.UsersService;
 
@@ -144,5 +147,19 @@ public class UsersController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("isExist", isExist);
 		return map;
+	}
+	
+	@Autowired //by욱현.리뷰서비스를 사용하기 위해 di_2021309
+	private ReviewService service_r;
+	
+	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
+	@RequestMapping("/users/private/my_review.do")
+	public ModelAndView myReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
+		
+		List<ReviewDto> list = service_r.getMyReview(session, mView, request); // 내가 쓴 리뷰를 셀렉트하기 위한 비즈니스 로직 메소드 실행
+		mView.addObject("list", list);
+		mView.setViewName("users/private/my_review");
+				
+		return mView;
 	}
 }

@@ -72,4 +72,15 @@
 		FROM board_review
 		WHERE num=#{num}
 	</select>
+	<select id="myReview" parameterType="reviewDto" resultType="reviewDto"><!--by욱현. 내가 쓴 리뷰 셀렉트_2021309 -->
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
+				FROM board_review
+				WHERE writer=#{writer}
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
 </mapper>
