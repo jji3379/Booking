@@ -20,4 +20,7 @@ public interface ReviewDao {
 	// by남기, 리뷰 조회수 올리기_210303
 
 	public void addViewCount(int num);
+	
+	// by욱현. 내가 쓴 리뷰 모아보기_2021309
+	public List<ReviewDto> getMyReview(ReviewDto dto);
 }

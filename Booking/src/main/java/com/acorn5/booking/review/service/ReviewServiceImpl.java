@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -316,5 +317,68 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, request 에 담아준다 _210303
 		request.setAttribute("reviewCommentList", reviewCommentList);
 		request.setAttribute("totalPageCount", totalPageCount);		
+	}
+	
+	//by욱현. 내가쓴리뷰 모아보기 비즈니스로직(내부 코드는 남기꺼 복붙)_2021309
+	@Override
+	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
+		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
+		final int PAGE_ROW_COUNT=5;
+		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
+		final int PAGE_DISPLAY_COUNT=5;
+				
+		// by남기, 보여줄 페이지의 번호를 일단 1이라고 초기값 지정_210303
+		int pageNum=1;
+		// by남기, 페이지 번호가 파라미터로 전달되는지 읽어와 본다_210303
+		String strPageNum=request.getParameter("pageNum");
+		// by남기, 만일 페이지 번호가 파라미터로 넘어 온다면_210303
+		if(strPageNum != null){
+			// by남기, 숫자로 바꿔서 보여줄 페이지 번호로 지정한다_210303
+			pageNum=Integer.parseInt(strPageNum);
+		}				
+				
+		// by남기, 보여줄 페이지의 시작 ROWNUM_210303
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		// by남기, 보여줄 페이지의 끝 ROWNUM_210303
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+				
+		
+		// by남기, startRowNum 과 endRowNum  을 ReviewDto 객체에 담는다 _210303
+		ReviewDto dto=new ReviewDto();
+		dto.setWriter((String)session.getAttribute("id"));
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+				
+		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
+		List<ReviewDto> list=null;
+		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
+		int totalRow=0;
+		// by남기, 글목록 얻어오기_210303
+		list=reviewDao.getList(dto);
+		// by남기, 글의 갯수_210303
+		totalRow=reviewDao.getCount(dto);
+				
+		// by남기, 하단 시작 페이지 번호_210303 
+		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		// by남기, 하단 끝 페이지 번호_210303
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+				
+		// by남기, 전체 페이지의 갯수 구하기_210303
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
+		}	
+				
+		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
+		mView.addObject("list", list);
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("startPageNum", startPageNum);
+		mView.addObject("endPageNum", endPageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		mView.addObject("totalRow", totalRow);
+				
+		return list;
+		
 	}
 }
