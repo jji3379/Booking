@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>/review/private/insertform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<style>
+	#star a{ 
+		text-decoration: none; color: gray; 
+	} 
+	#star a.on{ 
+		color: red; 
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
@@ -26,7 +34,7 @@
 	<h1>리뷰 작성 폼 입니다.</h1>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
-	<form action="reviewInsert.do" method="post">
+	<form action="reviewInsert.do" method="post" id="insertForm">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
 				<img name="image" src="${b.image }"/>				
@@ -34,15 +42,40 @@
 				<input type="hidden" name="isbn" value="${b.isbn }" /><br />
 				<label for="reviewTitle">리뷰 제목</label>
 				<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${b.title }"/>
+				<input type="hidden" name="rating" id="rating"/>
 			</c:forEach>
 		</div>
+		
+		<!-- by남기, 평점 선택창_210310 -->
+		<p id="star">
+			<a href="#" value="1">★</a>
+			<a href="#" value="2">★</a> 
+			<a href="#" value="3">★</a> 
+			<a href="#" value="4">★</a> 
+			<a href="#" value="5">★</a>
+		<p>		
+		
 		<div class="form-group">
-			<label for="content">리뷰 내용</label>
+			<label for="content">리뷰 내용</label><br />
+			<!--by채영_스포일러 포함 체크박스  -->
+			<label for ="spoCheck">체크박스</label>
+			<input type="checkbox" id="spoCheck" name="spoCheck">
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
+		
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
 </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
+	$('#star a').click(function(){ 
+	      $(this).parent().children("a").removeClass("on");
+	      $(this).addClass("on").prevAll("a").addClass("on");
+	      let starval=$(this).attr("value");
+	      $("#rating").val(starval);
+	});
+</script>
 <!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
@@ -86,10 +119,26 @@
 		
 		// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
 		
+		//by준영, 빈값을 제출 못하게 하는 기능_210305
+		var rvtitle=$("#reviewTitle").val();
+		var cont=$("#content").val();
+		
+		  if( rvtitle == ""){
+			  alert("리뷰 제목은 필수기입항목 입니다");
+			  $("#reviewTitle").focus();
+			  return;
+		  }else if(  cont == ""  || cont == null || cont == '&nbsp;' || cont == '<p>&nbsp;</p>'){
+			  alert("리뷰 내용은 필수기입항목 입니다");
+			  return;
+		  }
 		try {
 			elClickedObj.form.submit();
 		} catch(e) {}
 	}
+	
+	$("#form button").on("click",function(){
+		return false;
+	})
 	
 	function setDefaultFont() {
 		var sDefaultFont = '궁서';
@@ -97,6 +146,5 @@
 		oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
 	}
 </script>
-
 </body>
 </html>

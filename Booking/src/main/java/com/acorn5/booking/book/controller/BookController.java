@@ -1,6 +1,7 @@
 package com.acorn5.booking.book.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,7 @@ public class BookController {
     
     //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
     @RequestMapping("/review/reviewBookList.do")
-    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword){
+    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword){    
         ModelAndView mav = new ModelAndView();
         
         if(keyword !=null)
@@ -90,5 +91,21 @@ public class BookController {
         }
         mav.setViewName("review/private/reviewInsertform");
         return mav;
+    }
+    // by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
+    @RequestMapping("/bookList/conditionSearch.do")
+    public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
+          HttpServletRequest request, ModelAndView mView){    
+       if(keyword !=null) {
+    	 //by욱현.검색시 최근검색어 칼럼에 검색키워드를 담기_2021308
+          HttpSession session = request.getSession();
+          String id = (String) session.getAttribute("id");
+          if(id != null) {
+         	 service.recentSearchInput(keyword, id);
+          }
+          mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, start, request, mView));
+       }
+        mView.setViewName("bookList/conditionSearch");
+        return mView;
     }
 }

@@ -62,6 +62,10 @@
 			<th>관심사</th>
 			<th>${dto.care }</th>
 		</tr>
+		<tr>
+			<th>내가 쓴 글</th>
+			<td><a href="my_review.do">내가 쓴 리뷰 모아보기</a></td>
+		</tr>
 	</table>
 	<a href="updateform.do">개인 정보 수정</a>
 	<a href="javascript:deleteConfirm()">탈퇴</a>

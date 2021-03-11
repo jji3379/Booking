@@ -1,18 +1,21 @@
--- 리뷰의 댓글을 저장할 테이블 
-CREATE TABLE board_review_comment(
+-- by남기, 리뷰를 저장할 테이블_210301
+CREATE TABLE board_review(
 	num NUMBER PRIMARY KEY, --글번호
 	isbn VARCHAR2(200), -- 책 고유번호
 	imagePath VARCHAR2(300), -- 이미지 경로
 	writer VARCHAR2(100), --작성자
+	reviewTitle VARCHAR2(300), --리뷰제목
 	content VARCHAR2(500), --내용
+	rating NUMBER, --별점
 	viewCount NUMBER, --조회수
-	regdate DATE --리뷰 작성일
+	regdate DATE, --리뷰 작성일
+	spoCheck VARCHAR2(100) --by채영, 스포포함 체크박스_210308
 );
 
--- 리뷰의 글번호를 얻어낼 시퀀스
+-- by남기, 리뷰의 글번호를 얻어낼 시퀀스_210301
 CREATE SEQUENCE board_review_seq;
 
--- 리뷰의 댓글을 저장할 테이블 
+-- by남기, 리뷰의 댓글을 저장할 테이블 _210301
 CREATE TABLE board_review_comment(
 	num NUMBER PRIMARY KEY, --글번호
 	writer VARCHAR2(100),--작성자
@@ -23,7 +26,7 @@ CREATE TABLE board_review_comment(
 	deleted CHAR(3) DEFAULT 'no', --삭제된 리뷰인지 여부 'yes' or 'no'
 	regdate DATE --리뷰 작성일
 );
--- 리뷰의 댓글 글번호를 얻어낼 시퀀스
+-- by남기, 리뷰의 댓글 글번호를 얻어낼 시퀀스_210301
 CREATE SEQUENCE board_review_comment_seq;
 
 -- 유저 정보 테이블

@@ -9,5 +9,4 @@ public class MapController {
 	public String mapsearch() {
 		return "map/mapsearch";
 	}
-
 }

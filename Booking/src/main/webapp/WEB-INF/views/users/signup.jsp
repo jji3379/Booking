@@ -9,7 +9,7 @@
 <body>
 	<script>
 		alert('${id} 님 회원가입 성공하셨습니다.');
-		location.href='${pageContext.request.contextPath }/home.do';
+		location.href='${pageContext.request.contextPath }/login_form.do';
 	</script>
 </body>
 </html>

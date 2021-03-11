@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>/review/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<style>
+	#star a{ 
+		text-decoration: none; color: gray; 
+	} 
+	#star a.on{ 
+		color: red; 
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp">
@@ -30,12 +38,33 @@
 			<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${dto.reviewTitle }"/>
 		</div>
 		<div class="form-group">
+			<label for="rating">별점</label>
+			<input class="form-control" type="hidden" name="rating" id="rating" value="${dto.rating }"/>
+			<!-- by남기, 평점 선택창_210310 -->
+			<p id="star">
+				<a href="#" value="1">★</a>
+				<a href="#" value="2">★</a> 
+				<a href="#" value="3">★</a> 
+				<a href="#" value="4">★</a> 
+				<a href="#" value="5">★</a>
+			<p>
+		</div>
+		<div class="form-group">
 			<label for="content">내용</label>
 			<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
 		</div>
 		<button class="btn btn-dark" type="submit" onclick="submitContents(this);">수정확인</button>
 	</form>
 </div>
+<script>
+	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
+	$('#star a').click(function(){ 
+	      $(this).parent().children("a").removeClass("on");
+	      $(this).addClass("on").prevAll("a").addClass("on");
+	      let starval=$(this).attr("value");
+	      $("#rating").val(starval);
+	});
+</script>
 <!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>

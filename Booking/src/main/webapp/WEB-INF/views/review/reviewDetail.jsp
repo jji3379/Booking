@@ -95,6 +95,9 @@
 		width:300px;
 		height:200px;
 	}
+	#star a{ 
+		text-decoration: none; color: red; 
+	} 
 </style>
 </head>
 <body>
@@ -126,6 +129,28 @@
 		<tr>
 			<th>제목</th>
 			<td>${dto.reviewTitle }</td>
+		</tr>
+		<tr>
+			<th>별점</th>
+			<td>
+				<p id="star">
+					<c:if test="${dto.rating  eq 1}">
+						<a href="#">★</a>
+					</c:if>
+					<c:if test="${dto.rating  eq 2}">
+						<a href="#">★★</a>
+					</c:if>
+					<c:if test="${dto.rating  eq 3}">
+						<a href="#">★★★</a>
+					</c:if>
+					<c:if test="${dto.rating  eq 4}">
+						<a href="#">★★★★</a>
+					</c:if>
+					<c:if test="${dto.rating  eq 5}">
+						<a href="#">★★★★★</a>
+					</c:if>
+				<p>
+			</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
