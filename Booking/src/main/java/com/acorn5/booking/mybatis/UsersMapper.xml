@@ -35,7 +35,7 @@
 		WHERE id=#{id}
 	</delete>
 	<select id="getData" parameterType="String" resultType="usersDto">
-		SELECT pwd, email,care, recentSearch, profile,
+		SELECT id, pwd, email,care, recentSearch, profile,
 			TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
 		FROM users
 		WHERE id=#{id}

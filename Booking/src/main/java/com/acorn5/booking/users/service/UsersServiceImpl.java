@@ -98,20 +98,20 @@ public class UsersServiceImpl implements UsersService{
 		UsersDto dto = new UsersDto();
 		
 		String db_id = dao.getData(id).getId();
-		if(db_id == null) {
-			throw new DBFailException("아이디 또는 비밀번호가 일치하지 않습니다."); 
+		if(!db_id.equals(id)) {
+			throw new DBFailException("아이디가 없습니다."); 
 		} //by욱현.미등록 아이디에 관한 예외처리 수정_21310
 		
 		String savedPwd = dao.getData(id).getPwd(); 
 		if(savedPwd==null) {
-			throw new DBFailException("아이디 또는 비밀번호가 일치하지 않습니다.");
+			throw new DBFailException("비밀번호가 없습니다.");
 		}
 		boolean isEqual = BCrypt.checkpw(pwd, savedPwd);
 		if(isEqual) {
 			dto.setId(id);
 			dto.setPwd(savedPwd);
 		} else {
-			throw new DBFailException("아이디 또는 비밀번호가 일치하지 않습니다.");
+			throw new DBFailException("비밀번호가 일치하지 않습니다.");
 		}
 	
 		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
