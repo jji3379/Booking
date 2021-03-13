@@ -10,7 +10,7 @@
 <style>
    /* card 이미지 부모요소의 높이 지정 */
    .img-wrapper{
-      height: 280px;
+      height: 150px;
       /* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
       transition: transform 0.3s ease-out;
    }
@@ -27,6 +27,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
    }
+   
    
    #card{
    		position: relative;
@@ -65,36 +66,49 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div class="container" style=margin-top:60px;>
-	<div></div>
-   <center><h1>Best Seller</h1></center>
-   <nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/">Home</a>
-			</li>
-			<li class="breadcrumb-item active">Best Seller</li>
-		</ul>
-	</nav>
-   <div class="row" id="bestSeller">
-      <c:forEach var="b" items="${bestSeller }">
-         <div id="card" class="col-12 col-lg-2 col-lg-2">
-            <div class="card mb-3">
-               <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">
-                  <div class="img-wrapper">
-                     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style height="250"class="card-img-top" src="${b.image }" /></a><!--By 준영 임의 책이미지 클릭시 해당 책 isbn 값으로 검색되는 링크 -->
-                  </div>
-               </a>
-               <div class="card-body">
-               	  <p class="card-text"><strong>${b.title }</strong></p>
-                  <p class="card-text"><strong>${b.author }</strong></p>
-                   <p class="card-text">${b.price } 원</p>
-                 
-               </div>
-            </div>
-         </div>      
-      </c:forEach>
-   </div>
+	<div style="margin-top:100px">
+	   <center><h1>Best Seller</h1></center>
+	</div>
+<div class="row" style="width:80%; margin:auto">
+	<jsp:include page="../include/sideindex.jsp"></jsp:include>
+	<div class="col-10">
+	   <div style="margin:auto;" class="row align-items-start card-group" id="bestSeller">
+	      <c:forEach var="b" items="${bestSeller }" end="4">
+	         <div style="margin-left:20px; id="card">
+	            <div style="width:150px;" class="card">
+	               <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">
+	                  <div class="img-wrapper">
+	                     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style height="150" class="card-img-top" src="${b.image }" /></a><!--By 준영 임의 책이미지 클릭시 해당 책 isbn 값으로 검색되는 링크 -->
+	                  </div>
+	               </a>
+	               <div class="card-body">
+	               	  <p class="card-text"><strong>${b.title }</strong></p>
+	                  <p class="card-text"><strong>${b.author }</strong></p>
+	                   <p class="card-text">${b.price } 원</p>
+	               </div>
+	            </div>
+	         </div>      
+	      </c:forEach>
+	   </div>
+	   <div style="margin:auto; margin-top:20px" class="row align-items-center card-group" id="bestSeller">
+	      <c:forEach var="b" items="${bestSeller }" begin="5" end="9">
+	         <div style="margin-left:20px; id="card">
+	            <div style="width:150px;" class="card">
+	               <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">
+	                  <div class="img-wrapper">
+	                     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style height="150" class="card-img-top" src="${b.image }" /></a><!--By 준영 임의 책이미지 클릭시 해당 책 isbn 값으로 검색되는 링크 -->
+	                  </div>
+	               </a>
+	               <div class="card-body">
+	               	  <p class="card-text"><strong>${b.title }</strong></p>
+	                  <p class="card-text"><strong>${b.author }</strong></p>
+	                   <p class="card-text">${b.price } 원</p>
+	               </div>
+	            </div>
+	         </div>      
+	      </c:forEach>
+	   </div>	   
+	</div><!-- div col-10End -->
 </div>
 <script>
    

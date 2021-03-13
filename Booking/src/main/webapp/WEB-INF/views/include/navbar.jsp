@@ -13,10 +13,7 @@
     <div class="collapse navbar-collapse row justify-content-end" id="navbarSupportedContent" style="margin-right:200px;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/conditionSearch.do?start=1" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">인기도서</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath }/review/reviewList.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
