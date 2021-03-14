@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>/users/login.jsp</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
@@ -14,7 +15,7 @@
 		<c:when test="${isValid }">
 			<p>
 				<strong>${sessionScope.id }</strong> 님 로그인 되었습니다.
-				<a href="${url }">확인</a>
+				<a id="url"href="${url }">${url }</a>
 			</p>
 		</c:when>
 		<c:otherwise>
@@ -25,5 +26,12 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+	<script>
+		var url=$("#url").text();	
+	
+		alert("${id}님 반갑습니다!");
+		location.href=url;
+	</script>
 </body>
 </html>
+

@@ -13,20 +13,23 @@
     <div class="collapse navbar-collapse row justify-content-end" id="navbarSupportedContent" style="margin-right:200px;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-size:18px; font-family: 'Roboto', sans-serif; margin-right: 20px">인기도서</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/review/reviewList.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/review/list.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">책리뷰</a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">지도</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/pay/middle2.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">북카트</a>/a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/pay/middle.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">북카트</a>/a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" aria-label="Search" style="border-radius:20px; height:34px; width:214px; margin-left: 30px">
+      <form class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">
+        <input class="form-control me-2" type="text" aria-label="Search" style="border-radius:20px; height:34px; width:214px; margin-left: 30px"
+        	name="keyword" value="${keyword }" >
+        <input name="pageNum" value="1" hidden/> 
+        <input name="start" value="1" hidden/> 
         <button type="submit" style="background-color:black; border:0; outline:0;">
            <img src="${pageContext.request.contextPath }/resources/images/magnifier.png"/>
         </button>

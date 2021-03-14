@@ -80,7 +80,7 @@
 	 	</tr>
     </thead>
 	    <tbody>
-	    	<c:forEach var="b" items="${bookDetail }">
+	    <c:forEach var="b" items="${bookDetail }">
 		 	<tr>
 		 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
 		 	</tr>
@@ -114,28 +114,39 @@
 		 	<span id="isbn">${b.isbn }</span>	
 	    </tbody>
     </table>
-    <form id="cart" action="${pageContext.request.contextPath }/pay/middle.do" method="post">
+    <form id="insert" action="${pageContext.request.contextPath }/pay/insert.do" method="post">
     	<input id="idP" type="hidden" name="id" value="${id }"/>
 	    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
 	    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 	    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 	    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
 	    <select id="countP" name="count">
-	    	<option value="1">1</option>
-	    	<option value="2">2</option>
-	    	<option value="3">3</option>
-	    	<option value="4">4</option>
-	    	<option value="5">5</option>
-	    	<option value="6">6</option>
-	    	<option value="7">7</option>
-	    	<option value="8">8</option>
-	    	<option value="9">9</option>
+	    	<option value="1" >1</option>
+	    	<option value="2" >2</option>
+	    	<option value="3" >3</option>
+	    	<option value="4" >4</option>
+	    	<option value="5" >5</option>
+	    	<option value="6" >6</option>
+	    	<option value="7" >7</option>
+	    	<option value="8" >8</option>
+	    	<option value="9" >9</option>
 	    	<option value="10">10</option>
 	    </select>
 	    <br />
-    	<button id="insertBtn" type="sumit" >장바구니</button>
+    	<button id="insertBtn" type="button" onclick="insert()">장바구니</button>
     </form>
+    </c:forEach>
     <script>
+	    function insert(){
+			var id=$("#idP").val();
+			if(id == ""){
+				alert("로그인이 필요합니다");	
+				location.href="${pageContext.request.contextPath }/users/login_form.do";
+			}else
+				$("#insert button").on("click",function(){
+					return false;
+				})
+	    }
    		 /* onClick="insert()"	
     	//by준영, 장바구니 로그인 필터 기능_210311
 		var id=$("#idP").val();
@@ -174,40 +185,39 @@
 			})
 		} */
     </script>
-    </c:forEach>
+    
 	<div id="simList"></div>
 	<div id="reviewList"></div>
 </div>
 
 <script type="text/javascript" >
 	
+//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+var inputAuth=$("#auth").text();
 
-	//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
-	var inputAuth=$("#auth").text();
-	
-	function bookAuthor(){
-		return new Promise((resolve, reject) => {
-			$.ajax({ 
-				url:"detailAjax.do?sort=sim",
-			    method:"GET",
-			    data:"d_auth="+inputAuth,
-			    success:function(data){
-			       resolve(data);
-			       $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-			    },
-			    error:function(error){
-			    	reject(error)
-			    },
-			})
+function bookAuthor(){
+	return new Promise((resolve, reject) => {
+		$.ajax({ 
+			url:"detailAjax.do?sort=sim",
+		    method:"GET",
+		    data:"d_auth="+inputAuth,
+		    success:function(data){
+		       resolve(data);
+		       $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		    },
+		    error:function(error){
+		    	reject(error)
+		    },
 		})
-	}
-	//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+	})
+}
+//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
 	var inputIsbn=$("#isbn").text();
 	
 	function bookReview(){
 		return new Promise((resolve, reject) => {
 			$.ajax({
-		   		url:"${pageContext.request.contextPath }/review/list.do?condition=isbn",
+		   		url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
 		   		method:"GET",
 		   		data:"&keyword="+inputIsbn,
 		   		success:function(data){
@@ -228,7 +238,8 @@
 		.catch((error) => {
 			console.log(error)
 		})
-	
+		
+		
 	
 	//by 준영,반응형 캐러셀 정의_210224
 	var $owl = $('.owl-carousel');
@@ -285,6 +296,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
 

@@ -1,6 +1,7 @@
 package com.acorn5.booking.book.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,17 +19,9 @@ public class BookController {
     
     //by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
     @RequestMapping("/bookList/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
-    public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
+    public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, String sort, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
     								HttpServletRequest request, ModelAndView mav){
-    	mav.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mav)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
-    	mav.setViewName("bookList/CategoryList");
-        return mav;
-    }
-	
-	@RequestMapping(value = "/bookList/CategoryList.do", method = RequestMethod.GET)
-    public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, 
-    		HttpServletRequest request, int start, ModelAndView mav){
-    		mav.addObject("categoryList", service.pagingCategory("9", 10, start, d_catg, request, mav));
+    	mav.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mav, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
     	mav.setViewName("bookList/CategoryList");
         return mav;
     }
@@ -73,22 +66,21 @@ public class BookController {
         }
 	
     
-    //여기서부터 남기(모의테스트) 
-    @RequestMapping("/review/bookList.do")
-    public ModelAndView bookList(@RequestParam(required=false)String keyword){
+    //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
+    @RequestMapping("/review/reviewBookList.do")
+    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword){    
         ModelAndView mav = new ModelAndView();
         
         if(keyword !=null)
         {
-            mav.addObject("bookList", service.searchBook(keyword, 10, 1));
+            mav.addObject("reviewBookList", service.searchBookList(keyword, 10, 1));
         }
-        mav.setViewName("review/bookList");
+        mav.setViewName("review/reviewBookList");
         return mav;
     }
     
-    //키워드가 있을때도 있고 없을때도있음 
-    //있을때는 가져가고 없을때는 안가져가고 
-    @RequestMapping("/review/private/insertform.do")
+    //by남기, reviewInsertform.jsp 에 d_isbn 을 인자로 도서 정보를 가져오는 서비스_210303
+    @RequestMapping("/review/private/reviewInsertform.do")
     public ModelAndView reviewBook(@RequestParam(required=false)String d_isbn){
         ModelAndView mav = new ModelAndView();
         
@@ -96,7 +88,23 @@ public class BookController {
         {
             mav.addObject("reviewBook", service.bookReview(d_isbn, 1));
         }
-        mav.setViewName("review/private/insertform");
+        mav.setViewName("review/private/reviewInsertform");
         return mav;
+    }
+    // by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
+    @RequestMapping("/bookList/conditionSearch.do")
+    public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
+          HttpServletRequest request, ModelAndView mView){    
+       if(keyword !=null) {
+    	 //by욱현.검색시 최근검색어 칼럼에 검색키워드를 담기_2021308
+          HttpSession session = request.getSession();
+          String id = (String) session.getAttribute("id");
+          if(id != null) {
+         	 service.recentSearchInput(keyword, id);
+          }
+          mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, start, request, mView));
+       }
+        mView.setViewName("bookList/conditionSearch");
+        return mView;
     }
 }

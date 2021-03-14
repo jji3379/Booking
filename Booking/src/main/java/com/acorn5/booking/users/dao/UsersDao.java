@@ -21,7 +21,8 @@ public interface UsersDao {
 	public boolean isValid(UsersDto dto);
 	//회원정보를 저장
 	public void insert(UsersDto dto);
+	//최근검색어 저장
+	public void searchInput(UsersDto dto);
 	//by준영,인자로 전달된 아이디에 해당하는 비밀번호 리턴_210302
 	public String getPwd(String id);
-	
 }

@@ -18,48 +18,32 @@
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/review/list.do">리뷰 목록</a>
+				<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
 			</li>
 			<li class="breadcrumb-item active">리뷰 작성 폼</li>
 		</ul>
 	</nav>
 	<h1>리뷰 작성 폼 입니다.</h1>
-	<!-- 북 리스트로 이동해서 책을 검색하고 정보를 가져온다. -->
-	<a href="${pageContext.request.contextPath }/review/bookList.do">책 검색</a>
-	<form id="form" action="insert.do" method="post" enctype="multipart/form-data" novalidate >
+	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
+	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
+	<form id="form" action="reviewInsert.do" method="post">
+		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
-				<img src="${b.image }"/>
-				<input class="selected-book" type="hidden" name="isbn" value="${b.isbn }" />
+				<img name="image" src="${b.image }"/>				
+				<input type="hidden" name="imagePath" value="${b.image }" />
+				<input id="selectedBook" type="hidden" name="isbn" value="${b.isbn }" />
+				<label for="reviewTitle">리뷰 제목</label>
+				<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${b.title }"/>
 			</c:forEach>
-			<br />
-			<label for="image">이미지</label>
-			<input class="img" type="file" name="image" id="image"
-				accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-			<br />
-			<label for="reviewTitle">리뷰 제목</label>
-			<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" />
-			<br />
+		</div>
+		<div class="form-group">
 			<label for="content">리뷰 내용</label>
-			<textarea class="form-control" name="content" id="content" ></textarea>
-			<button id="submitBtn" class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
+			<textarea class="form-control" name="content" id="content"></textarea>
+		</div>
+		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
-	
 </div>
-<%--
-	[ SmartEditor 를 사용하기 위한 설정 ]
-	
-	1. WebContent 에 SmartEditor  폴더를 복사해서 붙여 넣기
-	2. WebContent 에 upload 폴더 만들어 두기
-	3. WebContent/WEB-INF/lib 폴더에 
-	   commons-io.jar 파일과 commons-fileupload.jar 파일 붙여 넣기
-	4. <textarea id="content" name="content"> 
-	   content 가 아래의 javascript 에서 사용 되기때문에 다른 이름으로 바꾸고 
-	      싶으면 javascript 에서  content 를 찾아서 모두 다른 이름으로 바꿔주면 된다. 
-	5. textarea 의 크기가 SmartEditor  의 크기가 된다.
-	6. 폼을 제출하고 싶으면  submitContents(this) 라는 javascript 가 
-	      폼 안에 있는 버튼에서 실행되면 된다.
- --%>
-<!-- SmartEditor 에서 필요한 javascript 로딩  -->
+<!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
 	var oEditors = [];
@@ -103,26 +87,17 @@
 		// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
 		
 		//by준영, 빈값을 제출 못하게 하는 기능_210305
-		var length_bk=$(".selected-book").length;
-		var image=$(".img").val();
-		var rvtitle=$("#reviewTitle").val();
+		var length_bk=$("#selectedBook").val();
 		var cont=$("#content").val();
 		
 		  if( length_bk == 0 ){
 			  alert("책 선택은 필수항목 입니다");
 		      return;//함수를 여기서 끝내서 폼 전송막기
-		  }else if( image == ""){
-			  alert("이미지 선택은 필수기입항목 입니다");
-		      return;//함수를 여기서 끝내서 폼 전송막기
-		  }else if( rvtitle == ""){
-			  alert("리뷰 제목은 필수기입항목 입니다");
-			  $("#reviewTitle").focus();
-			  return;
 		  }else if(  cont == ""  || cont == null || cont == '&nbsp;' || cont == '<p>&nbsp;</p>'){
 			  alert("리뷰 내용은 필수기입항목 입니다");
 			  return;
 		  }
-
+		
 		try {
 			elClickedObj.form.submit();
 		} catch(e) {}
@@ -137,8 +112,7 @@
 		var nFontSize = 24;
 		oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
 	}
-	
-	
 </script>
+
 </body>
 </html>

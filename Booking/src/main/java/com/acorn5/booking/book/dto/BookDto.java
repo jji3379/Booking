@@ -11,8 +11,15 @@ public class BookDto {
     private String pubdate;
     private String isbn;
     private String description;
-
-    public String getTitle() {
+    private String total;
+    
+    public String getTotal() {
+		return total;
+	}
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	public String getTitle() {
         return title;
     }
     public void setTitle(String title) {
@@ -75,7 +82,8 @@ public class BookDto {
     @Override
     public String toString() {
         return "Book [title=" + title + ", link=" + link + ", image=" + image + ", author=" + author + ", price=" + price
-                + ", discount=" + discount + ", publisher=" + publisher + ", pubdate=" + pubdate + ", isbn=" + isbn
+                + ", discount=" + discount + ", publisher=" + publisher + ", pubdate=" + pubdate + ", isbn=" + isbn +", total=" + total
                 + ", description=" + description + "]";
     }
 }
+

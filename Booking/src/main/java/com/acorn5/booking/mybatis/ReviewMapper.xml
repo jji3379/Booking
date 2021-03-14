@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
+	<update id="update" parameterType="reviewDto">
+		UPDATE board_review
+		SET reviewTitle=#{reviewTitle}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_review
+		WHERE num=#{num}
+	</delete>
+
 	<update id="addViewCount" parameterType="int">
 		UPDATE board_review
 		SET viewCount=viewCount+1
@@ -31,7 +41,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num, isbn,imagePath, writer,reviewTitle,content,viewCount,regdate
+				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
 				FROM board_review
 				<choose>
 					<when test="reviewTitle != null and content != null">
@@ -61,5 +71,16 @@
 		SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
 		FROM board_review
 		WHERE num=#{num}
+	</select>
+	<select id="myReview" parameterType="reviewDto" resultType="reviewDto"><!--by욱현. 내가 쓴 리뷰 셀렉트_2021309 -->
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
+				FROM board_review
+				WHERE writer=#{writer}
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} 
 	</select>
 </mapper>

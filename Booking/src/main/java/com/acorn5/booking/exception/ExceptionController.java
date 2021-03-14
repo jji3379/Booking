@@ -9,7 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @ControllerAdvice
 public class ExceptionController {
-	//NowAllowException type 의 예외가 발생하면 호출되는 메소드 
+	// by 남기, NowAllowException type 의 예외가 발생하면 호출되는 메소드_210303 
+
 	@ExceptionHandler(NotAllowException.class)
 	public ModelAndView notAllow(NotAllowException ne) {
 		ModelAndView mView=new ModelAndView();

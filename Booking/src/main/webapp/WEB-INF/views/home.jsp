@@ -101,7 +101,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[0].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[0].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[0].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -114,7 +114,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[1].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[1].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[1].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -127,7 +127,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[2].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[2].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[2].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -140,7 +140,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[3].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[3].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[3].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -153,7 +153,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[4].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[4].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[4].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -166,7 +166,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[5].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[5].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[5].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -179,7 +179,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[6].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[6].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[6].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -192,7 +192,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[7].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[7].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[7].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -205,7 +205,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[8].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[8].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[8].author }</small>
 				           </div>
 				     	</div>
 			         </li>
@@ -218,7 +218,7 @@
 				           </a>
 				           <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
 				                <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[9].title }</strong></p>
-				               <smal class="card-text" style="font-size:12px">${list[9].author }</small>
+				               <small class="card-text" style="font-size:12px">${list[9].author }</small>
 				           </div>
 				     	</div>
 			         </li>

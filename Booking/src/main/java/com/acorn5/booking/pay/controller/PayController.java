@@ -19,34 +19,34 @@ public class PayController {
 	@Autowired
 	private CartService service;
 
-	// by준영, 장바구니 저장 처리_210308
+	//by준영, 장바구니 담기(저장) 처리_210308
 	
-	@RequestMapping(value = "/pay/middle")
+	@RequestMapping(value = "/pay/insert")
 	public void insertCart(CartDto dto,HttpServletRequest request) {
 		service.insertCart(dto, request);
 	}
 	
-	//by준영, 네비바경로 장바구니 처리_210308
-	@RequestMapping("/pay/middle2")
+	//by준영, 네비바에서  장바구니 진입_210308
+	@RequestMapping("/pay/middle")
 	public String Cart(ModelAndView mView,HttpServletRequest request) {
-		return "pay/middle2";
+		return "pay/middle";
 	}
 	
-	//by준영, 장바구니 리스트_210308
+	//by준영, 북카트 리스트_210308
 	@RequestMapping("/pay/cart")
 	public ModelAndView listCart(ModelAndView mView, HttpServletRequest request){
 		service.listCart(mView, request); 
 		mView.setViewName("pay/cart");
 		return mView;
 	}	
-	//by, 글 삭제 요청처리_210303
+	//by, 카트 개별 삭제 요청처리_210310
 	@RequestMapping("/pay/delete")
 	public String delete(int c_id) {
 		service.deleteCart(c_id);
 		return "pay/delete";
 	}
 	
-	// 체크된 카트 삭제
+	//by준영, 체크된 카트 삭제_210313
 	@ResponseBody
 	@RequestMapping(value = "/pay/deleteCart")
 	public void deleteCart(HttpServletRequest request) {
@@ -55,16 +55,18 @@ public class PayController {
 		service.deleteChk(ajaxMsg);
 		
 	}
-	
+	//by준영, 북카트 내 도서 수량변경_210310
 	@RequestMapping("/pay/update")
 	public String update(CartDto dto) {
 		service.update(dto);
 		return "pay/update";
 	}
+	//by준영, 결제 후 페이지_210314
 	@RequestMapping("/pay/pay")
 	public String pay(HttpServletRequest request) {
 		return "pay/pay";
 	}
+	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {
 		String id=request.getParameter("id");

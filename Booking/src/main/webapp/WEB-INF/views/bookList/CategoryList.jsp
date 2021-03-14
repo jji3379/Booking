@@ -11,18 +11,27 @@
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
   	<div class="container" style="margin-top:100px">
-  	</div>
-  	<div class="container">
 	  	<div class="row">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
+				<ul class="nav nav-tabs">
+				  <li class="nav-item">
+				    <a class="nav-link ${param.sort eq 'count' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg }&sort=count&start=1">인기도서</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link ${param.sort eq 'date' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg }&sort=date&start=1">최신 도서</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
+				  </li>
+				</ul>
 			    <table>
-			        <c:forEach items="${categoryList}" var ="b"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
+			        <c:forEach  var ="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 			        	<tr>
-							<td colspan="7" bgcolor="#f1f1f1"></td>
+						<td colspan="7" bgcolor="#f1f1f1"></td>
 			        	</tr>
 			            <tr>
-							<td width="20%" rowspan="7"><img style="width:75%; margin:20px 20px" src="${b.image}"/></td>			            
+							<td width="20%" rowspan="7"><a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style="width:75%; margin:20px 20px" src="${b.image}"/></a></td>			            
 			            </tr>
 			            <tr>
 				            <td>
@@ -79,7 +88,7 @@
 						<c:choose>
 							<c:when test="${startPageNum != 1 }"> <!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
 								<li class="page-item">
-									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
+									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
 								</li>
 							</c:when>
 							<c:otherwise> <!-- by 준익, 시작페이지가 1인 경우 Prev 비활성화_2021.02.28 -->
@@ -92,12 +101,12 @@
 							<c:choose>
 								<c:when test="${i eq pageNum }"> <!-- by 준익, 순서가 pageNum 과 같을 때 -->
 									<li class="page-item active">  <!-- by 준익, active 활성화_2021.02.28 -->
-										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item">
-										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+										<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 									</li>
 								</c:otherwise>
 							</c:choose>
@@ -105,7 +114,7 @@
 						<c:choose>
 							<c:when test="${endPageNum lt totalPageCount }"> <!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   --> 
 								<li class="page-item">
-									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a><!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 -->
+									<a class="page-link" href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a><!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 -->
 								</li>
 							</c:when>
 							<c:otherwise>

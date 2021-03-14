@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>네비바로 장바구니 접근용 페이지</title>
+<title>디테일페이지 접근</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>

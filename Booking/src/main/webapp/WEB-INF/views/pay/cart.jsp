@@ -55,7 +55,7 @@
 					data:{'valueArr' : valueArr},
 					success:function(jdata){
 						if(chk){
-							location.replace("middle2.do");	
+							location.replace("middle.do");	
 						}else{
 							return false;
 						}
