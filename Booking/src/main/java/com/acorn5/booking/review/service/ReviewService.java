@@ -37,3 +37,4 @@ public interface ReviewService {
 	// by욱현, 내가 쓴 리뷰 모아보기 메소드_2021309
 	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request);
 }
+

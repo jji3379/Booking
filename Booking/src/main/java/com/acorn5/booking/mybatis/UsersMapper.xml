@@ -40,6 +40,11 @@
 		FROM users
 		WHERE id=#{id}
 	</select>
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd
+		FROM users
+		WHERE id=#{id}
+	</select>
 	<update id="searchInput" parameterType="usersDto"><!-- by욱현.최근검색어 칼럼 수정_2021308 -->
 		UPDATE users
 		SET recentsearch=#{recentSearch}

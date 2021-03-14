@@ -18,9 +18,7 @@ public interface ReviewDao {
 	// by남기, 리뷰의 갯수 얻어오기(검색 키워드에 해당하는 갯수)_210303
 	public int getCount(ReviewDto dto);
 	// by남기, 리뷰 조회수 올리기_210303
-
-	public void addViewCount(int num);
-	
+	public void addViewCount(int num);	
 	// by욱현. 내가 쓴 리뷰 모아보기_2021309
 	public List<ReviewDto> getMyReview(ReviewDto dto);
 }

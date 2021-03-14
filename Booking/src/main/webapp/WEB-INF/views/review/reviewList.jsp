@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>/review/reviewList.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	#star a{ 
+		text-decoration: none; color: red; 
+	} 
+</style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
@@ -32,7 +37,7 @@
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>등록일</th>
-				<th>리뷰내용</th>
+				<th>리뷰 별점</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,8 +50,26 @@
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>
-					<td>${t.content }</td>
-				</tr>
+					<td>
+						<p id="star">
+							<c:if test="${t.rating  eq 1}">
+								<a href="#">★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 2}">
+								<a href="#">★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 3}">
+								<a href="#">★★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 4}">
+								<a href="#">★★★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 5}">
+								<a href="#">★★★★★</a>
+							</c:if>
+						<p>
+					</td>
+				</tr> 
 			</c:forEach>
 		</tbody>
 	</table>
@@ -110,5 +133,8 @@
 		</div>
 	</c:if>
 </div>
+<script>
+	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228	
+</script>
 </body>
 </html>

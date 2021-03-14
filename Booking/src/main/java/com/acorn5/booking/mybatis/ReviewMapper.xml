@@ -3,7 +3,7 @@
 <mapper namespace="review">
 	<update id="update" parameterType="reviewDto">
 		UPDATE board_review
-		SET reviewTitle=#{reviewTitle}, content=#{content}
+		SET reviewTitle=#{reviewTitle}, content=#{content}, rating=#{rating}
 		WHERE num=#{num}
 	</update>
 	<delete id="delete" parameterType="int">
@@ -41,7 +41,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
+				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate,spoCheck,rating
 				FROM board_review
 				<choose>
 					<when test="reviewTitle != null and content != null">
@@ -63,12 +63,12 @@
 	</select>
 	<insert id="insert" parameterType="reviewDto">
 		INSERT INTO board_review
-		(num, writer, isbn, imagePath, reviewTitle, content, viewCount, regdate)
+		(num, writer, isbn, imagePath, reviewTitle, content, viewCount, regdate, spoCheck, rating)
 		VALUES(board_review_seq.NEXTVAL, #{writer}, #{isbn}, #{imagePath},
-			#{reviewTitle}, #{content}, 0, SYSDATE)
+			#{reviewTitle}, #{content}, 0, SYSDATE, #{spoCheck}, #{rating})
 	</insert>
 	<select id="getData" parameterType="int" resultType="reviewDto">
-		SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
+		SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate,spoCheck,rating
 		FROM board_review
 		WHERE num=#{num}
 	</select>

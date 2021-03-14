@@ -37,4 +37,3 @@ public interface BookService {
 	//by욱현.최근검색키워드를 recentsearch 칼럼에 담기위한 비즈니스로직_2021308
 	public void recentSearchInput(String keyword, String id);
 }
-

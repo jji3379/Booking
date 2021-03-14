@@ -48,10 +48,15 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
 		String id=(String)request.getSession().getAttribute("id");
 		String imagePath=request.getParameter("imagePath");
+		String spoCheck=request.getParameter("spoCheck");
+		int rating=Integer.parseInt(request.getParameter("rating"));
 		dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
 		dto.setImagePath(imagePath);
-		// by남기, GalleryDao 를 이용해서 DB 에 저장하기_210303
-		reviewDao.insert(dto);		
+
+		dto.setSpoCheck(spoCheck);
+		dto.setRating(rating);
+		// by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
+		reviewDao.insert(dto);	
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
@@ -382,3 +387,4 @@ public class ReviewServiceImpl implements ReviewService{
 		
 	}
 }
+
