@@ -8,106 +8,56 @@
 <title>/bookList.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-   /* card 이미지 부모요소의 높이 지정 */
-   .img-wrapper{
-      height: 150px;
-      /* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
-      transition: transform 0.3s ease-out;
-   }
-   /* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-   .img-wrapper:hover{
-      /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.05);
-   }
-   
-   	.card .card-text{
-      /* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
-      display:block;
+ .ellipsis2 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.ellipsis{
+  	  width:150px;
       white-space : nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+}
+/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
+   .img-wrapper:hover{
+      /* 원본 크기의 1.1 배로 확대 시키기*/
+      transform: scale(1.02);
+      transition: transform 0.3s ease-out;
    }
-   
-   
-   #card{
-   		position: relative;
-	    min-height: 1px;
-	    padding-right: 15px;
-	    padding-left: 15px;
-   }
-   
-   /* img  가  가운데 정렬 되도록 */
-   .back-drop{
-      /* 일단 숨겨 놓는다. */
-      display:none;
-   
-      /* 화면 전체를 투명도가 있는 회색으로 덮기 위한  css*/
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: #cecece;
-      padding-top: 300px;
-      z-index: 10000;
-      opacity: 0.5;
-      text-align: center;
-   }
-   
-   .back-drop img{
-      width: 100px;
-      /* rotateAnimation 이라는 키프레임을 2초 동한 일정한 비율로  무한 반복하기 */
-      animation: rotateAnimation 2s ease-out infinite;
-   }
-   
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-	<div style="margin-top:100px">
-	   <center><h1>Best Seller</h1></center>
+	<div style="margin-bottom:20px">
+	   <center><h1>Top 50</h1></center>
 	</div>
 <div class="row" style="width:80%; margin:auto">
 	<jsp:include page="../include/sideindex.jsp"></jsp:include>
 	<div class="col-10">
-	   <div style="margin:auto;" class="row align-items-start card-group" id="bestSeller">
-	      <c:forEach var="b" items="${bestSeller }" end="4">
-	         <div style="margin-left:20px; id="card">
-	            <div style="width:150px;" class="card">
-	               <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">
-	                  <div class="img-wrapper">
-	                     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style height="150" class="card-img-top" src="${b.image }" /></a><!--By 준영 임의 책이미지 클릭시 해당 책 isbn 값으로 검색되는 링크 -->
-	                  </div>
-	               </a>
-	               <div class="card-body">
-	               	  <p class="card-text"><strong>${b.title }</strong></p>
-	                  <p class="card-text"><strong>${b.author }</strong></p>
-	                   <p class="card-text">${b.price } 원</p>
-	               </div>
-	            </div>
-	         </div>      
-	      </c:forEach>
-	   </div>
-	   <div style="margin:auto; margin-top:20px" class="row align-items-center card-group" id="bestSeller">
-	      <c:forEach var="b" items="${bestSeller }" begin="5" end="9">
-	         <div style="margin-left:20px; id="card">
-	            <div style="width:150px;" class="card">
-	               <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">
-	                  <div class="img-wrapper">
-	                     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}"><img style height="150" class="card-img-top" src="${b.image }" /></a><!--By 준영 임의 책이미지 클릭시 해당 책 isbn 값으로 검색되는 링크 -->
-	                  </div>
-	               </a>
-	               <div class="card-body">
-	               	  <p class="card-text"><strong>${b.title }</strong></p>
-	                  <p class="card-text"><strong>${b.author }</strong></p>
-	                   <p class="card-text">${b.price } 원</p>
-	               </div>
-	            </div>
-	         </div>      
-	      </c:forEach>
-	   </div>	   
+	   <div class="row row-cols-1 row-cols-md-5">
+					<c:forEach var="b" items="${bestSeller}" varStatus="c">
+						<!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
+						<div class="col mb-4">
+							${c.count }
+							<div style="border: 3px solid #0f4c81;" class="card h-100">
+								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+									<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+								</a>
+								<div style="background-color:#f5e9dd" class="card-body">
+									<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+										<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+									</a>
+									<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>	   
 	</div><!-- div col-10End -->
 </div>
 <script>

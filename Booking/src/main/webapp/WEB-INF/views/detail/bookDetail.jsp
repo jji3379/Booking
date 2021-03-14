@@ -63,63 +63,72 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style=margin-top:60px; class="container" id="bookDetail">
-   	<nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/">Home</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="bookList.do?d_cont=1&sort=count">Best Seller</a>
-			</li>
-			<li class="breadcrumb-item active">Detail</li>
-		</ul>
-	</nav>
-    <table class="table table-striped">
-    <thead class="thead-dark">
-    	<tr style height="50px">
-	 		<th></th>
-	 		<th></th>
-	 		<th></th>
-	 	</tr>
-    </thead>
-    <tbody>
+<div style=margin-top:30px; class="container" id="bookDetail">
+<div style="border:3px solid #0f4c81">
+    <table style="margin:30px 20px">
     	<c:forEach var="b" items="${bookDetail }">
-	 	<tr>
-	 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>저자</strong></td>
-	 		<td id="auth">${b.author }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>제목</strong></td>
-	 		<td>${b.title }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>정가</strong></td>
-	 		<td>${b.price }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>할인가</strong></td>
-	 		<td><font color="red">${b.discount }</font></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출판사</strong></td>
-	 		<td>${b.publisher }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출간일</strong></td>
-	 		<td>${b.pubdate }</td>
-	 	</tr>
-	 	<tr>
-	 		<div><td colspan="3">${b.description }</td></div>
-	 	</tr>
-	 	<span id="isbn">${b.isbn }</span>
+		    <thead class="thead-dark">
+		    	<tr style height="20px">
+			 		<th  colspan="3">
+			 			<span style="font-size:18px; margin-bottom:20px; color:#135fa1" class="d-flex justify-content-center"><b>${b.title }</b></span>
+			 		</th>
+			 	</tr>
+		    </thead>
+    <tbody>
+	 	 <tr>
+			<td width="20%" rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img style="width:80%;" src="${b.image}"/></a></div></td>			            
+        	<td>
+	        	   <b>작가 </b>
+		           <span id="auth">
+		           		${b.author }
+		           </span>
+        	</td>
+        </tr>
+        <tr>
+            <td>
+	            <b>출판사 </b> ${b.publisher }
+            </td>
+            <td style="text-align:center; font-weight:bold">
+            	${b.price} 원 
+            </td>
+           </tr>
+           <tr>
+           	<td>
+           		<b>출간일 </b> ${b.pubdate }
+           	</td>
+            	<td style="text-align:center; color:red;  ">
+             		할인가 ${b.discount }
+            	</td>
+           </tr>
+           		
+           <tr>
+           </tr>
+           <tr>
+           	<td style="background:#f5e9dd;" rowspan="4"width="60%">
+				<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
+           			${b.description}
+				</div>
+           	</td>
+           	<td style="text-align:center" width="20%">
+           		<button style="width:70%; background-color:#135fa1" class="btn btn-outline-light">바로구매  </button>
+           	</td>
+           </tr>
+           <tr>
+           	<td style="text-align:center">
+           		<button style="width:70%; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
+           	</td>
+           </tr>
+           <tr>
+           	<td style="text-align:center">
+				<a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" style="width:70%; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"> 리뷰쓰기</a>
+           	</td>
+           </tr>
+	 		 	<span id="isbn">${b.isbn }</span>
 		</c:forEach>	
     </tbody>
 	</table>
-	<div id="simList"></div>
+</div>
+	<div style="margin-top:30px" id="simList"></div>
 	<div id="reviewList"></div>
      
 </div>

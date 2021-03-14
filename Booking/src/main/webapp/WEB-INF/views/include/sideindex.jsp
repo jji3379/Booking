@@ -1,24 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
-	.dropright:hover>.dropdown-menu {
-		display: block;
-		border-color:green;
-	}
-	
-	.dropdown-toggle {
-		display: none;
-	}
-	
-	.Main-Category {
-		font-weight:bold;
-		color: black;
-		width:120px;
-	}
+   .dropright:hover>.dropdown-menu {
+      display: block;
+      border-color:#0f4c81;
+   }
+   
+   .dropdown-toggle {
+      display: none;
+   }
+   
+   .Main-Category {
+      font-weight:bold;
+      color: #f5e9dd;
+      width: 158px;
+      hight: 1551px;
+      font-size: 22px;
+      text-align: left;
+      margin-left: 10px;
+   }
 </style>
-<div style="border: 2px solid #f1f1f1; height: 600px" class="col-2">
+<div style="border: 2px solid #f1f1f1; width:200px; height: 1551px; background-color:#0f4c81;" class="col-2">
 	<div class="btn-group dropright">
-		<a class="Main-Category"
+		<a  style="margin-top:10px;"  class="Main-Category"
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&start=1&sort=count">소설</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>

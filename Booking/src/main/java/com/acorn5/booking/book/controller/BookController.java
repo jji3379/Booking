@@ -21,7 +21,7 @@ public class BookController {
     @RequestMapping("/bookList/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
     public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, String sort, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
     								HttpServletRequest request, ModelAndView mav){
-    	mav.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mav, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
+    	mav.addObject("categoryList", service.pagingCategory("1", 8, start, d_catg, request, mav, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
     	mav.setViewName("bookList/CategoryList");
         return mav;
     }
@@ -33,7 +33,7 @@ public class BookController {
         
         if(d_cont !=null)
         {
-            mav.addObject("bestSeller",service.bestSeller(d_cont,12, 1,sort));
+            mav.addObject("bestSeller",service.bestSeller(d_cont,50, 1,sort));
         }
         mav.setViewName("bookList/bestSeller");
         return mav;
@@ -103,7 +103,7 @@ public class BookController {
           if(id != null) {
          	 service.recentSearchInput(keyword, id);
           }
-          mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, start, request, mView));
+          mView.addObject("conditionSearch",service.conditionSearch(keyword, 8, start, request, mView));
        }
         mView.setViewName("bookList/conditionSearch");
         return mView;
