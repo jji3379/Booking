@@ -988,8 +988,6 @@ public class BookServiceImpl implements BookService {
                     + (display !=0 ? "&display=" +display :"")
                     + (start !=0 ? "&start=" +start :""));
   
-
- 
             URLConnection urlConn = url.openConnection(); 
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID); 
             urlConn.setRequestProperty("X-Naver-Client-Secret", clientSecret);
@@ -1036,5 +1034,7 @@ public class BookServiceImpl implements BookService {
          
         return data; //해쉬맵객체를 리턴
     }
+	
+	
 	
 }

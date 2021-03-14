@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset=UTF-8">
 <title>bookDetail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
@@ -55,7 +55,6 @@
 		text-align:center;
 	}
 </style>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
 </head>
@@ -80,52 +79,113 @@
 	 		<th></th>
 	 	</tr>
     </thead>
-    <tbody>
-    	<c:forEach var="b" items="${bookDetail }">
-	 	<tr>
-	 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>저자</strong></td>
-	 		<td id="auth">${b.author }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>제목</strong></td>
-	 		<td>${b.title }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>정가</strong></td>
-	 		<td>${b.price }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>할인가</strong></td>
-	 		<td><font color="red">${b.discount }</font></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출판사</strong></td>
-	 		<td>${b.publisher }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출간일</strong></td>
-	 		<td>${b.pubdate }</td>
-	 	</tr>
-	 	<tr>
-	 		<div><td colspan="3">${b.description }</td></div>
-	 	</tr>
-	 	<span id="isbn">${b.isbn }</span>
-		</c:forEach>	
-    </tbody>
-	</table>
+	    <tbody>
+	    	<c:forEach var="b" items="${bookDetail }">
+		 	<tr>
+		 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>저자</strong></td>
+		 		<td id="auth">${b.author }</td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>제목</strong></td>
+		 		<td>${b.title }</td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>정가</strong></td>
+		 		<td id="price">${b.price }</td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>할인가</strong></td>
+		 		<td><font id="d_price" color="red">${b.discount }</font></td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>출판사</strong></td>
+		 		<td>${b.publisher }</td>
+		 	</tr>
+		 	<tr>
+		 		<td><strong>출간일</strong></td>
+		 		<td>${b.pubdate }</td>
+		 	</tr>
+		 	<tr>
+		 		<div><td colspan="3">${b.description }</td></div>
+		 	</tr>
+		 	<span id="isbn">${b.isbn }</span>	
+	    </tbody>
+    </table>
+    <form id="cart" action="${pageContext.request.contextPath }/pay/middle.do" method="post">
+    	<input id="idP" type="hidden" name="id" value="${id }"/>
+	    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
+	    <input id="titleP" type="hidden" name="title" value="${b.title }" />
+	    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
+	    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+	    <select id="countP" name="count">
+	    	<option value="1">1</option>
+	    	<option value="2">2</option>
+	    	<option value="3">3</option>
+	    	<option value="4">4</option>
+	    	<option value="5">5</option>
+	    	<option value="6">6</option>
+	    	<option value="7">7</option>
+	    	<option value="8">8</option>
+	    	<option value="9">9</option>
+	    	<option value="10">10</option>
+	    </select>
+	    <br />
+    	<button id="insertBtn" type="sumit" >장바구니</button>
+    </form>
+    <script>
+   		 /* onClick="insert()"	
+    	//by준영, 장바구니 로그인 필터 기능_210311
+		var id=$("#idP").val();
+		var image = $("#imageP").val();
+		var title = $("#titleP").val();
+		var price = $("#priceP").val();
+		var d_price = $("#d_priceP").val();
+		var count = $("#countP option:selected").val();
+		
+		function insert(){
+			var url ="${pageContext.request.contextPath }/pay/middle.do";
+			var data = {
+					'id': id,
+					'image' : image,
+					'title' : title,
+					'price' : price,
+					'd_price' : d_price,
+					'count' : count
+			};
+			console.log(data);
+			
+			$.ajax({
+				url:url,
+				type:'post',
+				traditional :true,
+				data: data,
+				success:function(data){
+					var chk = confirm("북카트로 가시겠습니까?");
+					if(chk){
+						alert("담기 성공");
+						location.replace("${pageContext.request.contextPath }/pay/middle.do");
+					}
+					alert("담기 성공");
+				}
+			
+			})
+		} */
+    </script>
+    </c:forEach>
 	<div id="simList"></div>
 	<div id="reviewList"></div>
-     
 </div>
 
-<script type="text/javascript">
-	var inputAuth=$("#auth").text();
-	var inputIsbn=$("#isbn").text();
+<script type="text/javascript" >
 	
-	function bookAuthor(){//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+
+	//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+	var inputAuth=$("#auth").text();
+	
+	function bookAuthor(){
 		return new Promise((resolve, reject) => {
 			$.ajax({ 
 				url:"detailAjax.do?sort=sim",
@@ -141,7 +201,10 @@
 			})
 		})
 	}
-	function bookReview(){//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+	//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+	var inputIsbn=$("#isbn").text();
+	
+	function bookReview(){
 		return new Promise((resolve, reject) => {
 			$.ajax({
 		   		url:"${pageContext.request.contextPath }/review/list.do?condition=isbn",
@@ -216,8 +279,8 @@
 	});
 	
 	
+	
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
 </body>

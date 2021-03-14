@@ -8,9 +8,12 @@
 			alias="reviewDto"/>
 		<typeAlias type="com.acorn5.booking.users.dto.UsersDto"
 			alias="usersDto"/>
+		<typeAlias type="com.acorn5.booking.pay.dto.CartDto"
+			alias="cartDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/acorn5/booking/mybatis/ReviewMapper.xml"/>
 		<mapper resource="com/acorn5/booking/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/acorn5/booking/mybatis/CartMapper.xml"/>
 	</mappers>
 </configuration>
