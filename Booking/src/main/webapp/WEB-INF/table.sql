@@ -1,16 +1,16 @@
 -- by남기, 리뷰를 저장할 테이블_210301
 CREATE TABLE board_review(
-   num NUMBER PRIMARY KEY, --글번호
-   isbn VARCHAR2(200), -- 책 고유번호
-   imagePath VARCHAR2(300), -- 이미지 경로
-   writer VARCHAR2(100), --작성자
-   bookTitle VARCHAR2(300), --책제목
-   reviewTitle VARCHAR2(500), --리뷰제목
-   content VARCHAR2(1000), --내용
-   rating NUMBER, --별점
-   viewCount NUMBER, --조회수
-   regdate DATE, --리뷰 작성일
-   spoCheck VARCHAR2(100) --by채영, 스포포함 체크박스_210308
+	num NUMBER PRIMARY KEY, --글번호
+	isbn VARCHAR2(200), -- 책 고유번호
+	imagePath VARCHAR2(300), -- 이미지 경로
+	writer VARCHAR2(100), --작성자
+	bookTitle VARCHAR2(300), --책제목
+	reviewTitle VARCHAR2(500), --리뷰제목
+	content VARCHAR2(1000), --내용
+	rating NUMBER, --별점
+	viewCount NUMBER, --조회수
+	regdate DATE, --리뷰 작성일
+	spoCheck VARCHAR2(100) --by채영, 스포포함 체크박스_210308
 );
 
 -- by남기, 리뷰의 글번호를 얻어낼 시퀀스_210301

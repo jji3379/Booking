@@ -14,6 +14,9 @@
 	#star a.on{ 
 		color: red; 
 	}
+	div.container{
+		font-size:18px;
+	}
 </style>
 </head>
 <body>
@@ -30,9 +33,10 @@
 		<li class="breadcrumb-item active">리뷰 작성 폼</li>
 	</ul>
 </nav>
-	<h1>리뷰 작성 폼 입니다.</h1>
+<div class="container">
+	<center><h1>리뷰 작성 폼</h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
-	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
+	<a href="${pageContext.request.contextPath }/review/reviewBookList.do" >책 검색</a>
 	<form action="reviewInsert.do" method="post" id="insertForm">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
@@ -48,7 +52,7 @@
 		</div>
 		
 		<!-- by남기, 평점 선택창_210310 -->
-		<p id="star">
+		<p id="star">별점 <br />
 			<a href="#" value="1">★</a>
 			<a href="#" value="2">★</a> 
 			<a href="#" value="3">★</a> 
@@ -59,14 +63,18 @@
 		<div class="form-group">
 			<label for="content">리뷰 내용</label><br />
 			<!--by채영_스포일러 포함 체크박스  -->
-			<label for ="spoCheck">스포포함 여부</label>
+			<label for ="spoCheck">스포포함 체크박스</label>
 			<input type="checkbox" id="spoCheck" name="spoCheck">
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
 		
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</div>
+<script>
+</script>
+<!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
+<script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 
@@ -75,10 +83,19 @@
 	      let starval=$(this).attr("value");
 	      $("#rating").val(starval);
 	});
-</script>
-<!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
-<script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
-<script>
+	
+	//by채영_스포일러가 포함된 리뷰 읽을 확인 여부 
+	var num=$("#num").val();
+	function spoAlert(event){
+		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+		if(alert == true){
+			location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
+		}else{
+			event.preventDefault();
+			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
+		}
+	}
+
 	var oEditors = [];
 	
 	//추가 글꼴 목록
