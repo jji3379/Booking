@@ -10,7 +10,6 @@
 		DELETE FROM board_review
 		WHERE num=#{num}
 	</delete>
-
 	<update id="addViewCount" parameterType="int">
 		UPDATE board_review
 		SET viewCount=viewCount+1
@@ -41,15 +40,15 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate,spoCheck,rating
+				(SELECT num, isbn, imagePath, writer, bookTitle, reviewTitle,content,viewCount,regdate,spoCheck,rating
 				FROM board_review
 				<choose>
-					<when test="reviewTitle != null and content != null">
-						WHERE reviewTitle LIKE '%'||#{reviewTitle}||'%' 
+					<when test="bookTitle != null and content != null">
+						WHERE bookTitle LIKE '%'||#{bookTitle}||'%' 
 						OR content LIKE '%'||#{content}||'%'
 					</when>
-					<when test="reviewTitle != null">
-						WHERE reviewTitle LIKE '%'||#{reviewTitle}||'%'
+					<when test="bookTitle != null">
+						WHERE bookTitle LIKE '%'||#{bookTitle}||'%'
 					</when>
 					<when test="writer != null">
 						WHERE writer LIKE '%'||#{writer}||'%'
@@ -63,12 +62,12 @@
 	</select>
 	<insert id="insert" parameterType="reviewDto">
 		INSERT INTO board_review
-		(num, writer, isbn, imagePath, reviewTitle, content, viewCount, regdate, spoCheck, rating)
-		VALUES(board_review_seq.NEXTVAL, #{writer}, #{isbn}, #{imagePath},
+		(num, writer, isbn, imagePath, bookTitle, reviewTitle, content, viewCount, regdate, spoCheck, rating)
+		VALUES(board_review_seq.NEXTVAL, #{writer}, #{isbn}, #{imagePath}, #{bookTitle},
 			#{reviewTitle}, #{content}, 0, SYSDATE, #{spoCheck}, #{rating})
 	</insert>
 	<select id="getData" parameterType="int" resultType="reviewDto">
-		SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate,spoCheck,rating
+		SELECT num, isbn, imagePath, writer,bookTitle,reviewTitle,content,viewCount,regdate,spoCheck,rating
 		FROM board_review
 		WHERE num=#{num}
 	</select>
@@ -77,7 +76,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num, isbn, imagePath, writer,reviewTitle,content,viewCount,regdate
+				(SELECT num, isbn, imagePath, writer,bookTitle,reviewTitle,content,viewCount,regdate
 				FROM board_review
 				WHERE writer=#{writer}
 				ORDER BY num DESC) result1)

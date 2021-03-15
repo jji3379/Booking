@@ -23,7 +23,7 @@ public interface BookService {
 	//by 준영, 네이버 도서 api 해당 auth 값 도서 검색 메소드_210228
 	public List<BookDto> detailAjax(String d_auth,int display, String sort);
 	//by 남기, 네이버 도서 api 해당 keyword 값 도서 검색 메소드_210303
-	public List<BookDto> searchBookList(String keyword, int display, int start);
+	public List<BookDto> searchBookList(String keyword,int display, int start, HttpServletRequest request, ModelAndView mav);
 	//by 남기, 네이버 도서 api 해당 d_isbn 값 도서 정보 가져오는 메소드_210303
 	public List<BookDto> bookReview(String d_isbn, int display);
 	//(욱현이거 테스트)
@@ -33,7 +33,7 @@ public interface BookService {
 	//부킹서비스용
 	public Map<String, Object> recommendBook(String d_cont,int display, int start);
 	//by준익, 검색어 페이징_2021.03.09 
-	public List<BookDto> conditionSearch(String keyword,int display, int start, HttpServletRequest request, ModelAndView mView);
+	public List<BookDto> conditionSearch(String keyword,int display, int start, HttpServletRequest request, ModelAndView mav);
 	//by욱현.최근검색키워드를 recentsearch 칼럼에 담기위한 비즈니스로직_2021308
 	public void recentSearchInput(String keyword, String id);
 }

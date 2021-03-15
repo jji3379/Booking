@@ -4,10 +4,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewDto {
 	// by남기 _210303
-
 	private int num; // 리뷰 번호
 	private String writer; // 리뷰 작성자
 	private String imagePath; // 리뷰 이미지 경로
+	private String bookTitle; // 책 제목
 	private String reviewTitle; // 리뷰 제목
 	private String content; // 리뷰 내용
 	private int rating; // 별점
@@ -22,13 +22,14 @@ public class ReviewDto {
 	//디폴트 생성자 
 	public ReviewDto() {}
 
-	public ReviewDto(int num, String writer, String imagePath, String reviewTitle, String content, int rating,
-			int viewCount, String regdate, int startRowNum, int endRowNum, String isbn, MultipartFile image,
+	public ReviewDto(int num, String writer, String imagePath, String bookTitle, String reviewTitle, String content,
+			int rating, int viewCount, String regdate, int startRowNum, int endRowNum, String isbn, MultipartFile image,
 			String spoCheck) {
 		super();
 		this.num = num;
 		this.writer = writer;
 		this.imagePath = imagePath;
+		this.bookTitle = bookTitle;
 		this.reviewTitle = reviewTitle;
 		this.content = content;
 		this.rating = rating;
@@ -63,6 +64,14 @@ public class ReviewDto {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
 
 	public String getReviewTitle() {
@@ -136,6 +145,7 @@ public class ReviewDto {
 	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
 	public String getSpoCheck() {
 		return spoCheck;
 	}
@@ -143,4 +153,6 @@ public class ReviewDto {
 	public void setSpoCheck(String spoCheck) {
 		this.spoCheck = spoCheck;
 	}
+
+	
 }

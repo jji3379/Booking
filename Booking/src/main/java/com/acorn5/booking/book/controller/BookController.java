@@ -68,12 +68,12 @@ public class BookController {
     
     //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
     @RequestMapping("/review/reviewBookList.do")
-    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword){    
+    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request){    
         ModelAndView mav = new ModelAndView();
         
         if(keyword !=null)
         {
-            mav.addObject("reviewBookList", service.searchBookList(keyword, 10, 1));
+            mav.addObject("reviewBookList", service.searchBookList(keyword, 8, 1, request, mav));
         }
         mav.setViewName("review/reviewBookList");
         return mav;

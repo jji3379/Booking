@@ -19,9 +19,10 @@
 </jsp:include>
 <div style="margin-top:100px"></div>
 <div class="container">
+	<div style="margin-top:-13px"></div>
 	<nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
+		<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
+			<li class="breadcrumb-item" style="margin-left:95px;">
 				<a href="${pageContext.request.contextPath }/">Home</a>
 			</li>
 			<li class="breadcrumb-item active">리뷰 목록</li>
@@ -29,11 +30,12 @@
 	</nav>
 	<a href="private/reviewInsertform.do">리뷰 작성</a>
 	<h1>리뷰 목록 입니다.</h1>
-	<table class="table table-striped">
-		<thead class="thead-dark">
+	<table class="table">
+		<thead>
 			<tr>
 				<th>리뷰 이미지</th>
 				<th>리뷰 제목</th>
+				<th>책 제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>등록일</th>
@@ -48,6 +50,7 @@
 						<img src="${t.imagePath}"/>
 					</td>
 					<td><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
+					<td>${t.bookTitle }</td>
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>
