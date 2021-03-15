@@ -160,6 +160,7 @@ public class UsersServiceImpl implements UsersService{
 		//읽어온 정보를 ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
 	}
+
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override
@@ -196,6 +197,7 @@ public class UsersServiceImpl implements UsersService{
 			//비밀번호가 수정되었으므로 다시 로그인 하도록 로그인 아웃 처리를 한다.
 			session.removeAttribute("id");
 		}
+		
 		//성공 여부를 ModelAndView 객체에 담는다.
 		mView.addObject("isSuccess", isSuccess);
 		

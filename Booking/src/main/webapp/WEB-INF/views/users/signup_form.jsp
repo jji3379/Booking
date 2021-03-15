@@ -7,9 +7,9 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <title>Insert title here</title>
 </head>
-<body>
+<body style="background-color:#484848;">
 <jsp:include page="../include/navbar.jsp"></jsp:include>
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:60px; background-color:#f5e9dd; height:605px" >
 	<h1>회원 가입</h1>
 	<!-- 
 		[ novalidate 로 웹브라우저 자체의 검증기능 사용하지 않기 ]

@@ -30,6 +30,8 @@ import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.users.dao.UsersDao;
+import com.acorn5.booking.users.dto.UsersDto;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -324,11 +326,20 @@ public class ReviewServiceImpl implements ReviewService{
 		request.setAttribute("totalPageCount", totalPageCount);		
 	}
 	
+	@Autowired
+	private UsersDao usersdao;
+	
 	//by욱현. 내가쓴리뷰 모아보기 비즈니스로직(내부 코드는 남기꺼 복붙)_2021309
 	@Override
 	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
+		
+		String id = (String) session.getAttribute("id");
+		UsersDto usersDto = usersdao.getData(id);
+		mView.addObject("dto", usersDto);
+		
+		
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
-		final int PAGE_ROW_COUNT=5;
+		final int PAGE_ROW_COUNT=4;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
 		final int PAGE_DISPLAY_COUNT=5;
 				
