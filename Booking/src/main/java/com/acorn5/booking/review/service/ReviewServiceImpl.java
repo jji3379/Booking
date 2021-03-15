@@ -35,10 +35,12 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
 		String id=(String)request.getSession().getAttribute("id");
 		String imagePath=request.getParameter("imagePath");
+		String reviewTitle=request.getParameter("reviewTitle");
 		String spoCheck=request.getParameter("spoCheck");
 		int rating=Integer.parseInt(request.getParameter("rating"));
 		dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
 		dto.setImagePath(imagePath);
+		dto.setReviewTitle(reviewTitle);
 		dto.setSpoCheck(spoCheck);
 		dto.setRating(rating);
 		// by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303

@@ -18,19 +18,19 @@
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:100px"></div>
+<div style="margin-top:-13px"></div>
+<nav>
+	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
+		<li class="breadcrumb-item" style="margin-left:95px;">
+			<a href="${pageContext.request.contextPath }/">Home</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
+		</li>
+		<li class="breadcrumb-item active">리뷰 작성 폼</li>
+	</ul>
+</nav>
 <div class="container">
-	<nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/">Home</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-			</li>
-			<li class="breadcrumb-item active">리뷰 작성 폼</li>
-		</ul>
-	</nav>
 	<h1>리뷰 작성 폼 입니다.</h1>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a href="${pageContext.request.contextPath }/review/reviewBookList.do">책 검색</a>
@@ -40,8 +40,10 @@
 				<img name="image" src="${b.image }"/>				
 				<input type="hidden" name="imagePath" value="${b.image }" /><br />
 				<input type="hidden" name="isbn" value="${b.isbn }" /><br />
+				<label for="bookTitle">책 제목</label>
+				<input class="form-control" type="text" name="bookTitle" id="bookTitle" value="${b.title }"/>
 				<label for="reviewTitle">리뷰 제목</label>
-				<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${b.title }"/>
+				<input class="form-control" type="text" name="reviewTitle" id="reviewTitle"/>
 				<input type="hidden" name="rating" id="rating"/>
 			</c:forEach>
 		</div>

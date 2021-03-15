@@ -4,6 +4,7 @@ CREATE TABLE board_review(
 	isbn VARCHAR2(200), -- 책 고유번호
 	imagePath VARCHAR2(300), -- 이미지 경로
 	writer VARCHAR2(100), --작성자
+	bookTitle VARCHAR2(300), --책제목
 	reviewTitle VARCHAR2(300), --리뷰제목
 	content VARCHAR2(500), --내용
 	rating NUMBER, --별점
