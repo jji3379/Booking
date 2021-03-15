@@ -19,12 +19,12 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_review
 		<choose>
-			<when test="reviewTitle != null and content != null">
-				WHERE reviewTitle LIKE '%'||#{reviewTitle}||'%' 
+			<when test="bookTitle != null and content != null">
+				WHERE bookTitle LIKE '%'||#{bookTitle}||'%' 
 				OR content LIKE '%'||#{content}||'%'
 			</when>
-			<when test="reviewTitle != null">
-				WHERE reviewTitle LIKE '%'||#{reviewTitle}||'%'
+			<when test="bookTitle != null">
+				WHERE bookTitle LIKE '%'||#{bookTitle}||'%'
 			</when>
 			<when test="writer != null">
 				WHERE writer LIKE '%'||#{writer}||'%'

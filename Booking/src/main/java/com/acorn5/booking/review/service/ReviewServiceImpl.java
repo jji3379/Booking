@@ -117,12 +117,12 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, 만일 검색 키워드가 넘어온다면 _210303
 		if(!keyword.equals("")){
 			// by남기, 검색 조건이 무엇이냐에 따라 분기 하기_210303
-			if(condition.equals("reviewTitle_content")){// by남기, 제목 + 내용 검색인 경우_210303
+			if(condition.equals("bookTitle_content")){// by남기, 제목 + 내용 검색인 경우_210303
 				// by남기, 검색 키워드를 ReviewDto 에 담아서 전달한다_210303
-				dto.setReviewTitle(keyword);
-				dto.setContent(keyword);	
-			}else if(condition.equals("reviewTitle")){ // by남기, 제목 검색인 경우_210303
-				dto.setReviewTitle(keyword);			
+				dto.setBookTitle(keyword);
+				dto.setContent(keyword);
+			}else if(condition.equals("bookTitle")){ // by남기, 제목 검색인 경우_210303
+				dto.setBookTitle(keyword);			
 			}else if(condition.equals("writer")){ // by남기, 작성자 검색인 경우_210303
 				dto.setWriter(keyword);	
 			}else if(condition.equals("isbn")){ // by남기, 고유번호 검색인 경우_210303
