@@ -98,40 +98,59 @@
 	#star a{ 
 		text-decoration: none; color: red; 
 	} 
+	ul.mylist li:before {
+	    content: ">";
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 0px 5px 6px 0px;
+	}
+	ul.mylist {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 18px;
+  
+    max-width: 250px;
+    width: 100%;
+	}
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin-top:100px"></div>
+<div style="margin-top:-13px"></div>
+<nav>
+	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
+		<li class="breadcrumb-item" style="margin-left:95px;">
+			<a href="${pageContext.request.contextPath }/">Home</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
+		</li>
+		<li class="breadcrumb-item active">리뷰 디테일 폼</li>
+	</ul>
+</nav>
 <div class="container">
-	<nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/">Home</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-			</li>
-			<li class="breadcrumb-item active">리뷰 상세보기</li>
-		</ul>
-	</nav>	
-	<table class="table table-striped">
+	<center><h1>리뷰 디테일 폼</h1></center>
+	<table class="table table-striped" style="border-left: 3px solid #369;">
 		<tr>
-			<th>이미지</th>
-			<td><img id="image" src="${dto.imagePath }"/></td>
+			<td rowspan="8"><img id="image" src="${dto.imagePath }" style="width:200px; height:300px;"/></td>
 		</tr>
 		<tr>
-			<th>작성자</th>
+			<td><strong>작성자</strong></td>
 			<td>${dto.writer }</td>
 		</tr>
 		<tr>
-			<th>제목</th>
+			<td><strong>책 제목</strong></td>
+			<td>${dto.bookTitle }</td>
+		</tr>
+		<tr>
+			<td><strong>리뷰 제목</strong></td>
 			<td>${dto.reviewTitle }</td>
 		</tr>
 		<tr>
-			<th>별점</th>
+			<td><strong>별점</strong></td>
 			<td>
 				<p id="star">
 					<c:if test="${dto.rating  eq 1}">
@@ -153,21 +172,21 @@
 			</td>
 		</tr>
 		<tr>
-			<th>조회수</th>
+			<td><strong>조회수</strong></td>
 			<td>${dto.viewCount }</td>
 		</tr>
 		<tr>
-			<th>등록일</th>
+			<td><strong>등록일</strong></td>
 			<td>${dto.regdate }</td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<td><strong>내용</strong></td>
 			<td colspan="2">
 				<div>${dto.content }</div>
 			</td>
 		</tr>
 	</table>
-	<ul>
+	<ul class="mylist">
 		<li><a href="reviewList.do">목록보기</a></li>
 		<c:if test="${dto.writer eq id }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.num }">수정</a></li>
@@ -182,7 +201,7 @@
 		<!-- by남기, 원글의 작성자가 댓글의 수신자가 된다. _210303 -->
 		<input type="hidden" name="target_id" value="${dto.writer }"/>
 		<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
-		<button class="btn btn-dark" type="submit">등록</button>
+		<button class="btn btn-primary" type="submit">등록</button>
 	</form>	
 	<!-- by남기, 댓글 목록 _210303 -->
 	<div class="comments">
@@ -235,7 +254,7 @@
 								<input type="hidden" name="comment_group"
 									value="${tmp.comment_group }"/>
 								<textarea name="content"></textarea>
-								<button class="btn btn-dark" type="submit">등록</button>
+								<button class="btn btn-primary" type="submit">등록</button>
 							</form>
 							<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 							<c:if test="${tmp.writer eq id }">

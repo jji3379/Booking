@@ -12,13 +12,17 @@
 	
 	.Main-Category {
 		font-weight:bold;
-		color: black;
-		width:120px;
+		color: #f5e9dd;
+		width: 200px;
+		hight: 1551px;
+		font-size: 22px;
+		text-align: left;
+		margin-left: 10px;
 	}
 </style>
-<div style="border: 2px solid #f1f1f1; height: 600px" class="col-2">
+<div style="border: 2px solid #f1f1f1; width:200px; height: 1551px; background-color:#0f4c81;">
 	<div class="btn-group dropright">
-		<a class="Main-Category"
+		<a style="margin-top:10px;" class="Main-Category"
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&start=1">소설</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
@@ -26,7 +30,7 @@
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100010&start=1">나라별 소설 </a>
 				<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100020&start=1">고전 / 문학</a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100020&start=1">고전/문학</a>
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100030&start=1">장르소설</a>
 			<a class="dropdown-item"
@@ -35,7 +39,7 @@
 	</div>
 	<div class="btn-group dropright">
 		<a class="Main-Category"
-			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110&start=1">시 / 에세이</a>
+			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110&start=1">시/에세이</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
 		<div class="dropdown-menu">
@@ -54,11 +58,11 @@
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110070&start=1">명상 에세이 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110080&start=1">그림 / 포토 에세이 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110080&start=1">그림/포토 에세이 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110090&start=1">연애 / 사랑 에세이 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110090&start=1">연애/사랑 에세이 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110100&start=1">삶의 지혜 / 명언 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=110100&start=1">삶의 지혜/명언 </a>
 		</div>
 	</div>
 	<div class="btn-group dropright">
@@ -78,7 +82,7 @@
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=120050&start=1">문학론 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=120060&start=1">언어학 / 기호학 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=120060&start=1">언어학/기호학 </a>
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=120070&start=1">종교학 </a>
 			<a class="dropdown-item"
@@ -87,18 +91,18 @@
 	</div>
 	<div class="btn-group dropright">
 		<a class="Main-Category"
-			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130&start=1">가정 / 생활 / 요리</a>
+			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130&start=1">가정/생활/요리</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
 		<div class="dropdown-menu">
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130010&start=1">결혼 / 가족 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130010&start=1">결혼/가족 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130020&start=1">임신 / 출산 / 육아 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130020&start=1">임신/출산/육아 </a>
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130030&start=1">자녀교육 </a>
 			<a class="dropdown-item"
-				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130040&start=1">집 / 살림 </a>
+				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130040&start=1">집/살림 </a>
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130050&start=1">요리  </a>
 		</div>

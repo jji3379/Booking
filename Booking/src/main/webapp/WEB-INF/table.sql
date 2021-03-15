@@ -5,8 +5,8 @@ CREATE TABLE board_review(
 	imagePath VARCHAR2(300), -- 이미지 경로
 	writer VARCHAR2(100), --작성자
 	bookTitle VARCHAR2(300), --책제목
-	reviewTitle VARCHAR2(300), --리뷰제목
-	content VARCHAR2(500), --내용
+	reviewTitle VARCHAR2(500), --리뷰제목
+	content VARCHAR2(1000), --내용
 	rating NUMBER, --별점
 	viewCount NUMBER, --조회수
 	regdate DATE, --리뷰 작성일

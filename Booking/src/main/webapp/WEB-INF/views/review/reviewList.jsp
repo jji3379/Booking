@@ -27,33 +27,33 @@
 	</ul>
 </nav>
 <div class="container">
-	<a href="private/reviewInsertform.do">리뷰 작성</a>
-	<h1>리뷰 목록 입니다.</h1>
-	<table class="table">
-		<thead>
+	<center><h1>리뷰 목록</h1></center>
+	<a href="private/reviewInsertform.do" style="font-size:20px;">리뷰 작성</a>
+	<table class="table table-border" style="table-layout: fixed;">
+		<thead style="background-color:#f5e9dd;">
 			<tr>
-				<th>리뷰 이미지</th>
-				<th>리뷰 제목</th>
-				<th>책 제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-				<th>등록일</th>
-				<th>리뷰 별점</th>
+				<th width="10%">리뷰 이미지</th>
+				<th width="15%">리뷰 제목</th>
+				<th width="30%">책 제목</th>
+				<th width="10%">작성자</th>
+				<th width="10%">조회수</th>
+				<th width="15%">등록일</th>
+				<th width="10%">리뷰 별점</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="t" items="${list }">
 				<tr>
-					<td>
+					<td style="text-overflow:ellipsis; overflow:hidden"> 
 						<img style="width:100px; height:60px" class="rounded-sm" 
 						src="${t.imagePath }"/>
 					</td>
-					<td><a href="reviewDetail.do?num=${t.num }">${t.reviewTitle }</a></td>
-					<td>${t.bookTitle }</td>
-					<td>${t.writer }</td>
-					<td>${t.viewCount }</td>
-					<td>${t.regdate }</td>
-					<td>
+					<td style="text-overflow:ellipsis; overflow:hidden"><a href="reviewDetail.do?num=${t.num }">${t.reviewTitle }</a></td>
+					<td style="text-overflow:ellipsis; overflow:hidden">${t.bookTitle }</td>
+					<td style="text-overflow:ellipsis; overflow:hidden">${t.writer }</td>
+					<td style="text-overflow:ellipsis; overflow:hidden">${t.viewCount }</td>
+					<td style="text-overflow:ellipsis; overflow:hidden">${t.regdate }</td>
+					<td style="text-overflow:ellipsis; overflow:hidden">
 						<p id="star">
 							<c:if test="${t.rating  eq 1}">
 								<a href="#">★</a>
@@ -121,13 +121,13 @@
 	<form action="list.do" method="get">
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">
-			<option value="reviewTitle_content" ${condition eq 'reviewTitle_content' ? 'selected' : '' }>제목+내용</option>
-			<option value="reviewTitle" ${condition eq 'reviewTitle' ? 'selected' : '' }>제목</option>
+			<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>책 제목+내용</option>
+			<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>책 제목</option>
 			<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>책 고유번호</option>
 			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button type="submit">검색</button>
+		<button style="background-color:#135fa1;" class="btn btn-primary" type="submit">검색</button>
 	</form>
 	<%-- by남기, 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. _210303 --%>
 	<c:if test="${not empty keyword }">
