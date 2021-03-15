@@ -85,6 +85,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void loginLogic(HttpServletRequest request, HttpServletResponse response) {
 		//로그인후 가야하는 목적지 정보
+
 		String url=request.getParameter("url");
 		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
 		String encodedUrl=URLEncoder.encode(url);
@@ -149,7 +150,7 @@ public class UsersServiceImpl implements UsersService{
 		request.setAttribute("url", url);
 		request.setAttribute("isValid", isValid);		
 	}
-	
+
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
 	public void getInfo(ModelAndView mView, HttpSession session) {

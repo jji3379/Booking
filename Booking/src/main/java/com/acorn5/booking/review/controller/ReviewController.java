@@ -61,11 +61,11 @@ public class ReviewController {
 	public String insertform() {
 		// by남기, view page 로 forward 이동해서 응답_210303
 		return "review/private/reviewInsertform";
+
 	}
 	// by남기, 새 리뷰 작성 요청 처리_210303
 	@RequestMapping(value = "/review/private/reviewInsert", method = RequestMethod.POST)
 	public String insert(ReviewDto dto, HttpServletRequest request) {
-
 		// by남기, 추가할 리뷰 정보가 파라미터로 넘어온다_210303
 		service.saveContent(dto, request);
 		// by남기, view page 로 forward 이동해서 응답_210303

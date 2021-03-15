@@ -44,7 +44,6 @@
 						<a class="nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 				</ul>
-
 				<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4">
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">

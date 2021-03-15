@@ -270,7 +270,6 @@
       </div>
    </div>
 </div>
-
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
    $("#bookingBtn").on("click", function(){

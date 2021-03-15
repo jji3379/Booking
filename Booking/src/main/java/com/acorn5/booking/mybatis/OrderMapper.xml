@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+    <insert id="insert" parameterType="orderDto">
+    	INSERT INTO order
+   		(o_id, buyer, image, title, price, d_price, count, o_date)
+   		VALUES(order_seq.NEXTVAL, #{buyer}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
+   	</insert>
+    <select id="getlist" resultType="orderDto" parameterType="String">
+        SELECT o_id, buyer, image, title, price, d_price, count , o_date
+		FROM order 
+		WHERE buyer = #{buyer}
+    </select>
+</mapper>
+ 

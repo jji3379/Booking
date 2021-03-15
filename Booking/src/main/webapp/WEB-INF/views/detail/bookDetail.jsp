@@ -9,7 +9,6 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	#simList{
-		
 		padding-right: 15px;
 		padding-left: 15px;
 		margin-right: auto;
@@ -49,7 +48,6 @@
 		width:auto;
 		vertical-align:middle;
 	}
-
 	#image{
 		object-fit;
 		text-align:center;
@@ -110,12 +108,21 @@
 				</div>
            	</td>
            	<td style="text-align:center" width="20%">
-           		<button style="width:70%; background-color:#135fa1" class="btn btn-outline-light">바로구매  </button>
+    	       	<form id="insert" action="${pageContext.request.contextPath }/pay/insert.do" method="post">
+				       <input id="idP" type="hidden" name="id" value="${id }"/>
+				       <input id="imageP" type="hidden" name="image" value="${b.image }"/>
+				       <input id="titleP" type="hidden" name="title" value="${b.title }" />
+				       <input id="priceP" type="hidden" name="price" value="${b.price }"/>
+				       <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+				       <input type="number" name="count" class="numBox" min="1" max="100" value="1"/>
+				       <br />
+             		<button  id="insertBtn" type="button" onclick="insert()" style="width:70%; background-color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
+			    </form>
            	</td>
            </tr>
            <tr>
            	<td style="text-align:center">
-           		<button style="width:70%; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
+		           		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light">바로구매  </button>
            	</td>
            </tr>
            <tr>
@@ -127,6 +134,20 @@
 		</c:forEach>	
     </tbody>
 	</table>
+	<script>
+       function insert(){
+         var id=$("#idP").val();
+         if(id == ""){
+            alert("로그인이 필요합니다");   
+            location.href="${pageContext.request.contextPath }/users/login_form.do";
+         }else
+            $("#insert button").on("click",function(){
+               $("#insert").submit();
+               return false;
+            })
+       }
+    </script>
+	
 </div>
 	<div style="margin-top:30px" id="simList"></div>
 	<div id="reviewList"></div>
@@ -134,6 +155,55 @@
 </div>
 
 <script type="text/javascript">
+
+//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+var inputAuth=$("#auth").text();
+
+function bookAuthor(){
+ return new Promise((resolve, reject) => {
+    $.ajax({ 
+       url:"detailAjax.do?sort=sim",
+        method:"GET",
+        data:"d_auth="+inputAuth,
+        success:function(data){
+           resolve(data);
+           $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+        },
+        error:function(error){
+           reject(error)
+        },
+    })
+ })
+}
+//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+ var inputIsbn=$("#isbn").text();
+ 
+ function bookReview(){
+    return new Promise((resolve, reject) => {
+       $.ajax({
+             url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
+             method:"GET",
+             data:"&keyword="+inputIsbn,
+             success:function(data){
+                resolve(data);
+                $("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
+             },
+           error:function(error){
+              reject(error)
+           },
+       })
+    })
+ }
+ //by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
+ bookAuthor()
+    .then((data) => {
+       bookReview()
+    })
+    .catch((error) => {
+       console.log(error)
+    })
+
+
 	var inputAuth=$("#auth").text();
 	
 	$.ajax({ //by 준영, bookAjax.do Ajax 로 호출_210218
@@ -205,9 +275,7 @@
 	});
 	
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
 </body>
 </html>
-

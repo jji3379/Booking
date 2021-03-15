@@ -43,10 +43,11 @@
 		<tbody>
 			<c:forEach var="t" items="${list}">
 				<tr>
+					<input type="hidden" id="num" value="${t.num}"/>
 					<td>
 						<img src="${t.imagePath}"/>
 					</td>
-					<td><a href="reviewDetail.do?num=${t.num }">${t.reviewTitle }</a></td>
+					<td><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>
@@ -135,6 +136,18 @@
 </div>
 <script>
 	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228	
+	
+	//by채영_스포일러가 포함된 리뷰 읽을 확인 여부 
+	var num=$("#num").val();
+	function spoAlert(event){
+		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+		if(alert == true){
+			location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
+		}else{
+			event.preventDefault();
+			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
+		}
+	}
 </script>
 </body>
 </html>

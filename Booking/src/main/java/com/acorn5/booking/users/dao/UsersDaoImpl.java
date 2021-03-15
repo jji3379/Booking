@@ -83,7 +83,7 @@ public class UsersDaoImpl implements UsersDao {
 	public void searchInput(UsersDto dto) {
 		session.update("users.searchInput", dto);
 	}
-	
+
 	@Override
 	public String getPwd(String id) {
 		String pwd=session.selectOne("users.getPwd",id);

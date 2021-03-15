@@ -29,6 +29,23 @@ CREATE TABLE board_review_comment(
 -- by남기, 리뷰의 댓글 글번호를 얻어낼 시퀀스_210301
 CREATE SEQUENCE board_review_comment_seq;
 
+/*
+ * API 의 책 한권 정보를 담는 테이블
+ */
+CREATE TABLE pay_item(
+	id NUMBER REFERENCES pay_cart(id) ,
+	image VARCHAR2(100),
+	title VARCHAR2(300),
+	price NUMBER,
+	d_price NUMBER,
+	count NUMBER
+);
+ 
+CREATE TABLE pay_cart(
+	id NUMBER PRIMARY KEY,
+	status NUMBER
+);
+
 -- 유저 정보 테이블
 create table users (
 	num number(4) PRIMARY KEY, -- 회원번호

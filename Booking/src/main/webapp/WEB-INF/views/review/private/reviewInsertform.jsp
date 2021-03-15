@@ -58,7 +58,7 @@
 		<div class="form-group">
 			<label for="content">리뷰 내용</label><br />
 			<!--by채영_스포일러 포함 체크박스  -->
-			<label for ="spoCheck">체크박스</label>
+			<label for ="spoCheck">스포포함 여부</label>
 			<input type="checkbox" id="spoCheck" name="spoCheck">
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
@@ -144,6 +144,14 @@
 		var sDefaultFont = '궁서';
 		var nFontSize = 24;
 		oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
+	}
+	//by채영_스포일러 체크 여부 
+	var spoCheck = null;
+	var spo = $("input:checkbox[name='spoCheck']").is(':checked');
+	if(spo == true){
+		spoCheck = "yes";
+	}else{
+		spoCheck = "no";
 	}
 </script>
 </body>
