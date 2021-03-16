@@ -123,8 +123,8 @@
 		<select name="condition" id="condition">
 			<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>책 제목+내용</option>
 			<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>책 제목</option>
-			<option type="hidden" value="isbn" ${condition eq 'isbn' ? 'selected' : '' } >책 고유번호</option>
 			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+			<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' } disabled>책 고유번호</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 		<button style="background-color:#135fa1;" class="btn btn-primary" type="submit">검색</button>

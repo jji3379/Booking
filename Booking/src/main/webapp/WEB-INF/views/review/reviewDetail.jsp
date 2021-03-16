@@ -93,7 +93,7 @@
 		object-fit;
 		text-align:center;
 		width:300px;
-		height:200px;
+		height:400px;
 	}
 	#star a{ 
 		text-decoration: none; color: red; 
@@ -135,7 +135,7 @@
 	<center><h1>리뷰 디테일 폼</h1></center>
 	<table class="table table-striped" style="border-left: 3px solid #369;">
 		<tr>
-			<td rowspan="8"><img id="image" src="${dto.imagePath }" style="width:200px; height:300px;"/></td>
+			<td rowspan="8" style="width:300px;"><img id="image" src="${dto.imagePath }"/></td>
 		</tr>
 		<tr>
 			<td><strong>작성자</strong></td>
