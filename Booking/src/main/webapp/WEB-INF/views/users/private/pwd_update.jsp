@@ -11,16 +11,16 @@
 <div class="container">
 	<c:choose>
 		<c:when test="${isSuccess }">
-			<p>
-				비밀번호를 수정했습니다.
-				<a href="../login_form.do">다시 로그인 하기</a>
-			</p>
+			<script>
+				alert("수정 했습니다.");
+				location.href="${pageContext.request.contextPath }/users/login_form.do";
+			</script>
 		</c:when>
 		<c:otherwise>
-			<p>
-				이전 비밀번호가 일치 하지 않습니다.
-				<a href="pwd_updateform.do">다시 시도</a>
-			</p>
+			<script>
+				alert("이전 비밀번호가 일치 하지 않습니다.");
+				location.href="${pageContext.request.contextPath }/users/private/pwd_updateform.do";
+			</script>
 		</c:otherwise>
 	</c:choose>
 </div>

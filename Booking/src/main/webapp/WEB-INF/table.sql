@@ -1,18 +1,22 @@
--- 리뷰의 댓글을 저장할 테이블 
-CREATE TABLE board_review_comment(
+-- by남기, 리뷰를 저장할 테이블_210301
+CREATE TABLE board_review(
 	num NUMBER PRIMARY KEY, --글번호
 	isbn VARCHAR2(200), -- 책 고유번호
 	imagePath VARCHAR2(300), -- 이미지 경로
 	writer VARCHAR2(100), --작성자
-	content VARCHAR2(500), --내용
+	bookTitle VARCHAR2(300), --책제목
+	reviewTitle VARCHAR2(500), --리뷰제목
+	content VARCHAR2(1000), --내용
+	rating NUMBER, --별점
 	viewCount NUMBER, --조회수
-	regdate DATE --리뷰 작성일
+	regdate DATE, --리뷰 작성일
+	spoCheck VARCHAR2(100) --by채영, 스포포함 체크박스_210308
 );
 
--- 리뷰의 글번호를 얻어낼 시퀀스
+-- by남기, 리뷰의 글번호를 얻어낼 시퀀스_210301
 CREATE SEQUENCE board_review_seq;
 
--- 리뷰의 댓글을 저장할 테이블 
+-- by남기, 리뷰의 댓글을 저장할 테이블 _210301
 CREATE TABLE board_review_comment(
 	num NUMBER PRIMARY KEY, --글번호
 	writer VARCHAR2(100),--작성자
@@ -23,8 +27,25 @@ CREATE TABLE board_review_comment(
 	deleted CHAR(3) DEFAULT 'no', --삭제된 리뷰인지 여부 'yes' or 'no'
 	regdate DATE --리뷰 작성일
 );
--- 리뷰의 댓글 글번호를 얻어낼 시퀀스
+-- by남기, 리뷰의 댓글 글번호를 얻어낼 시퀀스_210301
 CREATE SEQUENCE board_review_comment_seq;
+
+/*
+ * API 의 책 한권 정보를 담는 테이블
+ */
+CREATE TABLE pay_item(
+	id NUMBER REFERENCES pay_cart(id) ,
+	image VARCHAR2(100),
+	title VARCHAR2(300),
+	price NUMBER,
+	d_price NUMBER,
+	count NUMBER
+);
+ 
+CREATE TABLE pay_cart(
+	id NUMBER PRIMARY KEY,
+	status NUMBER
+);
 
 -- 유저 정보 테이블
 create table users (

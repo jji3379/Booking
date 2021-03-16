@@ -84,5 +84,18 @@ public class ReviewDaoImpl implements ReviewDao{
 	public void addViewCount(int num) {
 		session.update("review.addViewCount", num);
 	}
+	
+	// by욱현. 내가 쓴 리뷰 모아보기_2021309
+	@Override
+	public List<ReviewDto> getMyReview(ReviewDto dto) {
+		/*
+		 * 	by욱현, 
+		 *  parameterType => ReviewDto
+		 *  resultType => List<ReviewDto>
+		 */
+		List<ReviewDto> list = session.selectList("review.myReview", dto);
+		
+		return list;
+	}
 }
 

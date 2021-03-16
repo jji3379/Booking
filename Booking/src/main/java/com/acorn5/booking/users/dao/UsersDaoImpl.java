@@ -77,5 +77,17 @@ public class UsersDaoImpl implements UsersDao {
 	public void insert(UsersDto dto) {
 		session.insert("users.insert", dto);
 	}
+	
+	//by욱현.최근검색어 유저의 recentsearch칼럼에 추가_2021308
+	@Override
+	public void searchInput(UsersDto dto) {
+		session.update("users.searchInput", dto);
+	}
+
+	@Override
+	public String getPwd(String id) {
+		String pwd=session.selectOne("users.getPwd",id);
+		return pwd;
+	}
 
 }

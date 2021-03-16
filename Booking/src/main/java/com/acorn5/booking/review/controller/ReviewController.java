@@ -61,6 +61,7 @@ public class ReviewController {
 	public String insertform() {
 		// by남기, view page 로 forward 이동해서 응답_210303
 		return "review/private/reviewInsertform";
+
 	}
 	// by남기, 새 리뷰 작성 요청 처리_210303
 	@RequestMapping(value = "/review/private/reviewInsert", method = RequestMethod.POST)

@@ -85,6 +85,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void loginLogic(HttpServletRequest request, HttpServletResponse response) {
 		//로그인후 가야하는 목적지 정보
+
 		String url=request.getParameter("url");
 		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
 		String encodedUrl=URLEncoder.encode(url);
@@ -97,16 +98,21 @@ public class UsersServiceImpl implements UsersService{
 		 */
 		UsersDto dto = new UsersDto();
 		
+		String db_id = dao.getData(id).getId();
+		if(!db_id.equals(id)) {
+			throw new DBFailException("아이디가 없습니다."); 
+		} //by욱현.미등록 아이디에 관한 예외처리 수정_21310
+		
 		String savedPwd = dao.getData(id).getPwd(); 
 		if(savedPwd==null) {
-			throw new DBFailException("존재하지 않는 회원입니다.");
+			throw new DBFailException("비밀번호가 없습니다.");
 		}
 		boolean isEqual = BCrypt.checkpw(pwd, savedPwd);
 		if(isEqual) {
 			dto.setId(id);
 			dto.setPwd(savedPwd);
 		} else {
-			throw new DBFailException("does not match password!");
+			throw new DBFailException("비밀번호가 일치하지 않습니다.");
 		}
 	
 		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
@@ -144,7 +150,7 @@ public class UsersServiceImpl implements UsersService{
 		request.setAttribute("url", url);
 		request.setAttribute("isValid", isValid);		
 	}
-	
+
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
 	public void getInfo(ModelAndView mView, HttpSession session) {
@@ -155,6 +161,7 @@ public class UsersServiceImpl implements UsersService{
 		//읽어온 정보를 ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
 	}
+
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override
@@ -191,6 +198,7 @@ public class UsersServiceImpl implements UsersService{
 			//비밀번호가 수정되었으므로 다시 로그인 하도록 로그인 아웃 처리를 한다.
 			session.removeAttribute("id");
 		}
+		
 		//성공 여부를 ModelAndView 객체에 담는다.
 		mView.addObject("isSuccess", isSuccess);
 		

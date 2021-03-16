@@ -9,7 +9,6 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	#simList{
-		
 		padding-right: 15px;
 		padding-left: 15px;
 		margin-right: auto;
@@ -49,7 +48,6 @@
 		width:auto;
 		vertical-align:middle;
 	}
-
 	#image{
 		object-fit;
 		text-align:center;
@@ -63,68 +61,149 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style=margin-top:60px; class="container" id="bookDetail">
-   	<nav>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="${pageContext.request.contextPath }/">Home</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="bookList.do?d_cont=1&sort=count">Best Seller</a>
-			</li>
-			<li class="breadcrumb-item active">Detail</li>
-		</ul>
-	</nav>
-    <table class="table table-striped">
-    <thead class="thead-dark">
-    	<tr style height="50px">
-	 		<th></th>
-	 		<th></th>
-	 		<th></th>
-	 	</tr>
-    </thead>
-    <tbody>
+<div style=margin-top:30px; class="container" id="bookDetail">
+<div style="border:3px solid #0f4c81">
+    <table style="margin:30px 20px">
     	<c:forEach var="b" items="${bookDetail }">
-	 	<tr>
-	 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>저자</strong></td>
-	 		<td id="auth">${b.author }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>제목</strong></td>
-	 		<td>${b.title }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>정가</strong></td>
-	 		<td>${b.price }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>할인가</strong></td>
-	 		<td><font color="red">${b.discount }</font></td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출판사</strong></td>
-	 		<td>${b.publisher }</td>
-	 	</tr>
-	 	<tr>
-	 		<td><strong>출간일</strong></td>
-	 		<td>${b.pubdate }</td>
-	 	</tr>
-	 	<tr>
-	 		<div><td colspan="3">${b.description }</td></div>
-	 	</tr>
-	 	<span id="isbn">${b.isbn }</span>
+		    <thead class="thead-dark">
+		    	<tr style height="20px">
+			 		<th  colspan="3">
+			 			<span style="font-size:18px; margin-bottom:20px; color:#135fa1" class="d-flex justify-content-center"><b>${b.title }</b></span>
+			 		</th>
+			 	</tr>
+		    </thead>
+    <tbody>
+	 	 <tr>
+			<td width="20%" rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img style="width:80%;" src="${b.image}"/></a></div></td>			            
+        	<td>
+	        	   <b>작가 </b>
+		           <span id="auth">
+		           		${b.author }
+		           </span>
+        	</td>
+        </tr>
+        <tr>
+            <td>
+	            <b>출판사 </b> ${b.publisher }
+            </td>
+            <td style="text-align:center; font-weight:bold">
+            	${b.price} 원 
+            </td>
+           </tr>
+           <tr>
+           	<td>
+           		<b>출간일 </b> ${b.pubdate }
+           	</td>
+            	<td style="text-align:center; color:red;  ">
+             		할인가 ${b.discount }
+            	</td>
+           </tr>
+           		
+           <tr>
+           </tr>
+           <tr>
+           	<td style="background:#f5e9dd;" rowspan="4"width="60%">
+				<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
+           			${b.description}
+				</div>
+           	</td>
+           	<td style="text-align:center" width="20%">
+    	       	<form id="insert" action="${pageContext.request.contextPath }/pay/insert.do" method="post">
+				       <input id="idP" type="hidden" name="id" value="${id }"/>
+				       <input id="imageP" type="hidden" name="image" value="${b.image }"/>
+				       <input id="titleP" type="hidden" name="title" value="${b.title }" />
+				       <input id="priceP" type="hidden" name="price" value="${b.price }"/>
+				       <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+				       <input type="number" name="count" class="numBox" min="1" max="100" value="1"/>
+				       <br />
+             		<button  id="insertBtn" type="button" onclick="insert()" style="width:70%; background-color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
+			    </form>
+           	</td>
+           </tr>
+           <tr>
+           	<td style="text-align:center">
+		           		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light">바로구매  </button>
+           	</td>
+           </tr>
+           <tr>
+           	<td style="text-align:center">
+				<a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" style="width:70%; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"> 리뷰쓰기</a>
+           	</td>
+           </tr>
+	 		 	<span id="isbn">${b.isbn }</span>
 		</c:forEach>	
     </tbody>
 	</table>
-	<div id="simList"></div>
-	<div id="reviewList"></div>
-     
+	<script>
+       function insert(){
+         var id=$("#idP").val();
+         if(id == ""){
+            alert("로그인이 필요합니다");   
+            location.href="${pageContext.request.contextPath }/users/login_form.do";
+         }else
+            $("#insert button").on("click",function(){
+               $("#insert").submit();
+               return false;
+            })
+       }
+    </script>
+	
+</div>
+	<div style="margin-top:30px" id="simList"></div>
+	<div style="margin-top:70px; position:relative; border:1px solid white; background-color:white; width:100%; height:100px; z-index:1;"></div>
+	<div style="margin-top:-55px; position:relative;" id="reviewList"></div>
 </div>
 
 <script type="text/javascript">
+
+//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+var inputAuth=$("#auth").text();
+
+function bookAuthor(){
+ return new Promise((resolve, reject) => {
+    $.ajax({ 
+       url:"detailAjax.do?sort=sim",
+        method:"GET",
+        data:"d_auth="+inputAuth,
+        success:function(data){
+           resolve(data);
+           $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+        },
+        error:function(error){
+           reject(error)
+        },
+    })
+ })
+}
+//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
+ var inputIsbn=$("#isbn").text();
+ 
+ function bookReview(){
+    return new Promise((resolve, reject) => {
+       $.ajax({
+             url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
+             method:"GET",
+             data:"&keyword="+inputIsbn,
+             success:function(data){
+                resolve(data);
+                $("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
+             },
+           error:function(error){
+              reject(error)
+           },
+       })
+    })
+ }
+ //by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
+ bookAuthor()
+    .then((data) => {
+       bookReview()
+    })
+    .catch((error) => {
+       console.log(error)
+    })
+
+
 	var inputAuth=$("#auth").text();
 	
 	$.ajax({ //by 준영, bookAjax.do Ajax 로 호출_210218
@@ -196,9 +275,7 @@
 	});
 	
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
 </body>
 </html>
-

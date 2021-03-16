@@ -7,81 +7,68 @@
 	div#box1 {
 		margin-top: 100px
 	}
+	.ellipsis2 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.ellipsis{
+  	  width:150px;
+      white-space : nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+}
+/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
+   .img-wrapper:hover{
+      /* 원본 크기의 1.1 배로 확대 시키기*/
+      transform: scale(1.02);
+      transition: transform 0.3s ease-out;
+   }
 </style>
 <title>Insert title here</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top: 60px;">
-		<h1>게시글 목록</h1>
-		<form action="conditionSearch.do" method="get">
-			<input name="start" value="1" hidden /> <label for="condition">검색조건</label>
-			<select name="condition" id="condition">
-				<option value="title_content"
-					${condition eq 'title_content' ? "selected" : '' }>제목+내용</option>
-				<option value="title" ${condition eq 'title' ? "selected" : '' }>제목</option>
-				<option value="writer" ${condition eq 'writer' ? "selected" : '' }>작성자</option>
-			</select> <input type="text" name="keyword" placeholder="검색어..."
-				value="${keyword }" />
-			<button type="submit">검색</button>
-		</form>
+	<div class="container" style="margin-top: 30px;">
+		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 검색결과  </h1>
+		<div style="float:right;">
+			<form action="conditionSearch.do" method="get">
+				<input name="start" value="1" hidden /> <label for="condition"></label>
+				<select style="width:120px; display:inline-block; border: 1px solid #135fa1;" class="form-control" name="condition" id="condition">
+					<option  value="title_content"
+						${condition eq 'title_content' ? "selected" : '' }>제목+내용</option>
+					<option value="title" ${condition eq 'title' ? "selected" : '' }>제목</option>
+					<option value="writer" ${condition eq 'writer' ? "selected" : '' }>작성자</option>
+				</select> 
+				<input style="width:230px; display:inline-block;border: 1px solid #135fa1;" class="form-control" type="text" name="keyword" placeholder="검색어 입력" />
+				<button type="submit" style="color:#135fa1; border: 1px solid #135fa1; margin-bottom:3px" class="btn btn-outline-light">검색</button>
+			</form>
+		</div>
 		<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 		<c:if test="${not empty keyword}">
-			<div class="alert alert-success">
-				<strong> ${total } </strong> 개의 자료가 검색되었습니다.
-			</div>
+				<button style="width:300px; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
 		</c:if>
 		<table>
-			<c:forEach items="${conditionSearch}" var="b">
-				<!-- by 준익, paginglist 컨트롤러 적용된 list_2021.02.28 -->
-				<tr>
-					<td colspan="7" bgcolor="#f1f1f1"></td>
-				</tr>
-				<tr>
-					<td width="20%" rowspan="7"><img
-						style="width: 75%; margin: 20px 20px" src="${b.image}" /></td>
-				</tr>
-				<tr>
-					<td><span style="font-weight: bold"> ${b.title} </span></td>
-					<td style="text-align: center; font-weight: bold">${b.price} 원
-					</td>
-				</tr>
-				<tr>
-					<td>${b.author } 지음 | ${b.publisher } | ${b.pubdate }</td>
-					<td style="text-align: center; color: red">할인가 ${b.discount }
-					</td>
-				</tr>
-				<tr>
-				</tr>
-				<tr>
-					<td style="background: #f1f1f1;" rowspan="3" width="60%">
-						<div style="PAGE_ROW_COUNT: inline-block; margin: 20px 20px">
-							${b.description} <a href="${b.link}">더보기</a>
+			<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4">
+					<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
+						<div class="col mb-4">
+							<div style="border: 3px solid #0f4c81;" class="card h-100">
+								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+									<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+								</a>
+								<div style="background-color:#f5e9dd" class="card-body">
+									<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+										<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+									</a>
+									<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+								</div>
+							</div>
 						</div>
-					</td>
-					<td style="text-align: center" width="20%">
-						<button style="width: 70%" class="btn btn-info">바로구매</button>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: center">
-						<button style="width: 70%" class="btn btn-outline-dark">장바구니</button>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: center">
-						<button style="width: 70%" class="btn btn-outline-dark">보관함담기</button>
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td colspan="7" bgcolor="#f1f1f1"></td>
-				</tr>
-			</c:forEach>
-		</table>
+					</c:forEach>
+				</div>
 		<!-- by 준익, 페이징 처리_2021.02.26 -->
 		<nav>
 			<ul class="pagination justify-content-center">
