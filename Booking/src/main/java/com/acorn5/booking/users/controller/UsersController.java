@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.service.ReviewService;
+import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.service.UsersService;
 
@@ -44,6 +45,9 @@ public class UsersController {
 	public ModelAndView updateform(ModelAndView mView, 
 			HttpSession session) {
 		service.getInfo(mView, session);
+		//String id = (String)session.getAttribute("id");
+		//UsersDto dto= dao.getData(id);
+		//mView.addObject("dto", dto);
 		mView.setViewName("users/private/updateform");
 		return mView;
 	}
@@ -68,10 +72,17 @@ public class UsersController {
 		return mView;
 	}
 	
+	@Autowired //by욱현.비밀번호, 회원정보 수정 폼에서도 프로필이미지를 볼수있게 하기위해_2021315
+	UsersDao dao;
+	
 	//by욱현.비밀번호 수정 폼 요청 처리_2021222
 	@RequestMapping("/users/private/pwd_updateform")
-	public String pwd_updateform() {
-		return "users/private/pwd_updateform";
+	public ModelAndView pwd_updateform(HttpSession session, ModelAndView mView) {
+		String id = (String)session.getAttribute("id");
+		UsersDto dto= dao.getData(id);
+		mView.addObject("dto", dto);
+		mView.setViewName("users/private/pwd_updateform");
+		return mView;
 	}
 	
 	//by욱현.회원 탈퇴 요청 처리_2021222
