@@ -23,7 +23,8 @@
 					<a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">지도</a>
 				</li>
 				<li class="nav-item">
-	               <a class="nav-link" href="${pageContext.request.contextPath }/pay/middle.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">카트</a>
+	               <a class="nav-link" href="${pageContext.request.contextPath }/pay/middle.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">카트
+	               <i class="fas fa-shopping-cart"></i><span class="badge badge-danger">${count}</span></a>
 	            </li>
 			</ul>		
 		</div>

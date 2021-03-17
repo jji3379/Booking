@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
 	//by 준익, 페이징 처리된 카테고리별 검색 리스트_2021.02.28
 	@Override
 	public List<BookDto> pagingCategory(String d_cont, int display, int start, String d_catg, HttpServletRequest request,
-			ModelAndView mav, String sort) {
+			ModelAndView mView, String sort) {
 		//필드 
 		String clientID = "hqIK81ATna87kVfkpjD9"; //by 준익, 네이버 도서 검색 api Client ID_2021.02.28
 		String clientSecret = "pXqyhElpGp"; //by 준익, 네이버 도서 검색 api Client Secret_2021.02.28
@@ -178,17 +178,17 @@ public class BookServiceImpl implements BookService {
     			endPageNum=totalPageCount; //보정해 준다. 
     		}
     		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
-    		mav.addObject("list",list);
-    		mav.addObject("d_catg",d_catg);
-    		mav.addObject("sort",sort);
-    		mav.addObject("start",start);
-    		mav.addObject("display",display);
-    		mav.addObject("PAGE_DISPLAY_COUNT",PAGE_DISPLAY_COUNT);
-    		mav.addObject("pageNum",pageNum);
-    		mav.addObject("startPageNum",startPageNum);
-    		mav.addObject("endPageNum",endPageNum);
-    		mav.addObject("totalPageCount",totalPageCount);
-    		mav.addObject("PAGE_ROW_COUNT",PAGE_ROW_COUNT);
+    		mView.addObject("list",list);
+    		mView.addObject("d_catg",d_catg);
+    		mView.addObject("sort",sort);
+    		mView.addObject("start",start);
+    		mView.addObject("display",display);
+    		mView.addObject("PAGE_DISPLAY_COUNT",PAGE_DISPLAY_COUNT);
+    		mView.addObject("pageNum",pageNum);
+    		mView.addObject("startPageNum",startPageNum);
+    		mView.addObject("endPageNum",endPageNum);
+    		mView.addObject("totalPageCount",totalPageCount);
+    		mView.addObject("PAGE_ROW_COUNT",PAGE_ROW_COUNT);
             
             
         } catch (MalformedURLException e) {
@@ -601,7 +601,7 @@ public class BookServiceImpl implements BookService {
 	}
 	//by 남기, 리뷰를 추가할 도서 검색 리스트_2021.03.03
 	@Override
-	public List<BookDto> searchBookList(String keyword, int display, int start, HttpServletRequest request, ModelAndView mav) {
+	public List<BookDto> searchBookList(String keyword, int display, int start, HttpServletRequest request, ModelAndView mView) {
 		String clientId = "g77o0632rEdwZNPM9S2i"; // 애플리케이션 클라이언트 아이디값"
 		String clientSecret = "ZbTjii_qWZ"; // 애플리케이션 클라이언트 시크릿값"
 
@@ -823,20 +823,20 @@ public class BookServiceImpl implements BookService {
 			endPageNum = totalPageCount; // 보정해 준다.
 		}
 		// view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
-		mav.addObject("list", list);
-		mav.addObject("total", total);
-		mav.addObject("start", start);
-		mav.addObject("display", display);
-		mav.addObject("PAGE_DISPLAY_COUNT", PAGE_DISPLAY_COUNT);
-		mav.addObject("pageNum", pageNum);
-		mav.addObject("startPageNum", startPageNum);
-		mav.addObject("endPageNum", endPageNum);
-		mav.addObject("totalPageCount", totalPageCount);
-		mav.addObject("PAGE_ROW_COUNT", PAGE_ROW_COUNT);
-		mav.addObject("encodedK", encodedK);
-		mav.addObject("totalRow", totalRow);
-		mav.addObject("condition", condition); // 검색 조건이 있을 경우
-		mav.addObject("keyword", keyword); // 검색 조건이 있을 경우
+		mView.addObject("list", list);
+		mView.addObject("total", total);
+		mView.addObject("start", start);
+		mView.addObject("display", display);
+		mView.addObject("PAGE_DISPLAY_COUNT", PAGE_DISPLAY_COUNT);
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("startPageNum", startPageNum);
+		mView.addObject("endPageNum", endPageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		mView.addObject("PAGE_ROW_COUNT", PAGE_ROW_COUNT);
+		mView.addObject("encodedK", encodedK);
+		mView.addObject("totalRow", totalRow);
+		mView.addObject("condition", condition); // 검색 조건이 있을 경우
+		mView.addObject("keyword", keyword); // 검색 조건이 있을 경우
 
 		return list;
 		
@@ -1232,7 +1232,7 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public List<BookDto> conditionSearch(String keyword, int display, int start,
-            HttpServletRequest request, ModelAndView mav){
+            HttpServletRequest request, ModelAndView mView){
 		String clientId = "g77o0632rEdwZNPM9S2i"; // 애플리케이션 클라이언트 아이디값"
 		String clientSecret = "ZbTjii_qWZ"; // 애플리케이션 클라이언트 시크릿값"
 
@@ -1454,20 +1454,20 @@ public class BookServiceImpl implements BookService {
 			endPageNum = totalPageCount; // 보정해 준다.
 		}
 		// view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
-		mav.addObject("list", list);
-		mav.addObject("total", total);
-		mav.addObject("start", start);
-		mav.addObject("display", display);
-		mav.addObject("PAGE_DISPLAY_COUNT", PAGE_DISPLAY_COUNT);
-		mav.addObject("pageNum", pageNum);
-		mav.addObject("startPageNum", startPageNum);
-		mav.addObject("endPageNum", endPageNum);
-		mav.addObject("totalPageCount", totalPageCount);
-		mav.addObject("PAGE_ROW_COUNT", PAGE_ROW_COUNT);
-		mav.addObject("encodedK", encodedK);
-		mav.addObject("totalRow", totalRow);
-		mav.addObject("condition", condition); // 검색 조건이 있을 경우
-		mav.addObject("keyword", keyword); // 검색 조건이 있을 경우
+		mView.addObject("list", list);
+		mView.addObject("total", total);
+		mView.addObject("start", start);
+		mView.addObject("display", display);
+		mView.addObject("PAGE_DISPLAY_COUNT", PAGE_DISPLAY_COUNT);
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("startPageNum", startPageNum);
+		mView.addObject("endPageNum", endPageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		mView.addObject("PAGE_ROW_COUNT", PAGE_ROW_COUNT);
+		mView.addObject("encodedK", encodedK);
+		mView.addObject("totalRow", totalRow);
+		mView.addObject("condition", condition); // 검색 조건이 있을 경우
+		mView.addObject("keyword", keyword); // 검색 조건이 있을 경우
 
 		return list;
 	}
