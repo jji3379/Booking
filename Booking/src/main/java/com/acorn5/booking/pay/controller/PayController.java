@@ -23,13 +23,7 @@ public class PayController {
 	
 	@RequestMapping(value = "/pay/insert")
 	public void insertCart(CartDto dto,HttpServletRequest request) {
-		service.insertCart(dto, request);
-	}
-	
-	//by준영, 네비바에서  장바구니 진입_210308
-	@RequestMapping("/pay/middle")
-	public String Cart(ModelAndView mView,HttpServletRequest request) {
-		return "pay/middle";
+		service.insertCart(dto,request);
 	}
 	
 	//by준영, 북카트 리스트_210308
@@ -37,6 +31,13 @@ public class PayController {
 	public ModelAndView listCart(ModelAndView mView, HttpServletRequest request){
 		service.listCart(mView, request); 
 		mView.setViewName("pay/cart");
+		return mView;
+	}	
+	//by준영, 주문테이블 저장양식_210316
+	@RequestMapping("/pay/order_insertform")
+	public ModelAndView listCart2(ModelAndView mView, HttpServletRequest request){
+		service.listCart(mView, request); 
+		mView.setViewName("pay/order_insertform");
 		return mView;
 	}	
 	//by, 카트 개별 삭제 요청처리_210310
@@ -61,16 +62,12 @@ public class PayController {
 		service.update(dto);
 		return "pay/update";
 	}
-	//by준영, 결제 후 페이지_210314
-	@RequestMapping("/pay/pay")
-	public String pay(HttpServletRequest request) {
-		return "pay/pay";
-	}
+
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {
-		String id=request.getParameter("id");
-		service.deletPay(id);
+		String id=(String)request.getSession().getAttribute("id");
+		service.deletPay(id,request);
 		return "pay/paid";
 	}
 }

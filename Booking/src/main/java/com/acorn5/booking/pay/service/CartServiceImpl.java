@@ -18,18 +18,7 @@ public class CartServiceImpl implements CartService {
 	//by준영, 장바구니 담기(저장) 처리_210308
 	@Override
 	public void insertCart(CartDto dto,HttpServletRequest request) {
-		String id=(String)request.getParameter("id");
-		String image=(String)request.getParameter("image");
-		String title=(String)request.getParameter("title");
-		int price=Integer.parseInt(request.getParameter("price"));
-		int d_price=Integer.parseInt(request.getParameter("d_price"));
-		int count=Integer.parseInt(request.getParameter("count"));
-		dto.setId(id);
-		dto.setImage(image);
-		dto.setTitle(title);
-		dto.setD_price(d_price);
-		dto.setPrice(d_price);
-		dto.setCount(count);
+		String id=(String)request.getSession().getAttribute("id");
 		cartDao.insert(dto);	
 	}
 	//by준영, 북카트 리스트_210308
@@ -68,7 +57,7 @@ public class CartServiceImpl implements CartService {
 	}
 	//by_준영, 결제완료시 해당상품 삭제_210314
 	@Override
-	public void deletPay(String id) {
+	public void deletPay(String id,HttpServletRequest request) {
 		cartDao.pay_delete(id);
 	}
 	

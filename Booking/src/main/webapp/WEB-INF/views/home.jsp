@@ -4,10 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
 <title>home.do</title>
 <script src="../resources/js/imgLiquid.js"></script>
+
 <link rel="stylesheet" href="resources/css/style.css"> <!-- by욱현. carousel 적용위한 외부css파일 로드_2021227 -->
 <style>
    
@@ -266,6 +268,7 @@
 		</div>
 	</div>
 </div>
+<jsp:include page="include/footer.jsp"></jsp:include>
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
    $("#bookingBtn").on("click", function(){

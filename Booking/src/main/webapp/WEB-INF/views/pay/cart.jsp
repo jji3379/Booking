@@ -1,40 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+	button.btn{
+      background-color:#135fa1;
+      color:white;
+   }
+   button.plus{
+   		 width: 30px;
+	    height: 30px;
+	    text-align: center;
+	    padding: 6px 0;
+	    font-size: 12px;
+	    line-height: 1.428571429;
+	    border-radius: 15px;
+   }
+    button.minus{
+   		 width: 30px;
+	    height: 30px;
+	    text-align: center;
+	    padding: 6px 0;
+	    font-size: 12px;
+	    line-height: 1.428571429;
+	    border-radius: 15px;
+   }
+   .pay{
+   		text-align:center;
+   		width:100%;
+    	height:100%;
+   }
+	table.type09 {
+		border-collapse: collapse;
+		text-align: left;
+		line-height: 1.5;
+		border-collapse:collapse; border:3px #0f4c81 solid;
+		margin-bottom:50px;
+		width:800px;
+		height:100px;
+		margin:0 auto;
+		margin-bottom:20px;
+	}
+	table.type09 thead th {
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  color: #135fa1;
+	  border-bottom: 1px solid #036;
+	}
+	table.type09 tbody th {
+	  width: 150px;
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	  background: #f3f6f7;
+	}
+	table.type09 td {
+	  width: 350px;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
+	#selectDeleteBtn{
+		margin-bottom:5px;
+		margin-left:10px;
+		
+		
+	}
+	 
+  
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
-<body>
+<body  style="font-size:18px; font-family: 'Roboto', sans-serif;">
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
 	<div class="jumbotron">
-	    <p class="lead"><a href="${pageContext.request.contextPath }/home.do">계속 담기</a></p>
+	    
 	    <hr class="my-4">
-	    <h2>북카트<span class="badge badge-warning">쇼핑중</span></h2>
+	    <h2>북카트  &nbsp;<span class="badge badge-warning">쇼핑중</span></h2>
 	</div>
-	<div class="allCheck">
-		<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label> 
-	</div>
+	
+	
+	<span class="deleteBtn">
+		<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
+	</span>
 	<script>
-		$("#allCheck").click(function(){
-			var chk = $("#allCheck").prop("checked");
-			if(chk) {
-				$(".chBox").prop("checked", true);
-			} else {
-				$(".chBox").prop("checked", false);
-			}
-		});
-	</script>
-	<div class="deleteBtn">
-		<button type="submit" class="selectDelete_btn" onClick="deleteChk(this)">선택 삭제</button> 
-	</div>
-	<script>
+		//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 		function deleteChk(){
 			var url ="deleteCart.do";
 			var valueArr = new Array();
@@ -53,9 +113,9 @@
 					type:'post',
 					traditional :true,
 					data:{'valueArr' : valueArr},
-					success:function(jdata){
+					success:function(){
 						if(chk){
-							location.replace("middle.do");	
+							location.replace("cart.do");	
 						}else{
 							return false;
 						}
@@ -66,10 +126,25 @@
 		}
 		
 	</script>
-	<table class="table">
+	<table class="table" style=border-bottm-style:dotted;>
 	    <thead class="thead-light">
 	    <tr>
-	      <th>#</th>
+	      <th>
+		  	<span class="allCheck">
+				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">&nbsp; #</label> 
+			</span>
+			<script>
+			//by준영, 체크박스 전체선택,전체해제 기능_210307
+				$("#allCheck").click(function(){
+					var chk = $("#allCheck").prop("checked");
+					if(chk) {
+						$(".chBox").prop("checked", true);
+					} else {
+						$(".chBox").prop("checked", false);
+					}
+				});
+			</script>
+		  </th>
 	      <th></th>
 	      <th>도서명</th>
 	      <th>가격</th>
@@ -83,55 +158,77 @@
 	  <tbody>
 	    <c:forEach var="c" items="${list}" varStatus="status">
 	        <tr>
-	        <c:choose>
-	        	<c:when test="${fn:length(list) == 0}">
+	        	<c:if test="${fn:length(list) eq 0}">
 	        		<td align="center">북카트가 비었습니다</td>
-	        	</c:when>
-	        	<c:otherwise>
+	        	</c:if>
 	        		<td>
         				<div class="checkBox">
-							<input type="checkbox" name="chBox" class="chBox" data-cartNum="${status.count}" value="${c.c_id }"/>
+							<input type="checkbox" name="chBox" class="chBox" value="${c.c_id }"/>
 						</div>
 		        	</td>
 		            <td><img src="${c.image}"/></td>
 		            <td>${c.title}</td>
 		            <td>${c.price }</td>
-		            <td>${c.d_price }</td>
+		            <td><font color="red">${c.d_price }</font></td>
 		            <td>
 			            <form action="update.do" method="post">
 			            	<input type="hidden" name="c_id" value="${c.c_id }" />
-			            	<input type="number" name="count" class="numBox" min="1" max="100" value="${c.count }"/>
-			            	<button id="updateBtn${status.count }" type="submit" onClick="submit(this)">변경</button>
+			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
+			            	<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly"/>
+			            	<button type="button" class="plus" class="btn btn-secondary" >+</button>
+			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
 		            <td>${c.price * c.count}</td>
+		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.price * c.count)}"/>
 		            <form action="delete.do" method="post">
 		            	<input name="c_id" type="hidden" value="${c.c_id}" />
-		            	<td><button type="submit" class="deleteBtn${status.count}" onClick="submit(this)" >삭제</button></td>
+		            	<td><button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button></td>
 		            </form>
-	        	</c:otherwise>
-	        </c:choose>
 	        </tr>
 	        
 	    </c:forEach>
 	  </tbody>
-	  <tfoot>
-	    <tr>
-	        <td colspan="4"></td>
-	        <td></td>
-	    </tr>
-	  </tfoot>
 	</table>
-	<span><strong>총 결제금액 : <span id="total"><c:out value="${sum }"></c:out></span> 원</strong></span>
-	<button id="check_module" type="button" class="btn btn-lg btn-block btn-primary">결제하기</button>
+	<div class="pay">
+		<table class="type09" >
+			<thead>
+				<th>상품 가격</th>
+				<th>배송비&nbsp;(2만원 이상 무료배송)</th>
+				<th><strong>총 결제금액</strong></th>
+			</thead>
+			<tbody>
+				<td id="price" ><c:out value="${sum }"></c:out><span>원</span></td>
+				<td id="shipFee"></td>
+				<td id="total"></td>
+			</tbody>
+		</table>
+		<button id="check_module" type="button"  class="btn btn-lg " >주문하기</button>
+		<button href="home.do" type="button"  class="btn btn-lg" style=background-color:#484848; >쇼핑 계속하기</button>
+	</div>
 </body>
-
 <script>
-
 	//by준영, 결제api 세팅_210311
-	var price=$("#total").text();
-	
+	//by준영, 배송비 책정로직_210317
+	var price=$("#price").text();//물품가격
+	var shipFee=null;
+	var total=null;
+	if(price == "원"){
+		$("#shipFee").text("원");
+		$("#total").text("원");
+	}else{
+		if(parseInt(price) >= 20000){
+			shipFee=0;
+			$("#shipFee").text(shipFee+"원");
+		}else{
+			shipFee=2500;
+			$("#shipFee").text(shipFee+"원");
+		}
+		total=parseInt(price)+shipFee;
+		$("#total").text(total+"원");
+	}
+		
 	
 	$("#check_module").click(function () {
 		var IMP = window.IMP; // 생략가능
@@ -169,7 +266,7 @@
 				*/
 			name: '도서',
 				//결제창에서 보여질 이름
-			amount: price,
+			amount: total,
 				
 			buyer_email: 'iamport@siot.do',
 			buyer_name: '구매자이름',
@@ -190,7 +287,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				location.href="pay.do";
+				location.href="order_insertform.do";
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
@@ -219,7 +316,7 @@
 		var  $input = $(this).parent().find("input[type=number]");
 		//현재 숫자값
 		var currentNumber = parseInt( $input.val() );
-		if(currentNumber <= 0){
+		if(currentNumber <= 1){
 			currentNumber;
 		}else{
 			currentNumber--;//1 감소시키기
@@ -228,7 +325,7 @@
 		}
 	});
 	
-	//클릭한 항목 을 제출하는 기능 
+	//by준영, 클릭한 항목 을 제출하는 기능_210314
 	function submit(elClickedObj){
 		elClickedObj.form.submit();
 	}
