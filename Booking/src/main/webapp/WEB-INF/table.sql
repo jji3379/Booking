@@ -2,20 +2,17 @@
 /*
  * API 의 책 한권 정보를 담는 테이블
  */
-CREATE TABLE pay_item(
-	id NUMBER REFERENCES pay_cart(id) ,
-	image VARCHAR2(100),
+CREATE TABLE cart_item(
+	c_id NUMBER PRIMARY KEY,
+	id VARCHAR2(100),
+	image VARCHAR2(300),
 	title VARCHAR2(300),
 	price NUMBER,
 	d_price NUMBER,
-	count NUMBER
+	count NUMBER,
+	indate DATE
 );
  
-CREATE TABLE pay_cart(
-	id NUMBER PRIMARY KEY,
-	status NUMBER
-);
-=======
 -- 리뷰의 댓글을 저장할 테이블 
 CREATE TABLE board_review_comment(
 	num NUMBER PRIMARY KEY, --글번호

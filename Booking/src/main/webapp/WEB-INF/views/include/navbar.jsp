@@ -22,7 +22,7 @@
           <a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">지도</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath }/pay/middle.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">북카트</a>/a>
+          <a class="nav-link" href="${pageContext.request.contextPath }/pay/cart.do" style="font-size:18px; font-family: 'Roboto', sans-serif;">북카트</a>/a>
         </li>
       </ul>
       <form class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">

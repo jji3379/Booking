@@ -80,7 +80,7 @@
 	 	</tr>
     </thead>
 	    <tbody>
-	    <c:forEach var="b" items="${bookDetail }">
+	   <c:forEach var="b" items="${bookDetail }">
 		 	<tr>
 		 		<td rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img src="${b.image }"/></a></div></td>
 		 	</tr>
@@ -114,78 +114,56 @@
 		 	<span id="isbn">${b.isbn }</span>	
 	    </tbody>
     </table>
-    <form id="insert" action="${pageContext.request.contextPath }/pay/insert.do" method="post">
-    	<input id="idP" type="hidden" name="id" value="${id }"/>
-	    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
-	    <input id="titleP" type="hidden" name="title" value="${b.title }" />
-	    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
-	    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-	    <select id="countP" name="count">
-	    	<option value="1" >1</option>
-	    	<option value="2" >2</option>
-	    	<option value="3" >3</option>
-	    	<option value="4" >4</option>
-	    	<option value="5" >5</option>
-	    	<option value="6" >6</option>
-	    	<option value="7" >7</option>
-	    	<option value="8" >8</option>
-	    	<option value="9" >9</option>
-	    	<option value="10">10</option>
-	    </select>
-	    <br />
-    	<button id="insertBtn" type="button" onclick="insert()">장바구니</button>
-    </form>
+    	
+    		<input id="idP" type="hidden" name="id" value="${id }"/>
+		    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
+		    <input id="titleP" type="hidden" name="title" value="${b.title }" />
+		    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
+		    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+		    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1"/>
+		    <br />
+	    	<button id="insertBtn" type="button" onclick="insert()">장바구니</button>
+    	
     </c:forEach>
     <script>
-	    function insert(){
-			var id=$("#idP").val();
+    	//by준영, 장바구니 로그인 필터 기능_210311
+		var id=$("#idP").val();
+		
+		function insert(){
+			var image = $("#imageP").val();
+			var title = $("#titleP").val();
+			var price = $("#priceP").val();
+			var d_price = $("#d_priceP").val();
+			var count = $("#countP").val();
+			
+			var url ="${pageContext.request.contextPath }/pay/insert.do";
+			var data = null;
+			if(d_price == ""){
+				data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count };
+			}else if(d_price != ""){
+				data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count };
+			}
+			console.log(data);
 			if(id == ""){
 				alert("로그인이 필요합니다");	
 				location.href="${pageContext.request.contextPath }/users/login_form.do";
-			}else
-				$("#insert button").on("click",function(){
-					return false;
-				})
-	    }
-   		 /* onClick="insert()"	
-    	//by준영, 장바구니 로그인 필터 기능_210311
-		var id=$("#idP").val();
-		var image = $("#imageP").val();
-		var title = $("#titleP").val();
-		var price = $("#priceP").val();
-		var d_price = $("#d_priceP").val();
-		var count = $("#countP option:selected").val();
-		
-		function insert(){
-			var url ="${pageContext.request.contextPath }/pay/middle.do";
-			var data = {
-					'id': id,
-					'image' : image,
-					'title' : title,
-					'price' : price,
-					'd_price' : d_price,
-					'count' : count
-			};
-			console.log(data);
-			
-			$.ajax({
-				url:url,
-				type:'post',
-				traditional :true,
-				data: data,
-				success:function(data){
-					var chk = confirm("북카트로 가시겠습니까?");
-					if(chk){
-						alert("담기 성공");
-						location.replace("${pageContext.request.contextPath }/pay/middle.do");
+			}else{
+				$.ajax({
+					url:url,
+					method:'post',
+					data: data,
+					success:function(data){
+						var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
+						if(chk){
+							location.replace("${pageContext.request.contextPath }/pay/cart.do");
+						}else{
+							return false;
+						}
 					}
-					alert("담기 성공");
-				}
-			
-			})
-		} */
+				})
+			}	
+		}
     </script>
-    
 	<div id="simList"></div>
 	<div id="reviewList"></div>
 </div>
@@ -218,7 +196,7 @@ function bookAuthor(){
 		return new Promise((resolve, reject) => {
 			$.ajax({
 		   		url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
-		   		method:"GET",
+		   		method:"get",
 		   		data:"&keyword="+inputIsbn,
 		   		success:function(data){
 		   			resolve(data);

@@ -21,6 +21,6 @@ public interface CartService {
 	//by준영, 북카트 내 도서 수량변경_210310
 	public void update(CartDto dto);
 	//by_준영, 결제완료시 해당상품 삭제_210314
-	public void deletPay(String id);
+	public void deletPay(String id,HttpServletRequest request);
 	
 }

@@ -5,16 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cart">
     <insert id="insert" parameterType="cartDto">
     	INSERT INTO cart_item
-    <choose>
-    	<when test="d_price == '' ">
-    		(c_id, id, image, title, price, d_price, count, indate)
-    		VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{price}, #{count},SYSDATE)
-   		</when>
-   		<otherwise>
-   			(c_id, id, image, title, price, d_price, count, indate)
-   			VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
-   		</otherwise>
-    </choose>
+ 		(c_id, id, image, title, price, d_price, count, indate)
+   		VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
     </insert>
     <select id="getlist" resultType="cartDto" parameterType="String">
         SELECT image, title, price, d_price, count ,c_id
