@@ -3,6 +3,7 @@ package com.acorn5.booking;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.service.BookService;
+import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 
@@ -24,17 +26,21 @@ public class HomeController {
 	@Autowired
 	private UsersDao dao;
 	
+	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
+	@Autowired
+	private CartService cartservice;
+	
 	@RequestMapping("/home.do") 
-	public ModelAndView home(HttpSession session) {
+	public ModelAndView home(HttpSession session,HttpServletRequest request) {
 		
 		ModelAndView mView = new ModelAndView();
-		                                               
+		               
 		String id = (String) session.getAttribute("id");
 		UsersDto dto = null;
 		if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
 			int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기
 			System.out.println(nansu);
-
+			   	
 			if(nansu==0) { //난수가 0이면 관심사 기반
 				dto = dao.getData(id); // 로그인된 회원의 정보 얻어오기
 				String query = dto.getCare(); // 회원의 관심사를 query로 설정
@@ -48,6 +54,8 @@ public class HomeController {
 			service.recommendBook("1",12, 1,"count", mView);
 		}else if (id!=null && dao.getData(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
 			dto = dao.getData(id); 
+			//by 우석, view page 에서 cartitem 불러오기_210315
+			cartservice.listCart(mView, request); 
 			String query = dto.getCare(); 
 			service.recommendBook(12, 1,"count", query, mView);
 		}

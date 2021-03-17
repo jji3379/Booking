@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.dao.UsersDao;
@@ -29,6 +30,10 @@ public class UsersController {
 	
 	@Autowired
 	private UsersService service;
+	
+	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
+	@Autowired
+	private CartService cartservice;
 	
 	//by욱현. 개인 정보 수정 요청 처리_2021222
 	@RequestMapping(value = "/users/private/update", 
@@ -43,8 +48,13 @@ public class UsersController {
 	//by욱현.개인정보 수정폼 요청 처리_2021222
 	@RequestMapping("/users/private/updateform")
 	public ModelAndView updateform(ModelAndView mView, 
-			HttpSession session) {
+			HttpSession session,HttpServletRequest request) {
 		service.getInfo(mView, session);
+		String id=(String)request.getSession().getAttribute("id");
+    	if(id!=null) {
+    		//by 우석, view page 에서 cartitem 불러오기_210315
+        	cartservice.listCart(mView, request);
+    	}
 		//String id = (String)session.getAttribute("id");
 		//UsersDto dto= dao.getData(id);
 		//mView.addObject("dto", dto);
@@ -77,8 +87,14 @@ public class UsersController {
 	
 	//by욱현.비밀번호 수정 폼 요청 처리_2021222
 	@RequestMapping("/users/private/pwd_updateform")
-	public ModelAndView pwd_updateform(HttpSession session, ModelAndView mView) {
-		String id = (String)session.getAttribute("id");
+	public ModelAndView pwd_updateform(HttpSession session, ModelAndView mView
+			,HttpServletRequest request) {
+		String id=(String)request.getSession().getAttribute("id");
+    	if(id!=null) {
+    		//by 우석, view page 에서 cartitem 불러오기_210315
+        	cartservice.listCart(mView, request);
+    	}
+		
 		UsersDto dto= dao.getData(id);
 		mView.addObject("dto", dto);
 		mView.setViewName("users/private/pwd_updateform");
@@ -94,10 +110,15 @@ public class UsersController {
 	
 	//by욱현.개인정보 보기 요청처리_2021222
 	@RequestMapping("/users/private/info")
-	public ModelAndView info(ModelAndView mView, HttpSession session) {
+	public ModelAndView info(ModelAndView mView, HttpSession session
+			,HttpServletRequest request) {
 		
 		service.getInfo(mView, session);
-		
+		String id=(String)request.getSession().getAttribute("id");
+    	if(id!=null) {
+    		//by 우석, view page 에서 cartitem 불러오기_210315
+        	cartservice.listCart(mView, request);
+    	}
 		mView.setViewName("users/private/info");
 		return mView;
 	}
@@ -166,7 +187,11 @@ public class UsersController {
 	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
 	@RequestMapping("/users/private/my_review.do")
 	public ModelAndView myReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
-		
+		String id=(String)request.getSession().getAttribute("id");
+    	if(id!=null) {
+    		//by 우석, view page 에서 cartitem 불러오기_210315
+        	cartservice.listCart(mView, request);
+    	}
 		List<ReviewDto> list = service_r.getMyReview(session, mView, request); // 내가 쓴 리뷰를 셀렉트하기 위한 비즈니스 로직 메소드 실행
 		mView.addObject("list", list);
 		mView.setViewName("users/private/my_review");

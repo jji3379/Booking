@@ -35,8 +35,15 @@ public class CartServiceImpl implements CartService {
 	//by준영, 북카트 리스트_210308
 	@Override
 	public void listCart(ModelAndView mView, HttpServletRequest request) {
-		String id=request.getParameter("id");
+		String id=(String)request.getSession().getAttribute("id");
 		List<CartDto> list = cartDao.getlist(id);
+		//장바구니에 담긴 배열의 size를 담을 basketCount
+		int basketCount=list.size();
+		//id 값이 null이 아니고 리스트의 사이즈가 0이 아니면 count 객체에 담기 
+		//navbar에 담기 위한 작업
+		if(id != null && basketCount!=0) {
+			mView.addObject("count",basketCount);
+		}
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
 	}
