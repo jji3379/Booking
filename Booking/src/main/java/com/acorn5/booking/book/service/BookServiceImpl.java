@@ -321,7 +321,7 @@ public class BookServiceImpl implements BookService {
         return list;
 	    
 	}
-
+	//by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222
 	@Override
 	public List<BookDto> bookDetail(String d_isbn, int display) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
@@ -434,7 +434,7 @@ public class BookServiceImpl implements BookService {
         return list;
 	    
 	}
-
+	 //by준영, bookAjax.jsp 에 저자를 인자로 리스트 검색하는 서비스_210222
 	@Override
 	public List<BookDto> detailAjax(String d_auth, int display, String sort) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";

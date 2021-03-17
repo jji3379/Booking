@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset=UTF-8">
-<title>Insert title here</title>
+<title>Cart db 삭제 전 Order db insert</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>

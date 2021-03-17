@@ -94,6 +94,7 @@
 		<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
 	</span>
 	<script>
+		//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 		function deleteChk(){
 			var url ="deleteCart.do";
 			var valueArr = new Array();
@@ -133,6 +134,7 @@
 				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">&nbsp; #</label> 
 			</span>
 			<script>
+			//by준영, 체크박스 전체선택,전체해제 기능_210307
 				$("#allCheck").click(function(){
 					var chk = $("#allCheck").prop("checked");
 					if(chk) {
@@ -156,7 +158,7 @@
 	  <tbody>
 	    <c:forEach var="c" items="${list}" varStatus="status">
 	        <tr>
-	        	<c:if test="${empty fn:length(list)}">
+	        	<c:if test="${fn:length(list) eq 0}">
 	        		<td align="center">북카트가 비었습니다</td>
 	        	</c:if>
 	        		<td>
@@ -174,10 +176,11 @@
 			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
 			            	<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly"/>
 			            	<button type="button" class="plus" class="btn btn-secondary" >+</button>
-			            	<button id="updateBtn${status.count }" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
+			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
 		            <td>${c.price * c.count}</td>
+		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.price * c.count)}"/>
 		            <form action="delete.do" method="post">
 		            	<input name="c_id" type="hidden" value="${c.c_id}" />
@@ -208,6 +211,7 @@
 </body>
 <script>
 	//by준영, 결제api 세팅_210311
+	//by준영, 배송비 책정로직_210317
 	var price=$("#price").text();//물품가격
 	var shipFee=null;
 	var total=null;

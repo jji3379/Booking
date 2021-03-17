@@ -127,6 +127,7 @@
     </c:forEach>
     <script>
     	//by준영, 장바구니 로그인 필터 기능_210311
+    	//by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
 		var id=$("#idP").val();
 		
 		function insert(){
