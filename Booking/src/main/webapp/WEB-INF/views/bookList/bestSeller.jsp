@@ -33,32 +33,82 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
+<div class="container">
 	<div style="margin-bottom:20px">
-	   <center><h1>Top 50</h1></center>
+	   <center><h1>Top 100</h1></center>
 	</div>
-<div class="row" style="width:80%; margin:auto">
-	<jsp:include page="../include/sideindex.jsp"></jsp:include>
-	<div class="col-10">
-	   <div class="row row-cols-1 row-cols-md-5">
-			<c:forEach var="b" items="${bestSeller}" varStatus="c">
-				<!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
-				<div class="col mb-4">
-					${c.count }
-					<div style="border: 3px solid #0f4c81;" class="card h-100">
-						<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-							<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
-						</a>
-						<div style="background-color:#f5e9dd" class="card-body">
+	<div class="row">
+		<jsp:include page="../include/sideindex.jsp"></jsp:include>
+		<div class="col-10">
+		   <div class="row row-cols-1 row-cols-md-4">
+				<c:forEach var="b" items="${bestSeller}">
+					<!-- by 준익, pagingbestSeller 컨트롤러 적용된 list_2021.02.28 -->
+					<div class="col mb-4">
+						<div style="border: 3px solid #0f4c81;" class="card h-100">
 							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-								<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+								<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
 							</a>
-							<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+							<div style="background-color:#f5e9dd" class="card-body">
+								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+									<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+								</a>
+								<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</c:forEach>
-		</div>	   
-	</div><!-- div col-10End -->
+				</c:forEach>
+			</div>	  
+			<!-- by 준익, 페이징 처리_2021.02.26 -->
+				<nav>
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${startPageNum != 1 }">
+							<!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
+							<li class="page-item"><a class="page-link"
+								href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<!-- by 준익, 시작페이지가 1인 경우 Prev 비활성화_2021.02.28 -->
+							<li class="page-item disabled"><a class="page-link"
+								href="javascript:">Prev</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<!-- by 준익, 페이징 시작부터 끝까지 만들기_2021.02.28 -->
+						<c:choose>
+							<c:when test="${i eq pageNum }">
+								<!-- by 준익, 순서가 pageNum 과 같을 때 -->
+								<li class="page-item active">
+									<!-- by 준익, active 활성화_2021.02.28 --> <a class="page-link"
+									href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${endPageNum lt totalPageCount }">
+							<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   -->
+							<li class="page-item"><a class="page-link"
+								href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a>
+							<!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 --></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled">
+								<!-- by 준익, 전체페이지 끝일 때 Next 비활성화 --> <a class="page-link"
+								href="javascript:">Next</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+				</nav> 
+		</div><!-- div col-10End -->
+	</div>
 </div>
 <script>
    

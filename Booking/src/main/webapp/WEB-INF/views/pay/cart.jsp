@@ -81,10 +81,10 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <c:forEach var="c" items="${list}" varStatus="status">
+	    <c:forEach var="c" items="${basketList}" varStatus="status">
 	        <tr>
 	        <c:choose>
-	        	<c:when test="${fn:length(list) == 0}">
+	        	<c:when test="${fn:length(basketList) == 0}">
 	        		<td align="center">북카트가 비었습니다</td>
 	        	</c:when>
 	        	<c:otherwise>

@@ -28,15 +28,13 @@ public class BookController {
 	
     //by준영, bookList.jsp 에 cont, sort 를 인자로 리스트 검색하는 서비스_210222
     @RequestMapping("/bookList/bestSeller.do")
-    public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort){
-        ModelAndView mav = new ModelAndView();
-        
+    public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort, HttpServletRequest request, int start, ModelAndView mView){
         if(d_cont !=null)
         {
-            mav.addObject("bestSeller",service.bestSeller(d_cont,50, 1,sort));
+            mView.addObject("bestSeller",service.bestSeller(d_cont, 8, start, "count", request, mView));
         }
-        mav.setViewName("bookList/bestSeller");
-        return mav;
+        mView.setViewName("bookList/bestSeller");
+        return mView;
     }
     
     //by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222

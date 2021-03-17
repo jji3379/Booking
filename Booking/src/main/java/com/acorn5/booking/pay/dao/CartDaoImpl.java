@@ -49,6 +49,4 @@ public class CartDaoImpl implements CartDao {
 		session.delete("cart.deletePay",id);
 		
 	}
-
-
 }

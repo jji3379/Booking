@@ -26,12 +26,14 @@
       transform: scale(1.02);
       transition: transform 0.3s ease-out;
    }
+   
 </style>
 </head>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-		<div class="row" style="width:80%; margin:auto">
+	<div class="container">
+		<div class="row">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
 				<ul class="nav nav-tabs">
@@ -112,5 +114,6 @@
 				</nav>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
