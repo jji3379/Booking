@@ -32,7 +32,7 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container">
+	<div class="container" style="margin-top:30px">
 		<div class="row">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
@@ -112,8 +112,8 @@
 					</c:choose>
 				</ul>
 				</nav>
-			</div>
-		</div>
-	</div>
+			</div><!-- col10 END -->
+		</div><!-- row END -->
+	</div><!-- container END -->
 </body>
 </html>

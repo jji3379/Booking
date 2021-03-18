@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="height:50px; color:#f5e9dd; background-color:#135fa1;">
 	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="font-weight:bold; font-size:38px; margin-top:-5px; font-family: 'Roboto', sans-serif;">
-		<img style="width:50px; height:50px;"src="${pageContext.request.contextPath }/resources/images/bookings.png"/>
+		<img style="width:50px; height:50px;"src="${pageContext.request.contextPath }/resources/images/booking.png"/>
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="background-color:black;">
 		<span class="navbar-toggler-icon"></span>
@@ -23,18 +23,19 @@
 					<a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">지도</a>
 				</li>
 				<li class="nav-item">
-	               <a class="nav-link" href="${pageContext.request.contextPath }/pay/cart.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">카트
-	               <i class="fas fa-shopping-cart"></i><span class="badge badge-danger">${count}</span></a>
 	            </li>
 			</ul>		
 		</div>
+	               <a href="${pageContext.request.contextPath }/pay/cart.do">
+	               		<img style="width:40px; height:30px;"src="${pageContext.request.contextPath }/resources/images/Cart.png"/>	
+		               <span class="badge badge-danger">${count}</span>
+	               	</a>
+	               	&nbsp;&nbsp;&nbsp;
 		<div class="justify-content-end">
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
-					<div>
-						<a href="${pageContext.request.contextPath }/users/private/info.do" style="font-size:22px;font-weight:bold; color:white; margin-right:10px;">${id }</a>
+						<a href="${pageContext.request.contextPath }/users/private/info.do" style="font-size:22px;font-weight:bold; color:white;">${id }</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="btn btn-warning" style="font-weight:bold;">로그아웃</a>
-					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="usersBtn" style="margin-left:20px;">
