@@ -11,6 +11,9 @@
 	#star a{ 
 		text-decoration: none; color: red; 
 	} 
+	button.btn{
+		background-color:#135fa1;
+	}
 </style>
 </head>
 <body>
@@ -127,7 +130,7 @@
 			<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' } disabled>책 고유번호</option>
 		</select>
 		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button style="background-color:#135fa1;" class="btn btn-primary" type="submit">검색</button>
+		<button class="btn btn-primary" type="submit">검색</button>
 	</form>
 	<%-- by남기, 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. _210303 --%>
 	<c:if test="${not empty keyword }">
