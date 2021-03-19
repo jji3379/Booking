@@ -1,5 +1,7 @@
 package com.acorn5.booking.book.controller;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.service.BookService;
 import com.acorn5.booking.pay.service.CartService;
+import com.acorn5.booking.users.dao.UsersDao;
+import com.acorn5.booking.users.dto.UsersDto;
  
 @Controller
 public class BookController {
@@ -20,6 +24,8 @@ public class BookController {
     //by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
     @Autowired
     private CartService cartservice;
+    @Autowired
+	private UsersDao dao;
     
     //by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
     @RequestMapping("/bookList/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
@@ -83,11 +89,33 @@ public class BookController {
     @RequestMapping("/review/reviewBookList.do")
     public ModelAndView reviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request,HttpSession session){    
         ModelAndView mView = new ModelAndView();
+        String id = (String) session.getAttribute("id");
+        UsersDto dto = null;
         if(keyword !=null)
         {
             mView.addObject("reviewBookList", service.searchBookList(keyword, 8, 1, request, mView));
+        }else {
+        	if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
+    			int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기
+    			//by 우석, view page 에서 cartitem 불러오기_210315
+    			if(nansu==0) { //난수가 0이면 관심사 기반
+    				dto = dao.getData(id); // 로그인된 회원의 정보 얻어오기
+    				String query = dto.getCare(); // 회원의 관심사를 query로 설정
+    				mView.addObject("reviewBookList", service.recommendBook(8, 1,"count", query, mView));
+    			} else { //난수가 1이면 최근검색어 기반_210310
+    				dto = dao.getData(id);
+    				String query = dto.getRecentSearch();
+    				System.out.println(query);
+    				mView.addObject("reviewBookList", service.recommendBook(8, 1,"count", query, mView));
+    			}
+    		}else if (id==null) { // 로그인을 안한경우 
+    			mView.addObject("reviewBookList", service.recommendBook("1",8, 1,"count", mView));
+    		}else if (id!=null && dao.getData(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
+    			dto = dao.getData(id); 
+    			String query = dto.getCare(); 
+    			mView.addObject("reviewBookList", service.recommendBook(8, 1,"count", query, mView));
+    		}
         }
-        String id = (String) session.getAttribute("id");
 		//by 우석, view page 에서 cartitem 불러오기_210315
 		if(id!=null) {			
 			cartservice.listCart(mView, request);

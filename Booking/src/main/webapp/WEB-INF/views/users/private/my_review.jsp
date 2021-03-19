@@ -31,7 +31,7 @@
 				<tr>
 					<td>
 						<div id="reviewImage">
-							<a href="reviewDetail.do?num=${t.num }">
+							<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.num }">
 								<img src="${t.imagePath}"/>
 							</a>
 						</div>

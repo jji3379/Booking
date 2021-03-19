@@ -207,10 +207,7 @@
 		<button id="check_module" type="button"  class="btn btn-lg " >주문하기</button>
 		<button href="home.do" type="button"  class="btn btn-lg" style=background-color:#484848; >쇼핑 계속하기</button>
 	</div>
-<<<<<<< HEAD
 </div>
-=======
->>>>>>> refs/remotes/origin/leenamki
 </body>
 <script>
 	//by준영, 결제api 세팅_210311

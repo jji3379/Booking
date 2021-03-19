@@ -32,10 +32,10 @@
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top: 30px;">
-		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
-		<div style="float:right;">
-			<form action="reviewBookList.do" method="get">
+	<div style="width:70%; margin:auto">
+		<div style="margin-top:30px; text-align:center">
+			<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
+			<form action="reviewBookList.do" method="get" style="margin-top:30px">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
 				<select style="width:120px; display:inline-block; border: 1px solid #135fa1;" class="form-control" name="condition" id="condition">
 					<option  value="title_content"
@@ -47,12 +47,7 @@
 				<button type="submit" style="color:#135fa1; border: 1px solid #135fa1; margin-bottom:3px" class="btn btn-outline-light">검색</button>
 			</form>
 		</div>
-		<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
-		<c:if test="${not empty keyword}">
-				<button style="width:300px; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
-		</c:if>
-		<table>
-			<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4">
+			<div style="margin-top:30px" class="row row-cols-1 row-cols-md-4">
 					<c:forEach var="b" items="${reviewBookList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">
 							<div style="border: 3px solid #0f4c81;" class="card h-100">
@@ -69,7 +64,8 @@
 					</c:forEach>
 				</div>
 		<!-- by 준익, 페이징 처리_2021.02.26 -->
-		<nav>
+		<c:if test="${not empty keyword }">
+				<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>
 					<c:when test="${startPageNum != 1 }">
@@ -117,6 +113,7 @@
 				</c:choose>
 			</ul>
 		</nav>
+		</c:if>
 	</div>
 </body>
 </html>

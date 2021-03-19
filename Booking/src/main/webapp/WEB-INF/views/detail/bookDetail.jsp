@@ -100,23 +100,31 @@
            </tr>
            		
            <tr>
-           </tr>
-           <tr>
            	<td style="background:#f5e9dd;" rowspan="4"width="60%">
 				<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
            			${b.description}
 				</div>
            	</td>
+           		<td style="text-align:center">
+				    <button class="btn btn-outline-light" style="width:70%; border: 1px solid #135fa1; color:#135fa1">
+				   	<span style="margin-right:10px">
+					    수량 
+				   	</span>
+					    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" style="height:100%"/>
+				    </button>
+           		
+           		</td>
+           </tr>
+           <tr>
            	<td style="text-align:center" width="20%">
     	       	<input id="idP" type="hidden" name="id" value="${id }"/>
 			    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
 			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-			    개수 &nbsp;&nbsp;&nbsp;&nbsp;
-			    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1"/>
-			    <br />
-		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
+		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니
+		    		
+		    		</button>
            	</td>
            </tr>
            <tr>
