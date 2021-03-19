@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/private/insertform.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	#star a{ 
 		text-decoration: none; color: gray; 
+		font-size:20px;
 	} 
 	#star a.on{ 
 		color: red; 
@@ -21,22 +22,10 @@
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:-13px"></div>
-<nav>
-	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
-		<li class="breadcrumb-item" style="margin-left:95px;">
-			<a href="${pageContext.request.contextPath }/">Home</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-		</li>
-		<li class="breadcrumb-item active">리뷰 작성 폼</li>
-	</ul>
-</nav>
 <div class="container">
-	<center><h1>리뷰 작성 폼</h1></center>
+	<center><h1><strong>리뷰 작성 폼</strong></h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
-	<a href="${pageContext.request.contextPath }/review/reviewBookList.do?" >책 검색</a>
+	<a href="${pageContext.request.contextPath }/review/reviewBookList.do?" style="font-size:23px"><strong>책 검색</strong></a>
 	<form action="reviewInsert.do" method="post" id="insertForm">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
@@ -52,7 +41,7 @@
 		</div>
 		
 		<!-- by남기, 평점 선택창_210310 -->
-		<p id="star">별점 <br />
+		<p id="star" style="margin-top:30px; font-size:23px;"><strong>별점</strong><br />
 			<a href="#" value="1">★</a>
 			<a href="#" value="2">★</a> 
 			<a href="#" value="3">★</a> 
@@ -60,16 +49,19 @@
 			<a href="#" value="5">★</a>
 		<p>		
 		
-		<div class="form-group">
-			<label for="content">리뷰 내용</label><br />
+		<div class="form-group" style="margin-top:30px">
+			<label for="content" style="font-size:23px"><strong>리뷰 내용</strong></label><br />
 			<!--by채영_스포일러 포함 체크박스  -->
-			<label for ="spoCheck">스포포함 체크박스</label>
+			<label for ="spoCheck" style="font-size:20px">스포포함 체크박스</label>
 			<input type="checkbox" id="spoCheck" name="spoCheck">
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
 		
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 </script>

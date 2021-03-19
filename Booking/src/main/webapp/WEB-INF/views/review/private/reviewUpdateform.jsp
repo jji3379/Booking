@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/private/updateform.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	#star a{ 
@@ -23,19 +23,8 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin-top:-13px"></div>
-<nav>
-	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
-		<li class="breadcrumb-item" style="margin-left:95px;">
-			<a href="${pageContext.request.contextPath }/">Home</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-		</li>
-		<li class="breadcrumb-item active">리뷰 수정 폼</li>
-	</ul>
-</nav>
-<div class="container">
+<div style="margin-top:30px"></div>
+<div style="margin:auto; width:70%">
 	<center><h1>리뷰 수정 폼</h1></center>
 	<form action="reviewUpdate.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }"/>
@@ -69,6 +58,9 @@
 		</div>
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
 	</form>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310

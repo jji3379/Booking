@@ -83,12 +83,12 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-	<div class="jumbotron">
+<div style="width:70%; margin:auto">
+		<div class="jumbotron" style="margin-top:30px">
 	    
 	    <hr class="my-4">
 	    <h2>북카트  &nbsp;<span class="badge badge-warning">쇼핑중</span></h2>
-	</div>
-	
+	</div>	
 	
 	<span class="deleteBtn">
 		<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
@@ -207,6 +207,10 @@
 		<button id="check_module" type="button"  class="btn btn-lg " >주문하기</button>
 		<button href="home.do" type="button"  class="btn btn-lg" style=background-color:#484848; >쇼핑 계속하기</button>
 	</div>
+<<<<<<< HEAD
+</div>
+=======
+>>>>>>> refs/remotes/origin/leenamki
 </body>
 <script>
 	//by준영, 결제api 세팅_210311
@@ -328,9 +332,6 @@
 	function submit(elClickedObj){
 		elClickedObj.form.submit();
 	}
-	
-	
-	
 </script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

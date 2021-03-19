@@ -5,17 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/info.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
-<style>
-	/* 프로필 이미지를 작은 원형으로 만든다 */
-	#profileImage{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
-	}
-</style>
 </head>
 <body style="background-color:#484848;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
@@ -51,6 +42,9 @@
 		</tr>
 	</table>
 	</div>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	function deleteConfirm(){

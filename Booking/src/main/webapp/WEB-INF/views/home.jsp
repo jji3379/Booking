@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
-<title>home.do</title>
+<title>책과의 즉석만남 Booking</title>
 <script src="../resources/js/imgLiquid.js"></script>
 
 <link rel="stylesheet" href="resources/css/style.css"> <!-- by욱현. carousel 적용위한 외부css파일 로드_2021227 -->
@@ -81,9 +81,9 @@
 </head>
 <body style="background-color:#white;">
 <jsp:include page="include/navbar.jsp"></jsp:include>
-<div  style="margin-top:30px; width:70%; margin:auto">
+<div  style="width:70%; margin:auto">
 	<!-- 검색창 Start -->
-   <div>
+   <div style="margin-top:30px">
       <nav class="navbar navbar-expand-lg justify-content-center" style="font-weight:bold; height:50px; color:#000000;">
          <form class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">
               <input class="form-control" type="text" aria-label="Search" style="font-weight:bold; border-width:3px; border-radius:20px; border-color:#135fa1; height:45px; width:500px;"
@@ -285,7 +285,6 @@
       </div>
    </div><!-- row END -->
 </div><!-- container END -->
-<jsp:include page="include/footer.jsp"></jsp:include>
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
    $("#bookingBtn").on("click", function(){
@@ -349,5 +348,8 @@
    
    }
 </script>
+<div style="margin-top:200px">
+	<jsp:include page="include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

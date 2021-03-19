@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/private/pwd_update.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 </head>
 <body>
 <div class="container">

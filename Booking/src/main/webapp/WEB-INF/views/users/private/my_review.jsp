@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>my_review.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body style="background-color:#484848;">
@@ -31,7 +31,7 @@
 				<tr>
 					<td>
 						<div id="reviewImage">
-							<a href="reviewDetail.do?num=${t.num }">
+							<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.num }">
 								<img src="${t.imagePath}"/>
 							</a>
 						</div>
@@ -106,6 +106,9 @@
 		</ul>
 	</nav>
 	</div>
-</div>	
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

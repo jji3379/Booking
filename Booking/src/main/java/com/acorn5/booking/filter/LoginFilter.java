@@ -13,9 +13,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+//by준영, 로그인이 필요한 흐름이라면 로그인페이지로 가게하는 필터 210227
 // web.xml 필터 설정 대신에 annotation 을 활용해서 필터를 동작하게 할수도 있다.
-@WebFilter(urlPatterns = {"/users/private/*","/review/private/*"})
+@WebFilter(urlPatterns = {"/users/private/*","/review/private/*","/pay/cart.do"})
 public class LoginFilter implements Filter{
 
 	@Override

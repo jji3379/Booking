@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/private/pwd_updateform.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body style="background-color:#484848;">
@@ -34,6 +34,9 @@
 			<button type="reset" class="btn btn-outline-warning" >리셋</button>
 		</form>
 	</div>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 

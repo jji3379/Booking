@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/private/updateform.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/* 프로필 이미지를 작은 원형으로 만든다 */
@@ -69,6 +69,9 @@
 		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		<button type="submit">업로드</button>
 	</form>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	//프로필 링크를 클릭했을때 실행할 함수 등록

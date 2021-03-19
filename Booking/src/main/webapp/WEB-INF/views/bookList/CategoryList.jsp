@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>책과의 즉석만남 Booking</title>
 <style>
 .ellipsis2 {
 	overflow: hidden;
@@ -31,8 +31,8 @@
 </head>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
-	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top:30px">
+<jsp:include page="../include/navbar.jsp"></jsp:include>
+<div class="container" style="margin-top:30px">
 		<div class="row">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
@@ -115,5 +115,8 @@
 			</div><!-- col10 END -->
 		</div><!-- row END -->
 	</div><!-- container END -->
+	<div style="margin-top:200px">
+		<jsp:include page="../include/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

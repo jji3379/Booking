@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>책과의 즉석만남 Booking</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	div#box1 {
 		margin-top: 100px
@@ -13,26 +15,24 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-}
-.ellipsis{
-  	  width:150px;
-      white-space : nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-}
-/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
+	}
+	.ellipsis{
+	  	  width:150px;
+	      white-space : nowrap;
+	      text-overflow: ellipsis;
+	      overflow: hidden;
+	}
+	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
    .img-wrapper:hover{
       /* 원본 크기의 1.1 배로 확대 시키기*/
       transform: scale(1.02);
       transition: transform 0.3s ease-out;
    }
 </style>
-<title>Insert title here</title>
-<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top: 30px;">
+	<div class="container" style="margin-top: 30px">
 		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
 		<div style="float:right;">
 			<form action="reviewBookList.do" method="get">
@@ -118,5 +118,8 @@
 			</ul>
 		</nav>
 	</div>
+<div style="margin-top:200px">
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>
