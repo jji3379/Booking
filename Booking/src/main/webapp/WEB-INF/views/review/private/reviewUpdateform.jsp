@@ -23,19 +23,8 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin-top:-13px"></div>
-<nav>
-	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
-		<li class="breadcrumb-item" style="margin-left:95px;">
-			<a href="${pageContext.request.contextPath }/">Home</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-		</li>
-		<li class="breadcrumb-item active">리뷰 수정 폼</li>
-	</ul>
-</nav>
-<div class="container">
+<div style="margin-top:30px"></div>
+<div style="margin:auto; width:70%">
 	<center><h1>리뷰 수정 폼</h1></center>
 	<form action="reviewUpdate.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }"/>

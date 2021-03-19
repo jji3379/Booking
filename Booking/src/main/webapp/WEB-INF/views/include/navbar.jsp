@@ -14,7 +14,7 @@
 		<div class="collapse navbar-collapse row justify-content-start" id="navbarSupportedContent" >
 			<ul class="navbar-nav">
 				<li class="nav-item">
-               		<a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count&start=1" style="font-weight:bold; margin-left:20px; font-size:20px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
+               		<a class="nav-link" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&sort=count&start=1" style="font-weight:bold; margin-left:20px; font-size:20px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
             	</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath }/review/reviewList.do" style="font-weight:bold; font-size:20px; margin-left:20px; font-family: 'Roboto', sans-serif;">책리뷰</a>

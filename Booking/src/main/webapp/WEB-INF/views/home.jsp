@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
-<title>home.do</title>
+<title>책과의 즉석만남 Booking</title>
 <script src="../resources/js/imgLiquid.js"></script>
 
 <link rel="stylesheet" href="resources/css/style.css"> <!-- by욱현. carousel 적용위한 외부css파일 로드_2021227 -->
@@ -79,9 +79,9 @@
 </head>
 <body style="background-color:#white;">
 <jsp:include page="include/navbar.jsp"></jsp:include>
-<div  style="margin-top:30px; width:70%; margin:auto">
+<div  style="width:70%; margin:auto">
 	<!-- 검색창 Start -->
-   <div>
+   <div style="margin-top:30px">
       <nav class="navbar navbar-expand-lg justify-content-center" style="font-weight:bold; height:50px; color:#000000;">
          <form class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">
               <input class="form-control" type="text" aria-label="Search" style="font-weight:bold; border-width:3px; border-radius:20px; border-color:#135fa1; height:45px; width:500px;"
@@ -96,11 +96,11 @@
    </div>
    <!-- 검색창 END -->
    
-   <div class="row">
+   <div class="row" style="margin-top:30px">
    <!-- 부킹  col-9 Start -->
    		<div class="col-9" style="border:3px solid black">
 			<div class="booking col justify-content-center" style="width:auto;"><!-- by욱현.올랜덤 책추천 '부킹'기능_2021225 -->
-               <center style="margin-top:20px;"><h2><strong>나와 매칭되는 책은?</strong></h2></center>
+               <center><h2><strong>나와 매칭되는 책은?</strong></h2></center>
                <div class="row justify-content-center align-items-center">
                   <span class="col-4" style="text-align: right;">
                      <c:choose>

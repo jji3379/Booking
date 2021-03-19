@@ -83,7 +83,8 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-	<div class="jumbotron">
+<div style="width:70%; margin:auto">
+		<div class="jumbotron" style="margin-top:30px">
 	    
 	    <hr class="my-4">
 	    <h2>북카트  &nbsp;<span class="badge badge-warning">쇼핑중</span></h2>
@@ -207,6 +208,7 @@
 		<button id="check_module" type="button"  class="btn btn-lg " >주문하기</button>
 		<button href="home.do" type="button"  class="btn btn-lg" style=background-color:#484848; >쇼핑 계속하기</button>
 	</div>
+</div>
 </body>
 <script>
 	//by준영, 결제api 세팅_210311

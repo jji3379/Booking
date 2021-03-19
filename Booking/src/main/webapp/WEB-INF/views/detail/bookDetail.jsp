@@ -174,8 +174,7 @@
 </script>	
 </div>
 	<div style="margin-top:30px" id="simList"></div>
-	<div style="margin-top:70px; position:relative; border:1px solid white; background-color:white; width:100%; height:100px; z-index:1;"></div>
-	<div style="margin-top:-55px; position:relative;" id="reviewList"></div>
+	<div style="margin-top:100px"  id="reviewList"></div>
 </div>
 
 <script type="text/javascript">

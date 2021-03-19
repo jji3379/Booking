@@ -9,8 +9,8 @@
 	<style>
 		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-		.map_wrap {float:right;position:relative;width:68%;height:700px;border:2px solid #0f4c81;}
-		#menu_wrap {float:left;position:absolute;width:32%;height:700px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:18px;border:2px solid #0f4c81;}
+		.map_wrap {float:right;position:relative;width:72%;height:700px;border:2px solid #0f4c81;}
+		#menu_wrap {float:left;position:absolute;width:20%;height:700px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:18px;border:2px solid #0f4c81;}
 		.bg_white {background:#fff;}
 		#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 		#menu_wrap .option{text-align: center;}
@@ -47,32 +47,29 @@
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
-<div style="margin-top:-13px"></div>
-<nav>
-	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
-		<li class="breadcrumb-item" style="margin-left:95px;">
-			<a href="${pageContext.request.contextPath }/">Home</a>
-		</li>
-		<li class="breadcrumb-item active">지도 검색</li>
-	</ul>
-</nav>
-<center><h1>서점 검색 폼</h1></center>
-<!-- by남기, 카카오맵 api 사용/지도와 검색 뷰를 따로 구분_210306 -->
-<div class="map_wrap">
-	<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-</div>
-<div id="menu_wrap" class="bg_white">
-    <div class="option">
-        <div>
-            <form onsubmit="searchPlaces(); return false;">
-                키워드 : 	<input type="text" value="서점" id="keyword" size="15" style="margin-top:2.5px;"> 
-              	<button type="submit" class="btn btn-outline-dark" style="margin-top:-2.5px;">검색하기</button> 
-            </form>
-        </div>
-    </div>
-    <hr>
- 	<ul id="placesList"></ul>
-    <div id="pagination"></div>
+<div style="width:70%; margin:auto">
+	<div style="margin-top:30px">
+		<center><h1>서점 검색 폼</h1></center>
+		<!-- by남기, 카카오맵 api 사용/지도와 검색 뷰를 따로 구분_210306 -->
+		<div style="margin-top:30px">
+			<div class="map_wrap">
+				<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+			</div>
+			<div id="menu_wrap" class="bg_white">
+			    <div class="option">
+			        <div>
+			            <form onsubmit="searchPlaces(); return false;">
+			                키워드 : 	<input type="text" value="서점" id="keyword" size="15" style="margin-top:2.5px;"> 
+			              	<button type="submit" class="btn btn-outline-dark" style="margin-top:-2.5px;">검색하기</button> 
+			            </form>
+			        </div>
+			    </div>
+			    <hr>
+			 	<ul id="placesList"></ul>
+			    <div id="pagination"></div>
+		</div>
+		</div>
+	</div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c306e0509bf683d53438aecf1510d22&libraries=services"></script>
 <script>

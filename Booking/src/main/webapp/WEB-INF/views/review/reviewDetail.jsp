@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/reviewDetail.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* by남기, 글 내용을 출력할 div 에 적용할 css _210303 */
@@ -119,21 +119,10 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin-top:-13px"></div>
-<nav>
-	<ul class="breadcrumb" style="border: 2px solid #135fa1; background-color:white; font-size: 18px; font-weight:bold; height:50px;">
-		<li class="breadcrumb-item" style="margin-left:95px;">
-			<a href="${pageContext.request.contextPath }/">Home</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="${pageContext.request.contextPath }/review/reviewList.do">리뷰 목록</a>
-		</li>
-		<li class="breadcrumb-item active">리뷰 디테일 폼</li>
-	</ul>
-</nav>
-<div class="container">
+<div style="margin-top:30px"></div>
+<div style="width:70%; margin:auto">
 	<center><h1>리뷰 디테일 폼</h1></center>
-	<table class="table table-striped" style="border-left: 3px solid #369;">
+	<table class="table table-striped" style="border-left: 3px solid #369; margin-top:30px">
 		<tr>
 			<td rowspan="8" style="width:300px;"><img id="image" src="${dto.imagePath }"/></td>
 		</tr>
@@ -186,7 +175,7 @@
 			</td>
 		</tr>
 	</table>
-	<ul class="mylist">
+	<ul class="mylist" style="margin-top:30px">
 		<li><a href="reviewList.do">목록보기</a></li>
 		<c:if test="${dto.writer eq id }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.num }">수정</a></li>
@@ -195,7 +184,7 @@
 	</ul>
 	<hr/>
 	<!-- by남기, 원글에 댓글을 작성하는 form _210303 -->
-	<form class="comment-form reviewInsert-form" action="private/reviewComment_insert.do" method="post">
+	<form class="comment-form reviewInsert-form" action="private/reviewComment_insert.do" method="post" style="margin-top:30px">
 		<!-- by남기, 원글의 글번호가 ref_group 번호가 된다. _210303 -->
 		<input type="hidden" name="ref_group" value="${dto.num }"/>
 		<!-- by남기, 원글의 작성자가 댓글의 수신자가 된다. _210303 -->

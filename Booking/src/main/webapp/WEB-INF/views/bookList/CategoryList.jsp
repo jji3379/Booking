@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>책과의 즉석만남 Booking</title>
 <style>
 .ellipsis2 {
 	overflow: hidden;
@@ -32,8 +32,8 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top:30px">
-		<div class="row">
+	<div style="width:70%; margin:auto;">
+		<div class="row" style="margin-top:30px;">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
 				<ul class="nav nav-tabs">
@@ -46,7 +46,7 @@
 						<a class="nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 				</ul>
-				<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4">
+				<div style="margin-top:30px" class="row row-cols-1 row-cols-md-4">
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">
 							<div style="border: 3px solid #0f4c81;" class="card h-100">
@@ -64,7 +64,7 @@
 					</c:forEach>
 				</div>
 				<!-- by 준익, 페이징 처리_2021.02.26 -->
-				<nav>
+				<nav style="margin-top:30px">
 				<ul class="pagination justify-content-center">
 					<c:choose>
 						<c:when test="${startPageNum != 1 }">
