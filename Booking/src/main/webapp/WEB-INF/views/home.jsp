@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="resources/css/style.css"> <!-- by욱현. carousel 적용위한 외부css파일 로드_2021227 -->
 <style>
    
+   
    /* card 이미지 부모요소의 높이 지정 */
    .img-wrapper{
       height: 260px;
@@ -39,6 +40,7 @@
        min-height: 1px;
        padding-right: 15px;
        padding-left: 15px;
+       width: 100px;
        
    }
    
@@ -89,20 +91,20 @@
               <input name="pageNum" value="1" hidden/>
               <input name="start" value="1" hidden/>
               <button type="submit" style="margin-left:20px; font-weight:bold; background-color:#135fa1; border:0; outline:0;">
-                 <img src="${pageContext.request.contextPath }/resources/images/magnifier1.png" style="width:50px"/>
+                 <img src="${pageContext.request.contextPath }/resources/images/magnifier1.png" style="width:50px; margin-left:-10px;"/>
               </button>
           </form>
       </nav>
    </div>
    <!-- 검색창 END -->
    
-   <div class="row" style="margin-top:30px">
+   <div class="row" style="margin-top:30px;">
    <!-- 부킹  col-9 Start -->
    		<div class="col-9" style="border:3px solid black">
-			<div class="booking col justify-content-center" style="width:auto;"><!-- by욱현.올랜덤 책추천 '부킹'기능_2021225 -->
+			<div class="booking col justify-content-center" style="width:auto; margin-bottom:10px;"><!-- by욱현.올랜덤 책추천 '부킹'기능_2021225 -->
                <center><h2><strong>나와 매칭되는 책은?</strong></h2></center>
                <div class="row justify-content-center align-items-center">
-                  <span class="col-4" style="text-align: right;">
+                  <span class="col-4"style="text-align: right;" >
                      <c:choose>
                      <c:when test="${empty dto.profile }">
                         <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -116,7 +118,7 @@
                   </c:choose>
                </span>
                <span class="col-4" style="text-align: center;"><!--by욱현. 부킹버튼(랜덤추천기능)_2021226 -->
-                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:400px; height:400px;" src="resources/images/bookingbutton.png"/></a> 
+                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:300px; height:300px;" src="resources/images/bookingbutton.png"/></a> 
                  </span>
                  <span class="col-4" style="text-align: left; margin-left:0px;">   
                     <a href="bookDetail.do?d_isbn=" id="bookA"><img style="height:300px; width:300px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"/></a>
@@ -146,136 +148,136 @@
               <div class="button" onclick="shiftLeft()"><img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt=""></div>
               <div class="cards-wrapper" style="width:50%">
                   <ul class="cards__container">
-                        <li class="box">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[0].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[0].isbn}"><img style="height:250px;"class="card-img-top" src="${list[0].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[0].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[0].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[1].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[1].isbn}"><img style="height:250px;"class="card-img-top" src="${list[1].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[1].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[1].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box">
-                   <div class="card">
-                        <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[2].isbn}" style="width:190px; height:260px;"id="isbn">
-                          <div class="img-wrapper">
-                             <img style="height:250px;"class="card-img-top" src="${list[2].image }" />
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[2].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[2].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[3].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[3].isbn}"><img style="height:250px;"class="card-img-top" src="${list[3].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[3].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[3].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[4].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[4].isbn}"><img style="height:250px;"class="card-img-top" src="${list[4].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[4].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[4].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box box--hide">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[5].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[5].isbn}"><img style="height:250px;"class="card-img-top" src="${list[5].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[5].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[5].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box box--hide">
-                   <div class="card">
-                      <a href="bookDetail.do?d_isbn=${list[6].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[6].isbn}"><img style="height:250px;"class="card-img-top" src="${list[6].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[6].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[6].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box box--hide">
-                   <div class="card mb-3">
-                      <a href="bookDetail.do?d_isbn=${list[7].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[7].isbn}"><img style="height:250px;"class="card-img-top" src="${list[7].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[7].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[7].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box box--hide">
-                   <div class="card mb-3">
-                      <a href="bookDetail.do?d_isbn=${list[8].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[8].isbn}"><img style="height:250px;"class="card-img-top" src="${list[8].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[8].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[8].author }</small>
-                       </div>
-                    </div>
-                  </li>
-                  <li class="box box--hide">
-                   <div class="card mb-3">
-                      <a href="bookDetail.do?d_isbn=${list[9].isbn }" id="isbn">
-                          <div class="img-wrapper">
-                             <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[9].isbn}"><img style="height:250px;"class="card-img-top" src="${list[9].image }" /></a>
-                          </div>
-                       </a>
-                       <div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
-                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[9].title }</strong></p>
-                           <small class="card-text" style="font-size:12px">${list[9].author }</small>
-                       </div>
-                    </div>
-                  </li>
+                       <li class="box">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[0].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[0].image }" />
+		                          	</div>
+		                      	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                          	<p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[0].title }</strong></p>
+		                          	<small class="card-text" style="font-size:12px">${list[0].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[1].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[1].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[1].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[1].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box">
+		                   <div class="card">
+		                        <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[2].isbn}" style="width:190px; height:260px;"id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[2].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[2].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[2].author }</small>
+		                       	</div>
+		                  	</div>
+	                  </li>
+	                  <li class="box">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[3].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[3].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[3].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[3].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[4].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[4].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[4].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[4].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box box--hide">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[5].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[5].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[5].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[5].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box box--hide">
+		                   <div class="card">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[6].isbn}" id="isbn">
+			                        <div class="img-wrapper">
+			                            <img style="height:250px; width:12rem;"class="card-img-top" src="${list[6].image }" />
+			                        </div>
+		                      	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[6].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[6].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box box--hide">
+		                   <div class="card mb-3">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[7].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[7].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[7].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[7].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box box--hide">
+		                   <div class="card mb-3">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[8].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[8].image }" />
+		                          	</div>
+		                      	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[8].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[8].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
+	                  <li class="box box--hide">
+		                   <div class="card mb-3">
+		                      	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[9].isbn}" id="isbn">
+		                          	<div class="img-wrapper">
+		                             	<img style="height:250px; width:12rem;"class="card-img-top" src="${list[9].image }" />
+		                          	</div>
+		                       	</a>
+		                       	<div class="card-body" style="height:50px; padding:0px; padding-left:3px; text-align: center;">
+		                            <p class="card-text" style="margin-bottom:0px; font-size:15px"><strong>${list[9].title }</strong></p>
+		                           	<small class="card-text" style="font-size:12px">${list[9].author }</small>
+		                       	</div>
+		                   </div>
+	                  </li>
                   </ul>
               </div>
               <div class="button" onclick="shiftRight()"><img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt=""></div>

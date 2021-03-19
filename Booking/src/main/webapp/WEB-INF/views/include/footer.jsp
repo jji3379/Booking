@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');//구글폰트
-
 	body {
 	    background: #fbfbfd;
 	}
@@ -146,7 +145,6 @@
 	.f_size_18 {
 	    font-size: 18px;
 	}
-
 	.new_footer_top .f_widget.about-widget .f_list li a {
 	    color: white;
 	}
@@ -221,7 +219,6 @@
 	}
 	/*************footer End*****************/
 	
-
 </style>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
@@ -267,7 +264,7 @@
                             <li><a href="#">jji3379@naver.com</a></li>
                             <li><a href="#">dkdkdkdk555@naver.com</a></li>
                             <li><a href="#">karufuci@gmail.com</a></li>
-                            <li><a href="#">Leenamki342@naver.com</a></li>
+                            <li><a href="#">violin977@naver.com</a></li>
                             <li><a href="#">cathyshim222@gmail.com</a></li>
                         </ul>
                     </div>

@@ -61,8 +61,8 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style=margin-top:30px; class="container" id="bookDetail">
-<div style="border:3px solid #0f4c81">
+<div style="margin:auto; width:70%;" id="bookDetail">
+<div style="border:3px solid #0f4c81; margin-top:30px">
     <table style="margin:30px 20px">
     	<c:forEach var="b" items="${bookDetail }">
 		    <thead class="thead-dark">
@@ -113,6 +113,7 @@
 			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+			    개수 &nbsp;&nbsp;&nbsp;&nbsp;
 			    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1"/>
 			    <br />
 		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
@@ -174,14 +175,12 @@
 </script>	
 </div>
 	<div style="margin-top:30px" id="simList"></div>
-	<div style="margin-top:100px"  id="reviewList"></div>
 </div>
+<div style="margin-top:180px;"  id="reviewList"></div>
 
 <script type="text/javascript">
-
 //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
 var inputAuth=$("#auth").text();
-
 function bookAuthor(){
  return new Promise((resolve, reject) => {
     $.ajax({ 

@@ -11,6 +11,12 @@
 	#star a{ 
 		text-decoration: none; color: red; 
 	} 
+	.ellipsis{
+  	  width:150px;
+      white-space : nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+}
 </style>
 </head>
 <body>
@@ -40,12 +46,12 @@
 							<img style="width:100px; height:60px" class="rounded-sm" 
 							src="${t.imagePath }"/>
 						</td>
-						<td style="text-overflow:ellipsis; overflow:hidden"><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
-						<td style="text-overflow:ellipsis; overflow:hidden">${t.bookTitle }</td>
-						<td style="text-overflow:ellipsis; overflow:hidden">${t.writer }</td>
-						<td style="text-overflow:ellipsis; overflow:hidden">${t.viewCount }</td>
-						<td style="text-overflow:ellipsis; overflow:hidden">${t.regdate }</td>
-						<td style="text-overflow:ellipsis; overflow:hidden">
+						<td class="ellipsis"><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
+						<td class="ellipsis">${t.bookTitle }</td>
+						<td class="ellipsis">${t.writer }</td>
+						<td class="ellipsis">${t.viewCount }</td>
+						<td class="ellipsis">${t.regdate }</td>
+						<td class="ellipsis">
 							<p id="star">
 								<c:if test="${t.rating  eq 1}">
 									<a href="#">★</a>

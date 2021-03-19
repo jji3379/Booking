@@ -95,7 +95,6 @@
 			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
 		}
 	}
-
 	var oEditors = [];
 	
 	//추가 글꼴 목록
