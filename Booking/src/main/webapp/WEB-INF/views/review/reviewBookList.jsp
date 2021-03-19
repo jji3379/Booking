@@ -33,7 +33,7 @@
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
 	<div class="container" style="margin-top: 30px;">
-		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 검색결과  </h1>
+		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
 		<div style="float:right;">
 			<form action="reviewBookList.do" method="get">
 				<input name="start" value="1" hidden /> <label for="condition"></label>

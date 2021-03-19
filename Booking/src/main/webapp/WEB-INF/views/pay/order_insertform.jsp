@@ -5,13 +5,10 @@
 <html>
 <head>
 <meta charset=UTF-8">
-<title>Insert title here</title>
+<title>Cart db 삭제 전 Order db insert</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="BS" name="thisPage"/>
-</jsp:include>
 	<table class="table">
 	    <thead class="thead-light">
 	    <tr>
@@ -45,19 +42,5 @@
 	</table>
 </body>
 <script>
-		/* $('.minus').click(function(){ 
-		//감소버튼에 인접한 input type="number" 선택
-			var  $input = $(this).parent().find("input[type=number]");
-			//현재 숫자값
-			var currentNumber = parseInt( $input.val() );
-			if(currentNumber <= 0){
-				currentNumber;
-			}else{
-				currentNumber--;//1 감소시키기
-				//감소 시킨값 다시 넣어주기
-				$input.val( currentNumber );
-			}
-		}); */
-
 </script>
 </html>

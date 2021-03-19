@@ -14,7 +14,7 @@
 		<div class="collapse navbar-collapse row justify-content-start" id="navbarSupportedContent" >
 			<ul class="navbar-nav">
 				<li class="nav-item">
-               		<a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count" style="font-weight:bold; margin-left:20px; font-size:20px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
+               		<a class="nav-link" href="${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1&sort=count&start=1" style="font-weight:bold; margin-left:20px; font-size:20px; font-family: 'Roboto', sans-serif; margin-right: 20px">전체도서</a>
             	</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath }/review/reviewList.do" style="font-weight:bold; font-size:20px; margin-left:20px; font-family: 'Roboto', sans-serif;">책리뷰</a>
@@ -23,19 +23,19 @@
 					<a class="nav-link" href="${pageContext.request.contextPath }/map/mapsearch.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">지도</a>
 				</li>
 				<li class="nav-item">
-	               	<a class="nav-link" href="${pageContext.request.contextPath }/pay/middle.do" style="font-weight:bold; font-size:20px; margin-left:35px; font-family: 'Roboto', sans-serif;">
-	               		<img style="width:40px; height:30px;"src="${pageContext.request.contextPath }/resources/images/Cart.png"/>	
-	               	</a>
 	            </li>
 			</ul>		
 		</div>
+	               <a href="${pageContext.request.contextPath }/pay/cart.do">
+	               		<img style="width:40px; height:30px;"src="${pageContext.request.contextPath }/resources/images/Cart.png"/>	
+		               <span class="badge badge-danger">${count}</span>
+	               	</a>
+	               	&nbsp;&nbsp;&nbsp;
 		<div class="justify-content-end">
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
-					<div>
-						<a href="${pageContext.request.contextPath }/users/private/info.do" style="font-size:22px;font-weight:bold; color:white; margin-right:10px;">${id }</a>
+						<a href="${pageContext.request.contextPath }/users/private/info.do" style="font-size:22px;font-weight:bold; color:white;">${id }</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="btn btn-warning" style="font-weight:bold;">로그아웃</a>
-					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="usersBtn" style="margin-left:20px;">

@@ -108,16 +108,14 @@
 				</div>
            	</td>
            	<td style="text-align:center" width="20%">
-    	       	<form id="insert" action="${pageContext.request.contextPath }/pay/insert.do" method="post">
-				       <input id="idP" type="hidden" name="id" value="${id }"/>
-				       <input id="imageP" type="hidden" name="image" value="${b.image }"/>
-				       <input id="titleP" type="hidden" name="title" value="${b.title }" />
-				       <input id="priceP" type="hidden" name="price" value="${b.price }"/>
-				       <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-				       <input type="number" name="count" class="numBox" min="1" max="100" value="1"/>
-				       <br />
-             		<button  id="insertBtn" type="button" onclick="insert()" style="width:70%; background-color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
-			    </form>
+    	       	<input id="idP" type="hidden" name="id" value="${id }"/>
+			    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
+			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
+			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
+			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+			    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1"/>
+			    <br />
+		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
            	</td>
            </tr>
            <tr>
@@ -135,19 +133,45 @@
     </tbody>
 	</table>
 	<script>
-       function insert(){
-         var id=$("#idP").val();
-         if(id == ""){
-            alert("로그인이 필요합니다");   
-            location.href="${pageContext.request.contextPath }/users/login_form.do";
-         }else
-            $("#insert button").on("click",function(){
-               $("#insert").submit();
-               return false;
-            })
-       }
-    </script>
+	//by준영, 장바구니 로그인 필터 기능_210311
+	//by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
+	var id=$("#idP").val();
 	
+	function insert(){
+		var image = $("#imageP").val();
+		var title = $("#titleP").val();
+		var price = $("#priceP").val();
+		var d_price = $("#d_priceP").val();
+		var count = $("#countP").val();
+		
+		var url ="${pageContext.request.contextPath }/pay/insert.do";
+		var data = null;
+		if(d_price == ""){
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count };
+		}else if(d_price != ""){
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count };
+		}
+		console.log(data);
+		if(id == ""){
+			alert("로그인이 필요합니다");	
+			location.href="${pageContext.request.contextPath }/users/login_form.do";
+		}else{
+			$.ajax({
+				url:url,
+				method:'post',
+				data: data,
+				success:function(data){
+					var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
+					if(chk){
+						location.replace("${pageContext.request.contextPath }/pay/cart.do");
+					}else{
+						return false;
+					}
+				}
+			})
+		}	
+	}
+</script>	
 </div>
 	<div style="margin-top:30px" id="simList"></div>
 	<div style="margin-top:70px; position:relative; border:1px solid white; background-color:white; width:100%; height:100px; z-index:1;"></div>
@@ -155,54 +179,52 @@
 </div>
 
 <script type="text/javascript">
-
 //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
 var inputAuth=$("#auth").text();
-
 function bookAuthor(){
-   return new Promise((resolve, reject) => {
-      $.ajax({ 
-         url:"detailAjax.do?sort=sim",
-          method:"GET",
-          data:"d_auth="+inputAuth,
-          success:function(data){
-             resolve(data);
-             $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-          },
-          error:function(error){
-             reject(error)
-          },
-      })
-   })
+ return new Promise((resolve, reject) => {
+    $.ajax({ 
+       url:"detailAjax.do?sort=sim",
+        method:"GET",
+        data:"d_auth="+inputAuth,
+        success:function(data){
+           resolve(data);
+           $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+        },
+        error:function(error){
+           reject(error)
+        },
+    })
+ })
 }
 //by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
-   var inputIsbn=$("#isbn").text();
-   
-   function bookReview(){
-      return new Promise((resolve, reject) => {
-         $.ajax({
-               url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
-               method:"GET",
-               data:"&keyword="+inputIsbn,
-               success:function(data){
-                  resolve(data);
-                  $("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
-               },
-             error:function(error){
-                reject(error)
+ var inputIsbn=$("#isbn").text();
+ 
+ function bookReview(){
+    return new Promise((resolve, reject) => {
+       $.ajax({
+             url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
+             method:"GET",
+             data:"&keyword="+inputIsbn,
+             success:function(data){
+                resolve(data);
+                $("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
              },
-         })
-      })
-   }
-   //by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
-   bookAuthor()
-      .then((data) => {
-         bookReview()
-      })
-      .catch((error) => {
-         console.log(error)
-      })
-	
+           error:function(error){
+              reject(error)
+           },
+       })
+    })
+ }
+ //by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
+ bookAuthor()
+    .then((data) => {
+       bookReview()
+    })
+    .catch((error) => {
+       console.log(error)
+    })
+		
 	//by 준영,반응형 캐러셀 정의_210224
 	var $owl = $('.owl-carousel');
 	

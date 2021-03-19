@@ -36,7 +36,7 @@
 <div class="container">
 	<center><h1>리뷰 작성 폼</h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
-	<a href="${pageContext.request.contextPath }/review/reviewBookList.do" >책 검색</a>
+	<a href="${pageContext.request.contextPath }/review/reviewBookList.do?" >책 검색</a>
 	<form action="reviewInsert.do" method="post" id="insertForm">
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
@@ -95,7 +95,6 @@
 			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
 		}
 	}
-
 	var oEditors = [];
 	
 	//추가 글꼴 목록

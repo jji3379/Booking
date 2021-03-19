@@ -8,11 +8,14 @@
 <title>my_review.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
-<body>
+<body style="background-color:#484848;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div class="container" style="margin-top:60px;">
-	<h1>내가 쓴 리뷰</h1>
-	<table class="table table-striped">
+<div class="row" style="width:80%; 
+	margin-top:50px; margin-left:auto; margin-right:auto; background-color:#f5e9dd; width:fit-content;">
+	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
+	<div style="margin-left:8px; margin-top:7px; width:1027px">
+	<h1 style="margin-left:8px; margin-top:7px;">내가 쓴 리뷰</h1>
+	<table class="table table-striped" style="width:1020px">
 		<thead class="thead-dark">
 			<tr>
 				<th>리뷰 이미지</th>
@@ -20,6 +23,7 @@
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>등록일</th>
+				<th>리뷰 별점</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,6 +40,25 @@
 					<td>${t.writer }</td>
 					<td>${t.viewCount }</td>
 					<td>${t.regdate }</td>
+					<td>
+						<p id="star">
+							<c:if test="${t.rating  eq 1}">
+								<a href="#">★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 2}">
+								<a href="#">★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 3}">
+								<a href="#">★★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 4}">
+								<a href="#">★★★★</a>
+							</c:if>
+							<c:if test="${t.rating  eq 5}">
+								<a href="#">★★★★★</a>
+							</c:if>
+						<p>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -82,6 +105,7 @@
 			</c:choose>
 		</ul>
 	</nav>
+	</div>
 </div>	
 </body>
 </html>
