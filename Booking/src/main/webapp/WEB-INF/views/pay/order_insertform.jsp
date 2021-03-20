@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -22,42 +23,65 @@
 	      <th>정가</th>
 	      <th>할인가</th>
 	      <th>갯수</th>
-	      <th>주문일</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <c:forEach var="o" items="${list}" varStatus="status">
-	        <tr>
-		        <td>
-		        	<form id="form${status.count }" action="pay.do" method="post">
-			        	<input type="text" name="buyer" value="${o.id }" />
-			        	<input type="text" name="image" value="${o.image }" />
-			        	<input type="text" name="image" value="${o.title }" />
-			        	<input type="text" name="image" value="${o.price }" />
-			        	<input type="text" name="image" value="${o.d_price }" />
-			        	<input type="text" name="image" value="${o.count }" />
-			        	<button type="button${status.count}"></button>
-		        	</form>
-		        </td>
-	        </tr>
-	    </c:forEach>
+	       <form id="form" action="pay.do" method="post">
+	        <c:forEach var="o" items="${list}" varStatus="status">
+	         <tr>
+	           <td id="c_id${status.count }" hidden>${o.c_id }</td><!-- 장바구니번호 -->
+	           <td id="o_id${status.count }"></td>
+			   <td id="buyer${status.count }">${o.id }</td>
+			   <td id="image${status.count }">${o.image }</td>
+			   <td id="title${status.count }">${o.title }</td>
+			   <td id="price${status.count }">${o.price }</td>
+			   <td id="d_price${status.count }">${o.d_price }</td>
+			   <td id="count${status.count }">${o.count }</td>	 
+			   <td id="status" hidden>${fn:length(list)}</td>
+			   <td id="isbn${status.count }" hidden>${o.isbn }</td>
+			 </tr>
+			</c:forEach>
+		   </form>
 	  </tbody>
 	</table>
 </body>
 <script>
-		/* $('.minus').click(function(){ 
-		//감소버튼에 인접한 input type="number" 선택
-			var  $input = $(this).parent().find("input[type=number]");
-			//현재 숫자값
-			var currentNumber = parseInt( $input.val() );
-			if(currentNumber <= 0){
-				currentNumber;
-			}else{
-				currentNumber--;//1 감소시키기
-				//감소 시킨값 다시 넣어주기
-				$input.val( currentNumber );
-			}
-		}); */
-
+	// by욱현.주문번호(o_id) 만들기_2021317
+	//책 단품의 장바구니 고유번호의 합 + 랜덤수 (일단은 난수만으로 테스트)
+	let ran = Math.floor(Math.random()*10000 + 1);// 난수
+	
+	// by욱현.각 구매책의 정보를 post방식으로 pay.do에 전송_2021317
+	let totalnum = $('#status').text(); // 총 책의 갯수
+	let o_id = ran; //주문번호
+	$(window).ready(function(){ //페이지 로딩완료시 함수호출
+		for(let i=1; i<=totalnum; i++) { //각 로우별로 값을 추출해 전송한다.
+			$("#o_id"+[i]).text(o_id); //row의 주문번호 표시
+			let buyer = $('#buyer'+[i]).text();//구매자
+			let image = $('#image'+[i]).text();//이미지
+			let title = $('#title'+[i]).text();//제목
+			let price = $('#price'+[i]).text(); // 정가
+			let d_price = $('#d_price'+[i]).text();//할인가
+			let count = $('#count'+[i]).text();//책별 갯수
+			let isbn = $('#isbn'+[i]).text(); //책별 isbn
+			(function(){ //for문을 돌때마다 호출되는 익명함수
+				$.ajax({
+					url:"${pageContext.request.contextPath }/pay/order_insert.do",
+					method:"POST",
+					dataType: "text",
+					data: { o_id:o_id, buyer:buyer, image:image, title:title, price:price,
+							d_price:d_price, count:count, isbn:isbn },
+					success : function(){
+						if(i==totalnum) { //장바구니에 담긴 책의 종류를 모두 post전송을 했다면 paid.do로 이동한다.
+							location.href = "${pageContext.request.contextPath }/pay/paid.do";
+						}
+					}
+					
+				})
+			})();
+			
+		}
+	});
+	
+	
 </script>
 </html>

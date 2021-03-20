@@ -1,5 +1,7 @@
 package com.acorn5.booking.order.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,9 +14,30 @@ public class OrderDaoImpl implements OrderDao {
 	@Autowired
 	private SqlSession session;
 	
-	//by준영, 장바구니 담기(저장) 처리_210308
+	//by욱현. my_order 테이블에 저장_2021317
 	@Override
 	public void insertOrder(OrderDto dto) {
 		session.insert("order.insert",dto);
+	}
+	
+	//by욱현. 개인 주문내역 불러오기_2021317
+	@Override
+	public List<OrderDto> getMyOrder(String buyer) {
+		List<OrderDto> list = session.selectList("order.getList", buyer);
+		return list;
+	}
+
+	//by욱현. 주문번호별로 책 불러오기_2021318
+	@Override
+	public List<OrderDto> getMyOrder2(int o_id) {
+		List<OrderDto> list = session.selectList("order.getList2", o_id);
+		return list;
+	}
+
+	//by욱현. 주문내역 row hover시 보여지는 상세내역_2021319
+	@Override
+	public List<OrderDto> getOrderDetail(int o_id) {
+		List<OrderDto> list = session.selectList("order.getDetailList", o_id);
+		return list;
 	}
 }

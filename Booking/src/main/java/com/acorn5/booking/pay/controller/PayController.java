@@ -61,16 +61,20 @@ public class PayController {
 		service.update(dto);
 		return "pay/update";
 	}
-	//by준영, 결제 후 페이지_210314
-	@RequestMapping("/pay/pay")
-	public String pay(HttpServletRequest request) {
-		return "pay/pay";
-	}
+	
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {
-		String id=request.getParameter("id");
+		String id=(String)request.getSession().getAttribute("id");
 		service.deletPay(id);
 		return "pay/paid";
+	}
+	
+	//by준영, 주문테이블 저장양식_210316
+	@RequestMapping("/pay/order_insertform")
+	public ModelAndView listCart2(ModelAndView mView, HttpServletRequest request){
+	    service.listCart(mView, request); 
+	    mView.setViewName("pay/order_insertform");
+	    return mView;
 	}
 }

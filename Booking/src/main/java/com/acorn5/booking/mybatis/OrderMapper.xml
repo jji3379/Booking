@@ -3,15 +3,25 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
-    <insert id="insert" parameterType="orderDto">
-    	INSERT INTO order
-   		(o_id, buyer, image, title, price, d_price, count, o_date)
-   		VALUES(order_seq.NEXTVAL, #{buyer}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
+    <insert id="insert" parameterType="orderDto"><!--by준영. my_order테이블에 주문정보를 insert_2021317 -->
+    	INSERT INTO my_order
+   		(o_id, buyer, image, title, price, d_price, count, o_date, isbn)
+   		VALUES(#{o_id}, #{buyer}, #{image}, #{title}, #{price}, #{d_price}, #{count}, SYSDATE, #{isbn})
    	</insert>
-    <select id="getlist" resultType="orderDto" parameterType="String">
+    <select id="getList" resultType="orderDto" parameterType="String"><!--준영. 주문내역 얻기_2021317 -->
         SELECT o_id, buyer, image, title, price, d_price, count , o_date
-		FROM order 
-		WHERE buyer = #{buyer}
+		FROM my_order 
+		WHERE buyer = #{buyer} ORDER BY o_date DESC
+    </select>
+    <select id="getList2" resultType="orderDto" parameterType="int"><!--욱현. 주문번호별 주문내역 얻기_2021318 -->
+        SELECT o_id, buyer, d_price, count , o_date
+		FROM my_order 
+		WHERE o_id = #{o_id} 
+    </select>
+    <select id="getDetailList" resultType="orderDto" parameterType="int"><!--욱현. 주문번호별 주문내역 얻기2_2021318 -->
+    	SELECT image, title, count, o_date, isbn
+    	FROM my_order
+    	WHERE o_id = #{o_id}
     </select>
 </mapper>
  

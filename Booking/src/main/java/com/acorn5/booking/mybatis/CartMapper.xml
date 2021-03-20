@@ -7,17 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	INSERT INTO cart_item
     <choose>
     	<when test="d_price == '' ">
-    		(c_id, id, image, title, price, d_price, count, indate)
-    		VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{price}, #{count},SYSDATE)
+    		(c_id, id, image, title, price, d_price, count, indate, isbn)
+    		VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{price}, #{count},SYSDATE,#{isbn})
    		</when>
    		<otherwise>
-   			(c_id, id, image, title, price, d_price, count, indate)
-   			VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
+   			(c_id, id, image, title, price, d_price, count, indate, isbn)
+   			VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE, #{isbn})
    		</otherwise>
     </choose>
     </insert>
     <select id="getlist" resultType="cartDto" parameterType="String">
-        SELECT image, title, price, d_price, count ,c_id
+        SELECT image, title, price, d_price, count ,c_id, id, indate, isbn
 		FROM cart_item 
 		WHERE id = #{id}
     </select>

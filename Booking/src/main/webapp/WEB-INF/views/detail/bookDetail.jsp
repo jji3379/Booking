@@ -115,6 +115,7 @@
 				       <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 				       <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
 				       <input type="number" name="count" class="numBox" min="1" max="100" value="1"/>
+				       <input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
 				       <br />
              		<button  id="insertBtn" type="button" onclick="insert()" style="width:70%; background-color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light">장바구니 </button>
 			    </form>
