@@ -97,6 +97,7 @@ public class UsersController {
 		
 		UsersDto dto= dao.getData(id);
 		mView.addObject("dto", dto);
+	
 		mView.setViewName("users/private/pwd_updateform");
 		return mView;
 	}
@@ -198,4 +199,5 @@ public class UsersController {
 				
 		return mView;
 	}
+		
 }

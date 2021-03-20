@@ -39,7 +39,7 @@
     </p>
   </div>
   <div class="card-footer text-muted">
-    <a id="btn1" href="${pageContext.request.contextPath }/home.do" class="btn btn-secondary">계속 쇼핑하기</a> <a id="btn2" href="#" class="btn btn-secondary">구매내역 확인</a>
+    <a id="btn1" href="${pageContext.request.contextPath }/home.do" class="btn btn-secondary">계속 쇼핑하기</a> <a id="btn2" href="../users/private/my_order.do" class="btn btn-secondary">구매내역 확인</a>
   </div>
 </div>
 </body>

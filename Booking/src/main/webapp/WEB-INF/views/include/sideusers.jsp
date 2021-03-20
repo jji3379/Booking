@@ -57,7 +57,7 @@
 			<a href="my_review.do" style="color:#f5e9dd;">내가 쓴 리뷰 모아보기</a>
 		</li>
 		<li style="margin-top: 15px;">
-			<a href="" style="color:#f5e9dd;">주문 조회하기</a>
+			<a href="my_order.do" style="color:#f5e9dd;">주문 조회하기</a>
 		</li>
 		<li style="margin-top: 30px; margin-left:10px; text-align:left; color:#000000">
 			<a>[회원정보관리]</a>

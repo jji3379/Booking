@@ -34,6 +34,7 @@
 			<button type="reset" class="btn btn-outline-warning" >리셋</button>
 		</form>
 	</div>
+	
 </div>
 <div style="margin-top:200px">
 	<jsp:include page="../../include/footer.jsp"></jsp:include>

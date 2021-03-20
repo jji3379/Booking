@@ -69,6 +69,7 @@
 		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		<button type="submit">업로드</button>
 	</form>
+	
 </div>
 <div style="margin-top:200px">
 	<jsp:include page="../../include/footer.jsp"></jsp:include>

@@ -72,7 +72,6 @@ public class PayController {
 		return mView;
 	}	
 	
-	
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {

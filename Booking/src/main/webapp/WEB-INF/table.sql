@@ -85,3 +85,23 @@ create table users (
 );
 
 create sequence users_seq; -- 회원번호 시퀀스
+
+-- by욱현.주문내역 테이블_2021316 
+create table my_order (
+	o_id number(4) NOT NULL, --오더 넘버
+	buyer varchar2(40) NOT NULL, -- 구매자
+	image varchar2(400) NOT NULL, --구매 책 이미지
+	title varchar2(400) NOT NULL, -- 책 제목
+	price number(4), -- 정가
+	d_price number(4), --할인가
+	count number(4), --갯수
+	o_date DATE, -- 주문일
+	isbn varchar2(300)
+);
+
+--by욱현.주문번호 시퀀스_2021316
+create sequence o_id_seq;
+
+
+
+

@@ -122,6 +122,7 @@
 			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+ 		        <input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
 		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
            	</td>
            </tr>
@@ -150,13 +151,14 @@
 		var price = $("#priceP").val();
 		var d_price = $("#d_priceP").val();
 		var count = $("#countP").val();
+		var isbn=$("#isbnP").val();
 		
 		var url ="${pageContext.request.contextPath }/pay/insert.do";
 		var data = null;
 		if(d_price == ""){
-			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count };
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count , 'isbn' : isbn };
 		}else if(d_price != ""){
-			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count };
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count , 'isbn' : isbn };
 		}
 		console.log(data);
 		if(id == ""){

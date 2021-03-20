@@ -63,8 +63,4 @@ public class CartServiceImpl implements CartService {
 	public void deletPay(String id,HttpServletRequest request) {
 		cartDao.pay_delete(id);
 	}
-	
-	
-
-	
 }

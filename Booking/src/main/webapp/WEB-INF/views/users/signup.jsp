@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-		alert('${id} 님 회원가입 성공하셨습니다.');
+		alert('회원가입 성공하셨습니다.');
 		location.href='${pageContext.request.contextPath }/users/login_form.do';
 	</script>
 </body>

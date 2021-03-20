@@ -1,7 +1,5 @@
 package com.acorn5.booking.order.dto;
 
-import java.security.Timestamp;
-
 public class OrderDto {
 	private int o_id; //오더넘버
 	private String buyer;//구매자
@@ -10,12 +8,14 @@ public class OrderDto {
 	private int price; //정가
 	private int d_price;//할인가
 	private int count;//갯수
-	private Timestamp o_date;//주문일
+	private String o_date;//주문일
+	private int total_price; //총 주문금액
+	private String isbn;
 	
 	public OrderDto() {}
 
 	public OrderDto(int o_id, String buyer, String image, String title, int price, int d_price, int count,
-			Timestamp o_date) {
+			String o_date, int total_price) {
 		super();
 		this.o_id = o_id;
 		this.buyer = buyer;
@@ -25,6 +25,7 @@ public class OrderDto {
 		this.d_price = d_price;
 		this.count = count;
 		this.o_date = o_date;
+		this.total_price = total_price;
 	}
 
 	public int getO_id() {
@@ -83,12 +84,31 @@ public class OrderDto {
 		this.count = count;
 	}
 
-	public Timestamp getO_date() {
+	public String getO_date() {
 		return o_date;
 	}
 
-	public void setO_date(Timestamp o_date) {
+	public void setO_date(String o_date) {
 		this.o_date = o_date;
 	}
+
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	
+	
+	
 	
 }

@@ -16,7 +16,7 @@
 	<div style="margin-left:8px; margin-top:7px; width:1027px">
 	<h1 style="margin-left:8px; margin-top:7px;">내가 쓴 리뷰</h1>
 	<table class="table table-striped" style="width:1020px">
-		<thead class="thead-dark">
+		<thead class="thead-dark"> 
 			<tr>
 				<th>리뷰 이미지</th>
 				<th>리뷰 제목</th>

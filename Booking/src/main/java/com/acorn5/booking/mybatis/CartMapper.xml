@@ -4,30 +4,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cart">
     <insert id="insert" parameterType="cartDto">
-    	INSERT INTO cart_item
- 		(c_id, id, image, title, price, d_price, count, indate)
-   		VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},SYSDATE)
+       INSERT INTO cart_item
+       (c_id, id, image, title, price, d_price, count,isbn, indate)
+         VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},#{isbn},SYSDATE)
     </insert>
     <select id="getlist" resultType="cartDto" parameterType="String">
         SELECT image, title, price, d_price, count ,c_id
-		FROM cart_item 
-		WHERE id = #{id}
+      FROM cart_item 
+      WHERE id = #{id}
     </select>
     <delete id="delete" parameterType="int">
         DELETE cart_item WHERE c_id=#{c_id}
     </delete>
     <delete id="deleteChk" >
-    	DELETE cart_item
-    	WHERE c_id = #{c_id}
+       DELETE cart_item
+       WHERE c_id = #{c_id}
     </delete>
     <delete id="deletePay" >
-    	DELETE cart_item
-    	WHERE id = #{id}
+       DELETE cart_item
+       WHERE id = #{id}
     </delete>
     <update id="update" parameterType="cartDto">
-		UPDATE cart_item
-		SET count=#{count}
-		WHERE c_id=#{c_id}
-	</update>
+      UPDATE cart_item
+      SET count=#{count}
+      WHERE c_id=#{c_id}
+   </update>
 </mapper>
  

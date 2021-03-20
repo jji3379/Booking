@@ -1,6 +1,6 @@
 package com.acorn5.booking.pay.dto;
 
-import java.security.Timestamp;
+
 
 public class CartDto {
     private int c_id;//장바구니 번호
@@ -10,13 +10,14 @@ public class CartDto {
     private int price;//책 정가
     private int d_price;//책 할인가
     private int count;// 갯수
-    private Timestamp indate;
+    private String indate;
+    private String isbn;
     
     public CartDto() {}
     
     
 	public CartDto(int c_id, String id, String image, String title, int price, int d_price, int count,
-			Timestamp indate) {
+			String indate) {
 		super();
 		this.c_id = c_id;
 		this.id = id;
@@ -85,13 +86,24 @@ public class CartDto {
 		this.count = count;
 	}
 
-	public Timestamp getIndate() {
+	public String getIndate() {
 		return indate;
 	}
 
-	public void setIndate(Timestamp indate) {
+	public void setIndate(String indate) {
 		this.indate = indate;
 	}
+
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	
 
     
 }

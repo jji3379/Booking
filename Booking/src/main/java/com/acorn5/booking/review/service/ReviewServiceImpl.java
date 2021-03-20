@@ -342,7 +342,6 @@ public class ReviewServiceImpl implements ReviewService{
 		UsersDto usersDto = usersdao.getData(id);
 		mView.addObject("dto", usersDto);
 		
-		
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=4;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
