@@ -81,6 +81,7 @@ public class UsersController {
 		String id = (String)session.getAttribute("id");
 		UsersDto dto= dao.getData(id);
 		mView.addObject("dto", dto);
+	
 		mView.setViewName("users/private/pwd_updateform");
 		return mView;
 	}
@@ -173,4 +174,5 @@ public class UsersController {
 				
 		return mView;
 	}
+		
 }

@@ -69,6 +69,7 @@
 		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		<button type="submit">업로드</button>
 	</form>
+	
 </div>
 <script>
 	//프로필 링크를 클릭했을때 실행할 함수 등록

@@ -34,6 +34,7 @@
 			<button type="reset" class="btn btn-outline-warning" >리셋</button>
 		</form>
 	</div>
+	
 </div>
 <script>
 	//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 

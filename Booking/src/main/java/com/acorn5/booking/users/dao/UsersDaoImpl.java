@@ -58,6 +58,9 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public UsersDto getData(String id) {
 		UsersDto dto=session.selectOne("users.getData", id);
+		if(dto==null) {
+			throw new DBFailException("아이디가 없습니다."); 
+		} //by욱현.미등록 아이디에 관한 예외처리 수정_21320
 		return dto; 
 	}
 

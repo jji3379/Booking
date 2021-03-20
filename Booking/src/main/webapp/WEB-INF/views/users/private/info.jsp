@@ -51,6 +51,7 @@
 		</tr>
 	</table>
 	</div>
+	
 </div>
 <script>
 	function deleteConfirm(){
