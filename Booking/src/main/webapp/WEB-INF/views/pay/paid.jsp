@@ -20,7 +20,7 @@
 	
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body style="font-size:18px; font-family: 'Roboto', sans-serif;">

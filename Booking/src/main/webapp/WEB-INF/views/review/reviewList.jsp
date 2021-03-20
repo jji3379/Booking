@@ -112,6 +112,8 @@
 </div>
 </body>
 <script>
-	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228	
+	$("#isbn").attr('disabled','disabled').css('display','none');
+	
+	//by준영 검색조건 select에서 isbn검색 숨김_210228	
 </script>
 </html>

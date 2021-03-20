@@ -1,6 +1,8 @@
 package com.acorn5.booking.pay.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +64,15 @@ public class PayController {
 		service.update(dto);
 		return "pay/update";
 	}
-
+	//by준영, 결제시 주소입력창_210318
+	@RequestMapping("/pay/pay")
+	public ModelAndView payItem(ModelAndView mView, HttpServletRequest request){
+		service.listCart(mView, request); 
+		mView.setViewName("pay/pay");
+		return mView;
+	}	
+	
+	
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {

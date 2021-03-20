@@ -1,5 +1,6 @@
 package com.acorn5.booking.pay.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface CartService {
 	public void deleteChk(String[] ajaxMsg);
 	//by준영, 북카트 내 도서 수량변경_210310
 	public void update(CartDto dto);
-	//by_준영, 결제완료시 해당상품 삭제_210314
+	//by준영, 결제완료시 해당상품 삭제_210314
 	public void deletPay(String id,HttpServletRequest request);
 	
 }
