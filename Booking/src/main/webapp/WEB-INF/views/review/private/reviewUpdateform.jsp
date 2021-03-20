@@ -24,7 +24,7 @@
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
 <div style="margin-top:30px"></div>
-<div style="margin:auto; width:70%">
+<div style="margin:auto; width:1050px">
 	<center><h1>리뷰 수정 폼</h1></center>
 	<form action="reviewUpdate.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }"/>

@@ -128,7 +128,7 @@
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
 <div style="margin-top:30px"></div>
-<div style="width:70%; margin:auto">
+<div style="width:1050px; margin:auto">
 	<center><h1><strong>리뷰 디테일 폼</strong></h1></center>
 	<table class="table table-striped" style="margin-top:30px">
 		<tr>

@@ -32,7 +32,7 @@
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div style="width:70%; margin:auto">
+	<div style="width:1050px; margin:auto">
 		<div style="margin-top:30px; text-align:center">
 			<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
 			<form action="reviewBookList.do" method="get" style="margin-top:30px">
@@ -47,7 +47,7 @@
 				<button type="submit" style="color:#135fa1; border: 1px solid #135fa1; margin-bottom:3px" class="btn btn-outline-light">검색</button>
 			</form>
 		</div>
-			<div style="margin-top:30px" class="row row-cols-1 row-cols-md-4">
+			<div style="margin-top:30px" class="row row-cols-4">
 					<c:forEach var="b" items="${reviewBookList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">
 							<div style="border: 3px solid #0f4c81;" class="card h-100">

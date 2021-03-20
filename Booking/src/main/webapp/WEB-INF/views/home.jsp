@@ -81,7 +81,7 @@
 </head>
 <body style="background-color:#white;">
 <jsp:include page="include/navbar.jsp"></jsp:include>
-<div  style="width:70%; margin:auto">
+<div style="width:1050px; margin:auto">
 	<!-- 검색창 Start -->
    <div style="margin-top:30px">
       <nav class="navbar navbar-expand-lg justify-content-center" style="font-weight:bold; height:50px; color:#000000;">

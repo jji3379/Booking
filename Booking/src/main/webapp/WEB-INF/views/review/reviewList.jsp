@@ -26,7 +26,7 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin: auto; width:70%;">
+<div style="margin: auto; width:1050px;">
 	<div style="margin-top:30px">
 		<center><h1><strong>리뷰 목록</strong></h1></center>
 		<a href="private/reviewInsertform.do" style="font-size:20px;">리뷰 작성</a>

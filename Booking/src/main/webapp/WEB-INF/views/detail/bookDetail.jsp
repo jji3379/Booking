@@ -61,7 +61,7 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style="margin:auto; width:70%;" id="bookDetail">
+<div style="margin:auto; width:1050px;" id="bookDetail">
 <div style="border:3px solid #0f4c81; margin-top:30px">
     <table style="margin:30px 20px">
     	<c:forEach var="b" items="${bookDetail }">

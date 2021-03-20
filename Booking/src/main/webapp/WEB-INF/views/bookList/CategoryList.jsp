@@ -32,7 +32,7 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div style="width:70%; margin:auto;">
+	<div style="width:1050px; margin:auto;">
 		<div class="row" style="margin-top:30px;">
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
@@ -46,7 +46,7 @@
 						<a class="nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 				</ul>
-				<div style="margin-top:30px" class="row row-cols-1 row-cols-md-4">
+				<div style="margin-top:30px" class="row row-cols-4">
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">
 							<div style="border: 3px solid #0f4c81;" class="card h-100">

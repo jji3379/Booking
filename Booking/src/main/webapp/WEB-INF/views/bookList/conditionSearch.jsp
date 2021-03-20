@@ -32,8 +32,9 @@
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div class="container" style="margin-top: 30px;">
-		<h1><span style="color:#135fa1"><b>${keyword }</b></span> 검색결과  </h1>
+	<div style="margin:auto; width:1050px">
+	<div style="margin-top: 30px"></div>
+		<h1><span style="color:#135fa1;"><b>${keyword }</b></span> 검색결과  </h1>
 		<div style="float:right;">
 			<form action="conditionSearch.do" method="get">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
@@ -52,7 +53,7 @@
 				<button style="width:300px; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
 		</c:if>
 		<table>
-			<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4" >
+			<div style="margin-top:20px" class="row row-cols-4" >
 				<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 					<div class="col mb-4">
 						<div style="border: 3px solid #0f4c81;" class="card h-100">

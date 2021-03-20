@@ -89,7 +89,7 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style="width:70%; margin:auto">
+<div style="width:1050px; margin:auto">
 		<div class="jumbotron" style="margin-top:30px">
 	    
 	    <hr class="my-4">
