@@ -16,7 +16,10 @@
       white-space : nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-}
+   	}
+   	.table th, .table td{
+   		vertical-align:middle;
+   	}
 </style>
 </head>
 <body>
@@ -25,25 +28,25 @@
 </jsp:include>
 <div style="margin: auto; width:70%;">
 	<div style="margin-top:30px">
-		<center><h1>리뷰 목록</h1></center>
+		<center><h1><strong>리뷰 목록</strong></h1></center>
 		<a href="private/reviewInsertform.do" style="font-size:20px;">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
-			<thead style="background-color:#f5e9dd;">
+			<thead style="background-color:#f5e9dd; font-size:22px;">
 				<tr>
-					<th width="10%">리뷰 이미지</th>
-					<th width="15%">리뷰 제목</th>
-					<th width="30%">책 제목</th>
-					<th width="10%">작성자</th>
-					<th width="10%">조회수</th>
-					<th width="15%">등록일</th>
-					<th width="10%">리뷰 별점</th>
+					<th width="8%"><strong>도서</strong></th>
+					<th width="19%"><strong>리뷰 제목</strong></th>
+					<th width="30%"><strong>도서 제목</strong></th>
+					<th width="10%"><strong>작성자</strong></th>
+					<th width="8%"><strong>조회수</strong></th>
+					<th width="15%"><strong>등록일</strong></th>
+					<th width="10%"><strong>리뷰 별점</strong></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="t" items="${list}">
 					<tr>
-						<td style="text-overflow:ellipsis; overflow:hidden"> 
-							<img style="width:100px; height:60px" class="rounded-sm" 
+						<td class="ellipsis"> 
+							<img style="width:80px; height:100px;" class="rounded-sm" 
 							src="${t.imagePath }"/>
 						</td>
 						<td class="ellipsis"><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
@@ -127,13 +130,17 @@
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			<button style="background-color:#135fa1;" class="btn btn-primary" type="submit">검색</button>
 		</form>
+		<br />
 		<%-- by남기, 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. _210303 --%>
 		<c:if test="${not empty keyword }">
-			<div class="alert alert-success">
+			<div class="alert alert-primary">
 				<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 			</div>
 		</c:if>
 	</div>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228	

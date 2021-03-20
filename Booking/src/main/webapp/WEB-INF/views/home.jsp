@@ -285,7 +285,6 @@
       </div>
    </div><!-- row END -->
 </div><!-- container END -->
-<jsp:include page="include/footer.jsp"></jsp:include>
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
    $("#bookingBtn").on("click", function(){
@@ -349,5 +348,8 @@
    
    }
 </script>
+<div style="margin-top:200px">
+	<jsp:include page="include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

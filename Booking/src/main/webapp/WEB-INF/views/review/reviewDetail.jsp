@@ -8,6 +8,9 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	body{
+		font-size:20px;
+	}
 	/* by남기, 글 내용을 출력할 div 에 적용할 css _210303 */
 	.contents{
 		width: 100%;
@@ -113,6 +116,11 @@
     max-width: 250px;
     width: 100%;
 	}
+	
+	.table th, .table td{
+		padding:0.3rem;
+		vertical-align: middle;
+	}
 </style>
 </head>
 <body>
@@ -121,8 +129,8 @@
 </jsp:include>
 <div style="margin-top:30px"></div>
 <div style="width:70%; margin:auto">
-	<center><h1>리뷰 디테일 폼</h1></center>
-	<table class="table table-striped" style="border-left: 3px solid #369; margin-top:30px">
+	<center><h1><strong>리뷰 디테일 폼</strong></h1></center>
+	<table class="table table-striped" style="margin-top:30px">
 		<tr>
 			<td rowspan="8" style="width:300px;"><img id="image" src="${dto.imagePath }"/></td>
 		</tr>
@@ -260,9 +268,6 @@
 			</c:forEach>
 		</ul>
 	</div>
-</div>
-<div class="loader">
-	<img src="${pageContext.request.contextPath }/resources/images/ajax-loader.gif"/>
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
@@ -418,7 +423,8 @@
 		}
 	});			
 </script>
+<div style="margin-top:200px">
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>
-
-

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/map/mapsearch.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 	<style>
 		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -47,9 +47,9 @@
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
-<div style="width:70%; margin:auto">
+<div style="width:70%; height:800px; margin:auto;">
 	<div style="margin-top:30px">
-		<center><h1>서점 검색 폼</h1></center>
+		<center><h1><strong>서점 검색 폼</strong></h1></center>
 		<!-- by남기, 카카오맵 api 사용/지도와 검색 뷰를 따로 구분_210306 -->
 		<div style="margin-top:30px">
 			<div class="map_wrap">
@@ -67,7 +67,7 @@
 			    <hr>
 			 	<ul id="placesList"></ul>
 			    <div id="pagination"></div>
-		</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -289,5 +289,8 @@
 	    }
 	}
 </script>
+<div style="margin-top:200px">
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

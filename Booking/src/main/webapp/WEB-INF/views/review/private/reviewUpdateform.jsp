@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/private/updateform.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	#star a{ 
@@ -58,6 +58,9 @@
 		</div>
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
 	</form>
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310

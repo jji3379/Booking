@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/review/private/reviewDelete.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 </head>
 <body>
 	<script>

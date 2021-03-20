@@ -27,7 +27,7 @@
       transition: transform 0.3s ease-out;
    }
 </style>
-<title>Insert title here</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
@@ -52,23 +52,24 @@
 				<button style="width:300px; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
 		</c:if>
 		<table>
-			<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4">
-					<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
-						<div class="col mb-4">
-							<div style="border: 3px solid #0f4c81;" class="card h-100">
+			<div style="margin-top:20px" class="row row-cols-1 row-cols-md-4" >
+				<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
+					<div class="col mb-4">
+						<div style="border: 3px solid #0f4c81;" class="card h-100">
+							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+								<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+							</a>
+							<div style="background-color:#f5e9dd" class="card-body">
 								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-									<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+									<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
 								</a>
-								<div style="background-color:#f5e9dd" class="card-body">
-									<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-										<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
-									</a>
-									<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
-								</div>
+								<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
 							</div>
 						</div>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
+			</div>
+		</table>
 		<!-- by 준익, 페이징 처리_2021.02.26 -->
 		<nav>
 			<ul class="pagination justify-content-center">
@@ -118,6 +119,9 @@
 				</c:choose>
 			</ul>
 		</nav>
+	</div>
+	<div style="margin-top:200px">
+		<jsp:include page="../include/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

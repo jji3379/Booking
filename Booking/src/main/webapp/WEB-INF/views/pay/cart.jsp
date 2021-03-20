@@ -329,9 +329,6 @@
 	function submit(elClickedObj){
 		elClickedObj.form.submit();
 	}
-	
-	
-	
 </script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

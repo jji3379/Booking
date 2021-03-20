@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>bookDetail.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	#simList{
@@ -122,9 +122,7 @@
 			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니
-		    		
-		    		</button>
+		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
            	</td>
            </tr>
            <tr>
@@ -185,7 +183,6 @@
 	<div style="margin-top:30px" id="simList"></div>
 </div>
 <div style="margin-top:180px;"  id="reviewList"></div>
-
 <script type="text/javascript">
 //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
 var inputAuth=$("#auth").text();

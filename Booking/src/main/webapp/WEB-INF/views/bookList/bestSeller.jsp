@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/bookList.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
  .ellipsis2 {
@@ -110,8 +110,8 @@
 		</div><!-- div col-10End -->
 	</div>
 </div>
-<script>
-   
-</script>
+<div style="margin-top:200px">
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>

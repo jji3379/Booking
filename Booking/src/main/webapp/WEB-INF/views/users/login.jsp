@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/login.jsp</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 	<input id="url" type="hidden" value="${url}"/>
 </body>
 <script>
-		var url=$("#url").val();	
-	
-		alert("${id}님 반갑습니다!");
-		location.href=url;
-	</script>
+	var url=$("#url").val();	
+
+	alert("${id}님 반갑습니다!");
+	location.href=url;
+</script>
 </html>
