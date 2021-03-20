@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,6 +10,10 @@
 	button.btn{
       background-color:#135fa1;
       color:white;
+   }
+   #pay{
+		background-color:#135fa1;
+		color:white;
    }
    button.plus{
    		 width: 30px;
@@ -69,14 +73,16 @@
 	#selectDeleteBtn{
 		margin-bottom:5px;
 		margin-left:10px;
-		
-		
+	}
+	#home{
+		background-color:#484848;
+		color:white;
 	}
 	 
   
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body  style="font-size:18px; font-family: 'Roboto', sans-serif;">
@@ -158,7 +164,7 @@
 	  <tbody>
 	    <c:forEach var="c" items="${list}" varStatus="status">
 	        <tr>
-	        	<c:if test="${fn:length(list) eq 0}">
+	        	<c:if test="${fn:length(list) == 0}">
 	        		<td align="center">북카트가 비었습니다</td>
 	        	</c:if>
 	        		<td>
@@ -179,15 +185,14 @@
 			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
-		            <td>${c.price * c.count}</td>
+		            <td>${c.d_price * c.count}</td>
 		            <!-- 갯수*물품가 의 배열의 합 -->
-		            <c:set var= "sum" value="${sum + (c.price * c.count)}"/>
-		            <form action="delete.do" method="post">
-		            	<input name="c_id" type="hidden" value="${c.c_id}" />
-		            	<td><button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button></td>
-		            </form>
+		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
+	            <form action="delete.do" method="post">
+	            	<input name="c_id" type="hidden" value="${c.c_id}" />
+	            	<td><button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button></td>
+	            </form>
 	        </tr>
-	        
 	    </c:forEach>
 	  </tbody>
 	</table>
@@ -196,7 +201,7 @@
 			<thead>
 				<th>상품 가격</th>
 				<th>배송비&nbsp;(2만원 이상 무료배송)</th>
-				<th><strong>총 결제금액</strong></th>
+				<th><strong>총 결제 예상금액</strong></th>
 			</thead>
 			<tbody>
 				<td id="price" ><c:out value="${sum }"></c:out><span>원</span></td>
@@ -204,13 +209,12 @@
 				<td id="total"></td>
 			</tbody>
 		</table>
-		<button id="check_module" type="button"  class="btn btn-lg " >주문하기</button>
-		<button href="home.do" type="button"  class="btn btn-lg" style=background-color:#484848; >쇼핑 계속하기</button>
+		<a id="pay" type="button"  class="btn btn-lg" href="pay.do">주문하기</a>
+		<a  id="home" type="button"  class="btn btn-lg"	href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
 	</div>
 </div>
 </body>
 <script>
-	//by준영, 결제api 세팅_210311
 	//by준영, 배송비 책정로직_210317
 	var price=$("#price").text();//물품가격
 	var shipFee=null;
@@ -218,6 +222,10 @@
 	if(price == "원"){
 		$("#shipFee").text("원");
 		$("#total").text("원");
+		$("a[id='pay']").click(function(){
+			alert("1개 이상의 상품을 담아야 주문이 가능합니다");
+			return false;
+		});
 	}else{
 		if(parseInt(price) >= 20000){
 			shipFee=0;
@@ -229,73 +237,6 @@
 		total=parseInt(price)+shipFee;
 		$("#total").text(total+"원");
 	}
-		
-	
-	$("#check_module").click(function () {
-		var IMP = window.IMP; // 생략가능
-		IMP.init('imp02317087');
-		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
-		IMP.request_pay({
-			pg: 'inicis', // version 1.1.0부터 지원.
-				/*
-					'kakao':카카오페이,
-					html5_inicis':이니시스(웹표준결제)
-					'nice':나이스페이
-					'jtnet':제이티넷
-					'uplus':LG유플러스
-					'danal':다날
-					'payco':페이코
-					'syrup':시럽페이
-					'paypal':페이팔
-				*/
-			pay_method: 'card',
-				/*
-					'samsung':삼성페이,
-					'card':신용카드,
-					'trans':실시간계좌이체,
-					'vbank':가상계좌,
-					'phone':휴대폰소액결제
-				*/
-			merchant_uid: 'merchant_' + new Date().getTime(),
-				/*
-					merchant_uid에 경우
-					https://docs.iamport.kr/implementation/payment
-					위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-					참고하세요.
-					나중에 포스팅 해볼게요.
-				*/
-			name: '도서',
-				//결제창에서 보여질 이름
-			amount: total,
-				
-			buyer_email: 'iamport@siot.do',
-			buyer_name: '구매자이름',
-			buyer_tel: '010-1234-5678',
-			buyer_addr: '서울특별시 강남구 삼성동',
-			buyer_postcode: '123-456',
-			m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-				/*
-					모바일 결제시,
-					결제가 끝나고 랜딩되는 URL을 지정
-					(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-				*/
-		}, function (rsp) {
-			console.log(rsp);
-			if (rsp.success) {
-				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				location.href="order_insertform.do";
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-	});
 	
 	//by준영 수량 +- 기능_210311-----------------------------
 	$('.plus').click(function(){ 
@@ -330,5 +271,4 @@
 		elClickedObj.form.submit();
 	}
 </script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

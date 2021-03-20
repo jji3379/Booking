@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>디테일페이지 인서트</title>
+<title>책과의 즉석만남 Booking</title>
 </head>
 <body>
 </body>
