@@ -85,8 +85,8 @@
 	<!-- 검색창 Start -->
    <div style="margin-top:30px">
       <nav class="navbar navbar-expand-lg justify-content-center" style="font-weight:bold; height:50px; color:#000000;">
-         <form class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">
-              <input class="form-control" type="text" aria-label="Search" style="font-weight:bold; border-width:3px; border-radius:20px; border-color:#135fa1; height:45px; width:500px;"
+         <form id="searchForm" class="d-flex" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get">
+              <input id="searchBook" class="form-control" type="text" aria-label="Search" style="font-weight:bold; border-width:3px; border-radius:20px; border-color:#135fa1; height:45px; width:500px;"
                  name="keyword" value="${keyword }" />
               <input name="pageNum" value="1" hidden/>
               <input name="start" value="1" hidden/>
@@ -346,8 +346,16 @@
            boxes[2].className = "box move-to-position4-from-right";
            boxes[3].className = "box move-to-position5-from-right";
        }, 500);
-   
    }
+   
+   $(document).ready(function() {
+	    $('#searchForm').submit(function() {
+	        if ($('#searchBook').val() == '') {
+	            alert('검색어를 입력하세요.');
+	            return false;
+	        }
+	    }); 
+	}); 
 </script>
 <div style="margin-top:200px">
 	<jsp:include page="include/footer.jsp"></jsp:include>

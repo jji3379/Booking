@@ -10,12 +10,13 @@
 </head>
 <body style="background-color:#484848;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div class="row" style="width:80%; 
-	margin-top:50px; margin-left:auto; margin-right:auto; background-color:#f5e9dd; width:fit-content;">
+<div style="margin-top:30px"></div>
+<div class="row" style="width:1050px; 
+	margin:auto; background-color:#f5e9dd;">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
-	<div style="margin-left:8px; margin-top:7px; width:1027px">
+	<div style="margin-left:8px; margin-top:7px;">
 	<h1 style="margin-left:8px; margin-top:7px;">내가 쓴 리뷰</h1>
-	<table class="table table-striped" style="width:1020px">
+	<table class="table table-striped" style="width:830px">
 		<thead class="thead-dark"> 
 			<tr>
 				<th>리뷰 이미지</th>

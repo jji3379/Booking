@@ -140,7 +140,7 @@ public class BookController {
     @RequestMapping("/bookList/conditionSearch.do")
     public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
           HttpServletRequest request, ModelAndView mView){    
-       if(keyword !=null) {
+       if(keyword !=null) { 
     	 //by욱현.검색시 최근검색어 칼럼에 검색키워드를 담기_2021308
           HttpSession session = request.getSession();
           String id = (String) session.getAttribute("id");

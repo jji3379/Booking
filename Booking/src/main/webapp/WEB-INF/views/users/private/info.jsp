@@ -10,8 +10,9 @@
 </head>
 <body style="background-color:#484848;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div class="row" style="width:80%; height:650px; 
-	margin-top:50px; margin-left:auto; margin-right:auto; background-color:#f5e9dd; width:fit-content;">
+<div style="margin-top:30px"></div>
+<div class="row" style="width:1050px; height:650px; 
+	margin:auto; background-color:#f5e9dd;">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
 	<div>
 		<h1 style="margin-left:8px; margin-top:7px;">가입 정보 입니다.</h1>
