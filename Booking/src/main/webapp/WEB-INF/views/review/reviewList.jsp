@@ -20,6 +20,22 @@
    	.table th, .table td{
    		vertical-align:middle;
    	}
+   
+   	#writeR{
+   		width:100px;
+   		height:40px;
+   		text-size:8px;
+   		padding-bottom:3px;
+   		margin-bottom:5px;
+   		float:right;
+   		background:#135fa1;
+   		color:white;
+   	}
+   	#submitBtn{
+   		background-color:#135fa1; 
+   		color:white;
+   	}
+   	
 </style>
 </head>
 <body>
@@ -28,18 +44,20 @@
 </jsp:include>
 <div style="margin: auto; width:70%;">
 	<div style="margin-top:30px">
-		<center><h1><strong>리뷰 목록</strong></h1></center>
-		<a href="private/reviewInsertform.do" style="font-size:20px;">리뷰 작성</a>
+		
+			<center><h1><strong>리뷰 목록</strong></h1></center>
+			<a id="writeR" class="btn btn primary" href="private/reviewInsertform.do" ">리뷰 작성</a>
+		
 		<table class="table table-border" style="table-layout: fixed;">
 			<thead style="background-color:#f5e9dd; font-size:22px;">
 				<tr>
-					<th width="8%"><strong>도서</strong></th>
-					<th width="19%"><strong>리뷰 제목</strong></th>
-					<th width="30%"><strong>도서 제목</strong></th>
+					<th width="10%"><strong>도서</strong></th>
+					<th width="20%"><strong>리뷰 제목</strong></th>
+					<th width="20%"><strong>도서 제목</strong></th>
 					<th width="10%"><strong>작성자</strong></th>
-					<th width="8%"><strong>조회수</strong></th>
+					<th width="15%"><strong>조회수</strong></th>
 					<th width="15%"><strong>등록일</strong></th>
-					<th width="10%"><strong>리뷰 별점</strong></th>
+					<th width="10%"><strong>별점</strong></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -119,7 +137,7 @@
 				</c:choose>
 			</ul>
 		</nav>
-		<form action="reviewList.do" method="get" style="margin-top:30px">
+		<form id="search" action="reviewList.do" method="get" style="margin-top:30px">
 			<label for="condition">검색조건</label>
 			<select name="condition" id="condition">
 				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>책 제목+내용</option>
@@ -128,7 +146,7 @@
 				<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' } disabled>책 고유번호</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-			<button style="background-color:#135fa1;" class="btn btn-primary" type="submit">검색</button>
+			<button id="submitBtn" class="btn btn-primary" type="submit">검색</button>
 		</form>
 		<br />
 		<%-- by남기, 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. _210303 --%>

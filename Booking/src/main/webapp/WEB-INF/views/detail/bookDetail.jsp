@@ -20,17 +20,21 @@
 	 *  Core Owl Carousel CSS File
 	 */
 	.owl-item > div {
+	  width:140px;
 	  height:fit-content;
 	  cursor: pointer;
-	  margin: 6% 8%;
+	  margin: auto;
+	  padding-top: 20px;
 	  transition: margin 0.4s ease;
 	  pointer-events: auto !important;
 	}
 	.owl-item.center > div {
+	  width:180px;
 	  cursor: auto;
-	  margin: 0;
-	  z-index:1000;
-	  diplay:block;
+	  margin: auto;
+	  padding: 0;
+	  z-index:800;
+	  display:block;
 	}
 	.owl-item:not(.center) > div:hover {
 	  opacity: .75; 
@@ -38,6 +42,14 @@
 	.owl-nav{
 		display:none;
 	}
+	div.item.active{
+		
+	}
+	.Link{
+		
+	
+	}
+	
 	/*
 		Table CSS
 	*/
@@ -52,6 +64,22 @@
 		object-fit;
 		text-align:center;
 	}
+	#search{
+		display:none;
+	}
+	.alert{
+		display:none;
+	}
+	#writeR{
+		display:none;
+	}
+	#reviewList h1{
+		display:none;
+	}
+	#simList{
+		padding:50px 100px 0 100px;
+	}
+	
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
@@ -127,7 +155,7 @@
            </tr>
            <tr>
            	<td style="text-align:center">
-		           		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light">바로구매  </button>
+		           		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" onclick="direct()">바로구매  </button>
            	</td>
            </tr>
            <tr>
@@ -139,7 +167,7 @@
 		</c:forEach>	
     </tbody>
 	</table>
-	<script>
+<script>
 	//by준영, 장바구니 로그인 필터 기능_210311
 	//by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
 	var id=$("#idP").val();
@@ -174,6 +202,36 @@
 					}else{
 						return false;
 					}
+				}
+			})
+		}	
+	}
+	
+	function direct(){
+		var image = $("#imageP").val();
+		var title = $("#titleP").val();
+		var price = $("#priceP").val();
+		var d_price = $("#d_priceP").val();
+		var count = $("#countP").val();
+		
+		var url ="${pageContext.request.contextPath }/pay/insert.do";
+		var data = null;
+		if(d_price == ""){
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count };
+		}else if(d_price != ""){
+			data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count };
+		}
+		console.log(data);
+		if(id == ""){
+			alert("로그인이 필요합니다");	
+			location.href="${pageContext.request.contextPath }/users/login_form.do";
+		}else{
+			$.ajax({
+				url:url,
+				method:'post',
+				data: data,
+				success:function(data){
+					location.replace("${pageContext.request.contextPath }/pay/pay.do");
 				}
 			})
 		}	
@@ -238,25 +296,29 @@ function bookAuthor(){
 	});
 	
 	$owl.owlCarousel({
-	  center: true,
-	  loop: true,
-	  
-      touchDrag: true,
-	  responsiveClass: true,
-	  responsive:{
-		  0:{
-	            items:1,
-	            nav:true
-	        },
-	        600:{
-	            items:3,
-	            nav:false
-	        },
-	        1000:{
-	            items:5,
-	            nav:true,
-	            loop:false
-	  }
+		navigation:true,
+		center: true,
+		loop: true,
+		mouseDrag:true,
+		mouseDraggable:true,
+		touchDrag: true,
+		autoplay: true,
+		autoplayTimeout: 2500,
+		rewind:true,
+		responsive:{
+		0:{
+		    items:1,
+		    nav:true
+		},
+		600:{
+		    items:3,
+		    nav:false
+		},
+		1000:{
+		    items:5,
+		    nav:true,
+		    loop:false
+	  	}
 	  }
 	});
 	

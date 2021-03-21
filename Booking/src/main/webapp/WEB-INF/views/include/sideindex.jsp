@@ -13,13 +13,13 @@
    .Main-Category {
       font-weight:bold;
       color: #0f4c81;
-      width: 150px;
+      width: 140px;
       font-size: 19px;
       text-align: left;
       margin-left: 10px;
    }
 </style>
-<div style="border: 2px solid #0f4c81; height: 745px; width:150px" class="col-2">
+<div style="border: 2px solid #0f4c81; height: 745px; width:140px" class="col-2">
 	<div class="btn-group dropright">
 		<a  style="margin-top:10px;"  class="Main-Category"
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&start=1&sort=count">소설</a>
@@ -90,7 +90,7 @@
 	</div>
 	<div class="btn-group dropright">
 		<a class="Main-Category"
-			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130&start=1&sort=count">가정 / 생활 / 요리</a>
+			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=130&start=1&sort=count">가정/생활/요리</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
 		<div class="dropdown-menu">

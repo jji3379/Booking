@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<center><h2>이 작가의 책들</h2></center>
 <div id="owl-demo" class="owl-carousel">
 	<c:forEach var="b" items="${detailAjax }">
-		<div><a id="Link" href="bookDetail.do?d_isbn=${b.isbn }"><img src="${b.image }"></a></div>
+		<div class="Link"><a class="Link" href="bookDetail.do?d_isbn=${b.isbn }"><img class="Link" src="${b.image }"></a></div>
 	</c:forEach>
 </div>
 <script type="text/javascript">
@@ -23,7 +22,10 @@
 	  mouseDrag:true,
       mouseDraggable:true,
       touchDrag: true,
-	  responsiveClass: true,
+	  autoplay: true,
+	  autoplayTimeout: 2500,
+	  rewind:true,
+	  
 	  responsive:{
 		  0:{
 	            items:1,
