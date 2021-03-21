@@ -28,7 +28,7 @@ body {
 }
 
 .button img {
-    width: 100%;
+    width: 30px;
 }
 
 .cards-wrapper {
@@ -47,7 +47,7 @@ body {
 }
 
 .box {
-   margin: 20px;
+   margin: 13px;
     width: 12rem;
     height: 310px;
     box-shadow: 0px 0px 2rem 0px #888888;

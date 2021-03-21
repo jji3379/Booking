@@ -70,8 +70,8 @@
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
-      width: 300px;
-      height: 300px;
+      width: 250px;
+      height: 250px;
       border: 1px solid #cecece;
       border-radius: 50%;
       align:left;
@@ -118,10 +118,10 @@
                   </c:choose>
                </span>
                <span class="col-4" style="text-align: center;"><!--by욱현. 부킹버튼(랜덤추천기능)_2021226 -->
-                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:300px; height:300px;" src="resources/images/bookingbutton.png"/></a> 
+                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:250px; height:250px;" src="resources/images/bookingbutton.png"/></a> 
                  </span>
                  <span class="col-4" style="text-align: left; margin-left:0px;">   
-                    <a href="bookDetail.do?d_isbn=" id="bookA"><img style="height:300px; width:300px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"/></a>
+                    <a id="bookA"><img style="height:250px; width:250px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"></a>
                  </span>
                </div>
             </div><!-- 부킹 ENd -->
@@ -144,8 +144,8 @@
             </c:otherwise>
          </c:choose>
          <!-- 캐러셀 Start -->
-          <div class="container2"> <!-- by욱현. 추천도서에 carousel css 적용_2021227 -->
-              <div class="button" onclick="shiftLeft()"><img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt=""></div>
+       <div class="container2"> <!-- by욱현. 추천도서에 carousel css 적용_2021227 -->
+              <div class="button" onclick="shiftLeft()" style="margin-right:80px"><img src="https://image.ibb.co/mRsEb7/left_arrow.png" alt=""></div>
               <div class="cards-wrapper" style="width:50%">
                   <ul class="cards__container">
                        <li class="box">
@@ -280,7 +280,7 @@
 	                  </li>
                   </ul>
               </div>
-              <div class="button" onclick="shiftRight()"><img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt=""></div>
+              <div class="button" onclick="shiftRight()" style="margin-left:80px"><img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt=""></div>
           </div>
       </div>
    </div><!-- row END -->
@@ -299,8 +299,9 @@
             let isbn = map['isbn'];
             //요소의 속성 변경
             $('#bookimage').attr("src", image);
-            $('#bookA').attr("href", "detail/bookDetail.do?d_isbn="+isbn);
-            
+            if(isbn!=""){
+            	$('#bookA').attr("href", "detail/bookDetail.do?d_isbn="+isbn);
+            }            
          }   
       })
       
