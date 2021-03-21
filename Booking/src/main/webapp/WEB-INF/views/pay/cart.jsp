@@ -130,7 +130,6 @@
 				})
 			}
 		}
-		
 	</script>
 	<table class="table" style=border-bottm-style:dotted;>
 	    <thead class="thead-light">

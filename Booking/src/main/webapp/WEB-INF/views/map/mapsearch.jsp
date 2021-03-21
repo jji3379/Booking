@@ -43,6 +43,18 @@
 		#pagination {margin:10px auto;text-align: center;}
 		#pagination a {display:inline-block;margin-right:10px;}
 		#pagination .on {font-weight: bold; cursor: default;color:#777;}
+		<!--CSS-->
+		.option input{
+			margin-top:2.5px;
+		}
+		.option button{
+			float:right;
+			margin:0px 4px; 
+			background:#135fa1;
+			padding: 5px 8px 3px 8px;
+			color:white;
+		}
+		
 	</style>
 </head>
 <body>
@@ -59,8 +71,8 @@
 			    <div class="option">
 			        <div>
 			            <form onsubmit="searchPlaces(); return false;">
-			                검색 : 	<input type="text" value="서점" id="keyword" size="15" style="margin-top:2.5px;"> 
-			              	<button type="submit" class="btn btn-outline-dark" style="margin-top:-2.5px;">검색하기</button> 
+			                <input type="text" value="서점" id="keyword" size="15" style="background:#f5e9dd;" > 
+			              	<button type="submit" class="btn btn-outline-dark" >검색하기</button> 
 			            </form>
 			        </div>
 			    </div>

@@ -34,7 +34,34 @@
 	.orderList ul{
 		list-style:none;
 		border-bottom:1px dashed #a0a0a0;
+		display:table;
+		padding:10px 15px;
+		width:685px;
+		margin:0px;
 	}
+	.orderList li{
+		display:contents;
+	}
+	.AllCheckBox{
+		height:33px;
+		border-bottom:1px dashed #d4d2d2;
+		padding:3px 7px 5px 15px;
+	}
+	.AllCheck{
+		float:left;
+		padding-top:7px;
+	}
+	.AllCheck input{
+		vertical-align:middle;
+	}
+	.deleteBtn{
+		float:right;
+		
+	}
+	.checkBox{
+		padding-right:10px;
+	}
+	
 	#Bimg{
 		width:65px;
 		height:80px;
@@ -133,12 +160,7 @@
 		width:382px;
 		padding:0 10px 2px 10px;
 	}
-	.orderList ul{
-		display:table;
-		padding:10px 20px;
-		width:685px;
-		margin:0px;
-	}
+	
 	dd.cellNumber{
 		margin:0 0 7px 112px;
 		width:451px;
@@ -159,15 +181,15 @@
 		border:1px solid #ddd;
 		padding:0 0 0 5px;
 	}
-	#nomalRecipientMpno2{
+	#normalRecipientMpno2{
 		width:60px;
 	
 	}
-	#nomalRecipientMpno3{
+	#normalRecipientMpno3{
 		width:60px;
 		
 	}
-	#nomalReciptientMpno3{
+	#normalReciptientMpno3{
 		width:60px;
 	}
 	#normalRecipientTelno1{
@@ -192,14 +214,14 @@
 	/* fixed 부모요소 틀 */
 	.orderAside{
 		margin-top:50px;
-		position:absolute; top:0; right:0;
+		position:absolute; top:-3; right:0;
 	    width: 280px;
 	    
 	}
 	.orderBox{
 		position:fixed;
 		background:#fff;
-		border:1px solid #efefef;
+		border:2px solid #efefef;
 		width:280px;
 		height:252px;
 	}
@@ -294,9 +316,63 @@
 		</span>
 		</div>
 		<div class="orderList">
+			<div class="allCheckBox">
+				<dt class="allCheck">
+					<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+				</dt>
+				<dd class="deleteBtn">
+					<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
+				</dd> 
+			</div>
+			<script>
+			//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
+				function deleteChk(){
+					var url ="deleteCart.do";
+					var valueArr = new Array();
+					var list =$("input[name='chBox']");
+					for(var i=0; i< list.length; i++){
+						if(list[i].checked){//선택되어 있으면 배열에 값을 저장
+							valueArr.push(list[i].value);	
+						}
+					}
+					if(valueArr.length == 0){
+						alert("선택된 항목이 없습니다.");
+					}else{
+						var chk = confirm("정말 삭제하시겠습니까");
+						$.ajax({
+							url:url,
+							type:'post',
+							traditional :true,
+							data:{'valueArr' : valueArr},
+							success:function(){
+								if(chk){
+									location.replace("pay.do");	
+								}else{
+									return false;
+								}
+								
+							}
+						})
+					}
+				}
+			</script>
+			<script>
+			//by준영, 체크박스 전체선택,전체해제 기능_210307
+				$("#allCheck").click(function(){
+					var chk = $("#allCheck").prop("checked");
+					if(chk) {
+						$(".chBox").prop("checked", true);
+					} else {
+						$(".chBox").prop("checked", false);
+					}
+				});
+			</script>
 			<c:forEach var="p" items="${list }" varStatus="status">
 			<ul>
 				<li>
+					<div class="checkBox">
+						<input type="checkbox" name="chBox" class="chBox" value="${p.c_id }"/>
+					</div>&nbsp;
 					<div class="orderImage"><img id="Bimg"src="${p.image }"/></div>
 					<div class="orderSubject">[도서] ${p.title}</div>
 					<div class="orderQuantity">${p.count} 개</div>
@@ -305,6 +381,7 @@
 			</ul>	
 			</c:forEach>
 		</div>
+		
 		
 		<div class="orderHead">
 			<h2>배송정보</h2>
@@ -315,7 +392,7 @@
 					<dl class="addressWrapDl">
 						<dt class="addressName">수령인</dt>
 						<dd class="addressName">
-							<input type="iText" name="nomarRecipientNm" id="normalRecipientNm" />
+							<input type="iText" name="normalRecipientNm" id="normalRecipientNm" />
 						</dd>
 						<dt class="addressDetail">주소</dt>
 						<dd class="addressDetail">
@@ -353,9 +430,9 @@
 								</ul>
 							</div>
 							<span class="divide">-</span>
-							<input type="text" class="iText" name="normalRecipientMpno2" id="nomalRecipientMpno2" maxlength="4" numberonly="true"/>
+							<input type="text" class="iText" name="normalRecipientMpno2" id="normalRecipientMpno2" maxlength="4" numberonly="true"/>
 							<span class="divide">-</span>
-							<input type="text" class="iText" name="normalRecipientMpno3" id="nomalRecipientMpno3" maxlength="4" numberonly="true"/>
+							<input type="text" class="iText" name="normalRecipientMpno3" id="normalRecipientMpno3" maxlength="4" numberonly="true"/>
 						</dd>	
 						<dt class="phoneNumber">전화번호</dt>
 						<dd class="phoneNumber">
@@ -383,9 +460,9 @@
 								<div class="optionList">
 									<select id="selbox" name="selbox">
 										<option value="#" selected disabled hidden >배송요청 사항을 선택해 주세요</option>
-										<option value="#">부재시 휴대폰으로 연락바랍니다</option>
-										<option value="#">부재시 경비실에 맡겨주세요</option>
-										<option value="#">경비실이 없습니다. 배송 전 연락바랍니다</option>
+										<option value="1">부재시 휴대폰으로 연락바랍니다</option>
+										<option value="2">부재시 경비실에 맡겨주세요</option>
+										<option value="3">경비실이 없습니다. 배송 전 연락바랍니다</option>
 										<option value="direct">직접 입력</option>
 									</select>
 								</div>
@@ -437,8 +514,8 @@
 			<div class="orderBox">
 				<div class="topBox">
 					<div class="priceBox">
-					<c:forEach var="p" items="${list }">
-						<c:set var= "sumP" value="${sumP + (p.count * p.d_price)}"/>
+						<c:forEach var="p" items="${list }">
+							<c:set var= "sumP" value="${sumP + (p.count * p.d_price)}"/>
 					</c:forEach>
 						<dt class="itemPriceL">상품 가격</dt>
 						<dd>
@@ -474,12 +551,20 @@
 		</div>
 	</div>
 </div>
-	
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br /><br />
+	<br />
+	<br />
 	<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 	<div id="layer" style="display:none; position:fixed; overflow:hidden; z-index:1; -webkit-overflow-scrolling:touch;">
 	<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 </body>
 <script>
+	
 	<!--도로명 주소 API-->
 	// 우편번호 찾기 화면을 넣을 element
 	var element_layer = document.getElementById('layer');
@@ -556,17 +641,55 @@
 	var price=$(".itemSum").text();//물품가격
 	var shipFee=null;
 	var total=null;
-	if(parseInt(price) >= 20000){
-		shipFee=0;
-		$(".shipFeeR").text(shipFee+"원");
+	if(price != "원"){
+		if(parseInt(price) >= 20000){
+			shipFee=0;
+			$(".shipFeeR").text(shipFee+"원");
+		}else{
+			shipFee=2500;
+			$(".shipFeeR").text(shipFee+"원");
+		}
+		total=parseInt(price)+shipFee;
+		$(".totalR").text(total+"원");
 	}else{
-		shipFee=2500;
-		$(".shipFeeR").text(shipFee+"원");
+		alert("상품을 최소 한개 이상 담아주세요");	
+		location.replace("${pageContext.request.contextPath }/home.do");
 	}
-	total=parseInt(price)+shipFee;
-	$(".totalR").text(total+"원");
+	
+	
 	
 	$("#check_module").click(function () {
+		//by준영, 항목 필수기입처리_210321
+		var buyer = $("#normalRecipientNm").val();
+		var post = $("#postCode").val();
+		var detail =$("#detailAddress").val();
+		var phone = $("#normalRecipientMpno2").val();
+		var phone2 = $("#normalRecipientMpno3").val();
+		var selbox = $("#selbox").val();
+		
+		if(buyer == ""){
+			alert("이름 을 입력해주세요");
+			$("#normalRecipientNm").focus();
+			return;
+		}else if(post == ""){
+			alert("우편번호 를 입력해주세요");
+			return;
+		}else if(detail == ""){
+			alert("상세정보 를 입력해주세요");
+			return;
+		}else if(phone == ""){
+			alert("휴대폰번호 를 입력해주세요");
+			$("#normalRecipientMpno2").focus();
+			return;
+		}else if(phone2 == ""){
+			alert("휴대폰번호 를 입력해주세요");
+			$("#normalRecipientMpno3").focus();
+			return;
+		}else if(selbox == null){
+			alert("배송요청사항 을 입력해주세요");
+			return;
+		}
+		
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp02317087');
 		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용

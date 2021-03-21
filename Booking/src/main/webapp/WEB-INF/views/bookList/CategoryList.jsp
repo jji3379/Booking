@@ -101,20 +101,20 @@
 							<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   -->
 							<li class="page-item"><a class="page-link"
 								href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a>
-							<!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 --></li>
+							<!— by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 —></li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<!-- by 준익, 전체페이지 끝일 때 Next 비활성화 --> <a class="page-link"
+								<!— by 준익, 전체페이지 끝일 때 Next 비활성화 —> <a class="page-link"
 								href="javascript:">Next</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
 				</nav>
-			</div><!-- col10 END -->
-		</div><!-- row END -->
-	</div><!-- container END -->
+			</div><!— col10 END —>
+		</div><!— row END —>
+	</div><!— container END —>
 	<div style="margin-top:200px">
 		<jsp:include page="../include/footer.jsp"></jsp:include>
 	</div>
