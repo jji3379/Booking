@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +27,14 @@
          </tr>
       </thead>
       <tbody>
-      <c:forEach var="os" items="${oslist}">
+      <c:forEach var="os" items="${oslist}" varStatus="status">
            <tr class="orderRow">
              <td><a href="order_detail.do?o_id=${os.o_id }">${os.o_id }</a></td>
-             <td>${os.totalPayment }</td>
+             <td id="totalPayment${status.count }" hidden>${os.totalPayment }</td>
+             <td id="commaplusPayment${status.count }"></td>
              <td>${os.o_date }</td>
              <td>${os.totalNum }</td>
+             <td id="status" hidden>${fn:length(oslist)}</td>
            </tr>
        </c:forEach>
       </tbody>
@@ -80,5 +83,23 @@
    </nav>
    </div>
 </div>
+<script>
+
+ 	let totalnum = $('#status').text(); 
+	for(let i=1;i<=totalnum; i++) {
+		
+		let value = $('#totalPayment'+i).text();
+		
+		let result = addComma(value);
+		
+		$('#commaplusPayment'+i).text(result + "원");
+		
+	}
+	
+	function addComma(num){
+		let regexp = /\B(?=(\d{3})+(?!\d))/g;
+		return num.toString().replace(regexp, ',');
+	}
+</script>
 </body>
 </html>

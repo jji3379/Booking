@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},#{isbn},SYSDATE)
     </insert>
     <select id="getlist" resultType="cartDto" parameterType="String">
-        SELECT image, title, price, d_price, count ,c_id
+        SELECT image, title, price, d_price, count ,c_id, id
       FROM cart_item 
       WHERE id = #{id}
     </select>
