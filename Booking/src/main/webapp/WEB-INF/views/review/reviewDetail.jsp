@@ -129,7 +129,7 @@
 </jsp:include>
 <div style="margin-top:30px"></div>
 <div style="width:1050px; margin:auto">
-	<center><h1><strong>리뷰 디테일 폼</strong></h1></center>
+	<center><h1><strong>리뷰 상세 페이지</strong></h1></center>
 	<table class="table table-striped" style="margin-top:30px">
 		<tr>
 			<td rowspan="8" style="width:300px;">
@@ -143,7 +143,7 @@
 			<td>${dto.writer }</td>
 		</tr>
 		<tr>
-			<td><strong>책 제목</strong></td>
+			<td><strong>도서 제목</strong></td>
 			<td>${dto.bookTitle }</td>
 		</tr>
 		<tr>

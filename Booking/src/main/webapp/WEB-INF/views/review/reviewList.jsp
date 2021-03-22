@@ -142,10 +142,10 @@
 		<form id="search" action="reviewList.do" method="get" style="margin-top:30px">
 			<label for="condition">검색조건</label>
 			<select name="condition" id="condition">
-				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>책 제목+내용</option>
-				<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>책 제목</option>
+				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>도서 제목+내용</option>
+				<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>도서 제목</option>
 				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-				<option id="searchIsbn" value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>책 고유번호</option>
+				<option id="searchIsbn" value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>도서 고유번호</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			<button id="submitBtn" class="btn btn-primary" type="submit">검색</button>

@@ -36,7 +36,7 @@
    .pay{
    		text-align:center;
    		width:100%;
-    	height:100%;
+    	height:100px;
    }
 	table.type09 {
 		border-collapse: collapse;
