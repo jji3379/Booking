@@ -13,7 +13,7 @@
    .Main-Category {
       font-weight:bold;
       color: #0f4c81;
-      width: 120px;
+      width: 140px;
       font-size: 18px;
       text-align: left;
       margin-left: 15px;
@@ -21,7 +21,7 @@
       margin-right: -10px;
    }
 </style>
-<div style="border: 2px solid #0f4c81; height: 745px;" class="col-2">
+<div style="border: 2px solid #0f4c81; height: 740px;" class="col-2">
 	<div class="btn-group dropright">
 		<a  style="margin-top:10px;"  class="Main-Category"
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&start=1&sort=count">소설</a>

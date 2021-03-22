@@ -132,7 +132,11 @@
 	<center><h1><strong>리뷰 디테일 폼</strong></h1></center>
 	<table class="table table-striped" style="margin-top:30px">
 		<tr>
-			<td rowspan="8" style="width:300px;"><img id="image" src="${dto.imagePath }"/></td>
+			<td rowspan="8" style="width:300px;">
+				<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${dto.isbn}">
+					<img id="image" src="${dto.imagePath }"/>
+				</a>
+			</td>
 		</tr>
 		<tr>
 			<td><strong>작성자</strong></td>
@@ -337,7 +341,7 @@
 		var isLogin=${not empty id};
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
-			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
+			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
 					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
 			return false; //폼 전송 막기 		
 		}

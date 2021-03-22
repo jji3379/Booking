@@ -9,7 +9,7 @@
 	<style>
 		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 		.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-		.map_wrap {float:right;position:relative;width:735px;height:700px;border:2px solid #0f4c81;}
+		.map_wrap {float:right;position:relative;width:720px;height:700px;border:2px solid #0f4c81;}
 		#menu_wrap {float:left;position:absolute;width:330px;height:700px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:18px;border:2px solid #0f4c81;}
 		.bg_white {background:#fff;}
 		#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
