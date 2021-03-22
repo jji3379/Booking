@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="height:50px; color:#f5e9dd; background-color:#135fa1;">
-	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="font-weight:bold; font-size:38px; margin-top:-5px; font-family: 'Roboto', sans-serif;">
+	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do">
 		<img style="width:50px; height:50px;"src="${pageContext.request.contextPath }/resources/images/booking.png"/>
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="background-color:black;">

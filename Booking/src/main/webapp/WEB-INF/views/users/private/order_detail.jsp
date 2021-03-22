@@ -20,7 +20,7 @@
          <tr>
             <th>이미지</th>
              <th>책 제목</th>
-             <th>갯수</th>
+             <th>개수</th>
              <th>주문 날짜</th>
          </tr>
       </thead>

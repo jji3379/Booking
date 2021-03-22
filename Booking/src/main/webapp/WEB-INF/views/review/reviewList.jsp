@@ -46,7 +46,7 @@
 	<div style="margin-top:30px">
 		
 			<center><h1><strong>리뷰 목록</strong></h1></center>
-			<a id="writeR" class="btn btn primary" href="private/reviewInsertform.do" ">리뷰 작성</a>
+			<a id="writeR" class="btn btn primary" href="private/reviewInsertform.do" >리뷰 작성</a>
 		
 		<table class="table table-border" style="table-layout: fixed;">
 			<thead style="background-color:#f5e9dd; font-size:22px;">
@@ -67,7 +67,7 @@
 							<img style="width:80px; height:100px;" class="rounded-sm" 
 							src="${t.imagePath }"/>
 						</td>
-						<td class="ellipsis"><a id="reviewTitle" href="reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
+						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
 						<td class="ellipsis">${t.bookTitle }</td>
 						<td class="ellipsis">${t.writer }</td>
 						<td class="ellipsis">${t.viewCount }</td>
@@ -174,6 +174,7 @@
 			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
 		}
 	}
+	
 </script>
 </body>
 </html>

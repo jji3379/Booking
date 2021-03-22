@@ -668,25 +668,25 @@
 		var selbox = $("#selbox").val();
 		
 		if(buyer == ""){
-			alert("이름 을 입력해주세요");
+			alert("수령인을 입력해주세요");
 			$("#normalRecipientNm").focus();
 			return;
 		}else if(post == ""){
-			alert("우편번호 를 입력해주세요");
+			alert("우편번호를 입력해주세요");
 			return;
 		}else if(detail == ""){
-			alert("상세정보 를 입력해주세요");
+			alert("상세주소를 입력해주세요");
 			return;
 		}else if(phone == ""){
-			alert("휴대폰번호 를 입력해주세요");
+			alert("휴대폰 번호를 입력해주세요");
 			$("#normalRecipientMpno2").focus();
 			return;
 		}else if(phone2 == ""){
-			alert("휴대폰번호 를 입력해주세요");
+			alert("휴대폰 번호를 입력해주세요");
 			$("#normalRecipientMpno3").focus();
 			return;
 		}else if(selbox == null){
-			alert("배송요청사항 을 입력해주세요");
+			alert("배송 요청사항을 입력해주세요");
 			return;
 		}
 		
