@@ -3,13 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="height:50px; color:#f5e9dd; background-color:#135fa1;">
-	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="font-weight:bold; font-size:38px; margin-top:-5px; font-family: 'Roboto', sans-serif;">
+<div style="min-width:680px; width: auto !important">
+<nav class="navbar navbar-expand-sm fixed-top navbar-dark" style="height:50px; color:#f5e9dd; background-color:#135fa1; width:fit-display; max-width:none!important;">
+	<a class="navbar-brand" href="${pageContext.request.contextPath }/home.do" style="position:fixed; font-weight:bold; font-size:38px; margin-top:-5px; font-family: 'Roboto', sans-serif;">
 		<img style="width:50px; height:50px;"src="${pageContext.request.contextPath }/resources/images/booking.png"/>
-	</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" style="background-color:black;">
-		<span class="navbar-toggler-icon"></span>
-	</button><!--row justify-content-center : 정렬시 클래스 속성에다 넣고 정의  -->
+	</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<div class="container-fluid">
 		<div class="collapse navbar-collapse row justify-content-start" id="navbarSupportedContent" >
 			<ul class="navbar-nav">
@@ -47,3 +45,4 @@
 		</div>
 	</div>
 </nav>
+</div>

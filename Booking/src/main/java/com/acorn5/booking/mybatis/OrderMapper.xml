@@ -23,5 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	FROM my_order
     	WHERE o_id = #{o_id}
     </select>
+    <delete id="delete" parameterType="String"><!-- by욱현.회원탈퇴시 회원의 주문내역 삭제위해_21323 -->
+    	DELETE FROM my_order
+    	WHERE buyer = #{buyer}
+    </delete>
 </mapper>
  

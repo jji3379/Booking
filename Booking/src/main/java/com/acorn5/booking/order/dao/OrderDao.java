@@ -16,5 +16,8 @@ public interface OrderDao {
 	
 	//by욱현. 주문내역 row hover시 보여지는 상세내역_2021319
 	public List<OrderDto> getOrderDetail(int o_id);
+	
+	//by욱현.회원탈퇴시 회원의 주문내역 삭제위해_21323
+	public void delete(String buyer);
  	
 }

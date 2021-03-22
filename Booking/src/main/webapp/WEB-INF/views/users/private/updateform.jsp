@@ -92,7 +92,7 @@
 	let reg_email=/@/;
 	
 	//이메일을 입력했을 때 실행할 함수 등록
-	$("#email").on("input", function(){ // == document.querySelector("#email").addEventListener("input", function(){...})
+	$("#email").on("input", function(){ 
 		let inputEmail = $("#email").val();
 		//일단 모든 검증 클래스를 제거하고
 		$("#email").removeClass("is-valid is-invalid");
@@ -105,6 +105,16 @@
 			$("#email").addClass("is-valid");
 		}
 	});
+	
+	//회원탈퇴묻기
+	function deleteConfirm(){
+			let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+			if(isDelete){
+				location.href="${pageContext.request.contextPath }/users/private/delete.do";
+			} else {
+				location.reload();
+			}
+	}
 	
 </script>
 </body>

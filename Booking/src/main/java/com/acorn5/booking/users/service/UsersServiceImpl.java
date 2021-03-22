@@ -16,6 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.exception.DBFailException;
+import com.acorn5.booking.order.dao.OrderDao;
+import com.acorn5.booking.pay.dao.CartDao;
+import com.acorn5.booking.review.dao.ReviewCommentDao;
+import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 
@@ -161,7 +165,16 @@ public class UsersServiceImpl implements UsersService{
 		//읽어온 정보를 ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
 	}
-
+	
+	//회원탈퇴시 해당 해원의 기록을 모두 삭제하기 위해 di
+	@Autowired
+	private ReviewCommentDao reviewCommentDao;
+	@Autowired
+	private ReviewDao reviewDao;
+	@Autowired
+	private CartDao cartDao;
+	@Autowired
+	private OrderDao orderDao;
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override
@@ -170,6 +183,14 @@ public class UsersServiceImpl implements UsersService{
 		String id=(String)session.getAttribute("id");
 		//DB 에서 삭제
 		dao.delete(id);
+		//댓글삭제
+		reviewCommentDao.delete2(id);
+		//리뷰삭제
+		reviewDao.delete2(id);
+		//카트에서 삭제
+		cartDao.delete2(id);
+		//주문내역 삭제
+		orderDao.delete(id);
 		//로그아웃 처리
 		session.removeAttribute("id");
 	}

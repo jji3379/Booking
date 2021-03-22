@@ -31,6 +31,11 @@
 		SET deleted='yes'
 		WHERE num=#{num}
 	</update>
+	<update id="delete2" parameterType="String"><!-- by욱현.회원탈퇴시 회원의 댓글 삭제위해_21323 -->
+		UPDATE board_review_comment
+		SET deleted='yes'
+		WHERE writer=#{writer}
+	</update>
 	<select id="getSequence" resultType="int">
 		SELECT board_review_comment_seq.NEXTVAL
 		FROM DUAL

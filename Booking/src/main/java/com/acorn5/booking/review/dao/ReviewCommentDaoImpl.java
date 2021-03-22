@@ -71,4 +71,11 @@ public class ReviewCommentDaoImpl implements ReviewCommentDao{
 	public int getCount(int ref_group) {
 		return session.selectOne("reviewComment.getCount", ref_group);
 	}
+
+	//by욱현.회원탈퇴시 회원의 댓글 삭제위해_21323
+	@Override
+	public void delete2(String writer) {
+		session.delete("reviewComment.delete2", writer);
+		
+	}
 }

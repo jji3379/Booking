@@ -19,4 +19,6 @@ public interface ReviewCommentDao {
 	public ReviewCommentDto getData(int num);
 	// by남기, 댓글의 갯수를 리턴하는 메소드_210303
 	public int getCount(int ref_group);
+	//by욱현.회원탈퇴시 회원의  댓글 삭제위해_21323
+	public void delete2(String writer);
 }

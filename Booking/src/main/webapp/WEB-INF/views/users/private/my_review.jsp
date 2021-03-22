@@ -112,4 +112,15 @@
 	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 </body>
+<script>
+//회원탈퇴묻기
+function deleteConfirm(){
+		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath }/users/private/delete.do";
+		} else {
+			location.reload();
+		}
+}
+</script>
 </html>

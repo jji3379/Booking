@@ -20,7 +20,7 @@
          <tr>
             <th>이미지</th>
              <th>책 제목</th>
-             <th>갯수</th>
+             <th>개수</th>
              <th>주문 날짜</th>
          </tr>
       </thead>
@@ -41,7 +41,20 @@
    </table>
    <a href="my_order.do" class="btn btn-outline-primary" style="margin-left:10px;">뒤로가기</a>
    </div>
-   
+</div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 </body>
+<script>
+//회원탈퇴묻기
+function deleteConfirm(){
+		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath }/users/private/delete.do";
+		} else {
+			location.reload();
+		}
+}
+</script>
 </html>

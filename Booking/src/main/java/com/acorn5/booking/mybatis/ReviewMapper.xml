@@ -10,6 +10,10 @@
 		DELETE FROM board_review
 		WHERE num=#{num}
 	</delete>
+	<delete id="delete2" parameterType="String"><!-- by욱현.회원탈퇴시 회원의 리뷰 삭제위해_21323 -->
+		DELETE FROM board_review
+		WHERE writer=#{writer}
+	</delete>
 	<update id="addViewCount" parameterType="int">
 		UPDATE board_review
 		SET viewCount=viewCount+1

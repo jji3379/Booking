@@ -69,15 +69,7 @@
 			<a style="color:#f5e9dd;" href="updateform.do">개인정보 수정하기</a>
 		</li>
 		<li style="margin-top: 15px;">
-			<a style="color:#f5e9dd;" href="delete.do">회원탈퇴</a>
+			<a style="color:#f5e9dd;" href="javascript:deleteConfirm();">회원탈퇴</a>
 		</li>
 	</ul>
 </div>
-<script>
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath }/users/private/delete.do";
-		}
-	}
-</script>

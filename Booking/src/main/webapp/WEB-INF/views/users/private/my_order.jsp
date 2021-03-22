@@ -23,7 +23,7 @@
             <th>주문 번호</th>
              <th>주문 금액</th><!-- 할인가로 -->
              <th>주문 일자</th>
-             <th>주문 갯수</th>
+             <th>주문 개수</th>
          </tr>
       </thead>
       <tbody>
@@ -83,8 +83,11 @@
    </nav>
    </div>
 </div>
+<div style="margin-top:200px">
+	<jsp:include page="../../include/footer.jsp"></jsp:include>
+</div>
 <script>
-
+	// by욱현. 주문내역 주문금액 표기법_2021322
  	let totalnum = $('#status').text(); 
 	for(let i=1;i<=totalnum; i++) {
 		
@@ -99,6 +102,16 @@
 	function addComma(num){
 		let regexp = /\B(?=(\d{3})+(?!\d))/g;
 		return num.toString().replace(regexp, ',');
+	}
+	
+	//회원탈퇴묻기
+	function deleteConfirm(){
+			let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+			if(isDelete){
+				location.href="${pageContext.request.contextPath }/users/private/delete.do";
+			} else {
+				location.reload();
+			}
 	}
 </script>
 </body>

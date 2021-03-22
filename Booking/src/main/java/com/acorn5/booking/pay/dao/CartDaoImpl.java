@@ -52,4 +52,10 @@ public class CartDaoImpl implements CartDao {
 		session.delete("cart.deletePay",id);
 		
 	}
+	
+	//by욱현. 회원탈퇴시 장바구니 목록 삭제_210323
+	@Override
+	public void delete2(String id) {
+		session.delete("cart.delete2", id);
+	}
 }

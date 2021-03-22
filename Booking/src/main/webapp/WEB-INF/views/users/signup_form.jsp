@@ -27,11 +27,12 @@
 	 		<label for="pwd">비밀번호</label>
 	 		<input class="form-control" type="password" name="pwd" id="pwd" />
 	 		<small class="form-text text-muted">5글자~10글자 이내로 입력하세요</small>
-	 		<div class="invalid-feedback">비밀번호를 확인 하세요</div>
+	 		<div class="invalid-feedback">비밀번호를 형식에 맞게 입력하세요</div>
 	 	</div>
 	 	<div class="form-group">
 	 		<label for="pwd2">비밀번호 확인</label>
 	 		<input class="form-control" type="password" id="pwd2" />
+	 		<div class="invalid-feedback">비밀번호를 확인 하세요</div>
 	 	</div>
 	 	<div class="form-group">
 	 		<label for="email">이메일</label>
@@ -105,24 +106,25 @@
 		
 		//일단 모든 검증 클래스를 제거하고
 		$("#pwd").removeClass("is-valid is-invalid");
+		$("#pwd2").removeClass("is-valid is-invalid");
 		
 		//비밀번호가 정규표현식에 매칭되지 않으면
 		if(!reg_pwd.test(pwd)){
 			//비밀번호가 유효하지 않는다고 표시하고
 			$("#pwd").addClass("is-invalid");
 			isPwdValid = false;
-			//함수를 여기서 종료
-			return;
+		} else {
+			$("#pwd").addClass("is-valid");
 		}
 		
 		//두 비밀번호가 같은지 확인
 		if(pwd == pwd2) {
 			//같으면 유효하다는 클래스를 추가
-			$("#pwd").addClass("is-valid");
+			$("#pwd2").addClass("is-valid");
 			isPwdValid = true;
 		} else {
 			//다르면 유효하지 않다는 클래스 추가
-			$("#pwd").addClass("is-invalid");
+			$("#pwd2").addClass("is-invalid");
 			isPwdValid = false;
 		}
 	});

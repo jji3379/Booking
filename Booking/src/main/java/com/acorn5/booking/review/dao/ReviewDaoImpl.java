@@ -97,5 +97,11 @@ public class ReviewDaoImpl implements ReviewDao{
 		
 		return list;
 	}
+	
+	//by욱현.회원탈퇴시 회원의 리뷰 삭제위해_21323
+	@Override
+	public void delete2(String writer) {
+		session.delete("review.delete2", writer);
+	}
 }
 

@@ -40,4 +40,11 @@ public class OrderDaoImpl implements OrderDao {
 		List<OrderDto> list = session.selectList("order.getDetailList", o_id);
 		return list;
 	}
+
+	//by욱현.회원탈퇴시 회원의 주문내역 삭제위해_21323
+	@Override
+	public void delete(String buyer) {
+		session.delete("order.delete", buyer);
+		
+	}
 }

@@ -18,4 +18,6 @@ public interface CartDao {
 	public void update(CartDto dto);
 	//by_준영, 결제완료시 해당상품 삭제_210314
 	public void pay_delete(String id);
+	//by욱현. 회원탈퇴시 장바구니 목록 삭제_210323
+	public void delete2(String id);
 }

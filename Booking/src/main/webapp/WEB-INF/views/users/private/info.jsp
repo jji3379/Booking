@@ -49,12 +49,15 @@
 	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
-	function deleteConfirm(){
+//회원탈퇴묻기
+function deleteConfirm(){
 		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }/users/private/delete.do";
+		} else {
+			location.reload();
 		}
-	}
+}
 </script>
 </body>
 </html>

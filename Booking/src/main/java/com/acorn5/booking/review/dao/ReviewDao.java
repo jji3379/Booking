@@ -21,4 +21,6 @@ public interface ReviewDao {
 	public void addViewCount(int num);	
 	// by욱현. 내가 쓴 리뷰 모아보기_2021309
 	public List<ReviewDto> getMyReview(ReviewDto dto);
+	//by욱현.회원탈퇴시 회원의 리뷰 삭제위해_21323
+	public void delete2(String writer);
 }

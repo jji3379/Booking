@@ -5,16 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cart">
     <insert id="insert" parameterType="cartDto">
        INSERT INTO cart_item
-       (c_id, id, image, title, price, d_price, count,isbn, indate)
-         VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count},#{isbn},SYSDATE)
+       (c_id, id, image, title, price, d_price, count, indate, isbn)
+         VALUES(pay_seq.NEXTVAL, #{id}, #{image}, #{title}, #{price}, #{d_price}, #{count}, SYSDATE, #{isbn})
     </insert>
     <select id="getlist" resultType="cartDto" parameterType="String">
-        SELECT image, title, price, d_price, count ,c_id, id
+        SELECT image, title, price, d_price, count ,c_id, id, indate, isbn
       FROM cart_item 
       WHERE id = #{id}
     </select>
     <delete id="delete" parameterType="int">
         DELETE cart_item WHERE c_id=#{c_id}
+    </delete>
+    <delete id="delete2" parameterType="String">
+        DELETE cart_item WHERE id=#{id}
     </delete>
     <delete id="deleteChk" >
        DELETE cart_item
