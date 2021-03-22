@@ -76,6 +76,10 @@
 		padding:5px 4px 5px 6px;
 		width:392px;
 		height:47px;
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	.orderQuantity{
 		display: table-cell;

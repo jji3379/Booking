@@ -21,7 +21,7 @@
 		background-color:#0f4c81;
 	    padding: 40px 0px 270px;
 	    position: relative;
-	      overflow-x: hidden;
+	     overflow-x: hidden;
 	}
 	.new_footer_area .footer_bottom {
 	    padding-top: 5px;
@@ -63,7 +63,6 @@
 	}
 	
 	
-	
 	.new_footer_top .f_widget.about-widget .f_list li a:hover {
 	    color: #5e2ced;
 	}
@@ -84,8 +83,8 @@
 	    height: 44px;
 	    line-height: 43px;
 	    background: transparent;
-	    border: 1px solid #e2e2eb;
 	    font-size: 24px;
+	    color:white;
 	}
 	.f_social_icon a {
 	    width: 46px;
@@ -217,6 +216,9 @@
 	.footerLogo{
 		font-family: 'Gugi', cursive;
 	}
+	#ig, #if, #it, #ii{
+		font-size:44px;
+	}
 	/*************footer End*****************/
 	
 </style>
@@ -276,16 +278,14 @@
 	&nbsp; |&nbsp; <a href="http://www.yes24.com/"><img style=width:80px; class="partners" src="${pageContext.request.contextPath }/resources/images/yes24.png" /></a>
 	&nbsp; &nbsp; <a href="https://www.aladin.co.kr"><img style=width:80px; class="partners" src="${pageContext.request.contextPath }/resources/images/aladin.png" /></a>
 	&nbsp; |&nbsp; <a href="https://www.ypbooks.co.kr"><img style=width:80px; class="partners" src="${pageContext.request.contextPath }/resources/images/ypbooks.png" /></a>
-                	<br />
-                	<br />
-                	<br />
+                	
                     <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                         <h3 class="f-title f_600 t_color f_size_18">Follow us</h3>
                         <div class="f_social_icon">
-                            <a href="https://github.com/jji3379/Booking/" ><i class="fa fa-github"></i></a>
-                            <a href="https://www.facebook.com/" ><i class="fa fa-facebook"></i></a>
-                            <a href="https://twitter.com/" ><i class="fa fa-twitter"></i></a>
-                            <a href="https://www.instagram.com/" ><i class="fa fa-instagram"></i></a>
+                            <a href="https://github.com/jji3379/Booking/" ><i id="ig" class="fa fa-github"></i></a>
+                            <a href="https://www.facebook.com/" ><i id="if" class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/" ><i id="it" class="fa fa-twitter"></i></a>
+                            <a href="https://www.instagram.com/" ><i id="ii" class="fa fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>

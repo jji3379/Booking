@@ -44,7 +44,7 @@ public class BookController {
 	
     //by준영, bookList.jsp 에 cont, sort 를 인자로 리스트 검색하는 서비스_210222
     @RequestMapping("/bookList/bestSeller.do")
-    public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort, HttpServletRequest request, int start, ModelAndView mView){
+    public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort, HttpServletRequest request, ModelAndView mView){
     	String id=(String)request.getSession().getAttribute("id");
     	if(id!=null) {
     		//by 우석, view page 에서 cartitem 불러오기_210315
@@ -52,7 +52,7 @@ public class BookController {
     	}
         if(d_cont !=null)
         {
-            mView.addObject("bestSeller",service.bestSeller(d_cont, 8, start, "count", request, mView));
+            mView.addObject("bestSeller",service.bestSeller("1", 10, 1, "count"));
         }
         mView.setViewName("bookList/bestSeller");
         return mView;
@@ -82,7 +82,7 @@ public class BookController {
         }
         mView.setViewName("detail/detailAjax");
         return mView;
-        }
+    }
 	
     
     //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 

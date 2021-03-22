@@ -5,113 +5,89 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>책과의 즉석만남 Booking</title>
+<title>/bookList.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
- .ellipsis2 {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-}
-.ellipsis{
-  	  width:150px;
-      white-space : nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-}
-/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-   .img-wrapper:hover{
-      /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.02);
-      transition: transform 0.3s ease-out;
-   }
+	
+	.wrapper {
+		font-family: 'Lato', Arial, sans-serif;
+		color: #989c9b;
+		line-height: 1.5em;
+		margin: 0 auto;
+		width: 100%;
+	}
+	
+	table {
+	    border-collapse: collapse;
+	    width: 100%;
+	    height:100%;
+	    background: #fff;
+	}
+	
+	th {
+	    background-color: #326295;
+	    font-weight: bold;
+	    color: #fff;
+	}
+	
+	th {
+	    text-align: center;
+	}
+	td {
+	    text-align: left;
+	}
+
+	
+	tbody th {
+		background-color: #2ea879;
+	}
+	tbody tr:nth-child(2n-1) {
+	    background-color: #f5f5f5;
+	    transition: all .125s ease-in-out;
+	}
+	tbody tr:hover {
+	    background-color: rgba(50,98,149,.3);
+	}
+	
+	td.rank {
+		text-align:center;
+		text-transform: capitalize;
+		width:17%;
+	}
+	.Hrow{
+		height:44px;
+	}
+	.Brow{
+		height:35px
+	}
+	.title{
+		width:83%;
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="BS" name="thisPage"/>
-</jsp:include>
-<div class="container">
-	<div style="margin-bottom:20px">
-	   <center><h1>Top 100</h1></center>
-	</div>
-	<div class="row">
-		<jsp:include page="../include/sideindex.jsp"></jsp:include>
-		<div class="col-10">
-		   <div class="row row-cols-1 row-cols-md-4">
-				<c:forEach var="b" items="${bestSeller}">
-					<!-- by 준익, pagingbestSeller 컨트롤러 적용된 list_2021.02.28 -->
-					<div class="col mb-4">
-						<div style="border: 3px solid #0f4c81;" class="card h-100">
-							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-								<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
-							</a>
-							<div style="background-color:#f5e9dd" class="card-body">
-								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-									<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
-								</a>
-								<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>	  
-			<!-- by 준익, 페이징 처리_2021.02.26 -->
-				<nav>
-				<ul class="pagination justify-content-center">
-					<c:choose>
-						<c:when test="${startPageNum != 1 }">
-							<!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
-							<li class="page-item"><a class="page-link"
-								href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<!-- by 준익, 시작페이지가 1인 경우 Prev 비활성화_2021.02.28 -->
-							<li class="page-item disabled"><a class="page-link"
-								href="javascript:">Prev</a></li>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-						<!-- by 준익, 페이징 시작부터 끝까지 만들기_2021.02.28 -->
-						<c:choose>
-							<c:when test="${i eq pageNum }">
-								<!-- by 준익, 순서가 pageNum 과 같을 때 -->
-								<li class="page-item active">
-									<!-- by 준익, active 활성화_2021.02.28 --> <a class="page-link"
-									href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link"
-									href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${endPageNum lt totalPageCount }">
-							<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   -->
-							<li class="page-item"><a class="page-link"
-								href="bestSeller.do?d_cont=1&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a>
-							<!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 --></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled">
-								<!-- by 준익, 전체페이지 끝일 때 Next 비활성화 --> <a class="page-link"
-								href="javascript:">Next</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-				</nav> 
-		</div><!-- div col-10End -->
-	</div>
+<div class="wrapper">
+	<table>
+		<thead>
+			<tr class="Hrow">
+				<th>Rank</th>
+				<th>Title</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="b" items="${bestSeller}" varStatus="status">
+				<tr class="Brow" >
+					<td class="rank">${status.count }</td>
+					<td class="title" ><a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn }">${b.title }</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </div>
-<div style="margin-top:200px">
-	<jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
-</body>
-</html>
+
+
