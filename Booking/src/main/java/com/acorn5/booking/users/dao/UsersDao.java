@@ -25,4 +25,7 @@ public interface UsersDao {
 	public void searchInput(UsersDto dto);
 	//by준영,인자로 전달된 아이디에 해당하는 비밀번호 리턴_210302
 	public String getPwd(String id);
+	
+	//관심사 , 이메일 정보를 얻어오기
+	public UsersDto getCareEmail(String inputId);
 }

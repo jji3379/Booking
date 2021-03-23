@@ -245,5 +245,10 @@ public class UsersServiceImpl implements UsersService{
 		//dao 를 이용해서 DB 에 수정 반영한다.
 		dao.update(dto);
 	}
+	@Override
+	public UsersDto getCareEmail(String inputId) {
+		UsersDto dto = dao.getCareEmail(inputId);
+		return dto;
+	}
 
 }

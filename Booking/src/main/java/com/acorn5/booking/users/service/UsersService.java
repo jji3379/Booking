@@ -35,5 +35,7 @@ public interface UsersService {
 			HttpServletRequest request);
 	//개인정보를 수정하는 메소드(여기에서는 이메일 주소만)
 	public void updateUser(UsersDto dto, HttpSession session);
-
+	
+	//관심사와 이메일정보 얻기
+	public UsersDto getCareEmail(String inputId);
 }

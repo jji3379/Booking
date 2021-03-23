@@ -46,7 +46,7 @@
 			</c:otherwise>
 		</c:choose>
 		</a>
-		<form action="update.do" method="post"  style="margin-left:8px; margin-top:7px; width:800px">
+		<form action="update.do" method="post" id="myForm" style="margin-left:8px; margin-top:7px; width:800px">
 			<div class="form-group" style="width:750px;">
 				<label for="id">아이디</label>
 				<input type="text" id="id" value="${id }" class="form-control" disabled/>
@@ -60,7 +60,7 @@
 				<label for="care">관심사</label>
 				<input type="text" id="care" name="care" value="${dto.care }" class="form-control"/>
 			</div>
-			<button type="submit" class="btn btn-outline-primary">수정확인</button>
+			<button type="button" class="btn btn-outline-primary" id="btn">수정확인</button>
 			<button type="reset" class="btn btn-outline-warning">취소</button>
 		</form>
 	</div>
@@ -81,11 +81,13 @@
 		// 아이디가 image 인 요소를 강제 클릭하기
 		$("#image").click();
 	});
+	
 	//이미지를 선택했을때 실행할 함수 등록
 	$("#image").on("change", function(){
 		//폼을 강제 제출해서 선택된 이미지가 업로드 되도록 한다.
 		$("#profileForm").submit();
 	});
+
 	
 	//[이메일을 검증할 정규 표현식](정확히 검증하려면 javascript 이메일 정규 표현식 검색해서 사용!)
 	//@가 포함되어 있는지 검증
@@ -104,6 +106,46 @@
 			isEmailValid = true;
 			$("#email").addClass("is-valid");
 		}
+	});
+	
+	//욱현.db에 있는 이메일과 관심사 대조해서 수정을 안했다면 수정완료했다는 메세지 안뜨게 하기_2021323
+	
+	//현재 폼에 입력되어있는 내용
+	let email = $("#email").val();
+	let care = $("#care").val();
+	let profile = $("#profileImage").attr('src');
+	
+	//인풋이 된 이후의 폼에 있는 내용
+	$("#email").on("input", function(){
+		email = $("#email").val();
+	});
+	$("#care").on("input", function(){
+		care = $("#care").val();
+	})
+	
+	//db에 저장된 모델(버튼을 누르는 동시에 데이터를 받아 대조)
+	document.querySelector("#btn")
+	.addEventListener("click", function(event){
+	
+		let inputId = $("#id").val();
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath }/users/private/check_update.do",
+			method:"POST",
+			data:"inputId="+inputId,
+			success:function(responseData){
+ 				console.log(responseData);
+				let dbcare = responseData["care"];
+				let dbemail = responseData["email"];
+				let dbprofile = "/booking" + responseData["image"];
+				if(care==dbcare && email==dbemail && profile==dbprofile) {
+					alert("수정되지 않았습니다.");
+					event.preventDefault();//폼 전송 막기
+				} else {
+					$("#myForm").trigger("submit");
+				}
+			}
+		})
 	});
 	
 </script>
