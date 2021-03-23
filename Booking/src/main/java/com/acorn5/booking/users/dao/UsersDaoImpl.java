@@ -93,4 +93,10 @@ public class UsersDaoImpl implements UsersDao {
 		return pwd;
 	}
 
+	@Override
+	public UsersDto getCareEmail(String inputId) {
+		UsersDto dto = session.selectOne("users.getData", inputId);
+		return dto;
+	}
+
 }

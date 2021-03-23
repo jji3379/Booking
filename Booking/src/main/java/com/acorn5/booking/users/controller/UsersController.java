@@ -199,5 +199,20 @@ public class UsersController {
 				
 		return mView;
 	}
+	
+	//by욱현. 가입정보수정폼에서 db에있는 이메일, 관심사 와 수정내용 비교하기 위_2021323
+	@RequestMapping("/users/private/check_update.do")
+	@ResponseBody
+	public Map<String, String> checkUpdate(@RequestParam String inputId){
+		UsersDto dto = service.getCareEmail(inputId);
+		String care = dto.getCare();
+		String email = dto.getEmail();
+		String image = dto.getProfile();
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("care", care);
+		data.put("email", email);
+		data.put("image", image);
+		return data;
+	}
 		
 }
