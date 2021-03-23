@@ -70,18 +70,31 @@
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
       border: 1px solid #cecece;
       border-radius: 50%;
       align:left;
    }
-   
+   #bestSeller{
+		text-overflow: ellipsis; 
+		height:400px;
+		width:350px;
+   }
+	a:link { color: red; text-decoration: none;}
+	a:visited { color: black; text-decoration: none;}
+	a:hover { color: blue; text-decoration: underline;}
+	.border-layout{
+		border-top:2px solid #989c9b; 
+		border-left:2px solid #989c9b; 
+		border-bottom:2px solid #989c9b; 
+		width:700px
+	}
 </style>
 </head>
 <body style="background-color:#white;">
 <jsp:include page="include/navbar.jsp"></jsp:include>
-<div style="width:1050px; margin:auto">
+<div  style="width:1050px; margin:auto">
 	<!-- 검색창 Start -->
    <div style="margin-top:30px">
       <nav class="navbar navbar-expand-lg justify-content-center" style="font-weight:bold; height:50px; color:#000000;">
@@ -98,9 +111,9 @@
    </div>
    <!-- 검색창 END -->
    
-   <div class="row" style="margin-top:30px;">
+   <div class="row justify-content-center" style="margin-top:30px;">
    <!-- 부킹  col-9 Start -->
-   		<div class="col-9" style="border:3px solid black">
+   		<div class="border-layout">
 			<div class="booking col justify-content-center" style="width:auto; margin-bottom:10px;"><!-- by욱현.올랜덤 책추천 '부킹'기능_2021225 -->
                <center><h2><strong>나와 매칭되는 책은?</strong></h2></center>
                <div class="row justify-content-center align-items-center">
@@ -118,16 +131,16 @@
                   </c:choose>
                </span>
                <span class="col-4" style="text-align: center;"><!--by욱현. 부킹버튼(랜덤추천기능)_2021226 -->
-                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:250px; height:250px;" src="resources/images/bookingbutton.png"/></a> 
+                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:200px; height:200px;" src="resources/images/bookingbutton.png"/></a> 
                  </span>
                  <span class="col-4" style="text-align: left; margin-left:0px;">   
-                    <a id="bookA"><img style="height:250px; width:250px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"></a>
+                    <a href="bookDetail.do?d_isbn=" id="bookA"><img style="height:200px; width:200px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"/></a>
                  </span>
                </div>
             </div><!-- 부킹 ENd -->
    		</div>
    		<!-- 베스트 셀러 col-3 Start -->
-   		<div class="col-3" style="border:3px solid black">
+   		<div id="bestSeller"  style="border:2px solid #989c9b">
    		
    		</div>
    		<!-- 베스트 셀러 END -->
@@ -356,6 +369,18 @@
 	        }
 	    }); 
 	}); 
+
+$(document).ready(function(){
+	   $.ajax({
+           url:"${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1",
+           method:"GET",
+           data:"&sort=count",
+           success:function(data){
+              $("#bestSeller").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
+           }
+	   })
+   })
+ 		
 </script>
 <div style="margin-top:200px">
 	<jsp:include page="include/footer.jsp"></jsp:include>

@@ -4,7 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <style>
 .ellipsis2 {
@@ -116,7 +117,7 @@
 		</div><!— row END —>
 	</div><!— container END —>
 	<div style="margin-top:200px">
-		<jsp:include page="../include/footer.jsp"></jsp:include>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

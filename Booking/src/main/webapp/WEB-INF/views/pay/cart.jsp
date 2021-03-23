@@ -77,8 +77,14 @@
 		background-color:#484848;
 		color:white;
 	}
+	#title{
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}  
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
@@ -133,7 +139,7 @@
 	    <tr>
 	      <th>
 		  	<span class="allCheck">
-				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">&nbsp; #</label> 
+				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
 			</span>
 			<script>
 			//by준영, 체크박스 전체선택,전체해제 기능_210307
@@ -154,7 +160,7 @@
 	      <th>수량</th>
 	      <th>금액</th>
 	      <th></th>
-	      <th></th>
+	      
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -163,16 +169,16 @@
 	        	<c:if test="${fn:length(list) == 0}">
 	        		<td align="center">북카트가 비었습니다</td>
 	        	</c:if>
-	        		<td>
+	        		<td style=width:3%;>
         				<div class="checkBox">
 							<input type="checkbox" name="chBox" class="chBox" value="${c.c_id }"/>
 						</div>
 		        	</td>
-		            <td><img src="${c.image}"/></td>
-		            <td>${c.title}</td>
-		            <td>${c.price }</td>
-		            <td><font color="red">${c.d_price }</font></td>
-		            <td>
+		            <td style=width:10%;><img src="${c.image}"/></td>
+		            <td id="title" style=width:40%;>${c.title}</td>
+		            <td style=width:7%;>${c.price }</td>
+		            <td style=width:7%;><font color="red">${c.d_price }</font></td>
+		            <td style=width:20%;>
 			            <form action="update.do" method="post">
 			            	<input type="hidden" name="c_id" value="${c.c_id }" />
 			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
@@ -181,13 +187,16 @@
 			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
-		            <td>${c.d_price * c.count}</td>
+		            <td style=width:5%;>${c.d_price * c.count}</td>
 		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
-	            <form action="delete.do" method="post">
-	            	<input name="c_id" type="hidden" value="${c.c_id}" />
-	            	<td><button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button></td>
-	            </form>
+				<td style=width:8%;>
+					<form action="delete.do" method="post">
+		            	<input name="c_id" type="hidden" value="${c.c_id}" />
+		            	<button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button>
+					</form>
+				</td>	            
+	            
 	        </tr>
 	    </c:forEach>
 	  </tbody>
