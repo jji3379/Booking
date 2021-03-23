@@ -28,4 +28,6 @@ public interface UsersDao {
 	
 	//관심사 , 이메일 정보를 얻어오기
 	public UsersDto getCareEmail(String inputId);
+	
+	public void deleteProfile(String inputId);
 }

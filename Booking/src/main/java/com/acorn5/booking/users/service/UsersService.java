@@ -38,4 +38,6 @@ public interface UsersService {
 	
 	//관심사와 이메일정보 얻기
 	public UsersDto getCareEmail(String inputId);
+	
+	public void deleteProfile(String inputId);
 }

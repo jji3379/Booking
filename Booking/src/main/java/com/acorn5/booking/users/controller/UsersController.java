@@ -214,5 +214,13 @@ public class UsersController {
 		data.put("image", image);
 		return data;
 	}
+	
+	
+	//by욱현. 프로필이미지경로 db에서 삭제_2021323
+	@RequestMapping("/users/private/delete_profile.do")
+	@ResponseBody
+	public void deleteProfile(@RequestParam String inputId) {
+		service.deleteProfile(inputId);
+	}
 		
 }

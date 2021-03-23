@@ -43,6 +43,7 @@
 				<img id="profileImage" 
 					src="${pageContext.request.contextPath }${dto.profile}" />
 				<span>프로필 이미지 수정</span>
+				<span><a href="javascript:deleteProfile();">삭제</a></span>
 			</c:otherwise>
 		</c:choose>
 		</a>
@@ -125,7 +126,7 @@
 	
 	//db에 저장된 모델(버튼을 누르는 동시에 데이터를 받아 대조)
 	document.querySelector("#btn")
-	.addEventListener("click", function(event){
+	.addEventListener("click", function(event){//이미지를 선택했을때 실행할 함수 등록
 	
 		let inputId = $("#id").val();
 		
@@ -147,6 +148,21 @@
 			}
 		})
 	});
+	
+	
+	//욱현.프로필이미지 삭제_2021323
+	function deleteProfile(){
+		let inputId = $("#id").val();
+		$.ajax({
+			url:"${pageContext.request.contextPath }/users/private/delete_profile.do",
+			method:"POST",
+			data:"inputId="+inputId,
+			success:function(){
+				console.log("문어병장황준성");
+				location.reload();
+			}
+		})
+	}
 	
 </script>
 </body>
