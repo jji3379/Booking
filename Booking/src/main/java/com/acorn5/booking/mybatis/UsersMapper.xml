@@ -50,4 +50,9 @@
 		SET recentsearch=#{recentSearch}
 		WHERE id=#{id}
 	</update>
+	<update id="deleteProfile" parameterType="java.lang.String"><!-- by욱현.프로필이미지 삭제_2021323 -->
+		UPDATE users
+		SET profile=null
+		WHERE id=#{id}
+	</update>
 </mapper>

@@ -271,5 +271,9 @@ public class UsersServiceImpl implements UsersService{
 		UsersDto dto = dao.getCareEmail(inputId);
 		return dto;
 	}
+	@Override
+	public void deleteProfile(String inputId) {
+		dao.deleteProfile(inputId);
+	}
 
 }

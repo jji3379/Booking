@@ -99,4 +99,9 @@ public class UsersDaoImpl implements UsersDao {
 		return dto;
 	}
 
+	@Override
+	public void deleteProfile(String inputId) {
+		session.update("users.deleteProfile", inputId);
+	}
+
 }
