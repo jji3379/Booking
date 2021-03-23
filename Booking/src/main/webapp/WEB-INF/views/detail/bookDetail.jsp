@@ -132,15 +132,12 @@
            			${b.description}
 				</div>
            	</td>
-           		<td style="text-align:center">
-				    <button class="btn btn-outline-light" style="width:70%; border: 1px solid #135fa1; color:#135fa1">
-				   	<span style="margin-right:10px">
-					    수량 
-				   	</span>
-					    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" style="height:100%"/>
-				    </button>
-           		
-           		</td>
+           	<td style="text-align:center">
+			    <button class="btn btn-outline-light" style="width:70%; border: 1px solid #135fa1; color:#135fa1">
+			   	<span style="margin-right:5px">수량</span>
+				    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" style="height:100%; width:70px;"/>
+			    </button>
+           	</td>
            </tr>
            <tr>
            	<td style="text-align:center" width="20%">

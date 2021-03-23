@@ -129,17 +129,21 @@
 </jsp:include>
 <div style="margin-top:30px"></div>
 <div style="width:1050px; margin:auto">
-	<center><h1><strong>리뷰 디테일 폼</strong></h1></center>
+	<center><h1><strong>리뷰 상세 페이지</strong></h1></center>
 	<table class="table table-striped" style="margin-top:30px">
 		<tr>
-			<td rowspan="8" style="width:300px;"><img id="image" src="${dto.imagePath }"/></td>
+			<td rowspan="8" style="width:300px;">
+				<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${dto.isbn}">
+					<img id="image" src="${dto.imagePath }"/>
+				</a>
+			</td>
 		</tr>
 		<tr>
 			<td><strong>작성자</strong></td>
 			<td>${dto.writer }</td>
 		</tr>
 		<tr>
-			<td><strong>책 제목</strong></td>
+			<td><strong>도서 제목</strong></td>
 			<td>${dto.bookTitle }</td>
 		</tr>
 		<tr>
@@ -328,7 +332,7 @@
 		
 		if($(this).text()=="답글"){//링크 text를 답글일때 클릭하면 
 			$(this).text("취소");//취소로 바꾸고 
-		}else{//취소일때 크릭하면 
+		}else{//취소일때 클릭하면 
 			$(this).text("답글");//답들로 바꾼다.
 		}	
 	});
@@ -337,7 +341,7 @@
 		var isLogin=${not empty id};
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
-			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
+			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
 					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
 			return false; //폼 전송 막기 		
 		}

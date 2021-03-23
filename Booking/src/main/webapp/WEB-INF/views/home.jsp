@@ -115,9 +115,9 @@
    <!-- 부킹  col-9 Start -->
    		<div class="border-layout">
 			<div class="booking col justify-content-center" style="width:auto; margin-bottom:10px;"><!-- by욱현.올랜덤 책추천 '부킹'기능_2021225 -->
-               <center><h2><strong>나와 매칭되는 책은?</strong></h2></center>
-               <div class="row justify-content-center align-items-center">
-                  <span class="col-4"style="text-align: right;" >
+               <center style="margin-top:30px"><h2><strong>나와 매칭되는 책은?</strong></h2></center>
+               <div class="row justify-content-center align-items-center" style="margin-top:60px">
+                  <span class="col-4" style="text-align: right;" >
                      <c:choose>
                      <c:when test="${empty dto.profile }">
                         <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -131,10 +131,10 @@
                   </c:choose>
                </span>
                <span class="col-4" style="text-align: center;"><!--by욱현. 부킹버튼(랜덤추천기능)_2021226 -->
-                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:200px; height:200px;" src="resources/images/bookingbutton.png"/></a> 
+                  <a id="bookingBtn" href="javascript:"><img style="margin-left:0px; width:150px; height:150px;" src="resources/images/BookingButton.png"/></a> 
                  </span>
                  <span class="col-4" style="text-align: left; margin-left:0px;">   
-                    <a href="bookDetail.do?d_isbn=" id="bookA"><img style="height:200px; width:200px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"/></a>
+                    <a id="bookA"><img style="height:200px; width:200px;" class="card-img-top" id="bookimage" src="resources/images/BookingBox.png"/></a>
                  </span>
                </div>
             </div><!-- 부킹 ENd -->

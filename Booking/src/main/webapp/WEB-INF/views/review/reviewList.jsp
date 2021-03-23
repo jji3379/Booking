@@ -35,6 +35,10 @@
    		background-color:#135fa1; 
    		color:white;
    	}
+   	#searchIsbn{
+   		display:none;
+   	}
+   	
    	
 </style>
 </head>
@@ -44,10 +48,8 @@
 </jsp:include>
 <div style="margin: auto; width:1050px;">
 	<div style="margin-top:30px">
-		
-			<center><h1><strong>리뷰 목록</strong></h1></center>
-			<a id="writeR" class="btn btn primary" href="private/reviewInsertform.do" >리뷰 작성</a>
-		
+		<center><h1><strong>리뷰 목록</strong></h1></center>
+		<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
 			<thead style="background-color:#f5e9dd; font-size:22px;">
 				<tr>
@@ -140,10 +142,10 @@
 		<form id="search" action="reviewList.do" method="get" style="margin-top:30px">
 			<label for="condition">검색조건</label>
 			<select name="condition" id="condition">
-				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>책 제목+내용</option>
-				<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>책 제목</option>
+				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>도서 제목+내용</option>
+				<option value="bookTitle" ${condition eq 'bookTitle' ? 'selected' : '' }>도서 제목</option>
 				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-				<option value="isbn" ${condition eq 'isbn' ? 'selected' : '' } disabled>책 고유번호</option>
+				<option id="searchIsbn" value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>도서 고유번호</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			<button id="submitBtn" class="btn btn-primary" type="submit">검색</button>
@@ -161,7 +163,16 @@
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 </div>
 <script>
-	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228	
+	// by남기_리뷰 작성 버튼을 눌렀을 때 로그인 안되어있으면 로그인 하세요 알림과 로그인 창으로 보내기
+	var isLogin=${not empty id};
+	
+	document.querySelector("#writeR").addEventListener("click",function(){
+		if(isLogin==false){			
+			alert("로그인 하세요"); 
+		}
+	});
+	
+	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228
 	
 	//by채영_스포일러가 포함된 리뷰 읽을 확인 여부 
 	var num=$("#num").val();
@@ -171,7 +182,6 @@
 			location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
 		}else{
 			event.preventDefault();
-			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
 		}
 	}
 	
