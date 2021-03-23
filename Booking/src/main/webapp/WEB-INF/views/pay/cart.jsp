@@ -35,8 +35,7 @@
    }
    .pay{
    		text-align:center;
-   		width:100%;
-    	height:100%;
+    	height:200px;
    }
 	table.type09 {
 		border-collapse: collapse;
@@ -78,14 +77,12 @@
 		background-color:#484848;
 		color:white;
 	}
-	 
-  
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
-<body  style="font-size:18px; font-family: 'Roboto', sans-serif;">
+<body>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
@@ -211,6 +208,9 @@
 		<a id="pay" type="button"  class="btn btn-lg" href="pay.do">주문하기</a>
 		<a  id="home" type="button"  class="btn btn-lg"	href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
 	</div>
+</div>
+<div style="margin-top:200px">
+   <jsp:include page="../include/footer.jsp"></jsp:include>
 </div>
 </body>
 <script>
