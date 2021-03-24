@@ -59,11 +59,15 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 ## 지도
 - 서점 위치 검색
 
+<img src="https://i.ibb.co/9hM7p8b/map.png" alt="map" border="0">
+
 ## 회원 관리
-- 개인 정보 수정
+- 개인 정보 수정, 주문 내역, 회원 탈퇴
+
+<img src="https://i.ibb.co/8zbWPvN/user.png" alt="user" border="0">
 - 내가 쓴 리뷰
-- 주문 내역
-- 회원 탈퇴
+
+<img src="https://i.ibb.co/P1RpNFf/myreview.png" alt="myreview" border="0">
 
 ## 결제
 - 장바구니
