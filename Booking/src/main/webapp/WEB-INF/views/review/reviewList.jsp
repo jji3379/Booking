@@ -48,7 +48,7 @@
 </jsp:include>
 <div style="margin: auto; width:1050px;">
 	<div style="margin-top:30px">
-		<center><h1><strong>리뷰 목록</strong></h1></center>
+		<center><h1 class="h1"><strong>리뷰 목록</strong></h1></center>
 		<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
 			<thead style="background-color:#f5e9dd; font-size:22px;">

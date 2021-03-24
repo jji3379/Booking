@@ -182,7 +182,7 @@
 			            <form action="update.do" method="post">
 			            	<input type="hidden" name="c_id" value="${c.c_id }" />
 			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
-			            	<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly"/>
+							<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly" style="width:40px"/>
 			            	<button type="button" class="plus" class="btn btn-secondary" >+</button>
 			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
