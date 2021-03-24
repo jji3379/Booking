@@ -45,12 +45,16 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 <img src="https://i.ibb.co/wrwt0S8/Category.png" alt="Category" border="0">
 
 ## 도서 리뷰
-- 리뷰 목록
-- 리뷰 작성
-- 별점
-- 스포일러 체크
+- 리뷰 목록, 스포일러 체크, 조회수
+
+<img src="https://i.ibb.co/2cDCgZ3/spo.png" alt="spo" border="0">
+- 리뷰 작성, 별점
+
+<img src="https://i.ibb.co/G90WcN6/review-Insert.png" alt="review-Insert" border="0">
+
 - 댓글 
-- 조회수 
+
+<a href="https://ibb.co/dGNzcCn"><img src="https://i.ibb.co/86ySBvF/comment.png" alt="comment" border="0"></a>
 
 ## 지도
 - 서점 위치 검색
