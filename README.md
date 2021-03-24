@@ -13,11 +13,11 @@
 Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 -- | - | - | - | - | -
 도서 검색 | 장르별 도서 분류 | 리뷰 목록 | 서점 위치 검색 | 개인 정보 수정 | 장바구니
-베스트 셀러 | 인기 도서 | 리뷰 작성 | | 내가 쓴 리뷰 | 바로결제
-책 랜덤 추천 | 최신 도서 | 별점 | | 주문 내역 | 배송비 추가
-관심사, 최근 검색어 기준 책 추천 | 추천 도서 | 스포일러 체크 | | 회원 탈퇴 | 결제
+베스트 셀러 | 인기 도서 | 리뷰 작성 | | 내가 쓴 리뷰 | 배송비 추가
+책 랜덤 추천 | 최신 도서 | 별점 | | 주문 내역 | 결제
+관심사, 최근 검색어 기준 책 추천 | 추천 도서 | 스포일러 체크 | | 회원 탈퇴 | 바로 결제
 | |Api 페이징 | 댓글 | |
-| | | 조회수 | |
+| |상세 정보 | 조회수 | |
 
 ## Home
 - 도서 검색
@@ -43,6 +43,10 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 - 인기 도서, 최신 도서, 추천도서, Api 페이징
 
 <img src="https://i.ibb.co/wrwt0S8/Category.png" alt="Category" border="0">
+
+- 상세 정보
+
+<img src="https://i.ibb.co/fDX18tQ/detail.png" alt="detail" border="0">
 
 ## 도서 리뷰
 - 리뷰 목록, 스포일러 체크, 조회수
@@ -70,7 +74,14 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 <img src="https://i.ibb.co/P1RpNFf/myreview.png" alt="myreview" border="0">
 
 ## 결제
-- 장바구니
-- 바로결제
-- 배송비 추가
-- 결제
+- 장바구니, 배송비 추가
+
+<img src="https://i.ibb.co/k6WTqmX/cart.png" alt="cart" border="0">
+
+-  결제
+
+<img src="https://i.ibb.co/QJVNRzY/pay.png" alt="pay" border="0">
+
+- 바로 결제
+
+<img src="https://i.ibb.co/s5k0FyF/kg.png" alt="kg" border="0">
