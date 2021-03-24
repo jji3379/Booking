@@ -12,20 +12,27 @@
 ## 구현 기능
 Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 -- | - | - | - | - | -
-책 랜덤 추천 | 장르별 도서 분류 | 리뷰 목록 | 서점 위치 검색 | 개인 정보 수정 | 장바구니
-관심사, 최근 검색어 기준 책 추천 | 추천 도서 | 리뷰 작성 | | 내가 쓴 리뷰 | 바로결제
-베스트 셀러 | 인기 도서 | 별점 | | 주문 내역 | 배송비 추가
-도서 검색 | 최신 도서 | 스포일러 체크 | | 회원 탈퇴 | 결제
+도서 검색 | 장르별 도서 분류 | 리뷰 목록 | 서점 위치 검색 | 개인 정보 수정 | 장바구니
+베스트 셀러 | 추천 도서 | 리뷰 작성 | | 내가 쓴 리뷰 | 바로결제
+책 랜덤 추천 | 인기 도서 | 별점 | | 주문 내역 | 배송비 추가
+관심사, 최근 검색어 기준 책 추천 | 최신 도서 | 스포일러 체크 | | 회원 탈퇴 | 결제
 | |Api 페이징 | 댓글 | |
 | | | 조회수 | |
 
 ## Home
+- 도서 검색
+
+<img src="https://i.ibb.co/NCNJ8F5/condition.png" alt="condition" border="0">
+- 베스트 셀러 
+
+  <img src="https://i.ibb.co/2K2W4jj/best-Seller.png" alt="best-Seller" border="0"> 
+  
 - 책 랜덤 추천
 
+  <img src="https://i.ibb.co/JyLK5T0/booking.png" alt="booking" border="0">
 - 관심사, 최근 검색어 기준 책 추천
-- 베스트 셀러
-<img src="https://i.ibb.co/2K2W4jj/best-Seller.png" alt="best-Seller" border="0">
-- 도서 검색
+
+<img src="https://i.ibb.co/tJQ23jd/recommend.png" alt="recommend" border="0">
 
 ## 전체 도서
 - 장르별 도서 분류
