@@ -26,9 +26,9 @@ public interface BookService {
 	public List<BookDto> searchBookList(String keyword,int display, int start, HttpServletRequest request, ModelAndView mView);
 	//by 남기, 네이버 도서 api 해당 d_isbn 값 도서 정보 가져오는 메소드_210303
 	public List<BookDto> bookReview(String d_isbn, int display);
-	//(욱현이거 테스트)
+	//by 욱현, 메인화면 도서추천 메소드_2021324 
 	public List<BookDto> recommendBook(String d_cont, int display, int start, String sort, ModelAndView mView);
-	//로그인시 
+	//by 욱현, 로그인된 아이디의 최근검색어가 없는경우 도서 추천_2021308
 	public List<BookDto> recommendBook(int display,int start,String sort, String query, ModelAndView mView);
 	//부킹서비스용
 	public Map<String, Object> recommendBook(String d_cont,int display, int start);
