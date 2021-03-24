@@ -21,8 +21,10 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 
 ## Home
 - 책 랜덤 추천
+
 - 관심사, 최근 검색어 기준 책 추천
 - 베스트 셀러
+<img src="https://i.ibb.co/2K2W4jj/best-Seller.png" alt="best-Seller" border="0">
 - 도서 검색
 
 ## 전체 도서
