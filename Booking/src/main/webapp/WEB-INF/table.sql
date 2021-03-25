@@ -41,8 +41,11 @@ CREATE TABLE cart_item(
 	price NUMBER,
 	d_price NUMBER,
 	count NUMBER,
-	indate DATE
+	indate DATE,
+	isbn VARCHAR2(300)
 );
+-- 결제 시퀀스 
+CREATE SEQUENCE pay_seq;
  
 -- 리뷰의 댓글을 저장할 테이블 
 CREATE TABLE board_review_comment(
@@ -57,20 +60,6 @@ CREATE TABLE board_review_comment(
 
 -- 리뷰의 글번호를 얻어낼 시퀀스
 CREATE SEQUENCE board_review_seq;
-
--- 리뷰의 댓글을 저장할 테이블 
-CREATE TABLE board_review_comment(
-	num NUMBER PRIMARY KEY, --글번호
-	writer VARCHAR2(100),--작성자
-	content VARCHAR2(500),--내용
-	target_id VARCHAR2(100),--리뷰 대상자의 아이디
-	ref_group NUMBER, --원글의 글번호 
-	comment_group NUMBER, --댓글의 그룹번호
-	deleted CHAR(3) DEFAULT 'no', --삭제된 리뷰인지 여부 'yes' or 'no'
-	regdate DATE --리뷰 작성일
-);
--- 리뷰의 댓글 글번호를 얻어낼 시퀀스
-CREATE SEQUENCE board_review_comment_seq;
 
 -- 유저 정보 테이블
 create table users (
