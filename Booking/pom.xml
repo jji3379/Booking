@@ -171,6 +171,11 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.0.RELEASE</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+		    <artifactId>ojdbc6</artifactId>
+		    <version>11.2.0.4</version>
+		</dependency>
 		<!-- 파일업로드 처리를 위한 라이브러리 (SmartEditor 에서도 필요함)-->
 	  	<dependency>
 			<groupId>commons-io</groupId>
