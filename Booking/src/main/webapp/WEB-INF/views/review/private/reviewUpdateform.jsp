@@ -59,9 +59,6 @@
 		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
 	</form>
 </div>
-<div style="margin-top:200px">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
-</div>
 <script>
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 

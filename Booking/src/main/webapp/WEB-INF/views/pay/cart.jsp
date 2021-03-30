@@ -218,9 +218,6 @@
 		<a  id="home" type="button"  class="btn btn-lg"	href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
 	</div>
 </div>
-<div style="margin-top:200px">
-   <jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
 </body>
 <script>
 	//by준영, 배송비 책정로직_210317

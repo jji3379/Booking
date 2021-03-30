@@ -159,9 +159,6 @@
 		</c:if>
 	</div>
 </div>
-<div style="margin-top:200px">
-	<jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
 <script>
 	// by남기_리뷰 작성 버튼을 눌렀을 때 로그인 안되어있으면 로그인 하세요 알림과 로그인 창으로 보내기
 	var isLogin=${not empty id};

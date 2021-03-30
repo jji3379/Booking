@@ -76,9 +76,6 @@
 		<button id="insertBtn" class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
 	</form>
 </div>
-<div style="margin-top:200px">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
-</div>
 <script>
 </script>
 <!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
