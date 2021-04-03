@@ -38,7 +38,7 @@
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div style="margin:auto; width:1050px;">
-	<center><h1 style="margin-top:30px"><strong>리뷰 작성 폼</strong></h1></center>
+	<center><h1 style="margin-top:30px"><strong>리뷰 작성</strong></h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a id="bookSearch" class="btn btn-primary" href="${pageContext.request.contextPath }/review/reviewBookList.do?"><strong>책 검색</strong></a>
 	<form action="reviewInsert.do" method="post" id="insertForm">

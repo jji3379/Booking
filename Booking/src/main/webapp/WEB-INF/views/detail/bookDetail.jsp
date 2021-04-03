@@ -126,7 +126,7 @@
            </tr>
            		
            <tr>
-           	<td style="background:#f5e9dd;" rowspan="4"width="60%">
+           	<td style="background:#f5f5f5;" rowspan="4"width="60%">
 				<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
            			${b.description}
 				</div>

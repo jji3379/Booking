@@ -1119,7 +1119,7 @@ public class BookServiceImpl implements BookService {
 	
 
 	@Override
-	public Map<String, Object> recommendBook(String d_cont, int display, int start) {
+	public Map<String, Object> recommendBook(String sort, int display, int start) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 		String clientSecret = "zSBrAXrY3q";
 		
@@ -1130,7 +1130,7 @@ public class BookServiceImpl implements BookService {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
                     + "Book_adv.xml?d_cont="
-                    + URLEncoder.encode(d_cont, "UTF-8") //d_cont는 지정변수가 아니여서 인코딩을 해준다.
+                    + URLEncoder.encode(sort, "UTF-8") //d_cont는 지정변수가 아니여서 인코딩을 해준다.
                     + (display !=0 ? "&display=" +display :"")
                     + (start !=0 ? "&start=" +start :""));
   

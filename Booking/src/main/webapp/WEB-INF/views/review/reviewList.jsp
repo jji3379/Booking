@@ -30,6 +30,7 @@
    		float:right;
    		background:#135fa1;
    		color:white;
+   		font-weight:bold;
    	}
    	#submitBtn{
    		background-color:#135fa1; 
@@ -48,17 +49,17 @@
 </jsp:include>
 <div style="margin: auto; width:1050px;">
 	<div style="margin-top:30px">
-		<center><h1 class="h1"><strong>리뷰 목록</strong></h1></center>
+		<center><h1 class="h1"><strong>도서 리뷰</strong></h1></center>
 		<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
-			<thead style="background-color:#f5e9dd; font-size:22px;">
-				<tr>
+			<thead style="background-color:#135fa1; font-size:22px;">
+				<tr style="color:white">
 					<th width="10%"><strong>도서</strong></th>
 					<th width="20%"><strong>리뷰 제목</strong></th>
-					<th width="20%"><strong>도서 제목</strong></th>
+					<th width="25%"><strong>도서 제목</strong></th>
 					<th width="10%"><strong>작성자</strong></th>
-					<th width="15%"><strong>조회수</strong></th>
-					<th width="15%"><strong>등록일</strong></th>
+					<th width="8%"><strong>조회수</strong></th>
+					<th width="17%"><strong>등록일</strong></th>
 					<th width="10%"><strong>별점</strong></th>
 				</tr>
 			</thead>
@@ -148,7 +149,7 @@
 				<option id="searchIsbn" value="isbn" ${condition eq 'isbn' ? 'selected' : '' }>도서 고유번호</option>
 			</select>
 			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-			<button id="submitBtn" class="btn btn-primary" type="submit">검색</button>
+			<button id="submitBtn" class="btn btn-primary btn-sm" type="submit" style="margin-bottom:3px">검색</button>
 		</form>
 		<br />
 		<%-- by남기, 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. _210303 --%>

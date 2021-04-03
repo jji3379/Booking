@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
  	ul{
     	list-style:none;
@@ -14,15 +18,6 @@
  
    	}
   	
-  	.boss{
-  		border: 2px solid #f1f1f1;
-  		width:200px; 
-  		height:row; 
-  		background-color:#0f4c81; 
-  		text-align:center;
-  		border-color:#f5e9dd;
-  	}
-  	
   	#profileImages{
 		width: 120px;
 		height: 120px;
@@ -30,14 +25,35 @@
 		border-radius: 50%;
 		margin-top:10px;
 	}
+	.linkIcon{
+		width:40px; 
+		height:40px;
+		margin-left:12px;
+		margin-bottom:20px;
+	}
 </style>
-<div class="boss" >
-	<h2 style="margin-top:15px;  color: #f5e9dd;">나의 계정</h2>		
-	<ul>
-		<li>
+<div class="col-3" >
+	<a href="${pageContext.request.contextPath }/users/private/my_review.do">
+		<img src="${pageContext.request.contextPath }/resources/images/myreview.png" class="linkIcon"/>
+	</a>
+	<a href="${pageContext.request.contextPath }/users/private/my_order.do">
+		<img src="${pageContext.request.contextPath }/resources/images/delivery.png" class="linkIcon"/>
+	</a>
+	<a href="${pageContext.request.contextPath }/users/private/pwd_updateform.do">
+		<img src="${pageContext.request.contextPath }/resources/images/password.png" class="linkIcon"/>
+	</a>
+	<a href="${pageContext.request.contextPath }/users/private/updateform.do">
+		<img src="${pageContext.request.contextPath }/resources/images/info.png" class="linkIcon"/>
+	</a>
+	<div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center"><a href="${pageContext.request.contextPath }/users/private/info.do">
+         <img src="${pageContext.request.contextPath }/resources/images/home.png" style="width:25px; height:25px" />
+         My Profile</a></h4>
+         <p class="w3-center">
 			<c:choose>
 				<c:when test="${empty dto.profile }">
-					<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+					<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="106" height="106" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
 			  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 					</svg>
 				</c:when>
@@ -46,30 +62,13 @@
 						src="${pageContext.request.contextPath }${dto.profile}" />
 				</c:otherwise>
 			</c:choose>	
-		</li>
-		<li>
-			<a href="${pageContext.request.contextPath }/users/private/info.do" style="font-size:22px;font-weight:bold; color:white;">${id }</a>
-		</li>
-		<li style="margin-top: 10px; margin-left:10px; text-align:left; color:#000000">
-			<a>[활동내역]</a>
-		</li>
-		<li style="margin-top: 15px;">
-			<a href="my_review.do" style="color:#f5e9dd;">내가 쓴 리뷰 모아보기</a>
-		</li>
-		<li style="margin-top: 15px;">
-			<a href="my_order.do" style="color:#f5e9dd;">주문 조회하기</a>
-		</li>
-		<li style="margin-top: 30px; margin-left:10px; text-align:left; color:#000000">
-			<a>[회원정보관리]</a>
-		</li>
-		<li style="margin-top: 15px;">
-			<a style="color:#f5e9dd;" href="pwd_updateform.do">비밀번호 수정하기</a>
-		</li>
-		<li style="margin-top: 15px;">
-			<a style="color:#f5e9dd;" href="updateform.do">개인정보 수정하기</a>
-		</li>
-		<li style="margin-top: 15px;">
-			<a style="color:#f5e9dd;" href="javascript:deleteConfirm();">회원탈퇴</a>
-		</li>
-	</ul>
+         </p>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>${sessionScope.id }</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> ${dto.email }</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>${dto.regdate }</p>
+         <p><b> 관심사 : </b> ${dto.care }</p> 
+         <p><b> 최근 검색어 : </b> ${dto.recentSearch }</p> 
+        </div>
+      </div>	
 </div>

@@ -34,7 +34,7 @@
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
 	<div style="width:1050px; margin:auto">
 		<div style="margin-top:30px; text-align:center">
-			<h1><span style="color:#135fa1"><b>${keyword }</b></span> 리뷰 책 검색   </h1>
+			<h1></span> 리뷰 책 검색   </h1>
 			<form action="reviewBookList.do" method="get" style="margin-top:30px">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
 				<select style="width:120px; display:inline-block; border: 1px solid #135fa1;" class="form-control" name="condition" id="condition">
@@ -54,7 +54,7 @@
 							<a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" >
 									<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
 								</a>
-								<div style="background-color:#f5e9dd" class="card-body">
+								<div style="background-color:#f5f5f5" class="card-body">
 										<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
 									</a>
 									<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>

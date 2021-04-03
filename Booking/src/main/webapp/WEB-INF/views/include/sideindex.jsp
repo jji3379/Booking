@@ -13,7 +13,7 @@
    .Main-Category {
       font-weight:bold;
       color: #0f4c81;
-      width: 140px;
+      width: 155px;
       font-size: 18px;
       text-align: left;
       margin-left: 15px;

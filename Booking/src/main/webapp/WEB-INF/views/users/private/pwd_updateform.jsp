@@ -8,14 +8,14 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
-<body style="background-color:#484848;">
+<body style="background-color:#f5f5f5;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div style="margin-top:30px"></div>
 <div class="row" style="width:1050px; height:650px;
-	margin:auto; background-color:#f5e9dd;">
+	margin:auto;">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
-	<div>
-		<h1 style="margin-left:8px; margin-top:7px;">비밀번호 수정 폼</h1>
+	<div class="col-9">
+		<h1 style="margin-left:8px; margin-top:7px;">비밀번호 수정</h1>
 		<form action="pwd_update.do" method="post" id="myForm" style="margin-left:8px; margin-top:7px; width:800px">
 			<div class="form-group" style="width:750px;">
 				<label for="pwd">기존 비밀번호</label>
@@ -31,14 +31,11 @@
 				<label for="newPwd2">새 비밀번호 확인</label>
 				<input class="form-control" type="password" id="pwd2"/>
 			</div>
-			<button type="submit" class="btn btn-outline-primary" >수정하기</button>
-			<button type="reset" class="btn btn-outline-warning" >리셋</button>
+			<button type="submit" class="btn btn-outline-info" >수정하기</button>
+			<button type="reset" class="btn btn-outline-secondary" >리셋</button>
 		</form>
 	</div>
 	
-</div>
-<div style="margin-top:200px">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 

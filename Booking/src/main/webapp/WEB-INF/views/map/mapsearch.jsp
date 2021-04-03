@@ -61,7 +61,7 @@
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div style="width:1050px; height:800px; margin:auto;">
 	<div style="margin-top:30px">
-		<center><h1><strong>서점 검색 폼</strong></h1></center>
+		<center><h1><strong>주변 서점 검색</strong></h1></center>
 		<!-- by남기, 카카오맵 api 사용/지도와 검색 뷰를 따로 구분_210306 -->
 		<div style="margin-top:30px">
 			<div class="map_wrap">
@@ -71,7 +71,7 @@
 			    <div class="option">
 			        <div>
 			            <form onsubmit="searchPlaces(); return false;">
-			                <input type="text" value="서점" id="keyword" size="15" style="background:#f5e9dd;" > 
+			                <input type="text" value="교보문고" id="keyword" size="15" style="background:#f5f5f5;" > 
 			              	<button type="submit" class="btn btn-outline-dark" >검색하기</button> 
 			            </form>
 			        </div>
@@ -91,7 +91,7 @@
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-	        level: 8 // 지도의 확대 레벨
+	        level: 3 // 지도의 확대 레벨
 	    };  
 	// 지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 

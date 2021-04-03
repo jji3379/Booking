@@ -8,40 +8,26 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
-	/* 프로필 이미지를 작은 원형으로 만든다 */
-	#profileImage{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
-		margin-left: 7px;
-		margin-top: 7px;
-		margin-bottom: 7px;
-	}
 	/* 프로필 업로드 폼을 화면에 안보이게 숨긴다 */
 	#profileForm{
 		display: none;
 	}
 </style>
 </head>
-<body style="background-color:#484848;">
+<body style="background-color:#f5f5f5;">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div style="margin-top:30px"></div>
 <div class="row" style="width:1050px; height:650px;
-	margin:auto; background-color:#f5e9dd;">
+	margin:auto;">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
-	<div>
-		<h1 style="margin-left:8px; margin-top:7px;">가입정보 수정 폼</h1>
+	<div class="col-9">
+		<h1 style="margin-left:8px; margin-top:7px;">개인정보 수정</h1>
 		<a id="profileLink" href="javascript:">
 		<c:choose>
 			<c:when test="${empty dto.profile }">
-				<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-	  				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-				</svg><span>프로필 이미지 수정</span>
+				<span style="margin-left:7px" >프로필 이미지 수정</span>
 			</c:when>
 			<c:otherwise>
-				<img id="profileImage" 
-					src="${pageContext.request.contextPath }${dto.profile}" />
 				<span>프로필 이미지 수정</span>
 				<span><a href="javascript:deleteProfile();">삭제</a></span>
 			</c:otherwise>
@@ -61,8 +47,11 @@
 				<label for="care">관심사</label>
 				<input type="text" id="care" name="care" value="${dto.care }" class="form-control"/>
 			</div>
-			<button type="button" class="btn btn-outline-primary" id="btn">수정확인</button>
-			<button type="reset" class="btn btn-outline-warning">취소</button>
+			<div>
+				<button type="button" class="btn btn-outline-info" id="btn">수정확인</button>
+				<button type="reset" class="btn btn-outline-secondary">취소</button>
+				<a href="javascript:deleteConfirm();" class="btn btn-outline-danger" style="float:right; margin-right:50px">회원탈퇴</a>
+			</div>
 		</form>
 	</div>
 	<form action="profile_upload.do" method="post" 
@@ -72,9 +61,6 @@
 		<button type="submit">업로드</button>
 	</form>
 	
-</div>
-<div style="margin-top:200px">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
 </div>
 <script>
 	//프로필 링크를 클릭했을때 실행할 함수 등록

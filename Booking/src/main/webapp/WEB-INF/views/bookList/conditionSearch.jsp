@@ -36,7 +36,7 @@
 	<div style="margin-top: 30px"></div>
 		<h1><span style="color:#135fa1;"><b>${keyword }</b></span> 검색결과  </h1>
 		<div style="float:right;">
-			<form action="conditionSearch.do" method="get">
+			<form action="conditionSearch.do" method="get" id="conditionForm">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
 				<select style="width:120px; display:inline-block; border: 1px solid #135fa1;" class="form-control" name="condition" id="condition">
 					<option  value="title_content"
@@ -44,7 +44,7 @@
 					<option value="title" ${condition eq 'title' ? "selected" : '' }>제목</option>
 					<option value="writer" ${condition eq 'writer' ? "selected" : '' }>작성자</option>
 				</select> 
-				<input style="width:230px; display:inline-block;border: 1px solid #135fa1;" class="form-control" type="text" name="keyword" placeholder="검색어 입력" />
+				<input style="width:230px; display:inline-block;border: 1px solid #135fa1;" class="form-control" type="text" name="keyword" placeholder="검색어 입력" id="conditionSearch"/>
 				<button type="submit" style="color:#135fa1; border: 1px solid #135fa1; margin-bottom:3px" class="btn btn-outline-light">검색</button>
 			</form>
 		</div>
@@ -60,7 +60,7 @@
 							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
 								<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
 							</a>
-							<div style="background-color:#f5e9dd" class="card-body">
+							<div style="background-color:#f5f5f5" class="card-body">
 								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
 									<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
 								</a>
@@ -122,4 +122,14 @@
 		</nav>
 	</div>
 </body>
+<script>
+$(document).ready(function() {
+    $('#conditionForm').submit(function() {
+        if ($('#conditionSearch').val() == '') {
+            alert('검색어를 입력하세요.');
+            return false;
+        }
+    }); 
+}); 
+</script>
 </html>

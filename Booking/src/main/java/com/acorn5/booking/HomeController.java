@@ -43,16 +43,14 @@ public class HomeController {
 		}
 		if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
 			int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기
+			dto=dao.getData(id);
+			String recent=dto.getRecentSearch();
 			//by 우석, view page 에서 cartitem 불러오기_210315
-			if(nansu==0) { //난수가 0이면 관심사 기반
-				dto = dao.getData(id); // 로그인된 회원의 정보 얻어오기
+			if(recent==null) { // 최근 검색어가 없을 경우 관심사로 추천  
 				String query = dto.getCare(); // 회원의 관심사를 query로 설정
 				service.recommendBook(10, 1,"count", query, mView);
-			} else { //난수가 1이면 최근검색어 기반_210310
-				dto = dao.getData(id);
-				String query = dto.getRecentSearch();
-				System.out.println(query);
-				service.recommendBook(10, 1,"count", query, mView);
+			} else { //최근 검색어가 있을 경우 최근 검색어 기준 추천 
+				service.recommendBook(10, 1,"count", recent, mView);
 			}
 		}else if (id==null) { // 로그인을 안한경우 
 			service.recommendBook("1",10, 1,"count", mView);
@@ -73,9 +71,9 @@ public class HomeController {
 	@ResponseBody
 	public Map<String, Object> booking() {
 		//책을 랜덤으로 추천해야 하니까
-		int ran = (int) (Math.random()*100 + 1);
+		int ran = (int) (Math.random()*300);
 		// 부킹버튼을 눌러 요청하는순간 올랜덤 검색 로직 실행 및 이미지경로와 isbn만 맵객체에 넣어서 받기
-		Map<String, Object> data = service.recommendBook("1",1, ran);
+		Map<String, Object> data = service.recommendBook("sim",1, ran);
 		// 뷰페이지로 이동 후  자바스크립트로 추출 (ajax로 그부분만 뿌려주기) 
 		
 		return data;

@@ -42,9 +42,6 @@
    <a href="my_order.do" class="btn btn-outline-primary" style="margin-left:10px;">뒤로가기</a>
    </div>
 </div>
-<div style="margin-top:200px">
-	<jsp:include page="../../include/footer.jsp"></jsp:include>
-</div>
 </body>
 <script>
 //회원탈퇴묻기
