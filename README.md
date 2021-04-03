@@ -1,5 +1,5 @@
 # *도서 추천 웹 서비스 Booking* 
-[www.acornsbook.me](http://3.23.177.146:8080/booking/home.do)
+www.acornsbook.me
 
 # 사용 기술 
 - Java, Spring, Mybatis, Oracle DB
