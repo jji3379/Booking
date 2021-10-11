@@ -20,7 +20,7 @@
     -->
     <beans:bean id="dataSource" 
         class="org.springframework.jndi.JndiObjectFactoryBean">
-        <beans:property name="jndiName" value="java:comp/env/jdbc/myoracle"/>
+        <beans:property name="jndiName" value="java:comp/env/jdbc/BookingDB"/>
     </beans:bean>
     <!-- 
         위는 아래의 코드와 같다

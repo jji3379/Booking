@@ -3,56 +3,68 @@
 <mapper namespace="users"><!--by.욱현 _2021222 -->
 	<select id="isValid" parameterType="usersDto" resultType="String">
 		select id
-		from users
+		from USERS
 		where id=#{id} AND pwd=#{pwd}
 	</select>
     <select id="isExist" parameterType="String" resultType="usersDto">
     	select id
-    	from users
+    	from USERS
     	where id=#{id}
     </select>
     <insert id="insert" parameterType="usersDto">
-    	insert into users(num, id, pwd, regdate, email, care) 
-    	values(users_seq.NEXTVAL, #{id}, #{pwd}, sysdate, #{email}, #{care})
+    	INSERT INTO USERS ( 
+    		id
+    		, pwd
+    		, regdate
+    		, email
+    		, care 
+    	) 
+    	VALUES ( 
+			#{id}
+			, #{pwd}
+			, now()
+			, #{email}
+			, #{care} 
+		)
     </insert>
     <update id="updateProfile" parameterType="usersDto">
-		UPDATE users
-		SET profile=#{profile}
+		UPDATE USERS
+		SET profileImg=#{profile}
 		WHERE id=#{id}
 	</update>
 	<update id="updatePwd" parameterType="usersDto">
-		UPDATE users
+		UPDATE USERS
 		SET pwd=#{newPwd}
 		WHERE id=#{id} AND pwd=#{pwd}
 	</update>
 	<update id="update" parameterType="usersDto">
-		UPDATE users
+		UPDATE USERS
 		SET email=#{email}, care=#{care}
 		WHERE id=#{id}
 	</update>
 	<delete id="delete" parameterType="java.lang.String">
-		DELETE FROM users
+		DELETE FROM USERS
 		WHERE id=#{id}
 	</delete>
 	<select id="getData" parameterType="String" resultType="usersDto">
-		SELECT id, pwd, email,care, recentSearch, profile,
-			TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
-		FROM users
+		SELECT id, pwd, email,care, recentSearch, profileImg,
+			DATE_FORMAT(regdate, '%Y.%m.%d') AS regdate
+		FROM USERS
 		WHERE id=#{id}
 	</select>
 	<select id="getPwd" parameterType="String" resultType="String">
 		SELECT pwd
-		FROM users
+		FROM USERS
 		WHERE id=#{id}
 	</select>
 	<update id="searchInput" parameterType="usersDto"><!-- by욱현.최근검색어 칼럼 수정_2021308 -->
-		UPDATE users
+		UPDATE USERS
 		SET recentsearch=#{recentSearch}
 		WHERE id=#{id}
 	</update>
 	<update id="deleteProfile" parameterType="java.lang.String"><!-- by욱현.프로필이미지 삭제_2021323 -->
-		UPDATE users
-		SET profile=null
+		UPDATE USERS
+		SET profileImg=null
 		WHERE id=#{id}
 	</update>
 </mapper>
