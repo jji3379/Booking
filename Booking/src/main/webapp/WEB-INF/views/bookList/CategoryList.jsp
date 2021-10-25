@@ -33,8 +33,8 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div style="width:1050px; margin:auto;">
-		<div class="row" style="margin-top:30px;">
+	<div>
+		<div class="row" >
 			<jsp:include page="../include/sideindex.jsp"></jsp:include>
 			<div class="col-10">
 				<ul class="nav nav-tabs">
@@ -47,25 +47,25 @@
 						<a class="nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 				</ul>
-				<div style="margin-top:30px" class="row row-cols-4">
+				<div class="row row-cols-4">
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-4">
-							<div style="border: 3px solid #0f4c81;" class="card h-100">
+							<div class="card h-100">
 								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-									<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+									<img src="${b.image }" class="card-img-top img-wrapper" >
 								</a>
-								<div style="background-color:#f5f5f5" class="card-body">
+								<div class="card-body">
 									<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-										<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+										<h5 class="card-title ellipsis2">${b.title }</h5>
 									</a>
-									<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+									<div class="card-text ellipsis">${b.author }</div>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 				<!-- by 준익, 페이징 처리_2021.02.26 -->
-				<nav style="margin-top:30px">
+				<nav>
 				<ul class="pagination justify-content-center">
 					<c:choose>
 						<c:when test="${startPageNum != 1 }">

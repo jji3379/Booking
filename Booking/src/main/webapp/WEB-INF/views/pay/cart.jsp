@@ -92,8 +92,8 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style="width:1050px; margin:auto">
-		<div class="jumbotron" style="margin-top:30px">
+<div>
+		<div class="jumbotron">
 	    
 	    <hr class="my-4">
 	    <h2>북카트  &nbsp;<span class="badge badge-warning">쇼핑중</span></h2>
@@ -174,11 +174,11 @@
 							<input type="checkbox" name="chBox" class="chBox" value="${c.c_id }"/>
 						</div>
 		        	</td>
-		            <td style=width:10%;><img src="${c.image}"/></td>
-		            <td id="title" style=width:40%;>${c.title}</td>
-		            <td style=width:7%;>${c.price }</td>
-		            <td style=width:7%;><font color="red">${c.d_price }</font></td>
-		            <td style=width:20%;>
+		            <td><img src="${c.image}"/></td>
+		            <td id="title" >${c.title}</td>
+		            <td>${c.price }</td>
+		            <td><font color="red">${c.d_price }</font></td>
+		            <td>
 			            <form action="update.do" method="post">
 			            	<input type="hidden" name="c_id" value="${c.c_id }" />
 			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
@@ -187,10 +187,10 @@
 			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
-		            <td style=width:5%;>${c.d_price * c.count}</td>
+		            <td>${c.d_price * c.count}</td>
 		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
-				<td style=width:8%;>
+				<td>
 					<form action="delete.do" method="post">
 		            	<input name="c_id" type="hidden" value="${c.c_id}" />
 		            	<button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button>

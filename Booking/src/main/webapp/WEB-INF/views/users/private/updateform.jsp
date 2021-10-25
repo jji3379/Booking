@@ -14,14 +14,13 @@
 	}
 </style>
 </head>
-<body style="background-color:#f5f5f5;">
+<body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div style="margin-top:30px"></div>
-<div class="row" style="width:1050px; height:650px;
-	margin:auto;">
+<div class="row">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
 	<div class="col-9">
-		<h1 style="margin-left:8px; margin-top:7px;">개인정보 수정</h1>
+		<h1>개인정보 수정</h1>
 		<a id="profileLink" href="javascript:">
 		<c:choose>
 			<c:when test="${empty dto.profile }">
@@ -33,17 +32,17 @@
 			</c:otherwise>
 		</c:choose>
 		</a>
-		<form action="update.do" method="post" id="myForm" style="margin-left:8px; margin-top:7px; width:800px">
-			<div class="form-group" style="width:750px;">
+		<form action="update.do" method="post" id="myForm">
+			<div class="form-group" >
 				<label for="id">아이디</label>
 				<input type="text" id="id" value="${id }" class="form-control" disabled/>
 			</div>
-			<div class="form-group" style="width:750px;">
+			<div class="form-group" >
 				<label for="email">이메일</label>
 				<input type="text" id="email" name="email" value="${dto.email }" class="form-control"/>
 				<div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
 			</div>
-			<div class="form-group" style="width:750px;">
+			<div class="form-group" >
 				<label for="care">관심사</label>
 				<input type="text" id="care" name="care" value="${dto.care }" class="form-control"/>
 			</div>

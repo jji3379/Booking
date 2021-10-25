@@ -47,27 +47,27 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin: auto; width:1050px;">
-	<div style="margin-top:30px">
+<div>
+	<div >
 		<center><h1 class="h1"><strong>도서 리뷰</strong></h1></center>
 		<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
-			<thead style="background-color:#135fa1; font-size:22px;">
-				<tr style="color:white">
-					<th width="10%"><strong>도서</strong></th>
-					<th width="20%"><strong>리뷰 제목</strong></th>
-					<th width="25%"><strong>도서 제목</strong></th>
-					<th width="10%"><strong>작성자</strong></th>
-					<th width="8%"><strong>조회수</strong></th>
-					<th width="17%"><strong>등록일</strong></th>
-					<th width="10%"><strong>별점</strong></th>
+			<thead>
+				<tr>
+					<th><strong>도서</strong></th>
+					<th><strong>리뷰 제목</strong></th>
+					<th><strong>도서 제목</strong></th>
+					<th><strong>작성자</strong></th>
+					<th><strong>조회수</strong></th>
+					<th><strong>등록일</strong></th>
+					<th><strong>별점</strong></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="t" items="${list}">
 					<tr>
 						<td class="ellipsis"> 
-							<img style="width:80px; height:100px;" class="rounded-sm" 
+							<img class="rounded-sm" 
 							src="${t.imagePath }"/>
 						</td>
 						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
@@ -98,7 +98,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<nav style="margin-top:30px">
+		<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>
 					<c:when test="${startPageNum != 1 }">
@@ -140,7 +140,7 @@
 				</c:choose>
 			</ul>
 		</nav>
-		<form id="search" action="reviewList.do" method="get" style="margin-top:30px">
+		<form id="search" action="reviewList.do" method="get">
 			<label for="condition">검색조건</label>
 			<select name="condition" id="condition">
 				<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>도서 제목+내용</option>

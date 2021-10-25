@@ -37,8 +37,8 @@
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin:auto; width:1050px;">
-	<center><h1 style="margin-top:30px"><strong>리뷰 작성</strong></h1></center>
+<div >
+	<center><h1><strong>리뷰 작성</strong></h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a id="bookSearch" class="btn btn-primary" href="${pageContext.request.contextPath }/review/reviewBookList.do?"><strong>책 검색</strong></a>
 	<form action="reviewInsert.do" method="post" id="insertForm">
@@ -57,7 +57,7 @@
 		</div>
 		
 		<!-- by남기, 평점 선택창_210310 -->
-		<p id="star" style="margin-top:30px; font-size:23px;"><strong>별점</strong><br />
+		<p id="star"><strong>별점</strong><br />
 			<a href="#" value="1">★</a>
 			<a href="#" value="2">★</a> 
 			<a href="#" value="3">★</a> 
@@ -65,10 +65,10 @@
 			<a href="#" value="5">★</a>
 		<p>		
 		
-		<div class="form-group" style="margin-top:30px">
-			<label for="content" style="font-size:23px"><strong>리뷰 내용</strong></label><br />
+		<div class="form-group" >
+			<label for="content"><strong>리뷰 내용</strong></label><br />
 			<!--by채영_스포일러 포함 체크박스  -->
-			<label for ="spoCheck" style="font-size:20px">스포포함 체크박스</label>
+			<label for ="spoCheck" >스포포함 체크박스</label>
 			<input type="checkbox" id="spoCheck" name="spoCheck">
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>

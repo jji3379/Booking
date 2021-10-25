@@ -87,20 +87,20 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="BS" name="thisPage"/>
 </jsp:include>
-<div style="margin:auto; width:1050px;" id="bookDetail">
-<div style="border:3px solid #0f4c81; margin-top:30px">
-    <table style="margin:30px 20px">
+<div>
+<div>
+    <table >
     	<c:forEach var="b" items="${bookDetail }">
 		    <thead class="thead-dark">
-		    	<tr style height="20px">
+		    	<tr>
 			 		<th  colspan="3">
-			 			<span style="font-size:18px; margin-bottom:20px; color:#135fa1" class="d-flex justify-content-center"><b>${b.title }</b></span>
+			 			<span class="d-flex justify-content-center"><b>${b.title }</b></span>
 			 		</th>
 			 	</tr>
 		    </thead>
     <tbody>
 	 	 <tr>
-			<td width="20%" rowspan="7"><div id="image"><a style :object-fit= contain; href="${b.link }"><img style="width:80%;" src="${b.image}"/></a></div></td>			            
+			<td rowspan="7"><div id="image"><a href="${b.link }"><img src="${b.image}"/></a></div></td>			            
         	<td>
 	        	   <b>작가 </b>
 		           <span id="auth">
@@ -112,7 +112,7 @@
             <td>
 	            <b>출판사 </b> ${b.publisher }
             </td>
-            <td style="text-align:center; font-weight:bold">
+            <td>
             	${b.price} 원 
             </td>
            </tr>
@@ -120,42 +120,42 @@
            	<td>
            		<b>출간일 </b> ${b.pubdate }
            	</td>
-            	<td style="text-align:center; color:red;  ">
+            	<td>
              		할인가 ${b.discount }
             	</td>
            </tr>
            		
            <tr>
-           	<td style="background:#f5f5f5;" rowspan="4"width="60%">
-				<div style="PAGE_ROW_COUNT:inline-block; margin:20px 20px">
+           	<td>
+				<div>
            			${b.description}
 				</div>
            	</td>
-           	<td style="text-align:center">
-			    <button class="btn btn-outline-light" style="width:70%; border: 1px solid #135fa1; color:#135fa1">
-			   	<span style="margin-right:5px">수량</span>
-				    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" style="height:100%; width:70px;"/>
+           	<td >
+			    <button class="btn btn-outline-light">
+			   	<span>수량</span>
+				    <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1"/>
 			    </button>
            	</td>
            </tr>
            <tr>
-           	<td style="text-align:center" width="20%">
+           	<td >
     	       	<input id="idP" type="hidden" name="id" value="${id }"/>
 			    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
 			    <input id="titleP" type="hidden" name="title" value="${b.title }" />
 			    <input id="priceP" type="hidden" name="price" value="${b.price }"/>
 			    <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
 			    <input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
-		    		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
+		    		<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
            	</td>
            </tr>
            <tr>
-           	<td style="text-align:center">
-		           		<button style="width:70%; border: 1px solid #135fa1; color:#135fa1" class="btn btn-outline-light" onclick="direct()">바로구매  </button>
+           	<td>
+		        <button class="btn btn-outline-light" onclick="direct()">바로구매  </button>
            	</td>
            </tr>
            <tr>
-           	<td style="text-align:center">
+           	<td>
 				<a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" style="width:70%; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"> 리뷰쓰기</a>
            	</td>
            </tr>
@@ -236,9 +236,9 @@
 	}
 </script>	
 </div>
-	<div style="margin-top:30px" id="simList"></div>
+	<div id="simList"></div>
 </div>
-<div style="margin-top:180px;"  id="reviewList"></div>
+<div id="reviewList"></div>
 <script type="text/javascript">
 //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
 var inputAuth=$("#auth").text();

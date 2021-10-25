@@ -9,18 +9,17 @@
 <title>Insert title here</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
-<body style="background-color:#f5f5f5;">
+<body >
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:30px"></div>
-<div class="row" style="width:1050px; 
-   margin:auto;">
+<div></div>
+<div class="row">
     <jsp:include page="../../include/sideusers.jsp"></jsp:include>
    <div class="col-9">
-   		<div style="margin-left:8px; margin-top:7px;">
-		   <h1 style="margin-left:8px; margin-top:7px;">주문 내역</h1>
-		   <table class="table table-striped" style="width:800px">
-		      <thead style="background-color:#135fa1">
-		         <tr style="color:white">
+   		<div>
+		   <h1>주문 내역</h1>
+		   <table class="table table-striped">
+		      <thead>
+		         <tr>
 		            <th>주문 번호</th>
 		             <th>주문 금액</th><!-- 할인가로 -->
 		             <th>주문 일자</th>

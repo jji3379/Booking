@@ -7,16 +7,16 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <title>책과의 즉석만남 Booking</title>
 </head>
-<body style="background-color:#f5f5f5;">
+<body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
-<div style="margin:auto;height:605px; width:1050px;" >
-	<h1 class="d-flex justify-content-center" style="margin-top:30px;">회원 가입</h1>
+<div>
+	<h1 class="d-flex justify-content-center">회원 가입</h1>
 	<!-- 
 		[ novalidate 로 웹브라우저 자체의 검증기능 사용하지 않기 ]
 		<input type="email" /> 같은 경우 웹브라우저가 직접 개입하기도 한다.
 		해당기능 사용하지 않기 위해서는 novalidate 를 form에 명시해야 한다.
 	 -->
-	 <div class="container" style="width:600px">
+	 <div class="container">
 		 <form action="${pageContext.request.contextPath }/users/signup.do" method="post" id="myForm" novalidate>
 		 	<div class="form-group">
 		 		<label for="id">아이디</label>
