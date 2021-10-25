@@ -32,39 +32,39 @@
 </head>
 <body>
 	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div style="margin:auto; width:1050px">
-	<div style="margin-top: 30px"></div>
-		<h1><span style="color:#135fa1;"><b>${keyword }</b></span> 검색결과  </h1>
-		<div style="float:right;">
+	<div>
+	<div></div>
+		<h1><span><b>${keyword }</b></span> 검색결과  </h1>
+		<div>
 			<form action="conditionSearch.do" method="get" id="conditionForm">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
-				<select style="width:120px; display:inline-block; border: 1px solid #135fa1;" class="form-control" name="condition" id="condition">
+				<select class="form-control" name="condition" id="condition">
 					<option  value="title_content"
 						${condition eq 'title_content' ? "selected" : '' }>제목+내용</option>
 					<option value="title" ${condition eq 'title' ? "selected" : '' }>제목</option>
 					<option value="writer" ${condition eq 'writer' ? "selected" : '' }>작성자</option>
 				</select> 
-				<input style="width:230px; display:inline-block;border: 1px solid #135fa1;" class="form-control" type="text" name="keyword" placeholder="검색어 입력" id="conditionSearch"/>
-				<button type="submit" style="color:#135fa1; border: 1px solid #135fa1; margin-bottom:3px" class="btn btn-outline-light">검색</button>
+				<input class="form-control" type="text" name="keyword" placeholder="검색어 입력" id="conditionSearch"/>
+				<button type="submit" >검색</button>
 			</form>
 		</div>
 		<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 		<c:if test="${not empty keyword}">
-				<button style="width:300px; color:#135fa1; border: 1px solid #135fa1" class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
+				<button class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
 		</c:if>
 		<table>
-			<div style="margin-top:20px" class="row row-cols-4" >
+			<div class="row row-cols-4" >
 				<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 					<div class="col mb-4">
-						<div style="border: 3px solid #0f4c81;" class="card h-100">
+						<div class="card h-100">
 							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-								<img src="${b.image }" class="card-img-top img-wrapper" style="height: 200px; border-bottom: 1px solid #0f4c81;">
+								<img src="${b.image }" class="card-img-top img-wrapper" >
 							</a>
-							<div style="background-color:#f5f5f5" class="card-body">
+							<div class="card-body">
 								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-									<h5 style="margin-bottom: 30px; color:#484848; text-align:center" class="card-title ellipsis2">${b.title }</h5>
+									<h5 class="card-title ellipsis2">${b.title }</h5>
 								</a>
-								<div style="position: absolute; bottom: 10px;" class="card-text ellipsis">${b.author }</div>
+								<div class="card-text ellipsis">${b.author }</div>
 							</div>
 						</div>
 					</div>

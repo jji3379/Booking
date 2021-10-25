@@ -127,12 +127,12 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
-<div style="margin-top:30px"></div>
-<div style="width:1050px; margin:auto">
+<div></div>
+<div>
 	<center><h1><strong>리뷰 내용</strong></h1></center>
-	<table class="table table-striped" style="margin-top:30px">
+	<table class="table table-striped">
 		<tr>
-			<td rowspan="8" style="width:300px;">
+			<td rowspan="8">
 				<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${dto.isbn}">
 					<img id="image" src="${dto.imagePath }"/>
 				</a>
@@ -187,7 +187,7 @@
 			</td>
 		</tr>
 	</table>
-	<ul class="mylist" style="margin-top:30px">
+	<ul class="mylist">
 		<li><a href="reviewList.do">목록보기</a></li>
 		<c:if test="${dto.writer eq id }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.num }">수정</a></li>

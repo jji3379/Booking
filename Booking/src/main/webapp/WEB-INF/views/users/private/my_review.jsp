@@ -13,18 +13,17 @@
 	}
 </style>
 </head>
-<body style="background-color:#f5f5f5;">
+<body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:30px"></div>
-<div class="row" style="width:1050px; 
-	margin:auto;">
+<div></div>
+<div class="row" >
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
 	<div class="col-9">
-		<div style="margin-left:8px; margin-top:7px;">
-		<h1 style="margin-left:8px; margin-top:7px;">내가 작성한 리뷰</h1>
-		<table class="table table-striped" style="width:830px">
-			<thead style="background-color:#135fa1"> 
-				<tr style="color:white">
+		<div >
+		<h1 >내가 작성한 리뷰</h1>
+		<table class="table table-striped" >
+			<thead> 
+				<tr>
 					<th>리뷰 이미지</th>
 					<th>리뷰 제목</th>
 					<th>작성자</th>

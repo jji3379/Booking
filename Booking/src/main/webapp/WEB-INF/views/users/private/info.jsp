@@ -27,10 +27,10 @@
 		float:right;
 	}
 </style>
-<body style="background-color:#f5f5f5">
+<body >
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:30px"></div>
-<div class="row" style="width:1050px; margin:auto;">
+<div ></div>
+<div class="row" >
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
 	<div class="col-9">
 		<h1 class="d-flex justify-content-center">${id}님 환영합니다</h1>

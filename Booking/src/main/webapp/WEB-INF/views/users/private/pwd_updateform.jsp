@@ -8,26 +8,25 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
-<body style="background-color:#f5f5f5;">
+<body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:30px"></div>
-<div class="row" style="width:1050px; height:650px;
-	margin:auto;">
+<div ></div>
+<div class="row">
 	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
 	<div class="col-9">
-		<h1 style="margin-left:8px; margin-top:7px;">비밀번호 수정</h1>
-		<form action="pwd_update.do" method="post" id="myForm" style="margin-left:8px; margin-top:7px; width:800px">
-			<div class="form-group" style="width:750px;">
+		<h1 >비밀번호 수정</h1>
+		<form action="pwd_update.do" method="post" id="myForm">
+			<div class="form-group" >
 				<label for="pwd">기존 비밀번호</label>
 				<input class="form-control" type="password" name="pwd"/>
 			</div>
-			<div class="form-group" style="width:750px;">
+			<div class="form-group" >
 				<label for="newPwd">새 비밀번호</label>
 				<input class="form-control" type="password" name="newPwd" id="pwd"/>
 				<small class="form-text text-muted">5글자~10글자 이내로 입력하세요</small>
 				<div class="invalid-feedback">비밀번호를 확인 하세요</div>
 			</div>
-			<div class="form-group" style="width:750px;">
+			<div class="form-group" >
 				<label for="newPwd2">새 비밀번호 확인</label>
 				<input class="form-control" type="password" id="pwd2"/>
 			</div>

@@ -3,12 +3,6 @@
     padding: 0px;
 }
 
-.container2 {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .button {
     margin-left: 0.3%;
     width: 2rem;
@@ -35,7 +29,7 @@
     align-items: center;
     justify-content: center;
     height: 25rem;
-    width: 600px;
+    width: 700px;
 }
 
 .box {
@@ -52,27 +46,27 @@
 }
 
 .box:nth-child(2n) {
-    transform: scale(0.85);
+    transform: scale(1);
 }
 
 .box:nth-child(2) {
-  left: 5%;
+  left: 1%;
 }
 
 .box:nth-child(4) {
-  left: -5%;
+  left: -1%;
 }
 
 .box:nth-child(4n + 1) {
-    transform: scale(0.75);
+    transform: scale(1);
 }
 
 .box:nth-child(1) {
-  left: 15%;
+  left: 1%;
 }
 
 .box:nth-child(5) {
-  left: -15%;
+  left: -1%;
 }
 
 .card__text-content {
@@ -135,30 +129,30 @@
 
 @keyframes moveOutLeft {
     0% {
-        transform: scale(0.75) translateX(0%);
+        transform: scale(1) translateX(0%);
         opacity: 1;
     }
     50% {
-        transform: scale(0.5) translateX(-150%);
+        transform: scale(1) translateX(-150%);
         opacity: 0.5;
     }
     100% {
-        transform: scale(0.25) translateX(0%);
+        transform: scale(1) translateX(0%);
         opacity: 0;
     }
 }
 
 @keyframes moveOutRight {
     0% {
-        transform: scale(0.75) translateX(0%);
+        transform: scale(1) translateX(0%);
         opacity: 1;
     }
     50% {
-        transform: scale(0.5) translateX(150%);
+        transform: scale(1) translateX(150%);
         opacity: 0.5;
     }
     100% {
-        transform: scale(0.25) translateX(0%);
+        transform: scale(1) translateX(0%);
         opacity: 0;
     }
 }
@@ -166,25 +160,25 @@
 
 @keyframes moveToP5Left {
     from {
-        transform: scale(0.75) translateX(100%);
+        transform: scale(1) translateX(100%);
     }
     to {
-        transform: scale(0.75) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP4Left {
     from {
-        transform: scale(0.75) translateX(100%);
+        transform: scale(1) translateX(100%);
     }
     to {
-        transform: scale(0.85) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP3Left {
     from {
-        transform: scale(0.85) translateX(100%);
+        transform: scale(1) translateX(100%);
     }
     to {
         transform: scale(1) translateX(0);
@@ -196,41 +190,41 @@
         transform: scale(1) translateX(100%);
     }
     to {
-        transform: scale(0.85) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP1Left {
     from {
-        transform: scale(0.85) translateX(100%);
+        transform: scale(1) translateX(100%);
     }
     to {
-        transform: scale(0.75) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 
 @keyframes moveToP1Right {
     from {
-        transform: scale(0.75) translateX(-100%);
+        transform: scale(1) translateX(-100%);
     }
     to {
-        transform: scale(0.75) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP2Right {
     from {
-        transform: scale(0.75) translateX(-100%);
+        transform: scale(1) translateX(-100%);
     }
     to {
-        transform: scale(0.85) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP3Right {
     from {
-        transform: scale(0.85) translateX(-100%);
+        transform: scale(1) translateX(-100%);
     }
     to {
         transform: scale(1) translateX(0);
@@ -242,15 +236,15 @@
         transform: scale(1) translateX(-100%);
     }
     to {
-        transform: scale(0.85) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
 
 @keyframes moveToP5Right {
     from {
-        transform: scale(0.85) translateX(-100%);
+        transform: scale(1) translateX(-100%);
     }
     to {
-        transform: scale(0.75) translateX(0);
+        transform: scale(1) translateX(0);
     }
 }
