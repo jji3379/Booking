@@ -39,8 +39,8 @@ import com.acorn5.booking.users.dto.UsersDto;
 @Service
 public class BookServiceImpl implements BookService {
 	//의존 객체 DI
-	@Autowired
-	private UsersDao dao; //recentsearch 저장 로직을위한 di준비
+	//@Autowired
+	//private UsersDao dao; //recentsearch 저장 로직을위한 di준비
 	
 	//by 준익, 페이징 처리된 카테고리별 검색 리스트_2021.02.28
 	@Override
@@ -1432,6 +1432,6 @@ public class BookServiceImpl implements BookService {
 		dto.setRecentSearch(keyword);
 		dto.setId(id);
 		//di된 dao메소드의 인자로 전달
-		dao.searchInput(dto);
+		//dao.searchInput(dto);
 	}
 }

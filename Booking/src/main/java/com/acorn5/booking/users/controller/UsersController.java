@@ -23,6 +23,8 @@ import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.UsersRepository;
 import com.acorn5.booking.users.service.UsersService;
 
 @Controller
@@ -32,8 +34,17 @@ public class UsersController {
 	private UsersService service;
 	
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
+	//@Autowired
+	//private CartService cartservice;
+	
 	@Autowired
-	private CartService cartservice;
+	private UsersRepository usersRepository;
+	
+	//@Autowired //by욱현.리뷰서비스를 사용하기 위해 di_2021309
+	//private ReviewService service_r;
+	
+	//@Autowired //by욱현.비밀번호, 회원정보 수정 폼에서도 프로필이미지를 볼수있게 하기위해_2021315
+	//UsersDao dao;
 	
 	//by욱현. 개인 정보 수정 요청 처리_2021222
 	@RequestMapping(value = "/users/private/update", 
@@ -42,6 +53,7 @@ public class UsersController {
 			ModelAndView mView) {
 		service.updateUser(dto, session);
 		mView.setViewName("users/private/update");
+		
 		return mView;
 	}
 	
@@ -81,9 +93,6 @@ public class UsersController {
 		mView.setViewName("users/private/pwd_update");
 		return mView;
 	}
-	
-	@Autowired //by욱현.비밀번호, 회원정보 수정 폼에서도 프로필이미지를 볼수있게 하기위해_2021315
-	UsersDao dao;
 	
 	//by욱현.비밀번호 수정 폼 요청 처리_2021222
 	@RequestMapping("/users/private/pwd_updateform")
@@ -159,7 +168,8 @@ public class UsersController {
 		/*form 전송은 보통 post 방식 요청인데 post 방식 요청만 받아들이도록 
 		컨트롤러에 설정하는게 일반적이다.*/ 
 	@RequestMapping(value = "/users/signup", method = RequestMethod.POST)
-	public String signup(@ModelAttribute("dto") UsersDto dto) {
+	public String signup(@ModelAttribute("dto") Users dto) {
+		//usersRepository.save(dto);
 		service.addUser(dto);
 		return "users/signup";
 	}
@@ -182,8 +192,6 @@ public class UsersController {
 		return map;
 	}
 	
-	@Autowired //by욱현.리뷰서비스를 사용하기 위해 di_2021309
-	private ReviewService service_r;
 	
 	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
 	@RequestMapping("/users/private/my_review.do")

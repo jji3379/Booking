@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+  <persistence-unit name="booking">
+    <properties>
+      <!-- 필수 속성 -->
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> 
+      <property name="javax.persistence.jdbc.user" value="admin" /> 
+      <property name="javax.persistence.jdbc.password" value="bookingdb" /> 
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://booking-mysql.cmskojrfyihx.us-east-2.rds.amazonaws.com/bookingDB" /> 
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> 
+ 
+      <!-- 옵션 -->
+      <property name="hibernate.show_sql" value="true" /> 
+      <property name="hibernate.format_sql" value="true" /> 
+      <property name="hibernate.use_sql_comments" value="true" /> 
+      <property name="hibernate.hbm2ddl.auto" value="none" />  
+    </properties>
+  </persistence-unit>
+</persistence>

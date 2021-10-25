@@ -13,8 +13,8 @@ import com.acorn5.booking.review.dto.ReviewDto;
 public class ReviewDaoImpl implements ReviewDao{
 	
 	// by남기, 빈에서 핵심 의존객체(SqlSession)를 DI 할 준비를 한다_210303
-	@Autowired
-	private SqlSession session;
+	//@Autowired
+	//private SqlSession session;
 	
 	// by남기, 새로운 리뷰 추가하는 메소드_210303
 

@@ -75,7 +75,7 @@
 	//id가 myForm 인 요소에 submit 이벤트가 일어 났을때 실행할 함수 등록
 	$("#myForm").on("submit", function(){
 		//폼 전체의 유효성 여부를 얻어낸다.
-		isFormValid = isIdValid && isPwdValid && isEmailValid;
+		isFormValid = isPwdValid && isEmailValid;
 		//만일 폼이 유효하지 않는다면
 		if(!isFormValid) {
 			return false; //폼 전송 막기

@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.pay.dto.CartDto;
+import com.acorn5.booking.pay.entity.Cart;
 
 public interface CartService {
 	//by준영, 장바구니 담기(저장) 처리_210308
-	public void insertCart(CartDto dto,HttpServletRequest request);
+	public void insertCart(Cart dto,HttpServletRequest request);
 	//by준영, 북카트 리스트_210308
 	public void listCart(ModelAndView mView,HttpServletRequest request);
 	//by, 카트 개별 삭제 요청처리_210310

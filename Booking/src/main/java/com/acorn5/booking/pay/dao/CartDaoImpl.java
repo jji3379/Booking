@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 import com.acorn5.booking.pay.dto.CartDto;
 
 
-@Repository
+//@Repository
 public class CartDaoImpl implements CartDao {
 
-	@Autowired
-	private SqlSession session;
+	//@Autowired
+	//private SqlSession session;
 	
 	//by준영, 장바구니 담기(저장) 처리_210308
 	@Override

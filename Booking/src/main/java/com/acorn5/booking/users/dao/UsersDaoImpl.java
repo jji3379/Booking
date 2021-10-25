@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository;
 import com.acorn5.booking.exception.DBFailException;
 import com.acorn5.booking.users.dto.UsersDto;
 
-@Repository
+
 public class UsersDaoImpl implements UsersDao {
 	
     //by욱현.빈에서 SqlSession 객체를 DI해오기 위해 준비시킨다__2021222
-	@Autowired
-	private SqlSession session;
+	//@Autowired
+	//private SqlSession session;
 	
 	//by욱현.개인정보의 프로필사진을 업로드_2021222
 	@Override

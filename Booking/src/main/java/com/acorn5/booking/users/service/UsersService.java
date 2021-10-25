@@ -9,12 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Users;
 
 @Service
 public interface UsersService {
 	
 	//회원 가입 처리를 하는 메소드 
-	public void addUser(UsersDto dto);
+	public void addUser(Users users);
 	//아이디가 존재하는지 여부를 리턴하는 메소드
 	public boolean isExistId(String inputId);
 	//로그인폼에 관련된 처리를 하는 메소드

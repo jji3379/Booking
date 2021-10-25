@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.pay.dto.CartDto;
+import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.pay.service.CartService;
 
 @Controller
@@ -24,7 +25,7 @@ public class PayController {
 	//by준영, 장바구니 담기(저장) 처리_210308
 	
 	@RequestMapping(value = "/pay/insert")
-	public void insertCart(CartDto dto,HttpServletRequest request) {
+	public void insertCart(Cart dto,HttpServletRequest request) {
 		service.insertCart(dto,request);
 	}
 	

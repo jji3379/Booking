@@ -18,12 +18,12 @@ import com.acorn5.booking.review.dto.ReviewDto;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	@Autowired
-	private OrderDao dao;
+	//@Autowired
+	//private OrderDao dao;
 	
 	
-	@Autowired
-	private ReviewDao reviewDao;
+	//@Autowired
+	//private ReviewDao reviewDao;
 	
 	//by욱현, my_order에 테이블에 담기_210317
 	@Override

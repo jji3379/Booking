@@ -17,11 +17,11 @@ import com.acorn5.booking.users.dto.UsersDto;
 
 @Controller
 public class OrderController {
-	@Autowired
-	private OrderService service;
+	//@Autowired
+	//private OrderService service;
 	
-	@Autowired //by욱현. 주문내역 페이지 에서도 프로필이미지를 볼수있게 하기위해_2021317
-	UsersDao dao;
+	//@Autowired //by욱현. 주문내역 페이지 에서도 프로필이미지를 볼수있게 하기위해_2021317
+	//UsersDao dao;
 	
 	//by욱현. 결제한 책들을 my_order 테이블에 저장하기_2021317
 	@RequestMapping("/pay/order_insert.do")

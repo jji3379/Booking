@@ -22,20 +22,20 @@ public class BookController {
     @Autowired
     private BookService service; 
     //by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-    @Autowired
-    private CartService cartservice;
-    @Autowired
-	private UsersDao dao;
+    //@Autowired
+    //private CartService cartservice;
+    //@Autowired
+	//private UsersDao dao;
     
     //by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
     @RequestMapping("/bookList/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
     public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, String sort, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
     								HttpServletRequest request, ModelAndView mView){
-    	String id=(String)request.getSession().getAttribute("id");
-    	if(id!=null) {
-    		//by 우석, view page 에서 cartitem 불러오기_210315
-        	cartservice.listCart(mView, request);
-    	}
+		/*
+		 * String id=(String)request.getSession().getAttribute("id"); if(id!=null) {
+		 * //by 우석, view page 에서 cartitem 불러오기_210315 cartservice.listCart(mView,
+		 * request); }
+		 */
     	
     	mView.addObject("categoryList", service.pagingCategory("1", 8, start, d_catg, request, mView, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
     	mView.setViewName("bookList/CategoryList");
@@ -128,7 +128,7 @@ public class BookController {
     @RequestMapping("/review/private/reviewInsertform.do")
     public ModelAndView reviewBook(@RequestParam(required=false)String d_isbn, HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-    	cartservice.listCart(mView, request);
+    	//cartservice.listCart(mView, request);
         if(d_isbn !=null)
         {
             mView.addObject("reviewBook", service.bookReview(d_isbn, 1));
@@ -147,7 +147,7 @@ public class BookController {
           if(id != null) {
          	 service.recentSearchInput(keyword, id);
          	 //by 우석, view page 에서 cartitem 불러오기_210315
-         	 cartservice.listCart(mView, request); 
+         	 //cartservice.listCart(mView, request); 
           }
           mView.addObject("conditionSearch",service.conditionSearch(keyword, 8, start, request, mView));
        }

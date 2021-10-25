@@ -22,23 +22,39 @@ import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class UsersServiceImpl implements UsersService{
 	
 	//by욱현.dao객체 di시키기위해 준비_2021222
+	//@Autowired
+	//private UsersDao dao;
+	
+	//회원탈퇴시 해당 해원의 기록을 모두 삭제하기 위해 di
+	//@Autowired
+	//private ReviewCommentDao reviewCommentDao;
+	//@Autowired
+	//private ReviewDao reviewDao;
+	//@Autowired
+	//private CartDao cartDao;
+	//@Autowired
+	//private OrderDao orderDao;
+	
 	@Autowired
-	private UsersDao dao;
+	private UsersRepository usersRepository;
 	
 	//by욱현.비밀번호 암호 인코딩위한 객체 필드선언_2021222
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	//by욱현.회원가입관련 로직_2021222
 	@Override
-	public void addUser(UsersDto dto) {
-		String savedPwd = encoder.encode(dto.getPwd());
-		dto.setPwd(savedPwd);
-		dao.insert(dto);
+	public void addUser(Users users) {
+		String savedPwd = encoder.encode(users.getPwd());
+		users.setPwd(savedPwd);
+		usersRepository.save(users);
+		//dao.insert(dto);
 	}
 	//by욱현.id중복겁사관련 로직_2021222
 	@Override
@@ -102,25 +118,24 @@ public class UsersServiceImpl implements UsersService{
 		 */
 		UsersDto dto = new UsersDto();
 		
-		String db_id = dao.getData(id).getId();
-		if(db_id==null) {
+		Users findById = usersRepository.findById(id); 
+		if(findById==null) {
 			throw new DBFailException("아이디가 없습니다."); 
 		} //by욱현.미등록 아이디에 관한 예외처리 수정_21310
 		
-		String savedPwd = dao.getData(id).getPwd(); 
+		String savedPwd = findById.getPwd(); 
+		System.out.println("savePwd : " +savedPwd);
 		if(savedPwd==null) {
 			throw new DBFailException("비밀번호가 일치하지 않습니다.");
 		}
-		boolean isEqual = BCrypt.checkpw(pwd, savedPwd);
-		if(isEqual) {
-			dto.setId(id);
-			dto.setPwd(savedPwd);
-		} else {
-			throw new DBFailException("비밀번호가 일치하지 않습니다.");
-		}
+		/*
+		 * boolean isEqual = BCrypt.checkpw(pwd, savedPwd); if(isEqual) { dto.setId(id);
+		 * dto.setPwd(savedPwd); } else { throw new DBFailException("비밀번호가 일치하지 않습니다.");
+		 * }
+		 */
 	
 		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=dao.isValid(dto);
+		boolean isValid=findById.getId().equals(id);
 		//3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
 		if(isValid) {
 			//HttpSession 객체를 이용해서 로그인 처리를 한다. 
@@ -165,16 +180,6 @@ public class UsersServiceImpl implements UsersService{
 		//읽어온 정보를 ModelAndView 객체에 담아준다.
 		mView.addObject("dto", dto);
 	}
-	
-	//회원탈퇴시 해당 해원의 기록을 모두 삭제하기 위해 di
-	@Autowired
-	private ReviewCommentDao reviewCommentDao;
-	@Autowired
-	private ReviewDao reviewDao;
-	@Autowired
-	private CartDao cartDao;
-	@Autowired
-	private OrderDao orderDao;
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override

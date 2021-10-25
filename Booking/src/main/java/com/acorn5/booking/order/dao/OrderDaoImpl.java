@@ -11,8 +11,8 @@ import com.acorn5.booking.order.dto.OrderDto;
 @Repository
 public class OrderDaoImpl implements OrderDao {
 	
-	@Autowired
-	private SqlSession session;
+	//@Autowired
+	//private SqlSession session;
 	
 	//by욱현. my_order 테이블에 저장_2021317
 	@Override

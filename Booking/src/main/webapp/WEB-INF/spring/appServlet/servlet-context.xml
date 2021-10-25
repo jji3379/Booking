@@ -2,10 +2,13 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/jpa 
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<!-- 
@@ -27,15 +30,29 @@
         dataSource = new JndiObjectFactoryBean();
         dataSource.setJndiName("java:comp/env/jdbc/myoracle");
      -->
+
+    <jpa:repositories base-package="com.acorn5.booking" />
     
+    <beans:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="jpaVendorAdapter">
+            <beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            </beans:bean>
+        </beans:property>
+    </beans:bean>
+     
+    <beans:bean id="transactionManager"
+        class="org.springframework.orm.jpa.JpaTransactionManager">
+        <beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+    </beans:bean>
     
     <!-- SqlSessionFactory 객체 -->
-    <beans:bean id="sessionFactory" 
+    <!-- <beans:bean id="sessionFactory" 
         class="org.mybatis.spring.SqlSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="configLocation"
     value="classpath:com/acorn5/booking/mybatis/Configuration.xml"/>
-    </beans:bean>
+    </beans:bean> -->
     <!-- 
         sessionFactory=new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
@@ -48,10 +65,10 @@
         SqlSessionTemplate(SqlSession) 객체 
         Dao 가 의존하는 객체 
     -->
-    <beans:bean class="org.mybatis.spring.SqlSessionTemplate">
+    <!-- <beans:bean class="org.mybatis.spring.SqlSessionTemplate">
         <beans:constructor-arg name="sqlSessionFactory" 
             ref="sessionFactory"/>
-    </beans:bean>
+    </beans:bean> -->
     <!-- 
         new SqlSessionTemplate(sessionFactory);
      -->

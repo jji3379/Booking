@@ -12,8 +12,8 @@ import com.acorn5.booking.review.dto.ReviewCommentDto;
 public class ReviewCommentDaoImpl implements ReviewCommentDao{
 	
 	// by남기, 빈에서 핵심 의존객체(SqlSession)를 DI 할 준비를 한다_210303
-	@Autowired
-	private SqlSession session;
+	//@Autowired
+	//private SqlSession session;
 	
 	// by남기, 리뷰 댓글 전체를 리턴해주는 메소드_210303
 	@Override

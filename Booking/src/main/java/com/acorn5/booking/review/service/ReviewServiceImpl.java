@@ -30,6 +30,8 @@ import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 
@@ -37,16 +39,22 @@ import com.acorn5.booking.users.dto.UsersDto;
 public class ReviewServiceImpl implements ReviewService{
 	
 	// by남기, 빈에서 핵심 의존객체(ReviewDao)를 DI 할 준비를 한다_210303
-	@Autowired
-	private ReviewDao reviewDao;
+	//@Autowired
+	//private ReviewDao reviewDao;
 	
 	// by남기, 빈에서 핵심 의존객체(ReviewDao)를 DI 할 준비를 한다_210303
+	//@Autowired
+	//private ReviewCommentDao reviewCommentDao;
+	
+	//@Autowired
+	//private UsersDao usersdao;
+	
 	@Autowired
-	private ReviewCommentDao reviewCommentDao;
+	private ReviewRepository reviewRepository;
 	
 	// by남기, 새 리뷰를 저장하는 메소드_210303
 	@Override
-	public void saveContent(ReviewDto dto, HttpServletRequest request) {
+	public void saveContent(Review dto, HttpServletRequest request) {
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
 	      String id=(String)request.getSession().getAttribute("id");
 	      String imagePath=request.getParameter("imagePath");
@@ -63,11 +71,13 @@ public class ReviewServiceImpl implements ReviewService{
 	      dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
 	      dto.setImagePath(imagePath);
 	      // by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
-	      reviewDao.insert(dto);  
+	      
+	      reviewRepository.save(dto);
+	      //reviewDao.insert(dto);  
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
-	public List<ReviewDto> getList(ModelAndView mView, HttpServletRequest request) {
+	public List<Review> getList(ModelAndView mView, HttpServletRequest request) {
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=5;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
@@ -113,7 +123,7 @@ public class ReviewServiceImpl implements ReviewService{
 		dto.setEndRowNum(endRowNum);
 		
 		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
-		List<ReviewDto> list=null;
+		List<Review> list=null;
 		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
 		int totalRow=0;
 		// by남기, 만일 검색 키워드가 넘어온다면 _210303
@@ -132,9 +142,10 @@ public class ReviewServiceImpl implements ReviewService{
 			}// by남기, 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다_210303
 		}
 		// by남기, 글목록 얻어오기_210303
-		list=reviewDao.getList(dto);
+		list = reviewRepository.findAll();
+		//list=reviewDao.getList(dto);
 		// by남기, 글의 갯수_210303
-		totalRow=reviewDao.getCount(dto);
+		//totalRow=reviewDao.getCount(dto);
 		
 		// by남기, 하단 시작 페이지 번호_210303 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -200,13 +211,15 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰 하나의 정보를 ModelAndView 객체에 담아주는 메소드_210303
 	@Override
-	public void getDetail(int num, ModelAndView mView) {
+	public void getDetail(Long num, ModelAndView mView) {
 		// by남기, 글번호를 이용해서 글정보를 얻어오고  _210303
-		ReviewDto dto=reviewDao.getData(num);
+		Review dto=reviewRepository.findOne(num);
+				//reviewDao.getData(num);
+		System.out.println("dto : "+dto);
 		// by남기, 글정보를 ModelAndView 객체에 담고 _210303
 		mView.addObject("dto", dto);
 		// by남기, 글 조회수를 증가 시킨다 _210303
-		reviewDao.addViewCount(num);
+		//reviewDao.addViewCount(num);
 		/*  by남기, 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다  _210303 */
 		final int PAGE_ROW_COUNT=5;
 
@@ -219,23 +232,23 @@ public class ReviewServiceImpl implements ReviewService{
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 
 		// by남기, 전체 row 의 갯수를 읽어온다 _210303
-		int totalRow=reviewCommentDao.getCount(num);
+		//int totalRow=reviewCommentDao.getCount(num);
 		// by남기, 전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//int totalPageCount=
+				//(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 
 		// by남기, CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다 _210303
 		ReviewCommentDto reviewCommentDto=new ReviewCommentDto();
 		reviewCommentDto.setStartRowNum(startRowNum);
 		reviewCommentDto.setEndRowNum(endRowNum);
 		// by남기, ref_group 번호도 담는다 _210303
-		reviewCommentDto.setRef_group(num);
+		//reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		List<ReviewCommentDto> reviewCommentList=reviewCommentDao.getList(reviewCommentDto);
+		//List<ReviewCommentDto> reviewCommentList=reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
-		mView.addObject("reviewCommentList", reviewCommentList);
-		mView.addObject("totalPageCount", totalPageCount);
+		//mView.addObject("reviewCommentList", reviewCommentList);
+		//mView.addObject("totalPageCount", totalPageCount);
 		
 	}
 	// by남기, 리뷰의 댓글을 저장하는 메소드 _210303
@@ -331,8 +344,6 @@ public class ReviewServiceImpl implements ReviewService{
 		request.setAttribute("totalPageCount", totalPageCount);		
 	}
 	
-	@Autowired
-	private UsersDao usersdao;
 	
 	//by욱현. 내가쓴리뷰 모아보기 비즈니스로직(내부 코드는 남기꺼 복붙)_2021309
 	@Override

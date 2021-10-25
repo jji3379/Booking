@@ -23,12 +23,12 @@ public class HomeController {
 	@Autowired
     private BookService service;//by욱현. 홈페이지에 추천도서를 불러오는 메소드가 담긴 서비스_2021223
 	
-	@Autowired
-	private UsersDao dao;
+	//@Autowired
+	//private UsersDao dao;
 	
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	@Autowired
-	private CartService cartservice;
+	//@Autowired
+	//private CartService cartservice;
 	
 	@RequestMapping("/home.do") 
 	public ModelAndView home(HttpSession session,HttpServletRequest request) {
@@ -36,32 +36,32 @@ public class HomeController {
 		ModelAndView mView = new ModelAndView();
 		               
 		String id = (String) session.getAttribute("id");
-		UsersDto dto = null;
+		//UsersDto dto = null;
 		//by 우석, view page 에서 cartitem 불러오기_210315
-		if(id!=null) {			
-			cartservice.listCart(mView, request);
-		}
-		if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
-			int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기
-			dto=dao.getData(id);
-			String recent=dto.getRecentSearch();
-			//by 우석, view page 에서 cartitem 불러오기_210315
-			if(recent==null) { // 최근 검색어가 없을 경우 관심사로 추천  
-				String query = dto.getCare(); // 회원의 관심사를 query로 설정
-				service.recommendBook(10, 1,"count", query, mView);
-			} else { //최근 검색어가 있을 경우 최근 검색어 기준 추천 
-				service.recommendBook(10, 1,"count", recent, mView);
-			}
-		}else if (id==null) { // 로그인을 안한경우 
+		/*
+		 * if(id!=null) { //cartservice.listCart(mView, request); }
+		 */
+		//if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
+		/*
+		 * int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기 //dto=dao.getData(id);
+		 * String recent=dto.getRecentSearch(); //by 우석, view page 에서 cartitem
+		 * 불러오기_210315 if(recent==null) { // 최근 검색어가 없을 경우 관심사로 추천 String query =
+		 * dto.getCare(); // 회원의 관심사를 query로 설정 service.recommendBook(10, 1,"count",
+		 * query, mView); } else { //최근 검색어가 있을 경우 최근 검색어 기준 추천
+		 * service.recommendBook(10, 1,"count", recent, mView); }
+		 */
+		//}else if (id==null) { // 로그인을 안한경우 
 			service.recommendBook("1",10, 1,"count", mView);
-		}else if (id!=null && dao.getData(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
-			dto = dao.getData(id); 
-			String query = dto.getCare(); 
-			service.recommendBook(10, 1,"count", query, mView);
-		}
+		//}else if (id!=null && dao.getData(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
+			//dto = dao.getData(id); 
+			/*
+			 * String query = dto.getCare(); service.recommendBook(10, 1,"count", query,
+			 * mView);
+			 */
+		//}
 		
 		
-		mView.addObject("dto", dto);//by욱현. 뷰페이지로 로그인된 회원의 회원정보 전달_2021225
+		//mView.addObject("dto", dto);//by욱현. 뷰페이지로 로그인된 회원의 회원정보 전달_2021225
 		mView.setViewName("home");
 		
 		return mView;

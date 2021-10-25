@@ -18,6 +18,7 @@ import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.service.ReviewService;
 
 @Controller
@@ -27,18 +28,18 @@ public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	@Autowired
-	private CartService cartservice;
+	//@Autowired
+	//private CartService cartservice;
 
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review/reviewList")
 	public ModelAndView list(ModelAndView mView, 
 			HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
-    	if(id!=null) {
-    		//by 우석, view page 에서 cartitem 불러오기_210315
-        	cartservice.listCart(mView, request);
-    	}
+		/*
+		 * String id=(String)request.getSession().getAttribute("id"); if(id!=null) {
+		 * //by 우석, view page 에서 cartitem 불러오기_210315 cartservice.listCart(mView,
+		 * request); }
+		 */
 		// by남기, 글 목록 요청 처리한 리스트가 넘어온다_210303
 		service.getList(mView, request);
 		// by남기, view page 로 forward 이동해서 응답_210303
@@ -48,15 +49,15 @@ public class ReviewController {
 	
 	// by남기, 글 상세정보 요청처리_210303
 	@RequestMapping("/review/reviewDetail")
-	public ModelAndView detail(@RequestParam int num, ModelAndView mView
+	public ModelAndView detail(@RequestParam Long num, ModelAndView mView
 			,HttpServletRequest request) {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
 		service.getDetail(num, mView);
 		String id=(String)request.getSession().getAttribute("id");
-    	if(id!=null) {
-    		//by 우석, view page 에서 cartitem 불러오기_210315
-        	cartservice.listCart(mView, request);
-    	}
+		/*
+		 * if(id!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
+		 * cartservice.listCart(mView, request); }
+		 */
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.setViewName("review/reviewDetail");
 		return mView;
@@ -79,7 +80,7 @@ public class ReviewController {
 	}
 	// by남기, 새 리뷰 작성 요청 처리_210303
 	@RequestMapping(value = "/review/private/reviewInsert", method = RequestMethod.POST)
-	public String insert(ReviewDto dto, HttpServletRequest request) {
+	public String insert(Review dto, HttpServletRequest request) {
 		// by남기, 추가할 리뷰 정보가 파라미터로 넘어온다_210303
 		service.saveContent(dto, request);
 		// by남기, view page 로 forward 이동해서 응답_210303

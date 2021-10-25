@@ -12,22 +12,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.pay.dao.CartDao;
 import com.acorn5.booking.pay.dto.CartDto;
+import com.acorn5.booking.pay.entity.Cart;
+import com.acorn5.booking.pay.repository.CartRepository;
 
 @Service
 public class CartServiceImpl implements CartService {
-	@Autowired
-	private CartDao cartDao;
+	//@Autowired
+	//private CartDao cartDao;
 	//by준영, 장바구니 담기(저장) 처리_210308
+	
+	@Autowired
+	CartRepository cartRepository;
+	
 	@Override
-	public void insertCart(CartDto dto,HttpServletRequest request) {
+	public void insertCart(Cart dto,HttpServletRequest request) {
 		String id=(String)request.getSession().getAttribute("id");
-		cartDao.insert(dto);	
+		cartRepository.save(dto);
+		//cartDao.insert(dto);	
 	}
 	//by준영, 북카트 리스트_210308
 	@Override
 	public void listCart(ModelAndView mView, HttpServletRequest request) {
 		String id=(String)request.getSession().getAttribute("id");
-		List<CartDto> list = cartDao.getlist(id);
+		List<Cart> list = cartRepository.findAll(); 
+				//cartDao.getlist(id);
 		//장바구니에 담긴 배열의 size를 담을 basketCount
 		int basketCount=list.size();
 		//id 값이 null이 아니고 리스트의 사이즈가 0이 아니면 count 객체에 담기 
