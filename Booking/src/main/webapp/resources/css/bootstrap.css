@@ -4752,7 +4752,7 @@ input[type="button"].btn-block {
   border-bottom-left-radius: calc(0.25rem - 1px);
 }
 
-.card > .card-header + .list-group,
+.card > .-header + .list-group,
 .card > .list-group + .card-footer {
   border-top: 0;
 }
