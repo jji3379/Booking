@@ -6,26 +6,18 @@
     <meta charset="UTF-8">
     <title>제목</title>
     <style>
-        #header{            
-            width:100%;
-            height:100px;
-            
-            background-color: aqua;
+        #header{    
+        	width:100%;
+	    }
+    
         }
         #main{
-            float:left;
-            width:100%;
-            background-color: lime;
+            max-width: 100%; 
+            height: auto;
         }
-        #footer{
-            width: 100%;
-            height: 400px;            
-            text-align: center;
-            background-color: orange;
-            clear:both;
-        }
+        
          #left, #main{ 
-               min-height: 600px;
+               
          } 
     </style>
     
@@ -35,7 +27,6 @@
     <div style="width:100%; height:100%;">
     <div id="header"><tiles:insertAttribute name="header" /></div>
     <div id="main"><tiles:insertAttribute name="body" /></div>    
-    <div id="footer"><tiles:insertAttribute name="footer" /></div>
     </div>
  
     <script type="text/javascript">

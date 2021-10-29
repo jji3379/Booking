@@ -55,6 +55,8 @@
 			max-width: 1140px;
 		}
 	}
+	
+	
 	.C-logo {
 		font-family: '777Balsamtint';
 		font-size: 35px;
@@ -103,10 +105,9 @@
 		margin-right:200px;
 	}
 	.Lbutton > img {
-		
 		margin-left: 30px;
-		width: 2rem;
-		height: 2rem;
+		width: 32px;
+		height: 32px;
 		
 	}
 	.Rbutton {
@@ -115,13 +116,18 @@
 		margin-left:80px;
 	}
 	.Rbutton > img {
+		
 		margin-right: 30px;
-		width: 2rem;
-		height: 2rem;
+		width: 32px;
+		height: 32px;
 	}
+	
 	.col-6{
 		margin: auto;
 	}
+	
+	
+	
 	.B-logo {
 		font-family: '777Balsamtint';
 		font-size: 25px;
@@ -134,13 +140,6 @@
 		text-align: center;
 		vertical-align: middle;
 		height: 100%;
-	}
-	.bookingBtn > img {
-		
-	}
-	
-	.bookA > img {
-	
 	}
 	
 	.rec-title {
@@ -162,6 +161,9 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
+      }
+      .box {
+      	box-shadow: none;
       }
       /* card 이미지 부모요소의 높이 지정 */
    .img-wrapper{
@@ -198,16 +200,25 @@
    
    .card-body{
    		height:50px; 
-   		padding:0px; 
+   		padding:0px;
+   		padding-top: 5px; 
    		padding-left:3px; 
    		text-align: center;
+   		background-color: #D3EBFF;
    }
    .card-text{
+   		font-family: '777Balsamtint';
    		margin-bottom:0px; 
    		font-size:15px;
    }
-   small{
-   		font-size:12px;
+   #bookingBtn > img {
+   		margin-left:0px; 
+   		width:250px; 
+   		height:200px;
+   }
+   #bookimage {
+   		height:200px; 
+   		width:250px;
    }
    
    /* img  가  가운데 정렬 되도록 */
@@ -263,7 +274,11 @@
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
 	    font-weight: normal;
 	    font-style: normal;
+	    
 	}
+	
+	
+	
 </style>
 </head>
 <body>
@@ -426,12 +441,13 @@
 					<div class="col-6" >
 					  	<div class="B-logo"><strong>낯선 책과의 즉석만남</strong> 하트를 눌러 만나보세요 </div>
 					  	<a id="bookingBtn" href="javascript:">
-					  		<img style="margin-left:0px; width:250px; height:200px;" src="resources/images/bookingBtn.svg"/>
+					  		<img src="resources/images/bookingBtn.svg"/>
 					  	</a>
 					</div>
-					<div class="col-6" style="margin:auto">
+					<div class="col-6" 
+					>
 						<a id="bookA">
-							<img style="height:200px; width:250px;" id="bookimage" src="resources/images/message.svg"/>
+							<img id="bookimage" src="resources/images/message.svg"/>
 						</a>
 					</div>
 				</div> <!-- /row -->
