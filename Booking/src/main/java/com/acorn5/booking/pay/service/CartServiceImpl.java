@@ -26,14 +26,14 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
 	public void insertCart(Cart dto,HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
 		cartRepository.save(dto);
 		//cartDao.insert(dto);	
 	}
 	//by준영, 북카트 리스트_210308
 	@Override
 	public void listCart(ModelAndView mView, HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
 		List<Cart> list = cartRepository.findAll(); 
 				//cartDao.getlist(id);
 		//장바구니에 담긴 배열의 size를 담을 basketCount
@@ -48,16 +48,16 @@ public class CartServiceImpl implements CartService {
 	}
 	//by, 카트 개별 삭제 요청처리_210310
 	@Override
-	public void deleteCart(int c_id) {
-		cartDao.delete(c_id);
+	public void deleteCart(Cart c_id) {
+		cartRepository.delete(c_id);
 	}
 	//by준영, 체크된 카트 삭제_210313
 	@Override
-	public void deleteChk(String[] ajaxMsg) {
-		String[] c_id=ajaxMsg;
-		for(int i = 0; i < c_id.length; i++) {
-			cartDao.chk_delete(c_id[i]);
-		}
+	public void deleteChk(Long ajaxMsg) {
+		/*
+		 * for(int i = 0; i < c_id.length; i++) { //cartDao.chk_delete(c_id[i]); }
+		 */
+		cartRepository.delete(ajaxMsg);
 	}
 	//by준영, 북카트 내 도서 수량변경_210310
 	@Override
@@ -68,7 +68,7 @@ public class CartServiceImpl implements CartService {
 	
 	//by_준영, 결제완료시 해당상품 삭제_210314
 	@Override
-	public void deletPay(String id,HttpServletRequest request) {
-		cartDao.pay_delete(id);
+	public void deletPay(Long id,HttpServletRequest request) {
+		cartRepository.delete(id); 
 	}
 }

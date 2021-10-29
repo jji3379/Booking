@@ -171,7 +171,7 @@
 	        	</c:if>
 	        		<td style=width:3%;>
         				<div class="checkBox">
-							<input type="checkbox" name="chBox" class="chBox" value="${c.c_id }"/>
+							<input type="checkbox" name="chBox" class="chBox" value="${c.id }"/>
 						</div>
 		        	</td>
 		            <td><img src="${c.image}"/></td>
@@ -180,7 +180,7 @@
 		            <td><font color="red">${c.d_price }</font></td>
 		            <td>
 			            <form action="update.do" method="post">
-			            	<input type="hidden" name="c_id" value="${c.c_id }" />
+			            	<input type="hidden" name="id" value="${c.id }" />
 			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
 							<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly" style="width:40px"/>
 			            	<button type="button" class="plus" class="btn btn-secondary" >+</button>
@@ -192,7 +192,7 @@
 		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
 				<td>
 					<form action="delete.do" method="post">
-		            	<input name="c_id" type="hidden" value="${c.c_id}" />
+		            	<input name="id" type="hidden" value="${c.id}" />
 		            	<button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button>
 					</form>
 				</td>	            

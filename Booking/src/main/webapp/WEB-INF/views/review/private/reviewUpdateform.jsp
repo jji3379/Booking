@@ -27,14 +27,14 @@
 <div style="margin:auto; width:1050px">
 	<center><h1>리뷰 수정 폼</h1></center>
 	<form action="reviewUpdate.do" method="post">
-		<input type="hidden" name="num" value="${dto.num }"/>
+		<input type="hidden" name="id" value="${dto.id }"/>
 		<div class="form-group">
 			<label for="imagePath">이미지</label><br />
 			<img src="${dto.imagePath }"/>
 		</div>
 		<div class="form-group">
 			<label>작성자</label>
-			<input class="form-control" type="text" value="${dto.writer }" disabled/>
+			<input class="form-control" type="text" value="${dto.writer.loginId }" disabled/>
 		</div>
 		<div class="form-group">
 			<label for="reviewTitle">제목</label>

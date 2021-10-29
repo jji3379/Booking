@@ -2,6 +2,7 @@ package com.acorn5.booking.users.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,37 +12,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.acorn5.booking.review.entity.Review;
+
 @Entity
 @Table(name = "BK_USER_MST")
 public class Users {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int num;
-	private String id;
+	@Column(name = "USER_ID")
+	private Long id;
+	private String loginId;
 	private String pwd;
 	private String email;
-	private String profileImg;
+	private String profile;
 	private LocalDateTime regdate;
 	private String care;
 	private String recentSearch;
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "TEAM_id") private Team team;
-	 */
-	
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 	public String getPwd() {
 		return pwd;
@@ -55,11 +53,11 @@ public class Users {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getProfileImg() {
-		return profileImg;
+	public String getProfile() {
+		return profile;
 	}
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 	public LocalDateTime getRegdate() {
 		return regdate;
@@ -79,6 +77,14 @@ public class Users {
 	public void setRecentSearch(String recentSearch) {
 		this.recentSearch = recentSearch;
 	}
+	
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "TEAM_id") private Team team;
+	 */
+	
+
 	/*
 	 * public Team getTeam() { return team; } public void setTeam(Team team) {
 	 * this.team = team; }

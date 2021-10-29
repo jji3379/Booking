@@ -20,7 +20,7 @@
 		 <form action="${pageContext.request.contextPath }/users/signup.do" method="post" id="myForm" novalidate>
 		 	<div class="form-group">
 		 		<label for="id">아이디</label>
-		 		<input class="form-control" type="text" name="id" id="id"/>
+		 		<input class="form-control" type="text" name="loginId" id="id"/>
 		 		<small class="form-text text-muted">영문자 소문자로 시작하고 5글자~10글자 이내로 입력하세요.</small>
 		 		<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
 		 	</div>

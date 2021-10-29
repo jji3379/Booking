@@ -17,12 +17,12 @@ public interface CartService {
 	//by준영, 북카트 리스트_210308
 	public void listCart(ModelAndView mView,HttpServletRequest request);
 	//by, 카트 개별 삭제 요청처리_210310
-	public void deleteCart(int c_id);
+	public void deleteCart(Cart c_id);
 	//by준영, 체크된 카트 삭제_210313
-	public void deleteChk(String[] ajaxMsg);
+	public void deleteChk(Long ajaxMsg);
 	//by준영, 북카트 내 도서 수량변경_210310
 	public void update(CartDto dto);
 	//by준영, 결제완료시 해당상품 삭제_210314
-	public void deletPay(String id,HttpServletRequest request);
+	public void deletPay(Long id,HttpServletRequest request);
 	
 }

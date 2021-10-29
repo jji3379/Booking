@@ -17,7 +17,7 @@ public interface UsersService {
 	//회원 가입 처리를 하는 메소드 
 	public void addUser(Users users);
 	//아이디가 존재하는지 여부를 리턴하는 메소드
-	public boolean isExistId(String inputId);
+	public boolean isExistId(Long id);
 	//로그인폼에 관련된 처리를 하는 메소드
 	public void loginformLogic(HttpServletRequest request,
 			ModelAndView mView);
@@ -25,20 +25,20 @@ public interface UsersService {
 	public void loginLogic(HttpServletRequest request,
 			HttpServletResponse response);
 	//개인정보를 ModelAndView  객체에 담아주는 메소드
-	public void getInfo(ModelAndView mView, HttpSession session);
+	public Users getInfo(ModelAndView mView, HttpSession session);
 	//개인정보를 삭제하는 처리를 하는 메소드
 	public void deleteUser(HttpSession session);
 	//비밀번호를 수정하는 처리를 하고 성공 여부를 ModelAndView 객체에 담는 메소드
-	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpServletRequest request,
+	public void updateUserPwd(ModelAndView mView, Users dto, HttpServletRequest request,
 			HttpSession session);
 	//프로필 이미지를 upload 폴더에 저장하고 저장된 파일명을 DB 에 저장하는 메소드
 	public void saveProfileImage(MultipartFile image, 
 			HttpServletRequest request);
 	//개인정보를 수정하는 메소드(여기에서는 이메일 주소만)
-	public void updateUser(UsersDto dto, HttpSession session);
+	public void updateUser(Users dto, HttpSession session);
 	
 	//관심사와 이메일정보 얻기
-	public UsersDto getCareEmail(String inputId);
+	public Users getCareEmail(Long id);
 	
-	public void deleteProfile(String inputId);
+	public void deleteProfile(Users inputId);
 }

@@ -1,5 +1,6 @@
 package com.acorn5.booking.order.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,11 @@ import javax.persistence.Table;
 public class Order {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int o_id; //오더넘버
-	private String buyer;//구매자
+	@Column(name = "ORDER_ID")
+	private Long id; //오더넘버
+	
+	@Column(name = "BUYER_ID")
+	private Long buyer;//구매자
 	private String image;//이미지
 	private String title;//제목
 	private int price; //정가
@@ -22,16 +26,16 @@ public class Order {
 	private int total_price; //총 주문금액
 	private String isbn;
 	
-	public int getO_id() {
-		return o_id;
+	public Long getId() {
+		return id;
 	}
-	public void setO_id(int o_id) {
-		this.o_id = o_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getBuyer() {
+	public Long getBuyer() {
 		return buyer;
 	}
-	public void setBuyer(String buyer) {
+	public void setBuyer(Long buyer) {
 		this.buyer = buyer;
 	}
 	public String getImage() {

@@ -7,6 +7,6 @@ import com.acorn5.booking.users.entity.Users;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long>{
-
-	Users findById(String id);
+	Users findById(Long id);
+	Users findByLoginId(String loginId);
 }

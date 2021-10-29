@@ -35,7 +35,7 @@ public class LoginFilter implements Filter{
       //자식 type 을 이용해서 HttpSession 객체의 참조값을 얻어낸다.
       HttpSession session=req.getSession();
       //로그인된 아이디가 있는지 읽어와 본다.
-      String id=(String)session.getAttribute("id");
+      Long id=(Long)session.getAttribute("id");
       //만일 로그인 된 상태라면 
       if(id != null) {
          //2. 만일 로그인을 했으면 관여하지 않고 요청의 흐름을 이어간다.

@@ -19,6 +19,7 @@ import com.acorn5.booking.review.dto.ReviewCommentDto;
 
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.service.ReviewService;
 
 @Controller
@@ -28,18 +29,20 @@ public class ReviewController {
 	@Autowired
 	private ReviewService service;
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	//@Autowired
-	//private CartService cartservice;
+	@Autowired
+	private CartService cartservice;
 
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review/reviewList")
 	public ModelAndView list(ModelAndView mView, 
 			HttpServletRequest request) {
-		/*
-		 * String id=(String)request.getSession().getAttribute("id"); if(id!=null) {
-		 * //by 우석, view page 에서 cartitem 불러오기_210315 cartservice.listCart(mView,
-		 * request); }
-		 */
+		
+		Long id=(Long)request.getSession().getAttribute("id");
+		if(id!=null) {
+		//by 우석, view page 에서 cartitem 불러오기_210315 
+		cartservice.listCart(mView,request); 
+		}
+		 
 		// by남기, 글 목록 요청 처리한 리스트가 넘어온다_210303
 		service.getList(mView, request);
 		// by남기, view page 로 forward 이동해서 응답_210303
@@ -53,18 +56,18 @@ public class ReviewController {
 			,HttpServletRequest request) {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
 		service.getDetail(num, mView);
-		String id=(String)request.getSession().getAttribute("id");
-		/*
-		 * if(id!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
-		 * cartservice.listCart(mView, request); }
-		 */
+		Long id=(Long)request.getSession().getAttribute("id");
+		
+		if(id!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
+			cartservice.listCart(mView, request); 
+		}
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.setViewName("review/reviewDetail");
 		return mView;
 	}
 	// by남기, 글 삭제 요청처리_210303
 	@RequestMapping("/review/private/reviewDelete")
-	public String delete(@RequestParam int num) {
+	public String delete(@RequestParam Review num) {
 		// by남기, 삭제할 글 번호가 파라미터로 넘어온다_210303
 		service.deleteContent(num);
 		// by남기, view page 로 forward 이동해서 응답_210303
@@ -88,7 +91,7 @@ public class ReviewController {
 	}
 	// by남기, 리뷰 수정 폼 요청 처리_210303
 	@RequestMapping("/review/private/reviewUpdateform")
-	public ModelAndView updateform(@RequestParam int num,
+	public ModelAndView updateform(@RequestParam Long num,
 			ModelAndView mView, HttpServletRequest request) {
 		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
 		service.getDetail(num, mView);
@@ -99,7 +102,7 @@ public class ReviewController {
 	}
 	// by남기, 리뷰 수정 요청 처리_210303
 	@RequestMapping("/review/private/reviewUpdate")
-	public String update(@ModelAttribute("dto") ReviewDto dto) {
+	public String update(@ModelAttribute("dto") Review dto) {
 		// by남기, 수정할 리뷰의 정보를 dto에서 가져온다_210303
 		service.updateContent(dto);
 		// by남기, view page 로 forward 이동해서 응답_210303
@@ -120,34 +123,34 @@ public class ReviewController {
 	@RequestMapping(value = "/review/private/reviewComment_update", 
 			method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> reviewCommentUpdate(ReviewCommentDto dto){
+	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
 		// by남기, 댓글을 수정 반영하고_210303
 		service.updateComment(dto);
 		// by남기, JSON 문자열을 클라이언트에게 응답한다_210303
 		Map<String, Object> map=new HashMap<>();
-		map.put("num", dto.getNum());
+		map.put("num", dto.getId());
 		map.put("content", dto.getContent());
 		return map;
 	}
 	// by남기, 리뷰의 댓글 삭제 요청 처리_210303
 	@RequestMapping("/review/private/reviewComment_delete")
 	public ModelAndView reviewCommentDelete(HttpServletRequest request,
-			ModelAndView mView, @RequestParam int ref_group) {
+			ModelAndView mView, @RequestParam int refGroup) {
 		// by남기, 삭제할 댓글의 정보를 request 영역에서 가져온다_210303
 		service.deleteComment(request);
 		// by남기, reviewDetail page 로 리다일렉트 이동시킨다_210303
-		mView.setViewName("redirect:/review/reviewDetail.do?num="+ref_group);
+		mView.setViewName("redirect:/review/reviewDetail.do?num="+refGroup);
 		return mView;
 	}
 	// by남기, 새 댓글 저장 요청 처리_210303
 	@RequestMapping(value = "/review/private/reviewComment_insert", 
 			method = RequestMethod.POST)
 	public String reviewCommentInsert(HttpServletRequest request,
-			@RequestParam int ref_group) {
+			@RequestParam int refGroup) {
 		// by남기, 새 댓글을 저장하고_210303
 		service.saveComment(request);
 		// by남기, 글 자세히 보기로 다시 리다일렉트 이동 시킨다_210303
-		return "redirect:/review/reviewDetail.do?num="+ref_group;// by남기, ref_group 은 자세히 보기 했던 글번호_210303 
+		return "redirect:/review/reviewDetail.do?num="+refGroup;// by남기, ref_group 은 자세히 보기 했던 글번호_210303 
 	}
 	
 }

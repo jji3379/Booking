@@ -54,13 +54,12 @@ public class UsersServiceImpl implements UsersService{
 		String savedPwd = encoder.encode(users.getPwd());
 		users.setPwd(savedPwd);
 		usersRepository.save(users);
-		//dao.insert(dto);
 	}
 	//by욱현.id중복겁사관련 로직_2021222
 	@Override
-	public boolean isExistId(String inputId) {
+	public boolean isExistId(Long id) {
 		// id  존재 여부를 리턴해준다. 
-		return dao.isExist(inputId);
+		return usersRepository.exists(id);
 	}
 	//by욱현.로그인폼관련 로직_2021222
 	@Override
@@ -110,15 +109,15 @@ public class UsersServiceImpl implements UsersService{
 		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
 		String encodedUrl=URLEncoder.encode(url);
 		//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
-		String id=request.getParameter("id");
+		String loginId=request.getParameter("loginId");
 		String pwd=request.getParameter("pwd");
 		
 		/*
 		 	인코딩되 저장된 패스워드와 비교
 		 */
-		UsersDto dto = new UsersDto();
+		Users dto = new Users();
 		
-		Users findById = usersRepository.findById(id); 
+		Users findById = usersRepository.findByLoginId(loginId); 
 		if(findById==null) {
 			throw new DBFailException("아이디가 없습니다."); 
 		} //by욱현.미등록 아이디에 관한 예외처리 수정_21310
@@ -128,25 +127,33 @@ public class UsersServiceImpl implements UsersService{
 		if(savedPwd==null) {
 			throw new DBFailException("비밀번호가 일치하지 않습니다.");
 		}
-		/*
-		 * boolean isEqual = BCrypt.checkpw(pwd, savedPwd); if(isEqual) { dto.setId(id);
-		 * dto.setPwd(savedPwd); } else { throw new DBFailException("비밀번호가 일치하지 않습니다.");
-		 * }
-		 */
-	
+		
+	    boolean isEqual = BCrypt.checkpw(pwd, savedPwd); 
+	    if(isEqual) { 
+		    dto.setLoginId(loginId);
+		    dto.setPwd(savedPwd); 
+	    } 
+	    else { 
+		    throw new DBFailException("비밀번호가 일치하지 않습니다.");
+	    }
+		 
 		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=findById.getId().equals(id);
+		boolean isValid=findById.getLoginId().equals(loginId);
+		
+		Long id = findById.getId();
+		
 		//3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
 		if(isValid) {
 			//HttpSession 객체를 이용해서 로그인 처리를 한다. 
 			request.getSession().setAttribute("id", id);
+			request.getSession().setAttribute("loginId", loginId);
 		}
 		//체크박스를 체크 하지 않았으면 null 이다. 
 		String isSave=request.getParameter("isSave");
 		
 		if(isSave == null){//체크 박스를 체크 안했다면
 			//저장된 쿠키 삭제 
-			Cookie idCook=new Cookie("savedId", id);
+			Cookie idCook=new Cookie("savedId", loginId);
 			idCook.setMaxAge(0);//삭제하기 위해 0 으로 설정 
 			response.addCookie(idCook);
 			
@@ -155,7 +162,7 @@ public class UsersServiceImpl implements UsersService{
 			response.addCookie(pwdCook);
 		}else{//체크 박스를 체크 했다면 
 			//아이디와 비밀번호를 쿠키에 저장
-			Cookie idCook=new Cookie("savedId", id);
+			Cookie idCook=new Cookie("savedId", loginId);
 			idCook.setMaxAge(60*60*24);//하루동안 유지
 			response.addCookie(idCook);
 			
@@ -172,55 +179,58 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
-	public void getInfo(ModelAndView mView, HttpSession session) {
+	public Users getInfo(ModelAndView mView, HttpSession session) {
 		//로그인된 아이디를 읽어와서
-		String id=(String)session.getAttribute("id");
+		Long id=(Long)session.getAttribute("id");
 		//개인정보를 읽어온다.
-		UsersDto dto=dao.getData(id);
-		//읽어온 정보를 ModelAndView 객체에 담아준다.
-		mView.addObject("dto", dto);
+		//Users dto= dao.getData(id);
+	 	Users dto = usersRepository.findById(id);
+		return dto;
 	}
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override
 	public void deleteUser(HttpSession session) {
 		//로그인된 아이디를 읽어온다. 
-		String id=(String)session.getAttribute("id");
+		Long id=(Long)session.getAttribute("id");
 		//DB 에서 삭제
-		dao.delete(id);
+		//dao.delete(id);
 		//댓글삭제
-		reviewCommentDao.delete2(id);
+		//reviewCommentDao.delete2(id);
 		//리뷰삭제
-		reviewDao.delete2(id);
+		//reviewDao.delete2(id);
 		//카트에서 삭제
-		cartDao.delete2(id);
+		//cartDao.delete2(id);
 		//주문내역 삭제
-		orderDao.delete(id);
+		//orderDao.delete(id);
 		//로그아웃 처리
 		session.removeAttribute("id");
 	}
 	
 	//by욱현.비밀번호 수정 관련 로직_2021222
 	@Override
-	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpServletRequest request,
+	public void updateUserPwd(ModelAndView mView, Users dto, HttpServletRequest request,
 			HttpSession session) {
 		//로그인 된 아이디를 읽어와서 
-		String id=(String)session.getAttribute("id");
+		Long id=(Long)session.getAttribute("id");
 		
 		String pwd = request.getParameter("pwd");
 		String nP = request.getParameter("newPwd");
 	
-		String savedPwd = dao.getData(id).getPwd();//db에서 불러온 기존 pwd(인코딩된 상태)
+		String savedPwd = usersRepository.findById(id).getPwd(); 
+				//dao.getData(id).getPwd();//db에서 불러온 기존 pwd(인코딩된 상태)
+		Users dto2 = usersRepository.findById(id);
 		
 		boolean isSuccess= BCrypt.checkpw(pwd, savedPwd); 
 		//만일 성공이면 
 		if(isSuccess) {
 			String newPwd=
 					new BCryptPasswordEncoder().encode(nP);
-			dto.setPwd(savedPwd);
-			dto.setId(id);
-			dto.setNewPwd(newPwd);
-			dao.updatePwd(dto);
+			//dto.setPwd(savedPwd);
+			//dto.setId(id);
+			dto2.setPwd(newPwd);
+			usersRepository.save(dto2);
+			//dao.updatePwd(dto);
 			//비밀번호가 수정되었으므로 다시 로그인 하도록 로그인 아웃 처리를 한다.
 			session.removeAttribute("id");
 		}
@@ -253,32 +263,34 @@ public class UsersServiceImpl implements UsersService{
 		//DB 에 저장할 이미지의 경로
 		String profile="/upload/"+saveFileName;
 		//로그인된 아이디
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
 		//수정할 정보를 dto 에 담기
-		UsersDto dto=new UsersDto();
+		Users dto = usersRepository.findById(id);
 		dto.setId(id);
 		dto.setProfile(profile);
 		//dao 를 이용해서 수정 반영하기
-		dao.updateProfile(dto);
+		//dao.updateProfile(dto);
 	}
 	//by욱현.회원정보수정관련 로직_2021222
 	@Override
-	public void updateUser(UsersDto dto, HttpSession session) {
+	public void updateUser(Users dto, HttpSession session) {
 		//로그인된 아이디를 읽어온다.
-		String id=(String)session.getAttribute("id");
+		Long id=(Long)session.getAttribute("id");
 		//dto 에 담는다.
 		dto.setId(id);
 		//dao 를 이용해서 DB 에 수정 반영한다.
-		dao.update(dto);
+		//dao.update(dto);
 	}
 	@Override
-	public UsersDto getCareEmail(String inputId) {
-		UsersDto dto = dao.getCareEmail(inputId);
+	public Users getCareEmail(Long id) {
+		Users dto = usersRepository.findById(id); 
+				//dao.getCareEmail(inputId);
 		return dto;
 	}
 	@Override
-	public void deleteProfile(String inputId) {
-		dao.deleteProfile(inputId);
+	public void deleteProfile(Users inputId) {
+		usersRepository.delete(inputId);
+		//dao.deleteProfile(inputId);
 	}
 
 }

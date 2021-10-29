@@ -35,12 +35,17 @@ import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.parsing.XmlParsing;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
 	//의존 객체 DI
 	//@Autowired
 	//private UsersDao dao; //recentsearch 저장 로직을위한 di준비
+	
+	@Autowired
+	private UsersRepository usersRepository;
 	
 	//by 준익, 페이징 처리된 카테고리별 검색 리스트_2021.02.28
 	@Override
@@ -1426,11 +1431,10 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void recentSearchInput(String keyword, String id) {
+	public void recentSearchInput(String keyword, Long id) {
 		//파라미터들을 dto객체에 담고
-		UsersDto dto = new UsersDto();
+		Users dto = usersRepository.findById(id);
 		dto.setRecentSearch(keyword);
-		dto.setId(id);
 		//di된 dao메소드의 인자로 전달
 		//dao.searchInput(dto);
 	}

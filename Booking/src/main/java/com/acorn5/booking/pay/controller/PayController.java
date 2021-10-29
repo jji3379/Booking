@@ -45,7 +45,7 @@ public class PayController {
 	}	
 	//by, 카트 개별 삭제 요청처리_210310
 	@RequestMapping("/pay/delete")
-	public String delete(int c_id) {
+	public String delete(Cart c_id) {
 		service.deleteCart(c_id);
 		return "pay/delete";
 	}
@@ -54,9 +54,11 @@ public class PayController {
 	@ResponseBody
 	@RequestMapping(value = "/pay/deleteCart")
 	public void deleteCart(HttpServletRequest request) {
-		String[] ajaxMsg=request.getParameterValues("valueArr");
-		
-		service.deleteChk(ajaxMsg);
+		String[] ajaxMsg=(String[])request.getParameterValues("valueArr");
+		for(int i = 0; i < ajaxMsg.length; i++) {
+			Long id = Long.parseLong(ajaxMsg[i]);
+			service.deleteChk(id);
+		}
 		
 	}
 	//by준영, 북카트 내 도서 수량변경_210310
@@ -76,7 +78,7 @@ public class PayController {
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
 		service.deletPay(id,request);
 		return "pay/paid";
 	}

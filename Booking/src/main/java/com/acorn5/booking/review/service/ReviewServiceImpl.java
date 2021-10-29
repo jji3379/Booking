@@ -31,9 +31,12 @@ import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Users;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -51,12 +54,15 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
+
+	@Autowired
+	private ReviewCommentRepository reviewCommentRepository;
 	
 	// by남기, 새 리뷰를 저장하는 메소드_210303
 	@Override
 	public void saveContent(Review dto, HttpServletRequest request) {
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
-	      String id=(String)request.getSession().getAttribute("id");
+	      Long id=(Long)request.getSession().getAttribute("id");
 	      String imagePath=request.getParameter("imagePath");
 	      String reviewTitle=request.getParameter("reviewTitle");
 	      String spoCheck=request.getParameter("spoCheck");
@@ -67,8 +73,12 @@ public class ReviewServiceImpl implements ReviewService{
 	           spoCheck="no";
 	           dto.setSpoCheck(spoCheck);
 	        }
+	        
+	      Users user = new Users();
+	      user.setId(id);
+	      
 	      dto.setReviewTitle(reviewTitle);
-	      dto.setWriter(id); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
+	      dto.setWriter(user); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
 	      dto.setImagePath(imagePath);
 	      // by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
 	      
@@ -143,7 +153,7 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		// by남기, 글목록 얻어오기_210303
 		list = reviewRepository.findAll();
-		//list=reviewDao.getList(dto);
+		  
 		// by남기, 글의 갯수_210303
 		//totalRow=reviewDao.getCount(dto);
 		
@@ -201,13 +211,19 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰를 수정하는 메소드_210303
 	@Override
-	public void updateContent(ReviewDto dto) {
-		reviewDao.update(dto);
+	public void updateContent(Review dto) {
+		Review review = reviewRepository.findById(dto.getId());
+		review.setReviewTitle(dto.getReviewTitle());
+		review.setContent(dto.getContent());
+		review.setRating(dto.getRating());
+		reviewRepository.save(review);
+		//reviewDao.update(dto);
 	}
 	// by남기, 리뷰를 삭제하는 메소드_210303
 	@Override
-	public void deleteContent(int num) {
-		reviewDao.delete(num);
+	public void deleteContent(Review num) {
+		reviewRepository.delete(num);
+		//reviewDao.delete(num);
 	}
 	// by남기, 리뷰 하나의 정보를 ModelAndView 객체에 담아주는 메소드_210303
 	@Override
@@ -245,9 +261,10 @@ public class ReviewServiceImpl implements ReviewService{
 		//reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		//List<ReviewCommentDto> reviewCommentList=reviewCommentDao.getList(reviewCommentDto);
+		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(num);
+				//reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
-		//mView.addObject("reviewCommentList", reviewCommentList);
+		mView.addObject("reviewCommentList", reviewCommentList);
 		//mView.addObject("totalPageCount", totalPageCount);
 		
 	}
@@ -255,10 +272,10 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public void saveComment(HttpServletRequest request) {
 		// by남기, 댓글 작성자(로그인된 아이디) _210303
-		String writer=(String)request.getSession().getAttribute("id");
+		Long writer=(Long)request.getSession().getAttribute("id");
 		// by남기, 폼 전송되는 댓글의 정보 얻어내기 _210303
-		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
-		String target_id=request.getParameter("target_id");
+		Long ref_group=Long.parseLong(request.getParameter("refGroup"));
+		Long target_id=Long.parseLong(request.getParameter("target_id"));
 		String content=request.getParameter("content");
 		/*
 		 *  by남기, 
@@ -266,45 +283,59 @@ public class ReviewServiceImpl implements ReviewService{
 		 * 댓글의 댓글은 comment_group 번호가 전송이 된다.
 		 * 따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판별할수 있다  _210303
 		 */
-		String comment_group=request.getParameter("comment_group");
+		String comment_group=request.getParameter("commentGroup");
 		// by남기, 새 댓글의 글번호는 미리 얻어낸다  _210303
-		int seq=reviewCommentDao.getSequence();
+		//int seq=reviewCommentDao.getSequence();
 		// by남기, 저장할 새 댓글 정보를 dto 에 담기 _210303
-		ReviewCommentDto dto=new ReviewCommentDto();
-		dto.setNum(seq);
-		dto.setWriter(writer);
-		dto.setTarget_id(target_id);
+		ReviewDtl dto=new ReviewDtl();
+		//dto.setNum(seq);
+		Users writerId = new Users();
+		writerId.setId(writer);
+
+		Users targetId = new Users();
+		targetId.setId(target_id);
+		
+		dto.setWriter(writerId);
+		dto.setTarget_id(targetId);
 		dto.setContent(content);
-		dto.setRef_group(ref_group);
+		dto.setRefGroup(ref_group);
 		if(comment_group == null) {// by남기, 원글의 댓글인 경우 _210303 
 			// by남기, 댓글의 글번호와 comment_group 번호를 같게 한다 _210303
-			dto.setComment_group(seq);
+			dto.setCommentGroup(reviewCommentRepository.findByNextId());
 		}else {// by남기, 댓글의 댓글인 경우  _210303
 			// by남기, 폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다 _210303
-			dto.setComment_group(Integer.parseInt(comment_group));
+			dto.setCommentGroup(Long.parseLong(comment_group));
 		}
 		// by남기, 댓글 정보를 DB 에 저장한다 _210303
-		reviewCommentDao.insert(dto);
+		reviewCommentRepository.save(dto);
+		//reviewCommentDao.insert(dto);
 	}
 
 	// by남기, 리뷰의 댓글을 삭제하는 메소드 _210303
 	@Override
 	public void deleteComment(HttpServletRequest request) {
 		// by남기, GET 방식 파라미터로 전달되는 삭제할 댓글 번호  _210303
-		int num=Integer.parseInt(request.getParameter("num"));
+		Long num=Long.parseLong(request.getParameter("num"));
 		// by남기, 세션에 저장된 로그인된 아이디 _210303
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
 		// by남기, 댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다 _210303
-		String writer=reviewCommentDao.getData(num).getWriter();
-		if(!writer.equals(id)) {
+		ReviewDtl writer= reviewCommentRepository.findById(num);
+		Long writerId = writer.getWriter().getId();
+				//reviewCommentDao.getData(num).getWriter();
+		System.out.println("writerId : "+writerId);
+		if(!writerId.equals(id)) {
 			throw new DBFailException("남의 댓글을 삭제 할수 없습니다.");
 		}
-		reviewCommentDao.delete(num);
+		reviewCommentRepository.delete(num);
+		//reviewCommentDao.delete(num);
 	}
 	// by남기, 리뷰의 댓글을 수정하는 메소드 _210303
 	@Override
-	public void updateComment(ReviewCommentDto dto) {
-		reviewCommentDao.update(dto);
+	public void updateComment(ReviewDtl dto) {
+		//reviewCommentDao.update(dto);
+		ReviewDtl comment = reviewCommentRepository.findById(dto.getId());
+		comment.setContent(dto.getContent());
+		reviewCommentRepository.save(comment);
 	}
 	// by남기, 리뷰의 댓글들을 추가로 응답하는 메소드 _210303
 	@Override
@@ -349,9 +380,9 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		
-		String id = (String) session.getAttribute("id");
-		UsersDto usersDto = usersdao.getData(id);
-		mView.addObject("dto", usersDto);
+		Long id = (Long)session.getAttribute("id");
+		//UsersDto usersDto = usersdao.getData(id);
+		//mView.addObject("dto", usersDto);
 		
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=4;
@@ -375,19 +406,19 @@ public class ReviewServiceImpl implements ReviewService{
 				
 		
 		// by남기, startRowNum 과 endRowNum  을 ReviewDto 객체에 담는다 _210303
-		ReviewDto dto=new ReviewDto();
-		dto.setWriter((String)session.getAttribute("id"));
-		dto.setStartRowNum(startRowNum);
-		dto.setEndRowNum(endRowNum);
+		Review dto=new Review();
+		dto.setWriter((Users) session.getAttribute("id"));
+		//dto.setStartRowNum(startRowNum);
+		//dto.setEndRowNum(endRowNum);
 				
 		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
-		List<ReviewDto> list=null;
+		List<Review> list=null;
 		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
 		int totalRow=0;
 		// by남기, 글목록 얻어오기_210303
-		list=reviewDao.getList(dto);
+		//list=reviewDao.getList(dto);
 		// by남기, 글의 갯수_210303
-		totalRow=reviewDao.getCount(dto);
+		//totalRow=reviewDao.getCount(dto);
 				
 		// by남기, 하단 시작 페이지 번호_210303 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;

@@ -1,5 +1,6 @@
 package com.acorn5.booking.pay.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,11 @@ import javax.persistence.Table;
 public class Cart {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int c_id;//장바구니 번호
-    private String id;//회원 아이디
+	@Column(name = "CART_ID")
+	private Long id;//장바구니 번호
+	
+	@Column(name = "USER_ID")
+    private String userId;//회원 아이디
     private String image;//책 이미지
     private String title;//책 제목
     private int price;//책 정가
@@ -20,18 +24,17 @@ public class Cart {
     private int count;// 갯수
     private String indate;
     private String isbn;
-    
-	public int getC_id() {
-		return c_id;
-	}
-	public void setC_id(int c_id) {
-		this.c_id = c_id;
-	}
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getImage() {
 		return image;
@@ -76,5 +79,6 @@ public class Cart {
 		this.isbn = isbn;
 	}
     
+	
     
 }

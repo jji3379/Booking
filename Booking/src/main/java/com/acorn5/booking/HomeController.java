@@ -93,7 +93,7 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 		
 		ModelAndView mView = new ModelAndView();
 		               
-		String id = (String) session.getAttribute("id");
+		Long id = (Long) session.getAttribute("id");
 		//UsersDto dto = null;
 		//by 우석, view page 에서 cartitem 불러오기_210315
 		/*

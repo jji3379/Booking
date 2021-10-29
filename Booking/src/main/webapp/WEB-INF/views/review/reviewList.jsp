@@ -70,9 +70,9 @@
 							<img class="rounded-sm" 
 							src="${t.imagePath }"/>
 						</td>
-						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.num }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
+						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
 						<td class="ellipsis">${t.bookTitle }</td>
-						<td class="ellipsis">${t.writer }</td>
+						<td class="ellipsis">${t.writer.loginId }</td>
 						<td class="ellipsis">${t.viewCount }</td>
 						<td class="ellipsis">${t.regdate }</td>
 						<td class="ellipsis">

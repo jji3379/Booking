@@ -140,7 +140,7 @@
 		</tr>
 		<tr>
 			<td><strong>작성자</strong></td>
-			<td>${dto.writer }</td>
+			<td>${dto.writer.loginId }</td>
 		</tr>
 		<tr>
 			<td><strong>도서 제목</strong></td>
@@ -189,18 +189,18 @@
 	</table>
 	<ul class="mylist">
 		<li><a href="reviewList.do">목록보기</a></li>
-		<c:if test="${dto.writer eq id }">
-			<li><a href="private/reviewUpdateform.do?num=${dto.num }">수정</a></li>
-			<li><a href="private/reviewDelete.do?num=${dto.num }">삭제</a></li>
+		<c:if test="${dto.writer.id eq id }">
+			<li><a href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
+			<li><a href="private/reviewDelete.do?num=${dto.id }">삭제</a></li>
 		</c:if>
 	</ul>
 	<hr/>
 	<!-- by남기, 원글에 댓글을 작성하는 form _210303 -->
 	<form class="comment-form reviewInsert-form" action="private/reviewComment_insert.do" method="post" style="margin-top:30px">
-		<!-- by남기, 원글의 글번호가 ref_group 번호가 된다. _210303 -->
-		<input type="hidden" name="ref_group" value="${dto.num }"/>
+		<!-- by남기, 원글의 글번호가 refGroup 번호가 된다. _210303 -->
+		<input type="hidden" name="refGroup" value="${dto.id }"/>
 		<!-- by남기, 원글의 작성자가 댓글의 수신자가 된다. _210303 -->
-		<input type="hidden" name="target_id" value="${dto.writer }"/>
+		<input type="hidden" name="target_id" value="${dto.writer.id }"/>
 		<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
 		<button class="btn btn-primary" type="submit">등록</button>
 	</form>	
@@ -213,14 +213,14 @@
 						<li>삭제된 댓글 입니다.</li>
 					</c:when>
 					<c:otherwise>
-						<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if>>
-							<c:if test="${tmp.num ne tmp.comment_group }"><svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<li id="comment${tmp.id }" <c:if test="${tmp.id ne tmp.commentGroup }">style="padding-left:50px;"</c:if>>
+							<c:if test="${tmp.id ne tmp.commentGroup }"><svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  						<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
 		  						<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z"/></svg>
 							</c:if>
 							<dl>
 								<dt>
-									<c:choose>
+									<%-- <c:choose>
 										<c:when test="${empty tmp.profile }">
 											<svg class="profile-image"  width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					  							<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -230,16 +230,16 @@
 											<img class="profile-image" 
 												src="${pageContext.request.contextPath }${tmp.profile }"/>
 										</c:otherwise>
-									</c:choose>
-									<span>${tmp.writer }</span>
-									<c:if test="${tmp.num ne tmp.comment_group }">
-										@<i>${tmp.target_id }</i>
+									</c:choose> --%>
+									<span>${tmp.writer.loginId }</span>
+									<c:if test="${tmp.id ne tmp.commentGroup }">
+										@<i>${tmp.target_id.loginId }</i>
 									</c:if>
 									<span>${tmp.regdate }</span>
-									<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
-									<c:if test="${tmp.writer eq id }">
-										| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-update-link">수정</a>
-										| <a data-num="${tmp.num }" href="javascript:" class="reviewComment-delete-link">삭제</a>
+									<a data-num="${tmp.id }" href="javascript:" class="reply-link">답글</a>
+									<c:if test="${tmp.writer.id eq id }">
+										| <a data-num="${tmp.id }" href="javascript:" class="reviewComment-update-link">수정</a>
+										| <a data-num="${tmp.id }" href="javascript:" class="reviewComment-delete-link">삭제</a>
 									</c:if>
 								</dt>
 								<dd>
@@ -248,20 +248,20 @@
 							</dl>
 							<form class="comment-form re-reviewInsert-form" 
 								action="private/reviewComment_insert.do" method="post">
-								<input type="hidden" name="ref_group"
-									value="${dto.num }"/>
+								<input type="hidden" name="refGroup"
+									value="${dto.id }"/>
 								<input type="hidden" name="target_id"
-									value="${tmp.writer }"/>
-								<input type="hidden" name="comment_group"
-									value="${tmp.comment_group }"/>
+									value="${tmp.writer.id }"/>
+								<input type="hidden" name="commentGroup"
+									value="${tmp.commentGroup }"/>
 								<textarea name="content"></textarea>
 								<button class="btn btn-primary" type="submit">등록</button>
 							</form>
 							<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
-							<c:if test="${tmp.writer eq id }">
+							<c:if test="${tmp.writer.id eq id }">
 								<form class="comment-form reviewUpdate-form" 
 									action="private/reviewComment_update.do" method="post">
-									<input type="hidden" name="num" value="${tmp.num }"/>
+									<input type="hidden" name="id" value="${tmp.id }"/>
 									<textarea name="content">${tmp.content }</textarea>
 									<button type="submit">수정</button>
 								</form>
@@ -295,7 +295,7 @@
 		$(this).ajaxSubmit(function(data){
 			//console.log(data);
 			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
-			var selector="#comment"+data.num; //"#comment6" 형식의 선택자 구성
+			var selector="#comment"+data.id; //"#comment6" 형식의 선택자 구성
 			
 			//댓글 수정 폼을 안보이게 한다. 
 			$(selector).find(".reviewUpdate-form").slideUp();
@@ -312,17 +312,18 @@
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }"+
-			"/review/private/reviewComment_delete.do?num="+num+"&ref_group=${dto.num}";
+			"/review/private/reviewComment_delete.do?num="+num+"&refGroup=${dto.id}";
 		}
 	});
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
 	$(document).on("click",".reply-link", function(){
 		//로그인 여부
-		var isLogin=${not empty id};
+		var isLogin="${not empty id}";
+		console.log("isLogin:"+isLogin);
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.id}";
 		}
 		
 		var selector="#comment"+$(this).attr("data-num");
@@ -342,21 +343,21 @@
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
-					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.id}";
 			return false; //폼 전송 막기 		
 		}
 	});
 	function deleteConfirm(){
 		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
 		if(isDelete){
-			location.href="reviewDelete.do?num=${dto.num}";
+			location.href="reviewDelete.do?num=${dto.id}";
 		}
 	}
 	
 	//페이지가 처음 로딩될때 1page 를 보여준다고 가정
 	var currentPage=1;
 	//전체 페이지의 수를 javascript 변수에 담아준다.
-	var totalPageCount=${totalPageCount};
+	//var totalPageCount=${totalPageCount};
 	//현재 로딩중인지 여부
 	var isLoading=false;
 	
@@ -368,7 +369,7 @@
 	var dH=$(document).height();//문서의 높이
 	var wH=window.screen.height;//window 의 높이
 	
-	if(dH < wH && totalPageCount > currentPage){
+	//if(dH < wH && totalPageCount > currentPage){
 		//로딩 이미지 띄우기
 		$(".loader").show();
 		
@@ -377,7 +378,7 @@
 		$.ajax({
 			url:"reviewCommentList.do",
 			method:"get",
-			data:{pageNum:currentPage, ref_group:${dto.num}},
+			data:{pageNum:currentPage, refGroup:${dto.id}},
 			success:function(data){
 				console.log(data);
 				//data 가 html 마크업 형태의 문자열 
@@ -386,7 +387,7 @@
 				$(".loader").hide();
 			}
 		});		
-	}	
+	//}	
 	
 	//웹브라우저에 scoll 이벤트가 일어 났을때 실행할 함수 등록 
 	$(window).on("scroll", function(){
@@ -413,7 +414,7 @@
 			$.ajax({
 				url:"reviewCommentList.do",
 				method:"get",
-				data:{pageNum:currentPage, ref_group:${dto.num}},
+				data:{pageNum:currentPage, refGroup:${dto.id}},
 				success:function(data){
 					console.log(data);
 					//data 가 html 마크업 형태의 문자열 

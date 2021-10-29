@@ -16,7 +16,7 @@
   	<h1 class="h3 mb-3 font-weight-normal">BOOKING </h1>
   	
   	<label for="id" class="sr-only">아이디</label>
-  	<input style="margin-bottom:10px" type="text" id="id" name="id" class="form-control" 
+  	<input style="margin-bottom:10px" type="text" id="loginId" name="loginId" class="form-control" 
   		placeholder="아이디 입력..." value="${savedId }" required autofocus>
   		
   	<label for="pwd" class="sr-only">비밀번호</label>

@@ -9,7 +9,7 @@
 <body>
 	<script>
 		alert("글을 수정했습니다.");
-		location.href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.num}";
+		location.href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.id}";
 	</script>
 </body>
 </html>
