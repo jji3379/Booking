@@ -73,7 +73,7 @@ public class BookController {
         {
             mView.addObject("bookDetail",service.bookDetail(d_isbn,1));
         }
-        mView.setViewName("detail/bookDetail");
+        mView.setViewName("detail/bookDetail.page");
         return mView;
     
     }

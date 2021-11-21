@@ -8,6 +8,17 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	html, body {
+    	margin:0;
+ 		padding: 0;
+	}
+	
+    body {
+    	padding: 0;
+    }	
+	.container {
+		padding:0;
+	}
 	#star a{ 
 		text-decoration: none; color: red; 
 	} 
@@ -44,9 +55,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="review" name="thisPage"/>
-</jsp:include>
 <div>
 	<div >
 		<center><h1 class="h1"><strong>도서 리뷰</strong></h1></center>

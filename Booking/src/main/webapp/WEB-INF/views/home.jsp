@@ -220,7 +220,8 @@
    }
    #bookimage {
    		height:200px; 
-   		width:250px;
+   		width:200px;
+   		border-radius: 2px;
    }
    
    /* img  가  가운데 정렬 되도록 */
@@ -449,6 +450,12 @@
 							<img id="bookimage" src="resources/images/message.svg"/>
 						</a>
 					</div>
+					<script>
+						var bimg = document.getElementById("bookimage");
+						$("#bookingBtn").on("click", function(){
+							bimg.style.boxShadow = "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset";
+						});
+					</script>
 				</div> <!-- /row -->
 			</div> <!-- /booking -->
 			<br />

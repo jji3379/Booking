@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 	<style>
-		
 		.nav-link{
 			font-family: '777Balsamtint';
 			font-size: 25px;
