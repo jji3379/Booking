@@ -281,11 +281,29 @@ body{
 		background-color: #a5989824;
         overflow: hidden;
 	}
-	#simList > ul {
+	.simAjax {
+		list-style: none; 
 		margin-top: 10px;
 		margin-bottom: 5px;
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+	.simAjax > li > a {
+		color:black;
+	}
+	.simAjax > li > a > img {
+		box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	}
+	.bookT {
+		margin-top: 2px;
+		margin-bottom: 2px;
+		text-align: center;
+		font-size: 17px;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+   		text-overflow: ellipsis;
 	}
 	
 	.box::-webkit-scrollbar {
