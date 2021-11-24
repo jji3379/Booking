@@ -16,7 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -87,7 +91,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
-	public List<Review> getList(ModelAndView mView, HttpServletRequest request) {
+	public Page<Review> getList(HttpServletRequest request) {
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=5;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
@@ -97,6 +101,7 @@ public class ReviewServiceImpl implements ReviewService{
 		int pageNum=1;
 		// by남기, 페이지 번호가 파라미터로 전달되는지 읽어와 본다_210303
 		String strPageNum=request.getParameter("pageNum");
+		
 		// by남기, 만일 페이지 번호가 파라미터로 넘어 온다면_210303
 		if(strPageNum != null){
 			// by남기, 숫자로 바꿔서 보여줄 페이지 번호로 지정한다_210303
@@ -133,7 +138,7 @@ public class ReviewServiceImpl implements ReviewService{
 		dto.setEndRowNum(endRowNum);
 		
 		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
-		List<Review> list=null;
+		Page<Review> list=null;
 		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
 		int totalRow=0;
 		// by남기, 만일 검색 키워드가 넘어온다면 _210303
@@ -152,34 +157,41 @@ public class ReviewServiceImpl implements ReviewService{
 			}// by남기, 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다_210303
 		}
 		// by남기, 글목록 얻어오기_210303
-		list = reviewRepository.findAll();
+		Pageable pageable = new PageRequest(pageNum, 5);
+		list = reviewRepository.findAll(pageable);
 		  
 		// by남기, 글의 갯수_210303
 		//totalRow=reviewDao.getCount(dto);
-		
-		// by남기, 하단 시작 페이지 번호_210303 
-		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		System.out.println("first : "+pageable.first());
+		System.out.println("offset : "+pageable.getOffset());
+		System.out.println("pageNumber : "+pageable.getPageNumber());
+		System.out.println("previousOrFirst : "+pageable.previousOrFirst());
+		System.out.println("hasPrevious : "+pageable.hasPrevious());
+		// by남기, 하단 시작 페이지 번호_210303
+		int startPageNum = 1 + ((pageNum-1)/pageable.getPageSize())*pageable.getPageSize();
 		// by남기, 하단 끝 페이지 번호_210303
-		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		long endPageNum=startPageNum+pageable.getPageSize()-1;
 		
 		// by남기, 전체 페이지의 갯수 구하기_210303
-		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		long totalPageCount= list.getTotalElements();
+				//(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
 		}		
 		
 		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
-		mView.addObject("list", list);
-		mView.addObject("pageNum", pageNum);
-		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);
-		mView.addObject("totalPageCount", totalPageCount);
-		mView.addObject("condition", condition);
-		mView.addObject("keyword", keyword);
-		mView.addObject("encodedK", encodedK);
-		mView.addObject("totalRow", totalRow);
-		
+		/*
+		model.addAttribute("list", list);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("encodedK", encodedK);
+		model.addAttribute("totalRow", totalRow);
+		*/
 		return list;
 	}
 	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
@@ -211,8 +223,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰를 수정하는 메소드_210303
 	@Override
-	public void updateContent(Review dto) {
-		Review review = reviewRepository.findById(dto.getId());
+	public void updateContent(Long id, Review dto) {
+		Review review = reviewRepository.findById(id);
 		review.setReviewTitle(dto.getReviewTitle());
 		review.setContent(dto.getContent());
 		review.setRating(dto.getRating());
@@ -221,7 +233,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰를 삭제하는 메소드_210303
 	@Override
-	public void deleteContent(Review num) {
+	public void deleteContent(Long num) {
 		reviewRepository.delete(num);
 		//reviewDao.delete(num);
 	}

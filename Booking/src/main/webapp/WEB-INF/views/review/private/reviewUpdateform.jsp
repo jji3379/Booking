@@ -23,10 +23,28 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.form.min.js"></script>
+<script>
+	function update() {
+		var mydata = JSON.stringify($('#form').serializeArray());
+		console.log(mydata);
+		$.ajax({
+			url:"${pageContext.request.contextPath}/review/reviewUpdate/${dto.id}",
+			method:"PUT",
+			contentType:"application/json",
+			data : mydata,
+			success:function(data){
+				console.log(data);
+				console.log("수정됨");
+				alert("수정됨");
+			}
+		});
+	}
+</script>
 <div style="margin-top:30px"></div>
 <div style="margin:auto; width:1050px">
 	<center><h1>리뷰 수정 폼</h1></center>
-	<form action="reviewUpdate.do" method="post">
+	<form id="form">
 		<input type="hidden" name="id" value="${dto.id }"/>
 		<div class="form-group">
 			<label for="imagePath">이미지</label><br />
@@ -56,7 +74,7 @@
 			<label for="content">내용</label>
 			<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
 		</div>
-		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
+		<input class="btn btn-primary" type="button" onclick="update()">수정확인
 	</form>
 </div>
 <script>

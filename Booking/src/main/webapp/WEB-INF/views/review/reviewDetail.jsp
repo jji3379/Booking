@@ -127,6 +127,19 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="review" name="thisPage"/>
 </jsp:include>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.form.min.js"></script>
+<script>
+	function deletea() {
+		$.ajax({
+			url:"${pageContext.request.contextPath}/review/reviewDelete/${dto.id}",
+			method:"DELETE",
+			dataType : "json",
+			success:function(data){
+				alert("삭제됨");
+			}
+		});
+	}
+</script>
 <div></div>
 <div>
 	<center><h1><strong>리뷰 내용</strong></h1></center>
@@ -191,7 +204,7 @@
 		<li><a href="reviewList.do">목록보기</a></li>
 		<c:if test="${dto.writer.id eq id }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
-			<li><a href="private/reviewDelete.do?num=${dto.id }">삭제</a></li>
+			<li><a href="#" onclick="deletea();">삭제</a></li>
 		</c:if>
 	</ul>
 	<hr/>
@@ -273,7 +286,6 @@
 		</ul>
 	</div>
 </div>
-<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
 	// by남기. _210303
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록

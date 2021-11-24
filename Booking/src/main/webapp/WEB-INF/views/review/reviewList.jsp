@@ -49,7 +49,7 @@
 </jsp:include>
 <div>
 	<div >
-		<center><h1 class="h1"><strong>도서 리뷰</strong></h1></center>
+		<center><h1 class="h1"><strong>도서 리뷰</strong></h1></center> ${list.first} ${list.last} ${list.number+1}
 		<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
 		<table class="table table-border" style="table-layout: fixed;">
 			<thead>
@@ -64,17 +64,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="t" items="${list}">
 					<tr>
 						<td class="ellipsis"> 
-							<img class="rounded-sm" 
-							src="${t.imagePath }"/>
+							<img class="rounded-sm" id="imagePath"/>
 						</td>
-						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"> ${t.reviewTitle }</a></td>
-						<td class="ellipsis">${t.bookTitle }</td>
-						<td class="ellipsis">${t.writer.loginId }</td>
-						<td class="ellipsis">${t.viewCount }</td>
-						<td class="ellipsis">${t.regdate }</td>
+						<td class="ellipsis"><a id="reviewTitle" href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" onClick="${t.spoCheck eq 'yes' ? 'spoAlert(event)' : '' }"></a></td>
+						<td class="ellipsis" id="bookTitle"></td>
+						<td class="ellipsis" id="writer">${t.writer.loginId }</td>
+						<td class="ellipsis" id="viewCount">${t.viewCount }</td>
+						<td class="ellipsis" id="regdate">${t.regdate }</td>
 						<td class="ellipsis">
 							<p id="star">
 								<c:if test="${t.rating  eq 1}">
@@ -95,13 +93,12 @@
 							<p>
 						</td>
 					</tr> 
-				</c:forEach>
 			</tbody>
 		</table>
 		<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>
-					<c:when test="${startPageNum != 1 }">
+					<c:when test="${!list.first}">
 						<li class="page-item">
 							<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
 						</li>
@@ -112,9 +109,9 @@
 						</li>
 					</c:otherwise>
 				</c:choose>
-				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+				<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
 					<c:choose>
-						<c:when test="${i eq pageNum }">
+						<c:when test="${i eq list.number }">
 							<li class="page-item active">
 								<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 							</li>
@@ -169,6 +166,26 @@
 			alert("로그인 하세요"); 
 		}
 	});
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/reviews",
+		method:"GET",
+		dataType : "json",
+		success:function(data) {
+			console.log(data);
+			var dataSize = data.content.length;
+			$("#dataSize").innerText = dataSize;
+			for(var i=0; i<data.content.length; i++) {
+				$("#imagePath")[0].src = data.content[i].imagePath;
+				$("#reviewTitle")[0].innerText = data.content[i].reviewTitle;
+				$("#bookTitle")[0].innerText = data.content[i].bookTitle;
+				$("#writer")[0].innerText = data.content[i].writer.loginId;
+				$("#viewCount")[0].innerText = data.content[i].viewCount;
+				$("#regdate")[0].innerText = data.content[i].regdate;
+			}
+		}
+	});
+	
 	
 	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228
 	
