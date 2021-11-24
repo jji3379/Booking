@@ -12,12 +12,20 @@
     
         }
         #main{
-            max-width: 100%; 
-            height: auto;
+            max-width: 100%;
+         	height: 100%; 
+        }
+        #footer{
+        	height: 200px;
+        	background-color: #e2e6eb;
+        	margin: auto;
+	    	min-width: 992px !important;
+	    	padding: 0px;
+	    	
         }
         
-         #left, #main{ 
-               
+         #left, #main{  
+         	height: 100%; 
          } 
     </style>
     
@@ -25,8 +33,9 @@
 </head>
 <body>
     <div style="width:100%; height:100%;">
-    <div id="header"><tiles:insertAttribute name="header" /></div>
-    <div id="main"><tiles:insertAttribute name="body" /></div>    
+	    <div id="header"><tiles:insertAttribute name="header" /></div>
+	    <div id="main"><tiles:insertAttribute name="body" /></div> 
+	   	<div id="footer"><tiles:insertAttribute name="footer" /></tiles></div>   
     </div>
  
     <script type="text/javascript">

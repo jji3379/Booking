@@ -43,8 +43,8 @@ public class BookController {
 			cartservice.listCart(mView, request); 
 		}
     	
-    	mView.addObject("categoryList", service.pagingCategory("1", 8, start, d_catg, request, mView, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
-    	mView.setViewName("bookList/CategoryList");
+    	mView.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mView, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
+    	mView.setViewName("bookList/CategoryList.page");
         return mView;
     }
 	
@@ -73,7 +73,7 @@ public class BookController {
         {
             mView.addObject("bookDetail",service.bookDetail(d_isbn,1));
         }
-        mView.setViewName("detail/bookDetail");
+        mView.setViewName("detail/bookDetail.page");
         return mView;
     
     }

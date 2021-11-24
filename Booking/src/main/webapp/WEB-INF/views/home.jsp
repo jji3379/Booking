@@ -7,11 +7,16 @@
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
 <title>책과의 즉석만남 Booking</title>
-	<link rel="stylesheet" href="resources/css/style.css">
+	<link rel="stylesheet" href="resources/css/home.css">
     <style>
-    
+    html, body {
+    	height: 100%;
+    	margin:0;
+ 		padding: 0;
+	}
+	
     body {
-    	min-width: 992px !important;
+    	padding: 0;
     }	
     .container {
     	min-width: 992px !important;
@@ -73,7 +78,6 @@
 	    background-color: #D3EBFF;
 	}
 	.bottom {
-		
 	}
 	.recommend {
 	
@@ -85,9 +89,11 @@
 	}
 	.booking {
 		width: 80%;
-		height: 450px;
+		height: 400px;
 		border: 2px solid #989c9b;
-		margin: 75px auto;
+		margin-top: 75px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	
 	.cards-wrapper {
@@ -95,9 +101,6 @@
 	}
 	.button, .cards-wrapper {
 		display: flex;
-	}
-	body {
-		
 	}
 	.Lbutton {
 		display: inline;
@@ -122,12 +125,6 @@
 		height: 32px;
 	}
 	
-	.col-6{
-		margin: auto;
-	}
-	
-	
-	
 	.B-logo {
 		font-family: '777Balsamtint';
 		font-size: 25px;
@@ -141,6 +138,11 @@
 		vertical-align: middle;
 		height: 100%;
 	}
+	
+	.col-6{
+		margin: auto;
+	}
+	
 	
 	.rec-title {
 		position: absolute;
@@ -218,7 +220,8 @@
    }
    #bookimage {
    		height:200px; 
-   		width:250px;
+   		width:200px;
+   		border-radius: 2px;
    }
    
    /* img  가  가운데 정렬 되도록 */
@@ -282,10 +285,10 @@
 </style>
 </head>
 <body>
-	<div class="container"> <!-- container -->
+	<div class="container" > <!-- container -->
 		<c:choose>
 		<c:when test="${not empty sessionScope.id }">
-		<div class="C-logo"><strong>${sessionScope.id }</strong>님을 위한 추천도서</div>
+		<div class="C-logo"><strong>${sessionScope.loginId }</strong>님을 위한 추천도서</div>
 		</c:when>
 		<c:otherwise>
 		<div class="C-logo">북킹이 엄선한 이달의 추천</div>
@@ -325,7 +328,7 @@
 					</li>
 					<li class="box">
 						<div class="card">
-						     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[2].isbn}" style="width:190px; height:260px;"id="isbn">
+						     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[2].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[2].image }" />
 						  		</div>
@@ -433,27 +436,34 @@
 				<img src="https://image.ibb.co/dfPSw7/right_arrow.png" alt="">
 			</div>        
 		</div>  <!-- /top -->
-
-		<div class="bottom">
-			<!-- Example row of columns -->
+		<div class="bottom"> <!-- bottom -->
 			<div class="booking">
-				<div class="row">
+				<div class="row"> <!-- Example row of columns -->
 					<div class="col-6" >
 					  	<div class="B-logo"><strong>낯선 책과의 즉석만남</strong> 하트를 눌러 만나보세요 </div>
 					  	<a id="bookingBtn" href="javascript:">
 					  		<img src="resources/images/bookingBtn.svg"/>
 					  	</a>
 					</div>
-					<div class="col-6" 
-					>
+					<div class="col-6" >
 						<a id="bookA">
 							<img id="bookimage" src="resources/images/message.svg"/>
 						</a>
 					</div>
+					<script>
+						var bimg = document.getElementById("bookimage");
+						$("#bookingBtn").on("click", function(){
+							bimg.style.boxShadow = "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset";
+						});
+					</script>
 				</div> <!-- /row -->
 			</div> <!-- /booking -->
+			<br />
 		</div> <!-- /bottom -->
 	</div> <!-- /container -->
+	<br />
+	<br />
+	<br />
 </body>
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
