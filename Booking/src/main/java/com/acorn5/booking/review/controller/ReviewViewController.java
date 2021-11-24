@@ -51,7 +51,7 @@ public class ReviewViewController {
 		
 		// by남기, view page 로 forward 이동해서 응답_210303
 		//mView.setViewName("review/reviewList");
-		return "review/reviewList"; 
+		return "review/reviewList.page"; 
 	}
 	
 	// by남기, 글 상세정보 요청처리_210303  

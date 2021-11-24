@@ -304,7 +304,7 @@
 	        	<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">베스트셀러 </a>
 	     	</li>
 			<li>
-				<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">도서리뷰 </a>
+				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
 			</li>
 			<li>
 		        <a href="${pageContext.request.contextPath }/map/mapsearch.do">서점 찾기</a>
