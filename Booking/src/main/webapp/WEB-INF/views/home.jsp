@@ -66,7 +66,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[3].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[3].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[3].image }" />
 					  			</div>
@@ -79,7 +79,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[4].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[4].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[4].image }" />
 						  		</div>
@@ -92,7 +92,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[5].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[5].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[5].image }" />
 					  			</div>
@@ -105,7 +105,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[6].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[6].isbn}" id="isbn">
 								<div class="img-wrapper">
 						    		<img class="card-img-top" src="${list[6].image }" />
 						  		</div>
@@ -118,7 +118,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[7].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[7].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[7].image }" />
 						  		</div>
@@ -131,7 +131,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[8].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[8].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[8].image }" />
 						   		</div>
@@ -144,7 +144,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[9].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[9].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[9].image }" />
 						  		</div>
