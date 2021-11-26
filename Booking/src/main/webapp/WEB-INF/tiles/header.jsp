@@ -109,7 +109,7 @@
 		width: 45px;
     	border-radius: 1.25rem;
    	    position: relative;
-    	top: 16px;
+    	top: 13px;
 	}
 	
 	.navWrap {
@@ -207,13 +207,22 @@
     	position: relative;
     	top: 3px;
 	}
-	.userBtn {
-		height: 25px;
+	.member {
+		font-weight: bold;
+		color: #212529;
+		text-align: center;
+		border: 1px solid gray;
+		padding: 0.375rem 0.75rem;
+		font-size: 15px;
+		border-radius: 1.25rem;
+	}
+	.nonMember {
+		position: relative;
+		top: 47%;
 		line-height: 1.5;
 		font-weight: bold;
 		color: #212529;
 		text-align: center;
-		background-color: transparent;
 		border: 1px solid gray;
 		padding: 0.375rem 0.75rem;
 		font-size: 15px;
@@ -241,21 +250,7 @@
 		background-color: #86b3e3;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	}
-	/* .srcBtn,
-	.cartImg,
-	.userBtn,
-	.userImg:hover {
-		color: #212529;
-		text-decoration: none;
-		
-	}
-	.srcBtn,
-	.cartImg,
-	.userBtn,
-	.userImg:focus {
-		outline: 0;
-  		box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);	
-	} */
+	
     </style>
 </head>
 	<div class="mainWrap">
@@ -281,15 +276,15 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-					<a href="" class="userImg"><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-					<a href="" class="userBtn" >${id } 님</a>
-					<a href="${pageContext.request.contextPath }/users/logout.do" class="userBtn">로그아웃</a>
+					<a href="" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
+					<a href="" class="member" >${id } 님</a>
+					<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 				</div>
 				</c:when>
 				<c:otherwise>
 				<div class="Users">
-					<a href="${pageContext.request.contextPath }/users/login_form.do"  class="userBtn" >로그인</a>
-					<a href="${pageContext.request.contextPath }/users/signup_form.do"  class="userBtn">회원가입</a>
+					<a href="${pageContext.request.contextPath }/users/login_form.do"  class="nonMember" >로그인</a>
+					<a href="${pageContext.request.contextPath }/users/signup_form.do"  class="nonMember">회원가입</a>
 				</div>
 				</c:otherwise>
 			</c:choose>
@@ -298,10 +293,10 @@
 	<div class="navWrap">
 		<ul class="Btns">
 			<li>
-				<a href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=100&sort=count&start=1">전체도서</a>
+				<a href="${pageContext.request.contextPath }/CategoryList.do?d_catg=100&sort=count&start=1">전체도서</a>
 			</li>
 			<li>
-	        	<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">베스트셀러 </a>
+	        	<a href="${pageContext.request.contextPath }/bestSeller.do">베스트셀러 </a>
 	     	</li>
 			<li>
 				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>

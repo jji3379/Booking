@@ -427,7 +427,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=290&start=1&sort=count">잡지</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-65px" class="dropdown-menu">
+		<div style="top:-49px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=290010&start=1&sort=count">여성 / 패션 / 리빙 </a>
 			<a class="dropdown-item"
@@ -454,7 +454,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=300&start=1&sort=count">청소년</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-72px" class="dropdown-menu">
+		<div style="top:-55px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=300010&start=1&sort=count">논술대비 </a>
 			<a class="dropdown-item"
@@ -479,7 +479,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=310&start=1&sort=count">유아</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-20px" class="dropdown-menu">
+		<div style="top:-15px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=310010&start=1&sort=count">0 ~ 3세 </a>
 			<a class="dropdown-item"
@@ -498,7 +498,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=320&start=1&sort=count">어린이</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-135px" class="dropdown-menu">
+		<div style="top:-120px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=320010&start=1&sort=count">초등 1 ~ 2학년 </a>
 			<a class="dropdown-item"
@@ -517,7 +517,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=330&start=1&sort=count">만화</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-390px" class="dropdown-menu">
+		<div style="top:-360px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=330010&start=1&sort=count">교양만화 </a>
 			<a class="dropdown-item"
@@ -554,7 +554,7 @@
 			href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=340&start=1&sort=count">해외도서</a>
 		<span class="dropdown-toggle" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"></span>
-		<div style="top:-465px" class="dropdown-menu">
+		<div style="top:-430px" class="dropdown-menu">
 			<a class="dropdown-item"
 				href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=340010&start=1&sort=count">문학 / 소설 </a> 
 			<a class="dropdown-item"

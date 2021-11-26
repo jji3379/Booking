@@ -7,282 +7,7 @@
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
 <title>책과의 즉석만남 Booking</title>
-	<link rel="stylesheet" href="resources/css/home.css">
-    <style>
-    html, body {
-    	height: 100%;
-    	margin:0;
- 		padding: 0;
-	}
-	
-    body {
-    	padding: 0;
-    }	
-    .container {
-    	min-width: 992px !important;
-    	border-left: 2px solid #989c9b;
-    	border-right: 2px solid #989c9b;
-    	background-color: #f0f8ff;
-    	padding: 0px;
-    }
-    
-    .container,
-	.container-fluid,
-	.container-sm,
-	.container-md,
-	.container-lg,
-	.container-xl {
-		width: 100%;
-		margin-right: auto;
-		margin-left: auto;
-	}
-	
-	@media (min-width: 576px) {
-		.container, .container-sm {
-			max-width: 540px;
-		}
-	}
-	
-	@media (min-width: 768px) {
-		.container, .container-sm, .container-md {		  
-			max-width: 720px;
-		}
-	}
-	
-	@media (min-width: 992px) {
-		.container, .container-sm, .container-md, .container-lg {
-			max-width: 960px;
-		}
-	}
-	
-	@media (min-width: 1200px) {
-		.container, .container-sm, .container-md, .container-lg, .container-xl {
-			max-width: 1140px;
-		}
-	}
-	
-	
-	.C-logo {
-		font-family: '777Balsamtint';
-		font-size: 35px;
-		position: relative;
-		top: 130px;
-		left: 100px;
-		width: 150px;
-		
-	}
-	.top {
-		display: flex;
-	    justify-content: space-around;
-	    align-items: center;
-	    background-color: #D3EBFF;
-	}
-	.bottom {
-	}
-	.recommend {
-	
-		height: 550px;
-		display: block;
-		position: relative;
-		background: #D3EBFF;
-		
-	}
-	.booking {
-		width: 80%;
-		height: 400px;
-		border: 2px solid #989c9b;
-		margin-top: 75px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	
-	.cards-wrapper {
-		margin: 0 auto;
-	}
-	.button, .cards-wrapper {
-		display: flex;
-	}
-	.Lbutton {
-		display: inline;
-		vertical-align: center;
-		margin-right:200px;
-	}
-	.Lbutton > img {
-		margin-left: 30px;
-		width: 32px;
-		height: 32px;
-		
-	}
-	.Rbutton {
-		display: inline;
-		vertical-align: center;
-		margin-left:80px;
-	}
-	.Rbutton > img {
-		
-		margin-right: 30px;
-		width: 32px;
-		height: 32px;
-	}
-	
-	.B-logo {
-		font-family: '777Balsamtint';
-		font-size: 25px;
-		width: 180px;
-		position: relative;
-		top: -20px;
-		left: 120px;
-	}
-	.row {
-		text-align: center;
-		vertical-align: middle;
-		height: 100%;
-	}
-	
-	.col-6{
-		margin: auto;
-	}
-	
-	
-	.rec-title {
-		position: absolute;
-		top: 75px;
-		left: 150px;
-	}
-
-	
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      .box {
-      	box-shadow: none;
-      }
-      /* card 이미지 부모요소의 높이 지정 */
-   .img-wrapper{
-      height: 260px;
-      /* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
-      transition: transform 0.3s ease-out;
-   }
-   /* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-   .img-wrapper:hover{
-      /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.05);
-   }
-   
-	.card .card-text{
-	/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
-		display:block;
-		white-space : nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		text-align:center;
-   }
-   .card-img-top{
-   		height:260px; 
-   		width:12rem;
-   }
-   
-   #card{
-       position: relative;
-       min-height: 1px;
-       padding-right: 15px;
-       padding-left: 15px;
-       width: 100px;
-   }
-   
-   .card-body{
-   		height:50px; 
-   		padding:0px;
-   		padding-top: 5px; 
-   		padding-left:3px; 
-   		text-align: center;
-   		background-color: #D3EBFF;
-   }
-   .card-text{
-   		font-family: '777Balsamtint';
-   		margin-bottom:0px; 
-   		font-size:15px;
-   }
-   #bookingBtn > img {
-   		margin-left:0px; 
-   		width:250px; 
-   		height:200px;
-   }
-   #bookimage {
-   		height:200px; 
-   		width:200px;
-   		border-radius: 2px;
-   }
-   
-   /* img  가  가운데 정렬 되도록 */
-   .back-drop{
-      /* 일단 숨겨 놓는다. */
-      display:none;
-   
-      /* 화면 전체를 투명도가 있는 회색으로 덮기 위한  css*/
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: #cecece;
-      padding-top: 300px;
-      z-index: 10000;
-      opacity: 0.5;
-      text-align: center;
-   }
-   
-   .back-drop img{
-      width: 100px;
-      /* rotateAnimation 이라는 키프레임을 2초 동한 일정한 비율로  무한 반복하기 */
-      animation: rotateAnimation 2s ease-out infinite;
-   }
-   
-   /* 프로필 이미지를 작은 원형으로 만든다 */
-   #profileImage{
-      width: 200px;
-      height: 200px;
-      border: 1px solid #cecece;
-      border-radius: 50%;
-      align:left;
-   }
-   #bestSeller{
-		text-overflow: ellipsis; 
-		height:400px;
-		width:350px;
-   }
-	a:link { color: black; text-decoration: none;}
-	a:visited { color: black; text-decoration: none;}
-	a:hover { color: blue; text-decoration: underline;}
-	.border-layout{
-	
-		border-top:2px solid #989c9b; 
-		border-left:2px solid #989c9b; 
-		border-bottom:2px solid #989c9b; 
-		width:700px
-	}
-	
-	@font-face {
-	    font-family: '777Balsamtint';
-	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
-	    
-	}
-	
-	
-	
-</style>
+<link rel="stylesheet" href="resources/css/home.css">
 </head>
 <body>
 	<div class="container" > <!-- container -->
@@ -302,7 +27,7 @@
 				<ul class="cards__container">
 					<li class="box">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[0].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[0].isbn}" id="isbn">
 								<div class="img-wrapper">
 							  		<img class="card-img-top" src="${list[0].image }" />
 							   	</div>
@@ -315,7 +40,7 @@
 					</li>
 					<li class="box">
 						<div class="card">
-							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[1].isbn}" id="isbn">
+							<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[1].isbn}" id="isbn">
 								<div class="img-wrapper">
 								  	<img class="card-img-top" src="${list[1].image }" />
 								</div>
@@ -328,7 +53,7 @@
 					</li>
 					<li class="box">
 						<div class="card">
-						     <a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${list[2].isbn}" id="isbn">
+						     <a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[2].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[2].image }" />
 						  		</div>

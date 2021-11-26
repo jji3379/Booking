@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
-<link rel="stylesheet" href="../resources/css/categoryList.css">
+<link rel="stylesheet" href="resources/css/categoryList.css">
 </head>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
@@ -23,13 +23,13 @@
 						<p class="nav-link blank"></p>
 					</li>
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'date' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg }&sort=date&start=1">최신도서</a></li>
+						<a class="g-i nav-link ${param.sort eq 'date' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg }&sort=date&start=1">최신도서</a></li>
 					</li>
 					<li class="nav-item">
 						<p class="nav-link blank"></p>
 					</li>
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
+						<a class="g-i nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 					
 				</ul>
@@ -37,11 +37,11 @@
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-5">
 							<div class=" h-100">
-								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+								<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
 									<img src="${b.image }" class="card-img-top img-wrapper cardBook">
 								</a>
 								<div  class="card-body">
-									<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
+									<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
 										<p class="card-title ellipsis2">${b.title }</p>
 									</a>
 									<small class="card-text ellipsis">${b.author }</small>
@@ -51,7 +51,7 @@
 					</c:forEach>
 				</div>
 				<!-- by 준익, 페이징 처리_2021.02.26 -->
-				<nav style="margin-top:30px">
+				<nav>
 				<ul class="pagination justify-content-center">
 					<c:choose>
 						<c:when test="${startPageNum != 1 }">
