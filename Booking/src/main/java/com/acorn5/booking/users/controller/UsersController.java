@@ -171,7 +171,7 @@ public class UsersController {
 		return "users/signup";
 	}
 	//by욱현.회원가입폼_2021222
-	@RequestMapping("/users/signup_form")
+	@RequestMapping("/signup_form")
 	public String signupForm() {
 		return "users/signup_form";
 	}
