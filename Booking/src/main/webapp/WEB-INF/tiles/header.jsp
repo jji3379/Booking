@@ -1,39 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <head>
+
 	<style>
-	/* .nav-link{
-		font-family: '777Balsamtint';
-		font-size: 25px;
-		width: max-content;
-	}
-	#log{
-		font-family: '777Balsamtint';
-	}
-	
-		
-	
-	#searchBook{
-		font-family: '777Balsamtint';
-		text-align: center;
-	}
-	
-	#navbarsExampleDefault {
-		min-width: 300px;
-		width: 30%;
-	}
-	.nav-width {
-		width: max-content;
-	}
-	nav {
-		width: 100%;
-		margin-right: auto;
-		margin-left: auto;
-	}
-	.heading {
-		
-	} */
+	/*  --- header --- */
 	.mainWrap {
 		height: 93px;
 	}
@@ -250,8 +222,196 @@
 		background-color: #86b3e3;
 		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	}
+	/* --- modal ---*/
+	.popup-wrap{
+		background-color:rgba(0,0,0,.6); 
+		/* 배경색과 투명도로 살짝 어둡지만 투명한 배경
+		허공에 붕 떠있는 느낌을 주고 싶으면 안넣어도 무방 */
+		justify-content:center; /* 수평 중앙정렬 */
+		align-items:center;     /* 수직 중앙정렬 */
+		position:fixed;          /* 포지션 픽스, 화면이 스크롤되더라도 고정되기 위함 */
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;               /* 모든 방향에 0을 주면 화면에 꽉차게 됩니다. */
+		display:none; 
+		/* 이벤트가 발생할 때 띄우기 위해 숨김
+		처음부터 보이게 하는 상황이라면 display:flex; */
+		padding:15px; 
+		/* 반응형의 경우 padding이 없으면 박스가 화면에 붙어서 안이뻐짐 */
+		z-index: 9999;
+		
+	}
+	.popup{
+		width:100%;               /* 반응형 이기 때문에 가로값은 100% */
+		max-width:440px;          /* 팝업의 최대 크기지정 */
+		height: 476px;
+		border-radius:5px;       /* 둥글둥글한 디자인을 위해 각을 없앱니다. */
+		overflow:hidden;          /* 각을 없앴을 때 내부 영역이 튀어나오는걸 방지 */
+		background-color: #fff; 
+		/* 팝업이 허공에 떠있는 듯한 느낌을 주기 위한 그림자 효과. */
+		box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
+		padding: 20px;
+	}
+	.login-wrap{
+		max-width:420px;
+		margin: 0 auto;
+	    width: 100%;
+	    position: relative;
+	    box-sizing: border-box;
+	}
+	.popup-head{
+		width: 100%;/* 부모요소를 따라가기 때문에 굳이 가로값을 주지 않아도 되지만 일부 ie에서 인식 못하는 문제가 있음 */
+		margin-bottom: 40px;
+		justify-content:center;
+		text-align: center;
+		
+	}
+	.head-logo{
+		background: url(${pageContext.request.contextPath }/resources/images/bookinglogo.svg) no-repeat top left;
+		background-position: center;
+		background-size: contain;
+		display: block;
+    	height: 50px;
+    	margin-top:30px;
+    	
+	}
+	.title {
+		font-family: '777Balsamtint';
+		margin-top: 15px;
+	    margin-bottom: 15px;
+	    text-align: center;
+	    font-size: 24px;
+	    color: #111111;
+	    font-weight: 500;
+	}
+	.popup-body{         		/* 몸통 */
+		width:100%;
+		background-color:#ffffff; /* 컨텐츠 영역의 배경색 */
+	}
+	.body-content{              /* 몸통 내부 컨텐츠 영역 */
+		width:100%;
+		
+	}
+	.idBox{             /* 컨텐츠 타이틀 영역 */
+		
+		margin-bottom:10px;     /* 내용과 간격 조정 */
+	}
+	.loginId {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.loginId-error {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #fe0000;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
 	
+	
+	.pwdBox{          /* 컨텐츠 내용 영역 */
+		word-break:break-word;    /* 단어가 짤리지 않음 */
+		overflow-y:auto;          /* 내부요소가 지정한 세로 값보다 클 경우 스크롤 생성 */
+		         
+	}
+	.pwd {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.pwd-error {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #fe0000;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	
+	.errorValid-off {
+	    display: none;
+	}
+	.errorValid-on {
+		font-size: 10px;
+	   	color: #fe0000;
+	    padding: 0 0 10px 0;
+	    display: none;
+	}
+	.errorId-off {
+    	display: none;
+	}
+	.errorId-on {
+		margin: 8px 0 1px 0;
+    	font-size: 10px;
+    	color: #fe0000;
+	}
+	.errorPwd-off {
+    	display: none;
+	}
+	.errorPwd-on {
+		margin: 8px 0 1px 0;
+    	font-size: 10px;
+    	color: #fe0000;
+	}
+	
+	.checkId{
+		font-size: 12px;
+		color: #8d8d8d;
+		margin-top: 13px;
+	}
+	.popup-foot {
+		margin-top: 35px;
+		text-align: center;
+	}
+	.popup-foot > span {
+		font-size: 11px;
+	}
+	.popup-foot > span > a {
+		font-size: 11px;
+		text-decoration: underline;
+	}
+	
+	.submitBtn {
+		margin-top: 30px;
+		padding-left: 0px !important;
+	    padding-right: 0px !important;
+	    width: 100%;
+	    text-align: center;
+	    height: 40px;
+	    font-size: 14px;
+	    padding: 13px 30px;
+	    background-color: black;
+	    border: 1px solid black;
+	    color: white;
+	    line-height: 1;
+	    cursor: pointer;
+	}
+	#close {
+		float: right;
+		background: url(${pageContext.request.contextPath }/resources/images/x.svg) no-repeat top left;
+		background-size: contain;
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+	}
+	
+
     </style>
+    <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+
 </head>
 	<div class="mainWrap">
 		<div class="center">
@@ -261,7 +421,7 @@
 				</a>
 			</div>
 			<div class="search">
-				<form id="searchForm" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get" >
+				<form id="searchForm" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get" >  
 			        <input id="searchBook" type="text" aria-label="Search"
 			           name="keyword" placeholder="검색어를 입력하세요"/>
 			        <input name="pageNum" value="1" hidden/>
@@ -277,14 +437,14 @@
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
 					<a href="" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-					<a href="" class="member" >${id } 님</a>
+					<a href="" class="member" >${loginId } 님</a>
 					<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 				</div>
 				</c:when>
 				<c:otherwise>
 				<div class="Users">
-					<a href="${pageContext.request.contextPath }/users/login_form.do"  class="nonMember" >로그인</a>
-					<a href="${pageContext.request.contextPath }/users/signup_form.do"  class="nonMember">회원가입</a>
+					<a href="#"  class="nonMember" id="modal-open" data-toggle="modal" data-target="#login">로그인</a>
+					<a href="${pageContext.request.contextPath }/signup_form.do"  class="nonMember">회원가입</a>
 				</div>
 				</c:otherwise>
 			</c:choose>
@@ -306,13 +466,141 @@
 		    </li>
 		</ul>
 	</div>
+	<!-- The Modal -->
+	<div id="container"> 
+		<div class="popup-wrap" id="popup"> 
+			<div class="popup">		
+				<a id="close"></a>
+				<div class="login-wrap">
+					<div class="popup-head">	
+						<span class="head-logo"></span>
+						<h2 class="title">북킹 로그인</h2>
+					</div>
+					<div class="popup-body">	
+						<form id="loginForm" class="loginForm" novalidate="">
+							<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
+							<input type="hidden" id="url" name="url" value="${url }"/>
+							<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
+							<div class="idBox">
+								<label for="id" hidden>아이디</label>
+								<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }" required autofocus>
+								<span class="errorId-off">필수 입력 항목입니다.</span>
+							</div>
+							<div class="pwdBox">
+								<label for="pwd" hidden>비밀번호</label>
+								<input type="password" class="pwd" id="pwd" name="pwd" placeholder="비밀번호" value="${savedPwd }">
+								<span class="errorPwd-off">필수 입력 항목입니다.</span>
+							</div>
+							<div class="checkId">
+								<label>
+	      						<input type="checkbox" name="isSave" value="yes"> 로그인 유지하기
+	    						</label>
+							</div>
+							<!-- <input id="hiddenBtn" type="submit" hidden/> -->
+							
+							
+						</form>
+						<button class="submitBtn" type="button" onclick="login()">로그인</button>
+					</div>
+					<div class="popup-foot"> 
+						<div id="msg"></div>
+						<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup_form.do">회원가입</a></span>
+					</div>	
+				</div>		
+			</div>
+		</div>
+	</div>
 <script>
-$(document).ready(function() {
-    $('#searchForm').submit(function() {
-        if ($('#searchBook').val() == '') {
-            alert('검색어를 입력하세요.');
-            return false;
-        }
-    }); 
-}); 
+	$(document).ready(function() {
+	    $('#searchForm').submit(function() {
+	        if ($('#searchBook').val() == '') {
+	            alert('검색어를 입력하세요.');
+	            return false;
+	        }
+	    }); 
+	}); 
+	//by준영. 로그인 시 모달창 기능
+	$(function(){
+		$("#modal-open").click(function(){        
+		    $("#popup").css('display','flex').hide().fadeIn();
+			    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+		});
+		$("#close").click(function(){
+		    modalClose(); //모달 닫기 함수 호출
+		});
+		function modalClose(){
+		    $("#popup").fadeOut(); //페이드아웃 효과
+		}
+		//by준영 모달영역 밖 클릭시 나가지는 기능
+		$(document).mouseup(function (e){
+			var popup = $('#popup');
+			if( popup.has(e.target).length === 0){
+				$("#popup").fadeOut();
+	  			$('.loginForm')[0].reset();
+			}
+		});
+	});
+	
+	
+	function login(){
+		var data = {
+				loginId : $("#loginId").val(),
+				pwd : $("#pwd").val(),
+			};
+			var url = $("#url").val();
+			console.log(data);
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/v1/users/login",
+				method:"post",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				data : JSON.stringify(data),
+				success:function(data) {
+					console.log("성공");
+					location.href=url;
+				},
+				error : function(data) {
+					console.log("오류");
+				}
+			});
+		
+		// 준영이형 코드
+		/*
+		var id = $("#loginId").val();
+		var pwd = $("#pwd").val();
+		var error = ((id === '' || pwd === '') ? 1 : 0 );
+		 	switch(error){
+			case 0:
+				$("#loginForm").submit(); 
+				break;
+			case 1:
+				if(id == '' && pwd == ''){
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class', 'pwd-error');
+					$('#loginId').focus();
+					return;
+				}else if(id == ''){
+					console.log('dd');
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('#loginId').focus();
+					return;
+				}else if(pwd == ''){
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class','pwd-error');
+					$('#pwd').focus();
+					return;
+				}else {
+					$("#loginForm").submit();
+				}
+				
+		 	}	
+		*/
+		} 
+	
 </script>
+
+

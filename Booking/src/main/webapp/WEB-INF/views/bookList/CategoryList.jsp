@@ -17,7 +17,7 @@
 			<div class="col-10">
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'count' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/CategoryList.do?d_catg=${d_catg }&sort=count&start=1">인기도서</a>
+						<a class="g-i nav-link ${param.sort eq 'count' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg }&sort=count&start=1">인기도서</a>
 					</li>
 					<li class="nav-item">
 						<p class="nav-link blank"></p>

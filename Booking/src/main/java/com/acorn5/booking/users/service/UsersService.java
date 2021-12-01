@@ -22,8 +22,9 @@ public interface UsersService {
 	public void loginformLogic(HttpServletRequest request,
 			ModelAndView mView);
 	//로그인 관련 처리를 하는 메소드
-	public void loginLogic(HttpServletRequest request,
-			HttpServletResponse response);
+	public Users loginLogic(HttpServletRequest request,
+			HttpServletResponse response,
+			Users users);
 	//개인정보를 ModelAndView  객체에 담아주는 메소드
 	public Users getInfo(ModelAndView mView, HttpSession session);
 	//개인정보를 삭제하는 처리를 하는 메소드

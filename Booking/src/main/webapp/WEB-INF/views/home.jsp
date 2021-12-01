@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
 <title>책과의 즉석만남 Booking</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/css/home.css">
 </head>
 <body>
@@ -270,4 +272,5 @@
 	   })
    })
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </html>

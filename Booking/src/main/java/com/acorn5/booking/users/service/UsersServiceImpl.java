@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -102,16 +103,19 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.로그인 비즈니스 로직_2021222
 	@Override
-	public void loginLogic(HttpServletRequest request, HttpServletResponse response) {
+	public Users loginLogic(HttpServletRequest request, HttpServletResponse response, Users users) {
 		//로그인후 가야하는 목적지 정보
 
 		String url=request.getParameter("url");
 		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
-		String encodedUrl=URLEncoder.encode(url);
+		//String encodedUrl=URLEncoder.encode(url);
 		//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
-		String loginId=request.getParameter("loginId");
-		String pwd=request.getParameter("pwd");
+		String loginId=users.getLoginId();
+				//request.getParameter("loginId");
+		String pwd=users.getPwd();
+				//request.getParameter("pwd");
 		
+		System.out.println("loginId : "+loginId+", pwd : "+pwd+",url : "+url);
 		/*
 		 	인코딩되 저장된 패스워드와 비교
 		 */
@@ -172,9 +176,11 @@ public class UsersServiceImpl implements UsersService{
 		}
 		//view page 에서 필요한 데이터를 request 에 담고
 		request.setAttribute("dto", dto);
-		request.setAttribute("encodedUrl", encodedUrl);
+		//request.setAttribute("encodedUrl", encodedUrl);
 		request.setAttribute("url", url);
-		request.setAttribute("isValid", isValid);		
+		request.setAttribute("isValid", isValid);	
+		
+		return dto;
 	}
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222

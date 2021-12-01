@@ -27,7 +27,7 @@ import com.acorn5.booking.users.dto.UsersDto;
 @Controller
 public class HomeController {
 private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeController.class);
-    
+	
     /**
      * Tiles를 사용하지 않은 일반적인 형태
      */    
