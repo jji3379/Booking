@@ -2,27 +2,32 @@ package com.acorn5.booking.review.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn5.booking.users.entity.Users;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "BK_BOOK_REVIEW_MST")
 public class Review {
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "REVIEW_ID")
 	private Long id; // 리뷰 번호
 	
@@ -35,7 +40,11 @@ public class Review {
 	private String content; // 리뷰 내용
 	private int rating; // 별점
 	private int viewCount; // 리뷰의 조회수
-	private LocalDateTime regdate; // 작성일
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@CreationTimestamp
+	private Date regdate; // 작성일
 	//private int startRowNum; // 시작 번호
 	//private int endRowNum; // 마지막 번호
 	private String isbn; // 책 고유번호
@@ -92,10 +101,10 @@ public class Review {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public LocalDateTime getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(LocalDateTime regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 

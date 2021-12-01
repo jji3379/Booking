@@ -41,13 +41,14 @@
 	<center><h1><strong>리뷰 작성</strong></h1></center>
 	<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
 	<a id="bookSearch" class="btn btn-primary" href="${pageContext.request.contextPath }/review/reviewBookList.do?"><strong>책 검색</strong></a>
-	<form action="reviewInsert.do" method="post" id="insertForm">
+	<form id="insertForm">
 		
 		<div class="form-group">
 			<c:forEach var="b" items="${reviewBook }">
 				<img name="image" src="${b.image }"/>				
-				<input type="hidden" name="imagePath" value="${b.image }" /><br />
-				<input id="selectBook" type="hidden" name="isbn" value="${b.isbn }" /><br />
+				<input type="hidden" name="writer" id="writer" value="${sessionScope.id}" /><br />
+				<input type="hidden" name="imagePath" id="imagePath" value="${b.image }" /><br />
+				<input id="isbn" type="hidden" name="isbn" value="${b.isbn }" /><br />
 				<label for="bookTitle">책 제목</label>
 				<input class="form-control" type="text" name="bookTitle" id="bookTitle" value="${b.title }"/>
 				<label for="reviewTitle">리뷰 제목</label>
@@ -73,7 +74,7 @@
 			<textarea class="form-control" name="content" id="content"></textarea>
 		</div>
 		
-		<button id="insertBtn" class="btn btn-primary" type="submit" onclick="submitContents(this);">저장</button>
+		<button id="insertBtn" class="btn btn-primary" type="submit" onclick="postAjax();">저장</button>
 	</form>
 </div>
 <script>
@@ -81,6 +82,35 @@
 <!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
+
+	function postAjax(){
+		var data = {
+			isbn : $("#isbn").val(),
+			reviewTitle : $("#reviewTitle").val(),
+			rating : $("#rating").val(),
+			content : $("#content").val(),
+			spoCheck : $("#spoCheck").val(),
+			bookTitle : $("#bookTitle").val(),
+			imagePath : $("#imagePath").val(),
+			//writer : $("#writer").val()eksk
+		};
+		console.log(data);
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/review",
+			method:"post",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
+			success:function(data) {
+				console.log("성공");
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 
 	      $(this).parent().children("a").removeClass("on");
@@ -89,17 +119,6 @@
 	      $("#rating").val(starval);
 	});
 	
-	//by채영_스포일러가 포함된 리뷰 읽을 확인 여부 
-	var num=$("#num").val();
-	function spoAlert(event){
-		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-		if(alert == true){
-			location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
-		}else{
-			event.preventDefault();
-			location.href = "${pageContext.request.contextPath }/review/reviewList.do";
-		}
-	}
 	var oEditors = [];
 	
 	//추가 글꼴 목록
@@ -134,41 +153,43 @@
 		var sHTML = oEditors.getById["content"].getIR();
 		alert(sHTML);
 	}
-		
+
 	function submitContents(elClickedObj) {
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 		
 		// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
 		
 		//by준영, 빈값을 제출 못하게 하는 기능_210305
-		var slBook=$("#selectBook").val();
-		var rvtitle=$("#reviewTitle").val();
+		var isbn=$("#isbn").val();
+		var reviewTitle=$("#reviewTitle").val();
 		var rating=$("#rating").val();
-		var cont=$("#content").val();
+		var content=$("#content").val();
 		
-		if(slBook == null){
+		if(selectBook == null){
 			alert("책 선택은 필수기입항목 입니다");
 			return;
-		}else if(rvtitle == ""){
+		}else if(reviewTitle == ""){
 			alert("리뷰 제목은 필수기입항목 입니다");
 			$("#reviewTitle").focus();
 			return;
 		}else if(rating == ""){
 			alert("별점은 필수기입항목 입니다");
 			return;
-		}else if( cont == ""  || cont == null || cont == '&nbsp;' || cont == '<p>&nbsp;</p>'){
+		}else if( content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>'){
 			alert("리뷰 내용은 필수기입항목 입니다");
 			return;
 		}
-		  
+		
 		try {
 			elClickedObj.form.submit();
 		} catch(e) {}
 	}
 	
+	/*
 	$("#insertBtn").on("click",function(){
 		return false;
 	})
+	*/
 	
 	function setDefaultFont() {
 		var sDefaultFont = '궁서';

@@ -29,23 +29,6 @@ public class HomeController {
 private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeController.class);
     
     /**
-     * Simply selects the home view to render by returning its name.
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(Locale locale, Model model) {
-        logger.info("Welcome home! The client locale is {}.", locale);
-        
-        Date date = new Date();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-        
-        String formattedDate = dateFormat.format(date);
-        
-        model.addAttribute("serverTime", formattedDate );
-        
-        return "home";
-    }
-    
-    /**
      * Tiles를 사용하지 않은 일반적인 형태
      */    
     @RequestMapping("/test.do")
@@ -88,7 +71,7 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	//@Autowired
 	//private CartService cartservice;
 	
-	@RequestMapping("/home.do") 
+	@RequestMapping("/") 
 	public ModelAndView home(HttpSession session,HttpServletRequest request) {
 		
 		ModelAndView mView = new ModelAndView();

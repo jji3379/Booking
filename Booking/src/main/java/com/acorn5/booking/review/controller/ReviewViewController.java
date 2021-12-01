@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +40,7 @@ public class ReviewViewController {
 
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review")
-	public String list(ModelAndView mView ,HttpServletRequest request) {
+	public String list(Model model ,HttpServletRequest request) {
 		
 		Long id=(Long)request.getSession().getAttribute("id");
 		if(id!=null) {
@@ -47,37 +48,33 @@ public class ReviewViewController {
 		//cartservice.listCart(request); 
 		}
 		
-		//service.getList(mView ,request);
-		
+		Page<Review> review = service.getList(request);
+		model.addAttribute("pageNum", review.getNumber());
 		// by남기, view page 로 forward 이동해서 응답_210303
 		//mView.setViewName("review/reviewList");
 		return "review/reviewList.page"; 
 	}
 	
 	// by남기, 글 상세정보 요청처리_210303  
-	@RequestMapping(value = "/reviewDetail/{num}", method = RequestMethod.GET)
-	public ModelAndView detail(@PathVariable Long num, ModelAndView mView
+	@RequestMapping(value = "/review/{id}")
+	public String detail(@PathVariable Long id, Model model
 			,HttpServletRequest request) {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
-		service.getDetail(num, mView);
-		Long id=(Long)request.getSession().getAttribute("id");
+		Review review = service.getDetail(id);
+		Long writer = review.getWriter().getId();
+		Long loginId=(Long)request.getSession().getAttribute("id");
 		
-		if(id!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request); 
+		if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
+			//cartservice.listCart(mView, request); 
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
-		mView.setViewName("review/reviewDetail");
-		return mView;
+		model.addAttribute("reviewId", id);
+		model.addAttribute("loginId", loginId);
+		model.addAttribute("writer", writer);
+		//mView.setViewName("review/reviewDetail");
+		return "review/reviewDetail.page";
 	}
 	
-	// by남기, 글 삭제 요청처리_210303
-	@RequestMapping(value = "/reviewDelete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable Long id) {
-		// by남기, 삭제할 글 번호가 파라미터로 넘어온다_210303
-		service.deleteContent(id);
-		// by남기, view page 로 forward 이동해서 응답_210303
-		//return "review/private/reviewDelete";
-	}
 
 	// by남기, 새 리뷰 작성 폼 요청 처리_210303
 	@RequestMapping("/private/reviewInsertform")
@@ -86,30 +83,24 @@ public class ReviewViewController {
 		return "review/private/reviewInsertform";
 
 	}
-	// by남기, 새 리뷰 작성 요청 처리_210303
-	@RequestMapping(value = "/private/reviewInsert", method = RequestMethod.POST)
-	public String insert(Review dto, HttpServletRequest request) {
-		// by남기, 추가할 리뷰 정보가 파라미터로 넘어온다_210303
-		service.saveContent(dto, request);
-		// by남기, view page 로 forward 이동해서 응답_210303
-		return "redirect:/review/reviewList.do";
-	}
+
 	// by남기, 리뷰 수정 폼 요청 처리_210303
 	@RequestMapping("/private/reviewUpdateform")
 	public ModelAndView updateform(@RequestParam Long num,
 			ModelAndView mView, HttpServletRequest request) {
 		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
-		service.getDetail(num, mView);
-		cartservice.listCart(mView, request);
+		//service.getDetail(num);
+		//cartservice.listCart(mView, request);
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.setViewName("review/private/reviewUpdateform");
 		return mView;
 	}
+	
 	// by남기, 리뷰 수정 요청 처리_210303
-	@RequestMapping(value = "/reviewUpdate/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/reviewUpdate", method = RequestMethod.PUT)
 	public String update(@PathVariable("id") Long id, @RequestBody Review review) {
 		// by남기, 수정할 리뷰의 정보를 dto에서 가져온다_210303
-		service.updateContent(id, review);
+		//service.updateContent(id, review);
 		// by남기, view page 로 forward 이동해서 응답_210303
 		return "review/private/reviewUpdate";
 	}
