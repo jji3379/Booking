@@ -418,7 +418,7 @@
 		<div class="center">
 			<div class="logo">
 				<a href="${pageContext.request.contextPath }">
-					<img id="nav-logo" src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg" />
+					<img id="nav-logo" src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/>
 				</a>
 			</div>
 			<div class="search">
@@ -434,11 +434,14 @@
 			    	<span class="cartBadge">${count}</span>
 			   	</a>
 			</div>
+			<div id="signin">
+			
+			</div>
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
 					<a href="" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-					<a href="" class="member" >${id } 님</a>
+					<a href="" class="member" >${loginId } 님</a>
 					<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 				</div>
 				</c:when>
@@ -478,10 +481,10 @@
 						<h2 class="title">북킹 로그인</h2>
 					</div>
 					<div class="popup-body">	
-						<form method="POST" id="loginForm" class="loginForm" action="${pageContext.request.contextPath }/login.do" novalidate>
+						<form id="loginForm" class="loginForm" novalidate="">
 							<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
-							<input type="hidden" name="url" value="${url }"/>
-							<div class="errorValid-off">${exception.message }</div>
+							<input type="hidden" id="url" name="url" value="${url }"/>
+							<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
 							<div class="idBox">
 								<label for="id" hidden>아이디</label>
 								<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }">
@@ -497,7 +500,6 @@
 	      						<input type="checkbox" id="saveId" name="isSave" value="yes"> 로그인 유지하기
 	    						</label>
 							</div>
-							<input type="hidden" id="url" value="${url}" />
 						</form>
 						<button class="submitBtn" type="button" onclick="login()">로그인</button>
 					</div>
@@ -508,9 +510,8 @@
 			</div>
 		</div>
 	</div>
-<script>
+<script>	
 	var url = $('#url').val();
-	
 	$(document).ready(function() {
 	    $('#searchForm').submit(function() {
 	        if ($('#searchBook').val() == '') {
@@ -562,33 +563,34 @@
 		var saveIdCheck = $('#saveId:checked').val();
 		var error = ((loginId === '' || pwd === '') ? 1 : 0 );
 	 	
-		if(saveIdCheck == 'on'){
+		/* if(saveIdCheck == 'on'){
 			localStorage.setItem("saveId",loginId);
 		}else{
 			localStorage.setItem("saveId",'N');
 		}
-		
-		var loginData = {"loginId":loginId,"pwd":pwd};
-		
-		$.ajax({
-			type : 'POST',
-			url : "${pageContext.request.contextPath }/login.do",
-			contentType : "application/json",
-			data : JSON.stringify(loginData),
-			success : function(result){
-				if(result == 0){
-					alert("아이디,비번 확인");
-					return false;
-				}else{//로그인성공
-					$('.mainWrap').load(location.href+'.mainWrap');
-				}
-			},
-			
-		});
+		*/
+		var loginData = {loginId : loginId, pwd : pwd};
 		
 		switch(error){
-		case 0:
-			$("#loginForm").submit(); 
+			case 0:
+				$.ajax({
+					type : 'POST',
+					url:"${pageContext.request.contextPath}/v1/users/login",
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					data : JSON.stringify(loginData),
+					success : function(result){
+						if(result == 0){
+							alert("아이디,비번 확인");
+							return false;
+						}else{//로그인성공	
+							/* $('.mainWrap').load(document.URL +  ' .mainWrap'); */
+							location.reload();
+							$("#popup").fadeOut();
+						}
+					},
+					
+				});
 			break;
 		case 1:
 			if(loginId == '' && pwd == ''){
@@ -638,8 +640,6 @@
 			$('#pwd').focus();
 		}
 	})
-		
-
 	
 </script>
 

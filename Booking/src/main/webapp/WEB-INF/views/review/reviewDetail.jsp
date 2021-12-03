@@ -124,23 +124,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="review" name="thisPage"/>
-</jsp:include>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.form.min.js"></script>
-<script>
-	function deletea() {
-		$.ajax({
-			url:"${pageContext.request.contextPath}/review/reviewDelete/${dto.id}",
-			method:"DELETE",
-			dataType : "json",
-			success:function(data){
-				alert("삭제됨");
-			}
-		});
-	}
-</script>
-<div></div>
 <div>
 	<center><h1><strong>리뷰 내용</strong></h1></center>
 	<table class="table table-striped">
@@ -153,15 +136,15 @@
 		</tr>
 		<tr>
 			<td><strong>작성자</strong></td>
-			<td>${dto.writer.loginId }</td>
+			<td id="writer"></td>
 		</tr>
 		<tr>
 			<td><strong>도서 제목</strong></td>
-			<td>${dto.bookTitle }</td>
+			<td id="bookTitle">${dto.bookTitle }</td>
 		</tr>
 		<tr>
 			<td><strong>리뷰 제목</strong></td>
-			<td>${dto.reviewTitle }</td>
+			<td id="reviewTitle">${dto.reviewTitle }</td>
 		</tr>
 		<tr>
 			<td><strong>별점</strong></td>
@@ -187,22 +170,22 @@
 		</tr>
 		<tr>
 			<td><strong>조회수</strong></td>
-			<td>${dto.viewCount }</td>
+			<td id="viewCount">${dto.viewCount }</td>
 		</tr>
 		<tr>
 			<td><strong>등록일</strong></td>
-			<td>${dto.regdate }</td>
+			<td id="regdate">${dto.regdate }</td>
 		</tr>
 		<tr>
 			<td><strong>내용</strong></td>
 			<td colspan="2">
-				<div>${dto.content }</div>
+				<div id="content">${dto.content }</div>
 			</td>
 		</tr>
 	</table>
 	<ul class="mylist">
-		<li><a href="reviewList.do">목록보기</a></li>
-		<c:if test="${dto.writer.id eq id }">
+		<li><a href="review">목록보기</a></li>
+		<c:if test="${writer eq loginId }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
 			<li><a href="#" onclick="deletea();">삭제</a></li>
 		</c:if>
@@ -287,6 +270,55 @@
 	</div>
 </div>
 <script>
+
+	function deletea() {
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
+			method:"DELETE",
+			dataType : "json",
+			success:function(data){
+				alert("삭제됨");
+			}
+		});
+	}
+	$(document).ready(function(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
+			method:"GET",
+			dataType : "json",
+			success:function(data) {
+				$("#image")[0].src = data.imagePath;
+				$("#reviewTitle")[0].textContent = data.reviewTitle;
+				$("#bookTitle")[0].textContent = data.bookTitle;
+				$("#writer")[0].textContent = data.writer.loginId;
+				$("#viewCount")[0].textContent = data.viewCount;
+				$("#regdate")[0].textContent = data.regdate;
+				switch(data.rating) {
+				case 1 :
+					star = '<a href="#">★</a>';
+					break;
+				case 2 :
+					star = '<a href="#">★★</a>';
+					break;
+				case 3 :
+					star = '<a href="#">★★★</a>';
+					break;
+				case 4 :
+					star = '<a href="#">★★★★</a>';
+					break;
+				case 5 :
+					star = '<a href="#">★★★★★</a>';
+					break;
+				}
+				$("#star")[0].innerHTML = star;
+				$("#content")[0].innerHTML = data.content;
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}); 
+
 	// by남기. _210303
 	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
 	$(document).on("click",".reviewComment-update-link", function(){
@@ -387,6 +419,7 @@
 		
 		currentPage++; //페이지를 1 증가 시키고 
 		//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
+		/*
 		$.ajax({
 			url:"reviewCommentList.do",
 			method:"get",
@@ -398,7 +431,8 @@
 				//로딩 이미지를 숨긴다. 
 				$(".loader").hide();
 			}
-		});		
+		});
+		*/
 	//}	
 	
 	//웹브라우저에 scoll 이벤트가 일어 났을때 실행할 함수 등록 
@@ -423,6 +457,7 @@
 			
 			currentPage++; //페이지를 1 증가 시키고 
 			//해당 페이지의 내용을 ajax  요청을 해서 받아온다
+			/*
 			$.ajax({
 				url:"reviewCommentList.do",
 				method:"get",
@@ -437,6 +472,7 @@
 					isLoading=false;
 				}
 			});
+			*/
 		}
 	});	
 	

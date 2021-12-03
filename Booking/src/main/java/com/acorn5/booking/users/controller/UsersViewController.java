@@ -28,7 +28,7 @@ import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.service.UsersService;
 
 @Controller
-public class UsersController {
+public class UsersViewController {
 	
 	@Autowired
 	private UsersService usersService;
@@ -140,16 +140,6 @@ public class UsersController {
 		return "users/logout";
 	}
 	
-	//by욱현.로그인 요청 처리_2021222
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request,
-			HttpServletResponse response) {
-		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
-		usersService.loginLogic(request, response);
-		//view page  로 forward  이동해서 응답
-		return "users/login";
-	}
-	
 	//by욱현.로그인 폼 요청 처리_2021222
 	@RequestMapping("/users/login_form")
 	public ModelAndView loginform(HttpServletRequest request, 
@@ -173,7 +163,7 @@ public class UsersController {
 	//by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")
 	public String signupForm() {
-		return "users/signup_form.page";
+		return "users/signup_form";
 	}
 	
 	//by욱현.중복아이디 검사를 위한 ajax 요청 처리_2021222 

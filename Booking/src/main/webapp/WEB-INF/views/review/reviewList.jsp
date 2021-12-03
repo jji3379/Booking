@@ -71,7 +71,7 @@
 					<th><strong>별점</strong></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id = "reviewList">
 					<tr>
 						<td class="ellipsis"> 
 							<img class="rounded-sm" id="imagePath"/>
@@ -83,27 +83,12 @@
 						<td class="ellipsis" id="regdate">${t.regdate }</td>
 						<td class="ellipsis">
 							<p id="star">
-								<c:if test="${t.rating  eq 1}">
-									<a href="#">★</a>
-								</c:if>
-								<c:if test="${t.rating  eq 2}">
-									<a href="#">★★</a>
-								</c:if>
-								<c:if test="${t.rating  eq 3}">
-									<a href="#">★★★</a>
-								</c:if>
-								<c:if test="${t.rating  eq 4}">
-									<a href="#">★★★★</a>
-								</c:if>
-								<c:if test="${t.rating  eq 5}">
-									<a href="#">★★★★★</a>
-								</c:if>
 							<p>
 						</td>
 					</tr> 
 			</tbody>
 		</table>
-		<nav>
+		<nav id = "paging">
 			<ul class="pagination justify-content-center">
 				<c:choose>
 					<c:when test="${!list.first}">
@@ -175,36 +160,100 @@
 		}
 	});
 	
-	$.ajax({
-		url:"${pageContext.request.contextPath}/reviews",
-		method:"GET",
-		dataType : "json",
-		success:function(data) {
-			console.log(data);
-			var dataSize = data.content.length;
-			$("#dataSize").innerText = dataSize;
-			for(var i=0; i<data.content.length; i++) {
-				$("#imagePath")[0].src = data.content[i].imagePath;
-				$("#reviewTitle")[0].innerText = data.content[i].reviewTitle;
-				$("#bookTitle")[0].innerText = data.content[i].bookTitle;
-				$("#writer")[0].innerText = data.content[i].writer.loginId;
-				$("#viewCount")[0].innerText = data.content[i].viewCount;
-				$("#regdate")[0].innerText = data.content[i].regdate;
+	$(document).ready(function(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/review",
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				// 페이징
+				var paging = '';
+				paging += '<ul class="pagination justify-content-center">';
+				// 첫 페이지 이면
+				if (data.first) {
+					paging += '<li class="page-item disabled"><a class="page-link" href="javascript:">Prev</a></li>';
+				} else {
+					paging += '<li class="page-item"><a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a></li>';
+				}
+				// 페이지 수
+				var pagingSize = (data.totalPages < data.size ? data.totalPages : data.size);
+				var startPage = (data.number == data.number + data.size -1 ? data.number + data.size : data.number); 
+				for (var j = startPage; j < pagingSize; j++){
+					if (j == data.totalPages - 1){
+						if (data.last) {
+							paging += '<li class="page-item disabled"><a class="page-link" href="javascript:">Next</a></li>';
+						} else {
+							paging += '<li class="page-item"><a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a></li>';
+						}
+					}
+					else {
+						if (j == data.number) {
+							paging += '<li class="page-item active"><a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">'+(j+1)+'</a></li>';
+						} else {
+							paging += '<li class="page-item"><a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">'+(j+1)+'</a></li>';
+						}
+					} 
+				}
+				paging += '</ul>';
+				$("#paging").append(paging);
+				
+				// item list
+				var dataSize = data.content.length;
+				var reviewList = "";
+				var star = '';
+				for(var i=0; i<data.content.length; i++) {
+					reviewList += '<tr>'
+						reviewList += '<td class="ellipsis"> <img class="rounded-sm" src="' + data.content[i].imagePath + '"/>' + '</td>';
+						reviewList += '<td class="ellipsis">'
+							+'<a href="${pageContext.request.contextPath}/review/'+data.content[i].id+'"'
+							+'onclick="spoAlert("'+data.content[i].spoCheck+'")">'
+							+data.content[i].reviewTitle+'</a></td>';
+						reviewList += '<td class="ellipsis">'+data.content[i].bookTitle+'</td>';
+						reviewList += '<td class="ellipsis">'+data.content[i].writer.loginId+'</td>';
+						reviewList += '<td class="ellipsis">'+data.content[i].viewCount+'</td>';
+						reviewList += '<td class="ellipsis">'+data.content[i].regdate+'</td>';
+						switch(data.content[i].rating) {
+							case 1 :
+								star = '<a href="#">★</a>';
+								break;
+							case 2 :
+								star = '<a href="#">★★</a>';
+								break;
+							case 3 :
+								star = '<a href="#">★★★</a>';
+								break;
+							case 4 :
+								star = '<a href="#">★★★★</a>';
+								break;
+							case 5 :
+								star = '<a href="#">★★★★★</a>';
+								break;
+						}
+						reviewList += '<td class="ellipsis"><p id="star">'+star+'</p></td>';
+					reviewList += '</tr>';
+				}
+				$("#reviewList").append(reviewList);
+			},
+			error : function(data) {
+				console.log("오류");
 			}
-		}
-	});
-	
+		});
+	}); 
 	
 	$("#isbn").attr('disabled','disabled').css('display','none');//by준영 검색조건 select에서 isbn검색 숨김_210228
 	
 	//by채영_스포일러가 포함된 리뷰 읽을 확인 여부 
 	var num=$("#num").val();
-	function spoAlert(event){
-		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-		if(alert == true){
-			location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
-		}else{
-			event.preventDefault();
+	function spoAlert(spoCheck){
+		console.log(spoCheck);
+		if(spoCheck == "yes"){
+			var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+			if(alert == true){
+				location.href = "${pageContext.request.contextPath }/review/reviewDetail.do?num=num";
+			}else{
+				event.preventDefault();
+			}
 		}
 	}
 	

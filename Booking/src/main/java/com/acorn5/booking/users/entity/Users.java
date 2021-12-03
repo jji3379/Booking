@@ -1,6 +1,8 @@
 package com.acorn5.booking.users.entity;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.acorn5.booking.review.entity.Review;
 
@@ -18,16 +22,20 @@ import com.acorn5.booking.review.entity.Review;
 @Table(name = "BK_USER_MST")
 public class Users {
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long id;
 	private String loginId;
 	private String pwd;
 	private String email;
 	private String profile;
-	private LocalDateTime regdate;
+	@CreationTimestamp
+	private Date regdate;
 	private String care;
 	private String recentSearch;
+	
+	@OneToMany(mappedBy = "writer")
+	List<Review> review = new ArrayList<Review>();
 	
 	public Long getId() {
 		return id;
@@ -59,10 +67,10 @@ public class Users {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public LocalDateTime getRegdate() {
+	public Date getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(LocalDateTime regdate) {
+	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
 	public String getCare() {

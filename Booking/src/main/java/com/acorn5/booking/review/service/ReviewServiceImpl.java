@@ -64,12 +64,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	// by남기, 새 리뷰를 저장하는 메소드_210303
 	@Override
-	public void saveContent(Review dto, HttpServletRequest request) {
+	public Review saveContent(Review dto) {
 		// by남기, dto 에 업로드된 파일의 정보를 담는다_210303
-	      Long id=(Long)request.getSession().getAttribute("id");
-	      String imagePath=request.getParameter("imagePath");
-	      String reviewTitle=request.getParameter("reviewTitle");
-	      String spoCheck=request.getParameter("spoCheck");
+	      /*
 	        if(spoCheck!=null) {
 	           spoCheck="yes";
 	           dto.setSpoCheck(spoCheck);
@@ -77,16 +74,17 @@ public class ReviewServiceImpl implements ReviewService{
 	           spoCheck="no";
 	           dto.setSpoCheck(spoCheck);
 	        }
-	        
 	      Users user = new Users();
 	      user.setId(id);
-	      
+	       */
+	      /*
 	      dto.setReviewTitle(reviewTitle);
 	      dto.setWriter(user); // by남기, 세션에서 읽어낸 파일 업로더의 아이디 _210303
 	      dto.setImagePath(imagePath);
+	      */
 	      // by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
 	      
-	      reviewRepository.save(dto);
+	      return reviewRepository.save(dto);
 	      //reviewDao.insert(dto);  
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
@@ -98,7 +96,7 @@ public class ReviewServiceImpl implements ReviewService{
 		final int PAGE_DISPLAY_COUNT=5;
 		
 		// by남기, 보여줄 페이지의 번호를 일단 1이라고 초기값 지정_210303
-		int pageNum=1;
+		int pageNum=0;
 		// by남기, 페이지 번호가 파라미터로 전달되는지 읽어와 본다_210303
 		String strPageNum=request.getParameter("pageNum");
 		
@@ -159,7 +157,7 @@ public class ReviewServiceImpl implements ReviewService{
 		// by남기, 글목록 얻어오기_210303
 		Pageable pageable = new PageRequest(pageNum, 5);
 		list = reviewRepository.findAll(pageable);
-		  
+		
 		// by남기, 글의 갯수_210303
 		//totalRow=reviewDao.getCount(dto);
 		System.out.println("first : "+pageable.first());
@@ -239,14 +237,16 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰 하나의 정보를 ModelAndView 객체에 담아주는 메소드_210303
 	@Override
-	public void getDetail(Long num, ModelAndView mView) {
+	public Review getDetail(Long id) {
 		// by남기, 글번호를 이용해서 글정보를 얻어오고  _210303
-		Review dto=reviewRepository.findOne(num);
+		Review dto=reviewRepository.findOne(id);
 				//reviewDao.getData(num);
 		System.out.println("dto : "+dto);
 		// by남기, 글정보를 ModelAndView 객체에 담고 _210303
-		mView.addObject("dto", dto);
+		//mView.addObject("dto", dto);
 		// by남기, 글 조회수를 증가 시킨다 _210303
+		dto.setViewCount((int)dto.getViewCount()+1);
+		reviewRepository.save(dto);
 		//reviewDao.addViewCount(num);
 		/*  by남기, 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다  _210303 */
 		final int PAGE_ROW_COUNT=5;
@@ -273,11 +273,12 @@ public class ReviewServiceImpl implements ReviewService{
 		//reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(num);
+		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(id);
 				//reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
-		mView.addObject("reviewCommentList", reviewCommentList);
+		//mView.addObject("reviewCommentList", reviewCommentList);
 		//mView.addObject("totalPageCount", totalPageCount);
+		return dto;
 		
 	}
 	// by남기, 리뷰의 댓글을 저장하는 메소드 _210303
