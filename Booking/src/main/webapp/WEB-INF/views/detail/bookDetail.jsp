@@ -89,8 +89,7 @@
 			}
 			console.log(data);
 			if(id == ""){
-				alert("로그인이 필요합니다");	
-				location.href="${pageContext.request.contextPath }/users/login_form.do";
+				$('#modal-open').trigger('click');
 			}else{
 				$.ajax({
 					url:url,
@@ -125,8 +124,7 @@
 			}
 			console.log(data);
 			if(id == ""){
-				alert("로그인이 필요합니다");	
-				location.href="${pageContext.request.contextPath }/users/login_form.do";
+				$('#modal-open').trigger('click');
 			}else{
 				$.ajax({
 					url:url,

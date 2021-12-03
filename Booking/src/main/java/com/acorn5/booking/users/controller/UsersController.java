@@ -141,7 +141,7 @@ public class UsersController {
 	}
 	
 	//by욱현.로그인 요청 처리_2021222
-	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response) {
 		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
@@ -173,7 +173,7 @@ public class UsersController {
 	//by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")
 	public String signupForm() {
-		return "users/signup_form";
+		return "users/signup_form.page";
 	}
 	
 	//by욱현.중복아이디 검사를 위한 ajax 요청 처리_2021222 

@@ -382,6 +382,7 @@
 	.popup-foot > span > a {
 		font-size: 11px;
 		text-decoration: underline;
+		color: #000;
 	}
 	
 	.submitBtn {
@@ -477,13 +478,13 @@
 						<h2 class="title">북킹 로그인</h2>
 					</div>
 					<div class="popup-body">	
-						<form method="POST" id="loginForm" class="loginForm" action="${pageContext.request.contextPath }/users/login.do"  novalidate="">
+						<form method="POST" id="loginForm" class="loginForm" action="${pageContext.request.contextPath }/login.do" novalidate>
 							<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
 							<input type="hidden" name="url" value="${url }"/>
-							<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
+							<div class="errorValid-off">${exception.message }</div>
 							<div class="idBox">
 								<label for="id" hidden>아이디</label>
-								<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }" required autofocus>
+								<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }">
 								<span class="errorId-off">필수 입력 항목입니다.</span>
 							</div>
 							<div class="pwdBox">
@@ -493,17 +494,14 @@
 							</div>
 							<div class="checkId">
 								<label>
-	      						<input type="checkbox" name="isSave" value="yes"> 로그인 유지하기
+	      						<input type="checkbox" id="saveId" name="isSave" value="yes"> 로그인 유지하기
 	    						</label>
 							</div>
-							<!-- <input id="hiddenBtn" type="submit" hidden/> -->
-							
-							
+							<input type="hidden" id="url" value="${url}" />
 						</form>
 						<button class="submitBtn" type="button" onclick="login()">로그인</button>
 					</div>
 					<div class="popup-foot"> 
-						<div id="msg"></div>
 						<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup_form.do">회원가입</a></span>
 					</div>	
 				</div>		
@@ -511,6 +509,8 @@
 		</div>
 	</div>
 <script>
+	var url = $('#url').val();
+	
 	$(document).ready(function() {
 	    $('#searchForm').submit(function() {
 	        if ($('#searchBook').val() == '') {
@@ -531,51 +531,115 @@
 		function modalClose(){
 		    $("#popup").fadeOut(); //페이드아웃 효과
 		}
-		//by준영 모달영역 밖 클릭시 나가지는 기능
+		//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
 		$(document).mouseup(function (e){
 			var popup = $('#popup');
 			if( popup.has(e.target).length === 0){
 				$("#popup").fadeOut();
 	  			$('.loginForm')[0].reset();
+	  			$('.errorId-on').attr('class','errorId-off');
+				$('.loginId-error').attr('class','loginId');
+				$('.errorPwd-on').attr('class','errorPwd-off');
+				$('.pwd-error').attr('class','pwd');
 			}
 		});
 	});
+	//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
+	$('#loginForm').keypress(function(event){
+	     if ( event.which == 13 ) {
+	    	 login();
+	         return false;
+	     }
+	});
 	
+	//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
+	var loginClickCheck = 0;
 	
 	function login(){
-		var id = $("#loginId").val();
+		loginClickCheck = 1;
+		var loginId = $("#loginId").val();
 		var pwd = $("#pwd").val();
-		var error = ((id === '' || pwd === '') ? 1 : 0 );
-		 	switch(error){
-			case 0:
-				$("#loginForm").submit(); 
-				break;
-			case 1:
-				if(id == '' && pwd == ''){
-					$('.errorId-off').attr('class','errorId-on');
-					$('.loginId').attr('class','loginId-error');
-					$('.errorPwd-off').attr('class','errorPwd-on');
-					$('.pwd').attr('class', 'pwd-error');
-					$('#loginId').focus();
-					return;
-				}else if(id == ''){
-					console.log('dd');
-					$('.errorId-off').attr('class','errorId-on');
-					$('.loginId').attr('class','loginId-error');
-					$('#loginId').focus();
-					return;
-				}else if(pwd == ''){
-					$('.errorPwd-off').attr('class','errorPwd-on');
-					$('.pwd').attr('class','pwd-error');
-					$('#pwd').focus();
-					return;
-				}else {
-					$("#loginForm").submit();
-				}
-				
-		 	}	
-		} 
+		var saveIdCheck = $('#saveId:checked').val();
+		var error = ((loginId === '' || pwd === '') ? 1 : 0 );
+	 	
+		if(saveIdCheck == 'on'){
+			localStorage.setItem("saveId",loginId);
+		}else{
+			localStorage.setItem("saveId",'N');
+		}
 		
+		var loginData = {"loginId":loginId,"pwd":pwd};
+		
+		$.ajax({
+			type : 'POST',
+			url : "${pageContext.request.contextPath }/login.do",
+			contentType : "application/json",
+			data : JSON.stringify(loginData),
+			success : function(result){
+				if(result == 0){
+					alert("아이디,비번 확인");
+					return false;
+				}else{//로그인성공
+					$('.mainWrap').load(location.href+'.mainWrap');
+				}
+			},
+			
+		});
+		
+		switch(error){
+		case 0:
+			$("#loginForm").submit(); 
+			break;
+		case 1:
+			if(loginId == '' && pwd == ''){
+				$('.errorId-off').attr('class','errorId-on');
+				$('.loginId').attr('class','loginId-error');
+				$('.errorPwd-off').attr('class','errorPwd-on');
+				$('.pwd').attr('class', 'pwd-error');
+				$('#loginId').focus();
+				return;
+			}else if(loginId == ''){
+				$('.errorId-off').attr('class','errorId-on');
+				$('.loginId').attr('class','loginId-error');
+				$('#loginId').focus();
+				return;
+			}else if(pwd == ''){
+				$('.errorPwd-off').attr('class','errorPwd-on');
+				$('.pwd').attr('class','pwd-error');
+				$('#pwd').focus();
+				return;
+			}
+	 	}	
+	}  
+	//by 준영, 유효성검사 -실시간체크
+	$("#loginId").keyup(function(){
+		if(loginClickCheck == 0){
+			return;
+		}
+		if($('#loginId').val().length > 0){
+			$('.errorId-on').attr('class','errorId-off');
+			$('.loginId-error').attr('class','loginId');
+		}else{
+			$('.errorId-off').attr('class','errorId-on');
+			$('.loginId').attr('class','loginId-error');
+			$('#loginId').focus();
+		}
+	})
+	$("#pwd").keyup(function(){
+		if(loginClickCheck == 0){
+			return;
+		}
+		if($('#pwd').val().length > 0){
+			$('.errorPwd-on').attr('class','errorPwd-off');
+			$('.pwd-error').attr('class','pwd');
+		}else{
+			$('.errorPwd-off').attr('class','errorPwd-on');
+			$('.pwd').attr('class','pwd-error');
+			$('#pwd').focus();
+		}
+	})
+		
+
 	
 </script>
 

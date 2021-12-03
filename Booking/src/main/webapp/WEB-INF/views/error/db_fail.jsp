@@ -15,6 +15,14 @@
     <h6 class="card-subtitle mb-2 text-muted">${exception.message }</h6>
     <a href="${pageContext.request.contextPath }/users/login_form.do" class="card-link">다시 시도하기</a>
   </div>
+  <input id="url" type="hidden" value="${url}"/>
 </div>
+<script>
+	var url=$("#url").val();	
+	
+	
+	location.href=('${pageContext.request.contextPath }/');
+</script>
+
 </body>
 </html>
