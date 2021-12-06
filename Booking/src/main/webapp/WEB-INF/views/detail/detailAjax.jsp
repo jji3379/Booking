@@ -16,7 +16,7 @@
 <script>
 	var sim = document.getElementById("simList");
 	$("#plus").on("click", function(){
-		sim.style.overflow = "scroll";
+		sim.style.overflowY = "scroll";
 	});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>

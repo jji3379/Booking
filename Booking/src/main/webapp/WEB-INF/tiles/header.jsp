@@ -434,9 +434,6 @@
 			    	<span class="cartBadge">${count}</span>
 			   	</a>
 			</div>
-			<div id="signin">
-			
-			</div>
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
@@ -559,9 +556,9 @@
 	function login(){
 		loginClickCheck = 1;
 		var loginId = $("#loginId").val();
-		var pwd = $("#pwd").val();
+		var loginPwd = $("#pwd").val();
 		var saveIdCheck = $('#saveId:checked').val();
-		var error = ((loginId === '' || pwd === '') ? 1 : 0 );
+		var error = ((loginId === '' || loginPwd === '') ? 1 : 0 );
 	 	
 		/* if(saveIdCheck == 'on'){
 			localStorage.setItem("saveId",loginId);
@@ -569,7 +566,7 @@
 			localStorage.setItem("saveId",'N');
 		}
 		*/
-		var loginData = {loginId : loginId, pwd : pwd};
+		var loginData = {loginId : loginId, pwd : loginPwd};
 		
 		switch(error){
 			case 0:
@@ -593,7 +590,7 @@
 				});
 			break;
 		case 1:
-			if(loginId == '' && pwd == ''){
+			if(loginId == '' && loginPwd == ''){
 				$('.errorId-off').attr('class','errorId-on');
 				$('.loginId').attr('class','loginId-error');
 				$('.errorPwd-off').attr('class','errorPwd-on');
@@ -605,7 +602,7 @@
 				$('.loginId').attr('class','loginId-error');
 				$('#loginId').focus();
 				return;
-			}else if(pwd == ''){
+			}else if(loginPwd == ''){
 				$('.errorPwd-off').attr('class','errorPwd-on');
 				$('.pwd').attr('class','pwd-error');
 				$('#pwd').focus();

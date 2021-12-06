@@ -163,7 +163,7 @@ public class UsersViewController {
 	//by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")
 	public String signupForm() {
-		return "users/signup_form";
+		return "users/signup_form.page";
 	}
 	
 	//by욱현.중복아이디 검사를 위한 ajax 요청 처리_2021222 
