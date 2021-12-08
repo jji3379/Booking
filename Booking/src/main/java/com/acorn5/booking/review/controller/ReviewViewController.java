@@ -26,6 +26,7 @@ import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
 
 @Controller
@@ -34,6 +35,10 @@ public class ReviewViewController {
 	// by남기, 의존객체 DI 을 필드에 선언해둔다_210303
 	@Autowired
 	private ReviewService service;
+
+	@Autowired
+	private ReviewRepository reviewRepository;
+	
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
 	@Autowired
 	private CartService cartservice;
@@ -48,8 +53,8 @@ public class ReviewViewController {
 		//cartservice.listCart(request); 
 		}
 		
-		Page<Review> review = service.getList(request);
-		model.addAttribute("pageNum", review.getNumber());
+		//Page<Review> review = service.getList(request);
+		//model.addAttribute("pageNum", review.getNumber());
 		// by남기, view page 로 forward 이동해서 응답_210303
 		//mView.setViewName("review/reviewList");
 		return "review/reviewList.page"; 
@@ -60,17 +65,18 @@ public class ReviewViewController {
 	public String detail(@PathVariable Long id, Model model
 			,HttpServletRequest request) {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
-		Review review = service.getDetail(id);
-		Long writer = review.getWriter().getId();
+		//Review review = service.getDetail(id);
+		//Long writer = review.getWriter().getId();
 		Long loginId=(Long)request.getSession().getAttribute("id");
 		
+		reviewRepository.addViewCount(id);
 		if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
 			//cartservice.listCart(mView, request); 
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
 		model.addAttribute("reviewId", id);
-		model.addAttribute("loginId", loginId);
-		model.addAttribute("writer", writer);
+		//model.addAttribute("loginId", loginId);
+		//model.addAttribute("writer", writer);
 		//mView.setViewName("review/reviewDetail");
 		return "review/reviewDetail.page";
 	}

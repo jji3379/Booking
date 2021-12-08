@@ -185,7 +185,7 @@
 	</table>
 	<ul class="mylist">
 		<li><a href="review">목록보기</a></li>
-		<c:if test="${writer eq loginId }">
+		<c:if test="${writer eq sessionScope.loginId }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
 			<li><a href="#" onclick="deletea();">삭제</a></li>
 		</c:if>

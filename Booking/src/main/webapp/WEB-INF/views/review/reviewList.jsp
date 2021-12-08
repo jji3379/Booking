@@ -167,6 +167,7 @@
 			dataType : "json",
 			async: false,
 			success:function(data) {
+				/*
 				// 페이징
 				var paging = '';
 				paging += '<ul class="pagination justify-content-center">';
@@ -197,23 +198,24 @@
 				}
 				paging += '</ul>';
 				$("#paging").append(paging);
+				*/
 				
 				// item list
-				var dataSize = data.content.length;
+				var dataSize = data.length;
 				var reviewList = "";
 				var star = '';
-				for(var i=0; i<data.content.length; i++) {
+				for(var i=0; i<data.length; i++) {
 					reviewList += '<tr>'
-						reviewList += '<td class="ellipsis"> <img class="rounded-sm" src="' + data.content[i].imagePath + '"/>' + '</td>';
+						reviewList += '<td class="ellipsis"> <img class="rounded-sm" src="' + data[i].imagePath + '"/>' + '</td>';
 						reviewList += '<td class="ellipsis">'
-							+'<a href="${pageContext.request.contextPath}/review/'+data.content[i].id+'"'
-							+'onclick="spoAlert("'+data.content[i].spoCheck+'")">'
-							+data.content[i].reviewTitle+'</a></td>';
-						reviewList += '<td class="ellipsis">'+data.content[i].bookTitle+'</td>';
-						reviewList += '<td class="ellipsis">'+data.content[i].writer.loginId+'</td>';
-						reviewList += '<td class="ellipsis">'+data.content[i].viewCount+'</td>';
-						reviewList += '<td class="ellipsis">'+data.content[i].regdate+'</td>';
-						switch(data.content[i].rating) {
+							+'<a href="${pageContext.request.contextPath}/review/'+data[i].id+'"'
+							+'onclick="spoAlert("'+data[i].spoCheck+'")">'
+							+data[i].reviewTitle+'</a></td>';
+						reviewList += '<td class="ellipsis">'+data[i].bookTitle+'</td>';
+						reviewList += '<td class="ellipsis">'+data[i].writer.loginId+'</td>';
+						reviewList += '<td class="ellipsis">'+data[i].viewCount+'</td>';
+						reviewList += '<td class="ellipsis">'+data[i].regdate+'</td>';
+						switch(data[i].rating) {
 							case 1 :
 								star = '<a href="#">★</a>';
 								break;

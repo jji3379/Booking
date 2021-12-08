@@ -89,7 +89,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
-	public Page<Review> getList(HttpServletRequest request) {
+	public List<Review> getList(HttpServletRequest request) {
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=5;
 		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
@@ -135,8 +135,7 @@ public class ReviewServiceImpl implements ReviewService{
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
-		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
-		Page<Review> list=null;
+		
 		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
 		int totalRow=0;
 		// by남기, 만일 검색 키워드가 넘어온다면 _210303
@@ -155,28 +154,32 @@ public class ReviewServiceImpl implements ReviewService{
 			}// by남기, 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다_210303
 		}
 		// by남기, 글목록 얻어오기_210303
-		Pageable pageable = new PageRequest(pageNum, 5);
-		list = reviewRepository.findAll(pageable);
+		//Pageable pageable = new PageRequest(pageNum, 5);
+		List<Review> list = reviewRepository.findAllReivew();
 		
 		// by남기, 글의 갯수_210303
 		//totalRow=reviewDao.getCount(dto);
+		/*
 		System.out.println("first : "+pageable.first());
 		System.out.println("offset : "+pageable.getOffset());
 		System.out.println("pageNumber : "+pageable.getPageNumber());
 		System.out.println("previousOrFirst : "+pageable.previousOrFirst());
 		System.out.println("hasPrevious : "+pageable.hasPrevious());
+		*/
 		// by남기, 하단 시작 페이지 번호_210303
+		/*
 		int startPageNum = 1 + ((pageNum-1)/pageable.getPageSize())*pageable.getPageSize();
 		// by남기, 하단 끝 페이지 번호_210303
 		long endPageNum=startPageNum+pageable.getPageSize()-1;
 		
 		// by남기, 전체 페이지의 갯수 구하기_210303
 		long totalPageCount= list.getTotalElements();
+		*/
 				//(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
-		if(endPageNum > totalPageCount){
-			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
-		}		
+		//if(endPageNum > totalPageCount){
+			//endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
+		//}		
 		
 		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
 		/*
@@ -239,14 +242,14 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public Review getDetail(Long id) {
 		// by남기, 글번호를 이용해서 글정보를 얻어오고  _210303
-		Review dto=reviewRepository.findOne(id);
+		//Review dto=reviewRepository.findReviewDetail(id);
 				//reviewDao.getData(num);
-		System.out.println("dto : "+dto);
+		
 		// by남기, 글정보를 ModelAndView 객체에 담고 _210303
 		//mView.addObject("dto", dto);
 		// by남기, 글 조회수를 증가 시킨다 _210303
-		dto.setViewCount((int)dto.getViewCount()+1);
-		reviewRepository.save(dto);
+		//dto.setViewCount((int)dto.getViewCount()+1);
+		//reviewRepository.save(dto);
 		//reviewDao.addViewCount(num);
 		/*  by남기, 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다  _210303 */
 		final int PAGE_ROW_COUNT=5;
@@ -273,12 +276,12 @@ public class ReviewServiceImpl implements ReviewService{
 		//reviewCommentDto.setRef_group(num);
 
 		// by남기, DB 에서 댓글 목록을 얻어온다 _210303
-		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(id);
+		//List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(id);
 				//reviewCommentDao.getList(reviewCommentDto);
 		// by남기, ModelAndView 객체에 댓글 목록도 담아준다 _210303
 		//mView.addObject("reviewCommentList", reviewCommentList);
 		//mView.addObject("totalPageCount", totalPageCount);
-		return dto;
+		return reviewRepository.findReviewDetail(id);
 		
 	}
 	// by남기, 리뷰의 댓글을 저장하는 메소드 _210303

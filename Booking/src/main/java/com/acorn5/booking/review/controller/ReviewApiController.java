@@ -1,6 +1,7 @@
 package com.acorn5.booking.review.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.entity.Users;
 
@@ -26,13 +28,17 @@ public class ReviewApiController {
 	// by남기, 의존객체 DI 을 필드에 선언해둔다_210303
 		@Autowired
 		private ReviewService service;
+		
+		@Autowired
+		private ReviewRepository reviewRepository;
+		
 		//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
 		@Autowired
 		private CartService cartservice;
 
 		// by남기, 글 목록 요청처리_210303
 		@RequestMapping("/review")
-		public Page<Review> list(HttpServletRequest request) {
+		public List<Review> list(HttpServletRequest request) {
 			
 			Long id=(Long)request.getSession().getAttribute("id");
 			if(id!=null) {
@@ -48,9 +54,9 @@ public class ReviewApiController {
 		public Review detail(@PathVariable Long id
 				,HttpServletRequest request) {
 			// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
-			service.getDetail(id);
+			//service.getDetail(id);
 			Long loginId=(Long)request.getSession().getAttribute("id");
-			
+			//reviewRepository.addViewCount(id);
 			if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
 				//cartservice.listCart(mView, request); 
 			}
