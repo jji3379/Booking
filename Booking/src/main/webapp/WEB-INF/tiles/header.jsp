@@ -523,24 +523,19 @@
 		    $("#popup").css('display','flex').hide().fadeIn();
 			    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
 		});
-		$("#close").click(function(){
-		    modalClose(); //모달 닫기 함수 호출
-		});
 		function modalClose(){
 		    $("#popup").fadeOut(); //페이드아웃 효과
 		}
 		//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
-		$(document).mouseup(function (e){
-			var popup = $('#popup');
-			if( popup.has(e.target).length === 0){
-				$("#popup").fadeOut();
-	  			$('.loginForm')[0].reset();
-	  			$('.errorId-on').attr('class','errorId-off');
-				$('.loginId-error').attr('class','loginId');
-				$('.errorPwd-on').attr('class','errorPwd-off');
-				$('.pwd-error').attr('class','pwd');
-			}
+		$("#popup, #close").click(function(){
+			modalClose();
+  			$('.loginForm')[0].reset();
+  			$('.errorId-on').attr('class','errorId-off');
+			$('.loginId-error').attr('class','loginId');
+			$('.errorPwd-on').attr('class','errorPwd-off');
+			$('.pwd-error').attr('class','pwd');
 		});
+		
 	});
 	//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
 	$('#loginForm').keypress(function(event){

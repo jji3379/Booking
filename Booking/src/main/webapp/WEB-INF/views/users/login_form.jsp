@@ -56,28 +56,42 @@
 </style>
 </head>
 <body class="text-center">
-<form class="form-signin" action="login.do" method="post">
-	<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
-	<input type="hidden" name="url" value="${url }"/>
+<!--  체크박스 선택 개수 제한  -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>체크박스 선택 갯수 제한 예제</title>
+</head>
+<body>
 	
-  	<h1 class="h3 mb-3 font-weight-normal">BOOKING </h1>
-  	
-  	<label for="id" class="sr-only">아이디</label>
-  	<input style="margin-bottom:10px" type="text" id="id" name="id" class="form-control" 
-  		placeholder="아이디 입력..." value="${savedId }" required autofocus>
-  		
-  	<label for="pwd" class="sr-only">비밀번호</label>
-  	<input type="password" id="pwd" name="pwd" class="form-control" 
-  		placeholder="비밀번호 입력..." value="${savedPwd }" required>
-  		
-	<button class="btn btn-lg btn-info btn-block" type="submit">로 그 인 </button>
-	<div class="checkbox mb-3">
-	    <label style="float:left">
-	      <input type="checkbox" name="isSave" value="yes"> 로그인 정보 저장
-	    </label>
-		<a style="color:black; float:right" href="signup_form.do">회원가입</a>
-	</div>
-	<p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
-</form>
+		<input onclick="CountChecked(this)" type="checkbox" name="choice" value="apple" />사과
+		<input onclick="CountChecked(this)" type="checkbox" name="choice" value="banana" />바나나
+		<input onclick="CountChecked(this)" type="checkbox" name="choice" value="tomato" />토마토
+	
+</body>
+
+<script type="text/javascript">
+var maxCount = 2;								// 카운트 최대값은 2
+var count = 0;   								// 카운트, 0으로 초기화 설정
+
+function CountChecked(field){ 					// field객체를 인자로 하는 CountChecked 함수 정의
+	if (field.checked) {						// 만약 field의 속성이 checked 라면(사용자가 클릭해서 체크상태가 된다면)
+		count += 1;								// count 1 증가
+	}
+	else {										// 아니라면 (field의 속성이 checked가 아니라면)
+		count -= 1;								// count 1 감소
+	}
+	
+	if (count > maxCount) {						// 만약 count 값이 maxCount 값보다 큰 경우라면
+		alert("최대 2개까지만 선택가능합니다!");	// alert 창을 띄움
+	field.checked = false;						// (마지막 onclick한)field 객체의 checked를 false(checked가 아닌 상태)로 만든다.
+	count -= 1;									// 이때 올라갔던 카운트를 취소처리해야 하므로 count를 1 감소시킨다.
+	}
+}
+</script>
+
+</html>
 </body>
 </html>

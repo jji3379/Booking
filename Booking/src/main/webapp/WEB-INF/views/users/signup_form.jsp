@@ -7,22 +7,14 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <title>책과의 즉석만남 Booking</title>
 <style>
-	.is-Blank {
+	
+	.form-group label.error { 
 		margin: 8px 0 1px 0;
-	    font-size: 10px;
-	    color: #fe0000;
-	    margin-bottom: 10px;
+	   font-size: 10px;
+	   color: #fe0000;
+	   margin-bottom: 10px; 
 	}
-	.is-Valid {
-		display:none;
-	}
-	.is-inValid {
-		margin: 8px 0 1px 0;
-	    font-size: 10px;
-	    color: #fe0000;
-	    margin-bottom: 10px;
-	}
-	.boxError {
+	.form-control.error {
 		width: 100%;
 	    height: 44px;
 	    border: 1px solid #fe0000;
@@ -32,10 +24,19 @@
 	    outline: none;
 	    box-sizing: border-box;
 	}
+	.register-terms label.error {
+		font-weight: bold;
+	    font-size: 14px;
+	    color: #fe0000; 
+	}
+	
 	
 
 </style>
 <link rel="stylesheet" href="resources/css/signup_form.css">
+<script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
 </head>
 <body>
 <div class="container">
@@ -53,7 +54,7 @@
 	 	 	<form action="${pageContext.request.contextPath }/users/signup.do" method="post" id="myForm" novalidate>
 		 	<div class="form-group">
 		 		<label for="id" hidden>아이디</label>
-		 		<input class="form-control" type="text" name="loginId" id="signupId" placeholder="사용하실 ID를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
+		 		<input class="form-control" type="text" name="signupId" id="signupId" placeholder="사용하실 ID를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
 		 		<span id="idMsg" class="is-Blank"></span>
 		 		<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
 		 	</div>
@@ -65,7 +66,7 @@
 		 	</div>
 		 	<div class="form-group">
 		 		<label for="pwd2" hidden>비밀번호 확인</label>
-		 		<input class="form-control" type="password" id="pwd2" placeholder="패스워드를 다시 입력해주세요." />
+		 		<input class="form-control" type="password" name="pwd2" id="pwd2" placeholder="패스워드를 다시 입력해주세요." />
 		 		<span id="pwd2Msg" class="is-Blank"></span>
 		 		<div class="invalid-feedback">비밀번호를 확인 하세요</div>
 		 	</div>
@@ -86,50 +87,50 @@
 							<col style="width:30%">
 						</colgroup>
 						<tr >
-							<td rowspan="10"><h6 class="interest">> 관심사</label></h6></td>
+							<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
 						</tr>
 						<tr class="interestChk" >
-							<td><input type="checkbox" /> 소설</td>
-							<td><input type="checkbox" /> 인문</td>
-							<td><input type="checkbox" /> 시 / 에세이</td>
+							<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="novel" value="novel"/> 소설</label></td>
+							<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="humanities" value="humanities"/> 인문</label></td>
+							<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="poetry" value="poetry"/> 시 / 에세이</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 취미/레저</td>
-							<td><input type="checkbox" /> 건강</td>
-							<td><input type="checkbox" /> 가정/생활/요리</td>
+							<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="hobby" value="hobby"/> 취미/레저</label></td>
+							<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="health" value="health"/> 건강</label></td>
+							<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="home" value="home"/> 가정/생활/요리</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 경제/경영</td>
-							<td><input type="checkbox" /> 자기계발</td>
-							<td><input type="checkbox" /> 사회</td>
+							<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="economy" value="economy"/> 경제/경영</label></td>
+							<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="self" value="self"/> 자기계발</label></td>
+							<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="society" value="society"/> 사회</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 역사/문화</td>
-							<td><input type="checkbox" /> 종교</td>
-							<td><input type="checkbox" /> 예술/대중문화</td>
+							<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="history" value="history"/> 역사/문화</label></td>
+							<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="religion" value="religion"/> 종교</label></td>
+							<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="art" value="art"/> 예술/대중문화</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 사전</td>
-							<td><input type="checkbox" /> 잡지</td>
-							<td><input type="checkbox" /> 국어/외국어</td>
+							<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="dictionary" value="dictionary"/> 사전</label></td>
+							<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="magazine" value="magazine"/> 잡지</label></td>
+							<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="language" value="language"/> 국어/외국어</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 과학/공학</td>
-							<td><input type="checkbox" /> 여행/지도</td>
-							<td><input type="checkbox" /> 취업/수험서</td>
+							<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="science" value="science"/> 과학/공학</label></td>
+							<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="trip" value="trip"/> 여행/지도</label></td>
+							<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="employment" value="employment"/> 취업/수험서</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 컴퓨터/IT</td>
-							<td><input type="checkbox" /> 청소년</td>
-							<td><input type="checkbox" /> 학습/참고서</td>
+							<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="IT" value="IT"/> 컴퓨터/IT</label></td>
+							<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="teenager" value="teenager"/> 청소년</label></td>
+							<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="reference" value="reference"/> 학습/참고서</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 유아</td>
-							<td><input type="checkbox" /> 어린이</td>
-							<td><input type="checkbox" /> 만화</td>
+							<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="infant" value="infant"/> 유아</label></td>
+							<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="child" value="child"/> 어린이</label></td>
+							<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="comic" value="comic" /> 만화</label></td>
 						</tr>
 						<tr class="interestChk">
-							<td><input type="checkbox" /> 해외도서</td>
+							<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="choice" id="overseas" value="overseas"/>해외도서</label></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -178,190 +179,91 @@
 						</tbody>
 					</table>
 		 		</div>
-		 		<input type="checkbox" id="isCheckAgree" name="isCheckAgree">
-		 		<span >[필수] 개인정보 수집.이용동의</span>
+		 		<input type="checkbox" id="terms" name="terms" >
+		 		<label id="labelTerms" for="terms">[필수] 개인정보 수집.이용동의</label>
+		 		
 		 	</div>
 		 	<div class="agree-warn">
 		 		※ 약관 및 개인정보 처리방침은 홈페이지 하단에 전문이 게재되어 있습니다. <br />
 				※ 이용약관 및 개인정보 수집.이용 내용에 대해 동의 거부가 가능하며, <br />
 				이 경우 회원가입 및 관련 서비스는 이용이 불가합니다.
 		 	</div>
-		 	<button class="signupBtn" type="button" onclick="signup()">회원가입하기</button>
+		 	<button onclick="min()" type="submit" class="signupBtn" >회원가입하기</button>
 		 </form>
 	 	 </div>
 	 </div>
 </div>
 <script>
-	//[아이디를 검증할 정규 표현식]
-	//영문자 소문자로 시작하고 5~10 글자 이내인지 검증
-	let reg_id=/^[a-z].{4,9}$/;
+
+//by 준영, 관심사 최대 갯수 이상 체크 막음
+function CountChecked(obj){
+	var count = 0;
+	var choice = document.getElementsByName("choice");
 	
-	//[비밀번호를 검증할 정규 표현식]
-	//5~10글자 이내인지 검증
-	let reg_pwd=/^.{5,10}$/;
-	
-	//[이메일을 검증할 정규 표현식](정확히 검증하려면 javascript 이메일 정규 표현식 검색해서 사용!)
-	//@가 포함되어 있는지 검증
-	let reg_email=/@/;
-	
-	//아이디 유효성 여부를 관리할 변수 만들고 초기값 부여하기
-	let isIdValid = false;
-	//비밀번호 유효성 여부를 관리할 변수 만들고 초기값 부여하기
-	let isPwdValid = false;
-	//이메일 유효성 여부를 관리할 변수 만들고 초기값 부여하기
-	let isEmailValid = false;
-	//폼 전체의 유효성 여부를 관리할 변수 만들고 초기값 부여하기
-	let isFormValid = false;
-	
-	
-	//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
-	var signupClickCheck = 0;
-	//폼에 submit 이벤트가 일어 났을 때 jquery 를 활용해서 폼에 입력한 내용 검증하기
-	//id가 myForm 인 요소에 submit 이벤트가 일어 났을때 실행할 함수 등록
-	function signup(){
-		signupClickCheck = 1;
-		var signupId = $('#signupId').val();
-		var signupPwd = $('#signupPwd').val();
-		var pwd2 = $('#pwd2').val();
-		var email = $('#Email').val();
-		
-		function formValidation() {
-			if(signupId == ''){
-				$('#idMsg').html('필수 입력 항목입니다.');
-				$('#signupId').attr('class', 'boxError');
-				$('#signupId').focus();
-				return false;
-			}
-			if(signupPwd == ''){
-				$('#pwdMsg').html('필수 입력 항목입니다.');
-				$('#signupPwd').attr('class', 'boxError');
-				$('#signupPwd').focus();
-				return false;
-			}
-			if(pwd2 == ''){
-				$('#pwd2Msg').html('필수 입력 항목입니다.');
-				$('#pwd2').attr('class', 'boxError');
-				$('#pwd2').focus();
-				return false;
-			}
-			if(email == ''){
-				$('#emailMsg').html('필수 입력 항목입니다.');
-				$('#email').attr('class', 'boxError');
-				$('#email').focus();
-				return false;
-			}
-			return true;
+	for(var i = 0; i < choice.length; i++){
+		if(choice[i].checked){
+			count++;
 		}
-			
+	}
+	if(count > 3){
+		obj.checked = false;
+		return false;
+	}
+}
+
+//by 준영, 관심사 최소 개수 알림
+function min() {
+	if (!$(":input:checkbox[name=choice]:checked").val()) {
+		alert("관심사를 한가지 이상 선택해 주세요.");
+		return;
+	}
+}
+//by 준영, Validate.js 라이브러리 
+$(document).ready(function () { 
+    // validate signup form on keyup and submit
+    $('#myForm').validate({
+        rules: {
+            signupId:{required:true, minlength:5, maxlength:10, /* remote:'${pageContext.request.contextPath }/users/checkid.do' */ },
+            pwd: {required:true, minlength:5, maxlength:10},
+            pwd2: {required:true, equalTo:'#signupPwd'},               
+            email: {required:true, email:true},
+            terms: 'required'
+        },
+        messages: {
+            signupId: {
+                 required:"필수 입력 항목입니다.",
+                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요."
+                 /* remote : "입력하신 {0}는 이미존재하는 아이디입니다."  */
+                 },
+
+            pwd:"필수 입력 항목입니다.",
+            pwd2: {
+                required: "필수 입력 항목입니다.",
+                equalTo: "암호를 다시 확인하세요" 
+                },
+            email: {
+                required:"필수 입력 항목입니다.",
+                email: "이메일 형식으로 입력해 주세요."
+                },
+            terms: "!"
+        }
+//여기부터
+,
 		
-		
-		
-		//폼 전체의 유효성 여부를 얻어낸다.
-		isFormValid = isPwdValid && isEmailValid;
-		//만일 폼이 유효하지 않는다면
-		if(!isFormValid) {
-			return false; //폼 전송 막기
-		}
-	};
+        submitHandler: function (frm){
+            frm.submit();   //유효성 검사를 통과시 전송
+        },
+        success: function(e){
+            //
+        }
+//여기까지는 생략 가능           
+    });
+    
+});
+
+
+
 	
-	//이메일을 입력했을 때 실행할 함수 등록
-	$("#email").on("input", function(){ // == document.querySelector("#email").addEventListener("input", function(){...})
-		let inputEmail = $("#email").val();
-		//일단 모든 검증 클래스를 제거하고
-		$("#email").removeClass("is-Blank boxError");
-		//만일 이메일이 정규표현식에 매칭되지 않는다면
-		if(!reg_email.test(inputEmail)) {
-			$('#emailMsg').html('이메일 형태로 작성하세요');
-			$('#email').addClass('is-inValid');
-			isPwdValid = false;
-		} else {
-			$("#email").addClass("is-valid");
-			isEmailValid = true;
-			
-		}
-	});
-	
-	//id가 pwd와 pwd2인 요소에 input 이벤트가 일어났을 때 실행할 함수 등록
-	$("#signupPwd, #pwd2").on("input", function(){
-		// input 이벤트가 언제 일어나는지 확인 요망!
-		console.log("input!!");
-		
-		//입력한 두 비밀번호를 읽어온다.
-		let signupPwd=$("#signupPwd").val();
-		let pwd2 =$("#pwd2").val();
-		
-		//일단 모든 검증 클래스를 제거하고
-		$("#signupPwd").removeClass("is-Blank boxError");
-		$("#pwd2").removeClass("is-Blank boxError");
-		
-		//비밀번호가 정규표현식에 매칭되지 않으면
-		if(!reg_pwd.test(pwd)){
-			//비밀번호가 유효하지 않는다고 표시하고
-			$("#pwdMsg").html('비밀번호를 5~10 글자 이내로 작성하세요');
-			$("#signupPwd").addClass("is-inValid");
-			isPwdValid = false;
-		} else {
-			$("#pwdMsg").addClass("is-valid");
-			$("#pwd2").removeClass("is-Blank boxError");
-		}
-		
-		//두 비밀번호가 같은지 확인
-		if(pwd == pwd2) {
-			//같으면 유효하다는 클래스를 추가
-			$("#pwd2").addClass("is-valid");
-			$("#pwd2").removeClass("is-Blank boxError");
-		} else {
-			$("#pwdMsg").html('비밀번호가 다릅니다.');
-			$("#signupPwd").addClass("is-inValid");
-			//다르면 유효하지 않다는 클래스 추가
-			
-			isPwdValid = false;
-		}
-	});
-	
-	//아이디 입력란에 입력했을 때 실행할 함수 등록
-	$("#signupId").on("input", function(){
-		//1. 입력한 아이디를 읽어와서
-		let inputId = $("#id").val();
-		
-		//2. 서버에 ajax 요청으로 보내서 사용 가능 여부를 응답 받아서 반응을 보여준다.
-		//일단 모든 검증 클래스를 제거하고
-		$("#signupId").removeClass("is-valid is-Blank")
-		
-		//입력한 문자열이 정규표현식과 매칭되는지 테스트
-		if(!reg_id.test(inputId)) {
-		//만일 매칭되지 않으면
-		//아이디가 유효하지 않다고 표시하고
-			$("#idMsg").html('영문 소문자 5~10 글자 이내로 입력해주세요.');
-			$("#signupId").addClass("is-inValid");
-			isIdValid = false;
-		//함수를 여기서 종료 한다
-			return;
-		}
-		$.ajax({
-			url:"${pageContext.request.contextPath }/users/checkid.do",
-			method:"GET",
-			data:"inputId="+inputId,
-			success:function(responseData){
-				/*
-					checkid.jsp 페이지에서 응답할 때
-					contentType="application/json" 이라고 설정하면
-					함수의 인자로 전달되는 responseData 는 object 이다.
-					{isExist:true} or {isExist:false}
-					형식의 object 이기 때문에 바로 사용할 수 있다.
- 				*/
- 				console.log(responseData);
-				if(responseData.isExist) {
-					$("#signupId").addClass("is-invalid");
-					isIdValid = false;
-				} else { //존재하지 않는 아이디 즉 사용가능한 아이디인 경우
-					$("#signupId").addClass("is-valid");
-					//아이디가 유효하다고 표시한다.
-					isIdValid=true;
-				}
-			}
-		})
-	})
 </script>
 </body>
 </html>
