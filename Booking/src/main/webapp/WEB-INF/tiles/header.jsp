@@ -60,11 +60,12 @@
 		display: flex;
 	}
 	#searchBook{
-		height: 42px;
+		height: 21px;
 		width: 400px;
-		border: 2px solid #44695a;
-		border-radius: 1px;
 		margin-right: 8px;
+	    border-radius: 20px;
+	    border: 1px solid #bbb;
+	    padding: 10px 12px;
 	}
 	.Users {
 		position: absolute;
@@ -75,6 +76,9 @@
 	    overflow: hidden;
 	    z-index: 1;
 	    text-align: right;
+	}
+	.Users > a {
+		text-decoration: none;
 	}
 	.Users > a > img {
 		width: 45px;
