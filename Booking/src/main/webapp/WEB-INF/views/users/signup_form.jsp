@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../include/resource.jsp"></jsp:include>
+
 <title>책과의 즉석만남 Booking</title>
 <style>
 	
@@ -35,7 +36,7 @@
 </style>
 <link rel="stylesheet" href="resources/css/signup_form.css">
 <script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
 </head>
 <body>
@@ -188,7 +189,7 @@
 				※ 이용약관 및 개인정보 수집.이용 내용에 대해 동의 거부가 가능하며, <br />
 				이 경우 회원가입 및 관련 서비스는 이용이 불가합니다.
 		 	</div>
-		 	<button onclick="min()" type="submit" class="signupBtn" >회원가입하기</button>
+		 	<button onclick="min()" type="button" class="signupBtn" >회원가입하기</button>
 		 </form>
 	 	 </div>
 	 </div>

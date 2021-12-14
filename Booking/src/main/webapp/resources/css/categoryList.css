@@ -118,7 +118,7 @@ dl {
 }
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 7px;
 }
 a {
   color: #007bff;
@@ -179,6 +179,7 @@ a {
 .my-5 {
   margin-bottom: 3rem !important;
 }
+
 .row {
   display: -ms-flexbox;
   display: flex;

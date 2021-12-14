@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <head>
-
 	<style>
 	/*  --- header --- */
 	.mainWrap {
@@ -61,11 +60,12 @@
 		display: flex;
 	}
 	#searchBook{
-		height: 42px;
+		height: 21px;
 		width: 400px;
-		border: 2px solid #44695a;
-		border-radius: 1px;
 		margin-right: 8px;
+	    border-radius: 20px;
+	    border: 1px solid #bbb;
+	    padding: 10px 12px;
 	}
 	.Users {
 		position: absolute;
@@ -76,6 +76,9 @@
 	    overflow: hidden;
 	    z-index: 1;
 	    text-align: right;
+	}
+	.Users > a {
+		text-decoration: none;
 	}
 	.Users > a > img {
 		width: 45px;
@@ -517,26 +520,33 @@
 	        }
 	    }); 
 	}); 
+	function modalClose(){
+	    $("#popup").fadeOut(); //페이드아웃 효과
+	    $('.loginForm')[0].reset();
+		$('.errorId-on').attr('class','errorId-off');
+		$('.loginId-error').attr('class','loginId');
+		$('.errorPwd-on').attr('class','errorPwd-off');
+		$('.pwd-error').attr('class','pwd');
+	} 
 	//by준영. 로그인 시 모달창 기능
 	$(function(){
 		$("#modal-open").click(function(){        
-		    $("#popup").css('display','flex').hide().fadeIn();
-			    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+	    	$("#popup").css('display','flex').hide().fadeIn();
+	    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
 		});
-		function modalClose(){
-		    $("#popup").fadeOut(); //페이드아웃 효과
-		}
+		$("#close").click(function(){
+		    modalClose(); //모달 닫기 함수 호출
+		});
 		//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
-		$("#popup, #close").click(function(){
-			modalClose();
-  			$('.loginForm')[0].reset();
-  			$('.errorId-on').attr('class','errorId-off');
-			$('.loginId-error').attr('class','loginId');
-			$('.errorPwd-on').attr('class','errorPwd-off');
-			$('.pwd-error').attr('class','pwd');
+		$(document).mouseup(function (e){
+			var popup = $('#popup');
+			if( popup.has(e.target).length === 0){
+				modalClose();
+			}
 		});
-		
 	});
+	
+	
 	//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
 	$('#loginForm').keypress(function(event){
 	     if ( event.which == 13 ) {
