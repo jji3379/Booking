@@ -29,253 +29,269 @@
 		</div>
 		<div class="row">
 			<div class="row row-cols-4">
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 				<!-- card ex1 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
-					</div>
-				</div>	
+					</div>	
+				</a>
 				<!-- card ex2 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/095/203/09520318.jpg?type=m1&udate=20171016');">
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>t</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/095/203/09520318.jpg?type=m1&udate=20171016');">
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>t</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
-					</div>
-				</div>	
+					</div>	
+				</a>
 				<!-- card ex3 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>	
+				</a>
 				<!-- card ex4 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 				<!-- card ex5 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header"  style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/074/430/07443083.jpg?type=m1&udate=20190817');" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header"  style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/074/430/07443083.jpg?type=m1&udate=20190817');" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 				<!-- card ex6 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 				<!-- card ex7 -->
-				<div class="card col">
-					<!-- 카드 헤더 -->
-					<div class="card-header" >
-						<div class = "card-header-is_closed" > 
-			                <div class = "card-header-text" > 스포 포함 </div > 
-			            </div >
-					</div>
-					<!--  카드 바디 -->
-					<div class="card-body">
-						<!--  카드 바디 헤더 -->
-						<div class="card-body-header">
-							<h1>r</h1>
-							<p class="card-body-hashtag">rating": 5</p>
-							<p class = "card-body-nickname"> 
-			                     	작성자: catcat3
-			           		</p>
+				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
+					<div class="card col">
+						<!-- 카드 헤더 -->
+						<div class="card-header" >
+							<div class = "card-header-is_closed" > 
+				                <div class = "card-header-text" > 스포 포함 </div > 
+				            </div >
 						</div>
-						<!--  카드 바디 본문 -->
-						<p class="card-body-description">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
-						</p>
-						<!--  카드 바디 푸터 -->
-						<div class="card-body-footer">
-							<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
-							<div class="viewCount">조회 17회</div>
-							<div class="comment">댓글 4개</div>
-							<div class="regdate">2021-11-29</div>
+						<!--  카드 바디 -->
+						<div class="card-body">
+							<!--  카드 바디 헤더 -->
+							<div class="card-body-header">
+								<h1>r</h1>
+								<p class="card-body-hashtag">rating": 5</p>
+								<p class = "card-body-nickname"> 
+				                     	작성자: catcat3
+				           		</p>
+							</div>
+							<!--  카드 바디 본문 -->
+							<p class="card-body-description">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore voluptatibus repellendus dolorum temporibus est velit delectus minima itaque consequuntur quod qui maxime veritatis asperiores quia perferendis soluta possimus labore. Hic.
+							</p>
+							<!--  카드 바디 푸터 -->
+							<div class="card-body-footer">
+								<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+								<div class="viewCount">조회 17회</div>
+								<div class="comment">댓글 4개</div>
+								<div class="regdate">2021-11-29</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 				<!-- card ex8 -->	
 			</div>	<!-- row row-col-4 end  -->
 		</div>	<!-- row end  -->
@@ -332,7 +348,7 @@
 					</c:choose>
 				</ul>
 			</nav>
-			<a id="writeR" class="btn btn-primary" href="private/reviewInsertform.do">리뷰 작성</a>
+			<button id="writeR" type="button" >리뷰 작성</button>
 		</div>
 		
 		<br />
@@ -345,28 +361,42 @@
 		
 	</div>	<!-- layout end  -->
 <script>
-	var reviewInput = $('#reviewInput').val();
-	
-	function search(){
-		if(reviewInput == ''){
-			return false;
+//by 준영, 리뷰검색폼 빈값 제출 막기
+$(document).ready(function() {
+    $('#search').submit(function() {
+        if ($('#reviewInput').val() == '') {
+            return false;
+        }
+    }); 
+}); 
+function spoAlert(spoCheck){
+	console.log(spoCheck);
+	if(spoCheck == "yes"){
+		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+		if(alert == true){
+		}else{
+			event.preventDefault();
 		}
+	}else if(spoCheck == "no"){
+		$('.card-header-is_closed').css('display', 'none');
+	}
+}
+
+/* $('#writeR').on('click',function(){
+	if(${id} == ''){
+		
 	}
 	
+}) */
+var isLogin=${not empty id};
 
-	$("#reviewInput").keydown(function (event){
-        if (event.keyCode == '13' && reviewInput == '') {
-            if (window.event){
-                event.preventDefault();
-                return;
-            }
-        }else if(event.keyCode == '13' && reviewInput == ''){
-        	 if (window.event){
-        		 $('#search').submit();
-                 return;
-             }
-        }
-	 });
+document.querySelector("#writeR").addEventListener("click",function(){
+	if(isLogin == false){			
+		$('#modal-open').trigger('click');
+	}else{
+		location.href="private/reviewInsertform.do";
+	}
+});
 	
 </script>
 </body>

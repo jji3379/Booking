@@ -14,11 +14,12 @@ p, h1, ul {
 	vertical-align: baseline;
 }
 /*css 초기화*/
-
+.cardLink{
+	margin:18px 26px;
+}
 .card {
 	font-family: '777Balsamtint';
-	margin:18px 26px;
-	height: 365px;
+	height: 345px;
 	width: 265px;
 	border-radius: 15px;
 	display: inline-block;
@@ -34,7 +35,7 @@ p, h1, ul {
     -o-transition: 0.5s;  /*오페라*/
     transition: 0.5s;
 	width: 100%;
-	height: 239px;
+	height: 220px;
 	border-radius: 15px 15px 0 0;
 	background-image: url("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?type=m1&udate=20210813");
 	background-size: 100% 280px;
@@ -43,7 +44,7 @@ p, h1, ul {
 
 .card:hover .card-header  {
 	opacity: 0.8;
-	height: 100px;
+	height: 165px;
 }
 
 .card-header-is_closed {
@@ -85,8 +86,12 @@ h1 {
     -ms-transition: .2s ease-in-out; /*익스플로러*/
     -o-transition: .2s ease-in-out; /*오페라*/
     transition : .2s ease-in-out;
-    overflow: hidden;
-	height: 130px;
+	height: 50px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 	margin: 5px 20px;
 }
 
@@ -100,7 +105,11 @@ h1 {
     -ms-transition: .5s ease-in-out;
     -o-transition: .5s ease-in-out;
     transition : .5s ease-in-out;
-    overflow: scroll;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .card-body-hashtag {
@@ -128,7 +137,6 @@ h1 {
 .icon-view_count {
     width: 25px;
     height: 17px;
-	background: url("images/eye.jpg") no-repeat;
 }
 
 
@@ -136,8 +144,7 @@ h1 {
 .icon-comments_count {
 	margin-left: 5px;
 	width: 25px;
-    height: 17px;
-	background: url("images/comment.jpg") no-repeat;	
+    height: 17px;	
 }
 
 .layout {
@@ -239,7 +246,7 @@ h1 {
     margin-left: 20px;
 }
 .pagination{
-	margin-left: -155px;
+	margin-left: -133px;
 }
 .page-link{
 	position: relative;
@@ -292,12 +299,16 @@ h1 {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 #writeR{
+	font-family: '777Balsamtint';
 	text-decoration: none;
 	color: #484646;
 	font-weight: bold;
-	width: 75px;
+	font-size: 16px;
+	width: 108px;
 	margin-right: 23px;
-    border-radius: 20px;
+    border-radius: 25px;
     border: 1px solid #bbb;
     padding: 10px 12px;
+    background: #fff;
+    cursor: pointer;
 }

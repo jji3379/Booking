@@ -2,7 +2,10 @@ html, body {
     	margin:0;
  		padding: 0;
 	}
-	
+	p{
+		margin:0;
+		padding: 0;
+	}
     body {
     	padding: 0;
     }	
@@ -28,7 +31,7 @@ html, body {
       font-size: 22px;
       text-align: left;
       margin-left: 15px;
-      line-height :33px;
+      line-height : 1.7;
       margin-right: -10px;
    }
    	.col,
@@ -38,14 +41,38 @@ html, body {
     box-sizing: border-box;
    
    }
+   .dropdown-top{
+   	font-family: '777Balsamtint';
+    color: #fff;
+    background-color: #168a5ced;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    padding: 6px 15px 6px 15px;
+    width: 190px;
+    font-size: 22px;
+    text-align: left;
+    line-height: 33px;
+    border-bottom: 1px solid #168a5ced;
+   }
+   .dropdown-top > p {
+   	margin-left: 15px;
+   	font-size: 23px;
+   }
    .dropdown-menu {
    	font-family: '777Balsamtint';
     color: #333333bd;
     font-size: 20px;
    }
+   .sideWrap{
+   	position: relative;
+    top: 15px;
+   }
    .sideMenu {
-   	border: 2px solid #33333385; 
-   	height: 840px; 
+   	line-height: 1.5;
+   	border-bottom: 2px solid #33333385; 
+	border-left: 2px solid #33333385; 
+	border-right: 2px solid #33333385; 
+   	height: 959px; 
    	top: 68px;
    }
 	
@@ -66,19 +93,20 @@ html, body {
 	-webkit-box-orient: vertical;
 }
 .ellipsis{
-	  overflow: hidden;
-	  text-overflow: ellipsis;
-  	  display: -webkit-box;
-      white-space : nowrap;
-      -webkit-line-clamp: 1;
-	  -webkit-box-orient: vertical;
-  }
+	margin-top:3px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	white-space : nowrap;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
 	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-  	.img-wrapper:hover{
-      /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.02);
-      transition: transform 0.3s ease-out;
-  }
+.img-wrapper:hover{
+   /* 원본 크기의 1.1 배로 확대 시키기*/
+    transform: scale(1.02);
+    transition: transform 0.3s ease-out;
+}
    
   .cardBook {
      border-radius:1px;
@@ -86,6 +114,7 @@ html, body {
   	 box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
   .card-body {
+  	padding: 10px;
  	text-align: center;
 	text-overflow: elipsis;
 	over-flow: hidden;
@@ -116,7 +145,7 @@ dl {
   margin-top: 0;
   margin-bottom: 1rem;
 }
-p {
+.card-body > p {
   margin-top: 0;
   margin-bottom: 7px;
 }
@@ -125,7 +154,13 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
+.col-2{
+  width: 100%;
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col-1,.col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
 .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
 .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
 .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
@@ -136,11 +171,7 @@ a {
   padding-right: 15px;
   padding-left: 15px;
 }
-.col-2 {
-  -ms-flex: 0 0 16.666667%;
-  flex: 0 0 16.666667%;
-  max-width: 16.666667%;
-}
+
 .col-10 {
   -ms-flex: 0 0 83.333333%;
   flex: 0 0 83.333333%;
@@ -177,7 +208,7 @@ a {
 
 .mb-5,
 .my-5 {
-  margin-bottom: 3rem !important;
+  margin-bottom: 80px;
 }
 
 .row {
@@ -210,7 +241,7 @@ a {
   padding-left: 0;
   list-style: none;
   border-radius: 0.25rem;  
-  margin-top: 145px;
+  margin-top: 122px;
   margin-bottom: 100px;
 }
 .page-link {

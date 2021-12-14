@@ -1,28 +1,425 @@
 /* ----- 공통 부분 ----- */
 html, body {
-    	margin:0;
- 		padding: 0;
+   	margin:0;
+	padding: 0;
+}
+	
+body {
+	padding: 0;
+}	
+   
+@font-face {
+    font-family: '777Balsamtint';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+	/*  --- header --- */
+	.mainWrap {
+		height: 93px;
+	}
+	.navWrap {
+		height: 43px;
+	}
+	.mainWrap , .navWrap {
+		font-family: '777Balsamtint';
+	}
+	.mainWrap .center{
+		position: relative;
+	    height: 100%;
+	    width: 960px;
+	    text-align: left;
+	    margin: 0 auto;
+	    display: block;
+	    z-index: 100;
+	}
+	.center .logo {
+		position: absolute;
+	    top: 20px;
+	    left: 0;
+	    display: block;
+	    width: 232px;
+	    /* height: 63px; */
+    }
+	.center .search {
+		position: absolute;
+	    top: 38px;
+	    left: 300px;
+	    z-index: 20 !important;
+	}
+	.center .search input {
+		font-family: '777Balsamtint';
+	    font-size: 20px;
+	    line-height: 32px;
+	    height: 32px;
+	    float: left;
+	    width: 300px;
+	    border: 0;
+	    text-indent: 16px;
+	    padding: 0;
+	}
+	.search{
+		width:30px;
+		padding:0px;
+		display: flex;
+	}
+	.search > a > img {
+		width:30px;
+	}
+	#searchForm {
+		display: flex;
+	}
+	#searchBook{
+		height: 21px;
+		width: 400px;
+		margin-right: 8px;
+	    border-radius: 20px;
+	    border: 1px solid #bbb;
+	    padding: 10px 12px;
+	}
+	.Users {
+		position: absolute;
+	    top: 26px;
+	    right: -80px;
+	    width: 220px;
+	    height: 61px;
+	    overflow: hidden;
+	    z-index: 1;
+	    text-align: right;
+	}
+	.Users > a {
+		text-decoration: none;
+	}
+	.Users > a > img {
+		width: 45px;
+    	border-radius: 1.25rem;
+   	    position: relative;
+    	top: 13px;
 	}
 	
-    body {
-    	padding: 0;
-    }	
-   
-    
-    .container,
-	.container-fluid,
-	.container-sm,
-	.container-md,
-	.container-lg,
-	.container-xl {
+	.navWrap {
+		font-size: 25px;
 		width: 100%;
-		margin-right: auto;
-		margin-left: auto;
-	}​
-
-	@font-face {
-	    font-family: '777Balsamtint';
-	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
-	    font-weight: normal;
-	    font-style: normal;
+	    height: 45px;
+	    position: relative;
+	    z-index: 21;
+	    background-color: #41495c;
+	}
+	.Btns {
+		height: 45px;
+	    width: 1200px;
+	    margin: 0 auto;
+	    text-align: center;
+	}
+	.Btns > li {
+		position: relative;
+		width: 15%;
+	    height: 35px;
+	    float: left;
+	 	margin: 0px 23px;
+	}
+	.Btns > li > a {
+		color: #fff;
+	    text-transform: uppercase;
+	    text-decoration: none;
+	    letter-spacing: 0.15em;
+	    display: inline-block;
+	    position: relative;
+	}
+	.Btns > li::before {
+		content: "|";
+		color: white;
+		padding-right: 75px;
+	    opacity: .7;
+	}
+	.Btns > li:first-child::before {
+		content: "";
+	}
+	.Btns > li > a:after {   
+		background: none repeat scroll 0 0 transparent;
+		bottom: 2px;
+		content: "";
+		display: block;
+		height: 2px;
+		left: 50%;
+		position: absolute;
+		background: #fff;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+	.Btns > li > a:hover:after { 
+		width: 100%; 
+		left: 0; 
+	}
 	
+	.navWrap > ul {
+		display: block;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 315px;
+	}
+	ul li {
+		list-style: none;
+	    list-style-type: none;
+	    float: left;
+	}
+	#nav-logo {
+		width: 200px;
+		
+	}
+
+	.navWrap ul.Btns li a {
+	    line-height: 45px;
+	    display: inline-block;
+	    text-decoration: none;
+	    letter-spacing: 0.05em;
+	    font-size: 23px;
+	    color: #ffffff;
+	    text-decoration: none;
+	}
+	.srcBtn {
+		background: url(${pageContext.request.contextPath }/resources/images/search.svg) no-repeat top left;
+	    background-size: contain;
+	    cursor: pointer;
+	    display: inline-block;
+	    height: 37px;
+	    width: 30px;
+	    margin-right: 6px;
+	    border: none;
+    	outline:none;
+    	position: relative;
+    	top: 3px;
+	}
+	.member {
+		font-weight: bold;
+		color: #212529;
+		text-align: center;
+		border: 1px solid gray;
+		padding: 0.375rem 0.75rem;
+		font-size: 15px;
+		border-radius: 1.25rem;
+	}
+	.nonMember {
+		position: relative;
+		top: 47%;
+		line-height: 1.5;
+		font-weight: bold;
+		color: #212529;
+		text-align: center;
+		border: 1px solid gray;
+		padding: 0.375rem 0.75rem;
+		font-size: 15px;
+		border-radius: 1.25rem;
+	}
+	.cartImg {
+		position: relative;
+    	top: 3px;
+	}
+	.userImg {
+	
+	}
+	.cartBadge {
+		position: absolute;
+		display: inline-block;
+		padding: 0.3em 0.28em;
+		font-size: 30px;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: 0.25rem;
+		color: #fff;
+		background-color: #86b3e3;
+		transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	}
+	/* --- modal ---*/
+	.popup-wrap{
+		background-color:rgba(0,0,0,.6); 
+		/* 배경색과 투명도로 살짝 어둡지만 투명한 배경
+		허공에 붕 떠있는 느낌을 주고 싶으면 안넣어도 무방 */
+		justify-content:center; /* 수평 중앙정렬 */
+		align-items:center;     /* 수직 중앙정렬 */
+		position:fixed;          /* 포지션 픽스, 화면이 스크롤되더라도 고정되기 위함 */
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;               /* 모든 방향에 0을 주면 화면에 꽉차게 됩니다. */
+		display:none; 
+		/* 이벤트가 발생할 때 띄우기 위해 숨김
+		처음부터 보이게 하는 상황이라면 display:flex; */
+		padding:15px; 
+		/* 반응형의 경우 padding이 없으면 박스가 화면에 붙어서 안이뻐짐 */
+		z-index: 9999;
+		
+	}
+	.popup{
+		width:100%;               /* 반응형 이기 때문에 가로값은 100% */
+		max-width:440px;          /* 팝업의 최대 크기지정 */
+		height: 476px;
+		border-radius:5px;       /* 둥글둥글한 디자인을 위해 각을 없앱니다. */
+		overflow:hidden;          /* 각을 없앴을 때 내부 영역이 튀어나오는걸 방지 */
+		background-color: #fff; 
+		/* 팝업이 허공에 떠있는 듯한 느낌을 주기 위한 그림자 효과. */
+		box-shadow: 5px 10px 10px 1px rgba(0,0,0,.3); 
+		padding: 20px;
+	}
+	.login-wrap{
+		max-width:420px;
+		margin: 0 auto;
+	    width: 100%;
+	    position: relative;
+	    box-sizing: border-box;
+	}
+	.popup-head{
+		width: 100%;/* 부모요소를 따라가기 때문에 굳이 가로값을 주지 않아도 되지만 일부 ie에서 인식 못하는 문제가 있음 */
+		margin-bottom: 40px;
+		justify-content:center;
+		text-align: center;
+		
+	}
+	.head-logo{
+		background: url(${pageContext.request.contextPath }/resources/images/bookinglogo.svg) no-repeat top left;
+		background-position: center;
+		background-size: contain;
+		display: block;
+    	height: 50px;
+    	margin-top:30px;
+    	
+	}
+	.title {
+		font-family: '777Balsamtint';
+		margin-top: 15px;
+	    margin-bottom: 15px;
+	    text-align: center;
+	    font-size: 24px;
+	    color: #111111;
+	    font-weight: 500;
+	}
+	.popup-body{         		/* 몸통 */
+		width:100%;
+		background-color:#ffffff; /* 컨텐츠 영역의 배경색 */
+	}
+	.body-content{              /* 몸통 내부 컨텐츠 영역 */
+		width:100%;
+		
+	}
+	.idBox{             /* 컨텐츠 타이틀 영역 */
+		
+		margin-bottom:10px;     /* 내용과 간격 조정 */
+	}
+	.loginId {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.loginId-error {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #fe0000;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	
+	
+	.pwdBox{          /* 컨텐츠 내용 영역 */
+		word-break:break-word;    /* 단어가 짤리지 않음 */
+		overflow-y:auto;          /* 내부요소가 지정한 세로 값보다 클 경우 스크롤 생성 */
+		         
+	}
+	.pwd {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.pwd-error {
+		width: 100%;
+	    height: 40px;
+	    border: 1px solid #fe0000;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	
+	.errorValid-off {
+	    display: none;
+	}
+	.errorValid-on {
+		font-size: 10px;
+	   	color: #fe0000;
+	    padding: 0 0 10px 0;
+	    display: none;
+	}
+	.errorId-off {
+    	display: none;
+	}
+	.errorId-on {
+		margin: 8px 0 1px 0;
+    	font-size: 10px;
+    	color: #fe0000;
+	}
+	.errorPwd-off {
+    	display: none;
+	}
+	.errorPwd-on {
+		margin: 8px 0 1px 0;
+    	font-size: 10px;
+    	color: #fe0000;
+	}
+	
+	.checkId{
+		font-size: 12px;
+		color: #8d8d8d;
+		margin-top: 13px;
+	}
+	.popup-foot {
+		margin-top: 35px;
+		text-align: center;
+	}
+	.popup-foot > span {
+		font-size: 11px;
+	}
+	.popup-foot > span > a {
+		font-size: 11px;
+		text-decoration: underline;
+		color: #000;
+	}
+	
+	.submitBtn {
+		margin-top: 30px;
+		padding-left: 0px !important;
+	    padding-right: 0px !important;
+	    width: 100%;
+	    text-align: center;
+	    height: 40px;
+	    font-size: 14px;
+	    padding: 13px 30px;
+	    background-color: black;
+	    border: 1px solid black;
+	    color: white;
+	    line-height: 1;
+	    cursor: pointer;
+	}
+	#close {
+		float: right;
+		background: url(${pageContext.request.contextPath }/resources/images/x.svg) no-repeat top left;
+		background-size: contain;
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+	}
+	
+	/*--- /header ---*/

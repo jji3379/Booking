@@ -126,7 +126,7 @@ public class BookController {
 		if(id!=null) {			
 			cartservice.listCart(mView, request);
 		}
-        mView.setViewName("review/reviewBookList");
+        mView.setViewName("review/reviewBookList.page");
         return mView;
     }
     
@@ -139,7 +139,7 @@ public class BookController {
         {
             mView.addObject("reviewBook", service.bookReview(d_isbn, 1));
         }
-        mView.setViewName("review/private/reviewInsertform");
+        mView.setViewName("review/private/reviewInsertform.page");
         return mView;
     }
     // by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
@@ -161,3 +161,4 @@ public class BookController {
         return mView;
     }
 }
+
