@@ -40,7 +40,7 @@ public class UsersApiController {
 	}
 	
 	@RequestMapping(value = "/users/signup", method = RequestMethod.POST)
-	public Users signup(@ModelAttribute("dto") Users dto) {
+	public Users signup(@RequestBody Users dto) {
 		//usersService.addUser(dto);
 		return usersService.addUser(dto);
 	}

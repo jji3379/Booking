@@ -52,7 +52,7 @@
 	 	 	<p>멤버가 되어 북킹에서의 <br /> 최고의 혜택을 만나보세요</p>
 	 	 </div>
 	 	 <div class="signup-body">
-	 	 	<form action="${pageContext.request.contextPath }/v1/users/signup" method="post" id="myForm" novalidate>
+	 	 	<form id="signupForm" >
 		 	<div class="form-group">
 		 		<label for="id" hidden>아이디</label>
 		 		<input class="form-control" type="text" name="loginId" id="signupId" placeholder="사용하실 ID를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
@@ -219,7 +219,7 @@ function min() {
 		alert("관심사를 한가지 이상 선택해 주세요.");
 		return;
 	}
-	/*
+	
 	var careList = '';
 	
 	for(var i=0; i<care.length; i++) {
@@ -235,29 +235,29 @@ function min() {
 		pwd : $("#signupPwd").val(),
 		email : $("#email").val(),
 		care : careList 
-			//writer : $("#writer").val()
-		};
-		console.log(data);
+	};
 		
-		$.ajax({
-			url:"${pageContext.request.contextPath }/v1/users/signup",
-			method:"post",
-			dataType : "json",
-			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
-			success:function(data) {
-				console.log("성공");
-			},
-			error : function(data) {
-				console.log("오류");
-			}
-		});
-		*/
+	$.ajax({
+		url:"${pageContext.request.contextPath }/v1/users/signup",
+		method:"post",
+		dataType : "json",
+		contentType : "application/json; charset=utf-8",
+		data : JSON.stringify(data),
+		success:function(data) {
+			alert("회원가입이 완료 되었습니다.");
+			location.href = "http:/booking/";
+		},
+		error : function(data) {
+			
+		}
+	});
+	
 }
 //by 준영, Validate.js 라이브러리 
+
 $(document).ready(function () { 
     // validate signup form on keyup and submit
-    $('#myForm').validate({
+    $('#signupForm').validate({
         rules: {
             loginId:{
             	required:true, 
@@ -310,9 +310,6 @@ $(document).ready(function () {
     });
     
 });
-
-
-
 	
 </script>
 </body>
