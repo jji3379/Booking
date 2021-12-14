@@ -51,16 +51,21 @@ public class UsersServiceImpl implements UsersService{
 	
 	//by욱현.회원가입관련 로직_2021222
 	@Override
-	public void addUser(Users users) {
+	public Users addUser(Users users) {
 		String savedPwd = encoder.encode(users.getPwd());
 		users.setPwd(savedPwd);
-		usersRepository.save(users);
+		return usersRepository.save(users);
 	}
 	//by욱현.id중복겁사관련 로직_2021222
 	@Override
-	public boolean isExistId(Long id) {
+	public boolean isExistId(String loginId) {
 		// id  존재 여부를 리턴해준다. 
-		return usersRepository.exists(id);
+		Users users = usersRepository.findByLoginId(loginId);
+		boolean isExisted = true;
+		if(users != null) {
+			isExisted = false;
+		}
+		return isExisted;
 	}
 	//by욱현.로그인폼관련 로직_2021222
 	@Override

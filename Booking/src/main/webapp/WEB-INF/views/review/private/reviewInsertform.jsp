@@ -92,7 +92,7 @@
 			spoCheck : $("#spoCheck").val(),
 			bookTitle : $("#bookTitle").val(),
 			imagePath : $("#imagePath").val(),
-			//writer : $("#writer").val()eksk
+			//writer : $("#writer").val()
 		};
 		console.log(data);
 		

@@ -155,11 +155,13 @@ public class UsersViewController {
 	//by욱현.회원 가입 요청처리_2021222
 		/*form 전송은 보통 post 방식 요청인데 post 방식 요청만 받아들이도록 
 		컨트롤러에 설정하는게 일반적이다.*/ 
+	/*
 	@RequestMapping(value = "/users/signup", method = RequestMethod.POST)
 	public String signup(@ModelAttribute("dto") Users dto) {
 		usersService.addUser(dto);
 		return "users/signup";
 	}
+	*/
 	//by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")
 	public String signupForm() {
@@ -169,13 +171,13 @@ public class UsersViewController {
 	//by욱현.중복아이디 검사를 위한 ajax 요청 처리_2021222 
 	@RequestMapping("/users/checkid")
 	@ResponseBody
-	public Map<String, Object> checkid(@RequestParam Long id,
+	public Map<String, Object> checkid(@RequestParam String loginId,
 			ModelAndView mView) {
 		//서비스를 이용해서 해당 아이디가 존재하는지 여부를 알아낸다.
-		boolean isExist=usersService.isExistId(id);
+		//String isExist=usersService.isExistId(loginId);
 		// {"isExist":true} or {"isExist":false} 를 응답하기 위한 Map 구성
 		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("isExist", isExist);
+		//map.put("isExist", isExist);
 		return map;
 	}
 	

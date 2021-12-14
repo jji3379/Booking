@@ -484,12 +484,12 @@
 							<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
 							<div class="idBox">
 								<label for="id" hidden>아이디</label>
-								<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }">
+								<input type="text" class="loginId" id="loginId" placeholder="아이디"  value="${savedId }">
 								<span class="errorId-off">필수 입력 항목입니다.</span>
 							</div>
 							<div class="pwdBox">
 								<label for="pwd" hidden>비밀번호</label>
-								<input type="password" class="pwd" id="pwd" name="pwd" placeholder="비밀번호" value="${savedPwd }">
+								<input type="password" class="pwd" id="pwd" placeholder="비밀번호" value="${savedPwd }">
 								<span class="errorPwd-off">필수 입력 항목입니다.</span>
 							</div>
 							<div class="checkId">

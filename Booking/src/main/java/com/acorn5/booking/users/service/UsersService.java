@@ -15,9 +15,9 @@ import com.acorn5.booking.users.entity.Users;
 public interface UsersService {
 	
 	//회원 가입 처리를 하는 메소드 
-	public void addUser(Users users);
+	public Users addUser(Users users);
 	//아이디가 존재하는지 여부를 리턴하는 메소드
-	public boolean isExistId(Long id);
+	public boolean isExistId(String signupId);
 	//로그인폼에 관련된 처리를 하는 메소드
 	public void loginformLogic(HttpServletRequest request,
 			ModelAndView mView);
