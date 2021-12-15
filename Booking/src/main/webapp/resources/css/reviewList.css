@@ -246,7 +246,11 @@ h1 {
     margin-left: 20px;
 }
 .pagination{
-	margin-left: -133px;
+	display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    margin-right: 186px;
 }
 .page-link{
 	position: relative;

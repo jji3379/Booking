@@ -382,12 +382,7 @@ function spoAlert(spoCheck){
 	}
 }
 
-/* $('#writeR').on('click',function(){
-	if(${id} == ''){
-		
-	}
-	
-}) */
+//by 남기, 리뷰작성폼 로그인 해야 넘어가게끔함
 var isLogin=${not empty id};
 
 document.querySelector("#writeR").addEventListener("click",function(){

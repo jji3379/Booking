@@ -152,7 +152,7 @@ body {
 		left: 0; 
 	}
 	
-	.navWrap > ul {
+	 ul {
 		display: block;
 	    margin-block-start: 1em;
 	    margin-block-end: 1em;

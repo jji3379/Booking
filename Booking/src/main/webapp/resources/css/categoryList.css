@@ -243,6 +243,7 @@ a {
   border-radius: 0.25rem;  
   margin-top: 122px;
   margin-bottom: 100px;
+  margin-right: 10px;
 }
 .page-link {
   position: relative;
