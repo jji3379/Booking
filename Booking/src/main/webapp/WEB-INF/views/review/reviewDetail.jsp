@@ -185,7 +185,7 @@
 	</table>
 	<ul class="mylist">
 		<li><a href="review">목록보기</a></li>
-		<c:if test="${writer eq sessionScope.loginId }">
+		<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
 			<li><a href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
 			<li><a href="#" onclick="deletea();">삭제</a></li>
 		</c:if>
@@ -233,7 +233,7 @@
 									</c:if>
 									<span>${tmp.regdate }</span>
 									<a data-num="${tmp.id }" href="javascript:" class="reply-link">답글</a>
-									<c:if test="${tmp.writer.id eq id }">
+									<c:if test="${tmp.writer.id eq sessionScope.id }">
 										| <a data-num="${tmp.id }" href="javascript:" class="reviewComment-update-link">수정</a>
 										| <a data-num="${tmp.id }" href="javascript:" class="reviewComment-delete-link">삭제</a>
 									</c:if>
@@ -242,6 +242,7 @@
 									<pre>${tmp.content }</pre>
 								</dd>
 							</dl>
+							
 							<form class="comment-form re-reviewInsert-form" 
 								action="private/reviewComment_insert.do" method="post">
 								<input type="hidden" name="refGroup"
@@ -253,8 +254,9 @@
 								<textarea name="content"></textarea>
 								<button class="btn btn-primary" type="submit">등록</button>
 							</form>
+							
 							<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
-							<c:if test="${tmp.writer.id eq id }">
+							<c:if test="${tmp.writer.id eq sessionScope.id }">
 								<form class="comment-form reviewUpdate-form" 
 									action="private/reviewComment_update.do" method="post">
 									<input type="hidden" name="id" value="${tmp.id }"/>
@@ -362,12 +364,12 @@
 	//답글 달기 링크를 클릭했을때 실행할 함수 등록
 	$(document).on("click",".reply-link", function(){
 		//로그인 여부
-		var isLogin="${not empty id}";
+		var isLogin="${not empty sessionScope.id}";
 		console.log("isLogin:"+isLogin);
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.id}";
+					"url=${pageContext.request.contextPath }/review/${dto.id}";
 		}
 		
 		var selector="#comment"+$(this).attr("data-num");
@@ -383,11 +385,11 @@
 	});
 	$(document).on("submit",".reviewInsert-form", function(){
 		//로그인 여부
-		var isLogin=${not empty id};
+		var isLogin=${not empty sessionScope.id};
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
-					"url=${pageContext.request.contextPath }/review/reviewDetail.do?num=${dto.id}";
+					"url=${pageContext.request.contextPath }/review/${dto.id}";
 			return false; //폼 전송 막기 		
 		}
 	});

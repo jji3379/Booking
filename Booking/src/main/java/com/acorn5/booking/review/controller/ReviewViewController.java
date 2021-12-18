@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,7 @@ import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
 
@@ -39,10 +41,13 @@ public class ReviewViewController {
 	@Autowired
 	private ReviewRepository reviewRepository;
 	
+	@Autowired
+	private ReviewCommentRepository reviewCommentRepository;
+	
 	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
 	@Autowired
 	private CartService cartservice;
-
+	
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review")
 	public String list(Model model ,HttpServletRequest request) {
@@ -66,15 +71,20 @@ public class ReviewViewController {
 			,HttpServletRequest request) {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
 		//Review review = service.getDetail(id);
-		//Long writer = review.getWriter().getId();
+		//String writer = review.getWriter().getLoginId();
 		Long loginId=(Long)request.getSession().getAttribute("id");
-		
+		Review dto=reviewRepository.findReviewDetail(id);
 		reviewRepository.addViewCount(id);
+		
+		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(id);
+		
 		if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
 			//cartservice.listCart(mView, request); 
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
 		model.addAttribute("reviewId", id);
+		model.addAttribute("reviewCommentList", reviewCommentList);
+		model.addAttribute("dto", dto);
 		//model.addAttribute("loginId", loginId);
 		//model.addAttribute("writer", writer);
 		//mView.setViewName("review/reviewDetail");
@@ -122,7 +132,7 @@ public class ReviewViewController {
 	}
 
 	// by남기, 댓글 수정 ajax 요청에 대한 요청 처리_210303
-	@RequestMapping(value = "/private/reviewComment_update", 
+	@RequestMapping(value = "/review/private/reviewComment_update", 
 			method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
@@ -135,24 +145,24 @@ public class ReviewViewController {
 		return map;
 	}
 	// by남기, 리뷰의 댓글 삭제 요청 처리_210303
-	@RequestMapping("/private/reviewComment_delete")
+	@RequestMapping("/review/private/reviewComment_delete")
 	public ModelAndView reviewCommentDelete(HttpServletRequest request,
 			ModelAndView mView, @RequestParam int refGroup) {
 		// by남기, 삭제할 댓글의 정보를 request 영역에서 가져온다_210303
 		service.deleteComment(request);
 		// by남기, reviewDetail page 로 리다일렉트 이동시킨다_210303
-		mView.setViewName("redirect:/review/reviewDetail.do?num="+refGroup);
+		mView.setViewName("redirect:/review/"+refGroup);
 		return mView;
 	}
 	// by남기, 새 댓글 저장 요청 처리_210303
-	@RequestMapping(value = "/private/reviewComment_insert", 
+	@RequestMapping(value = "/review/private/reviewComment_insert", 
 			method = RequestMethod.POST)
 	public String reviewCommentInsert(HttpServletRequest request,
 			@RequestParam int refGroup) {
 		// by남기, 새 댓글을 저장하고_210303
 		service.saveComment(request);
 		// by남기, 글 자세히 보기로 다시 리다일렉트 이동 시킨다_210303
-		return "redirect:/review/reviewDetail.do?num="+refGroup;// by남기, ref_group 은 자세히 보기 했던 글번호_210303 
+		return "redirect:/review/"+refGroup;// by남기, ref_group 은 자세히 보기 했던 글번호_210303 
 	}
 	
 }
