@@ -111,20 +111,20 @@
 		"width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
 		
 	});
-
 	
 	function postAjax(){
+		var spoCheckYn = $('input:checkbox[id="spoCheck"]').is(":checked");
+		var spoCheckData = (spoCheckYn ? "Y" : "N");
+		
 		var data = {
 			isbn : $("#isbn").val(),
 			reviewTitle : $("#reviewTitle").val(),
 			rating : $("#rating").val(),
 			content : $("#content").val(),
-			spoCheck : $("#spoCheck").val(),
+			spoCheck : spoCheckData,
 			bookTitle : $("#bookTitle").val(),
 			imagePath : $("#imagePath").val(),
-			//writer : $("#writer").val()eksk
 		};
-		console.log(data);
 		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/v1/review",
