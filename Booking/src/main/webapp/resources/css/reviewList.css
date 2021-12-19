@@ -13,6 +13,9 @@ p, h1, ul {
 	do: inherit;
 	vertical-align: baseline;
 }
+#bookSearch {
+	border: none;
+}
 /*css 초기화*/
 .cardLink{
 	margin:18px 26px;
@@ -47,7 +50,7 @@ p, h1, ul {
 	height: 165px;
 }
 
-.card-header-is_closed {
+.card-spoCheck {
     background-color: #EF5A31;
     color: #FFF;
     font-weight: bold;
@@ -58,6 +61,7 @@ p, h1, ul {
     font-weight: bold;
     padding: 10px 10px;
     line-height: 20px;
+    display:none;
 }
 
 h1 {

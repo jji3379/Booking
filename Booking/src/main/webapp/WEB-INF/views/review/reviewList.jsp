@@ -33,7 +33,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -66,7 +66,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -99,7 +99,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/095/203/09520318.jpg?type=m1&udate=20171016');">
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -132,7 +132,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -165,7 +165,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -198,7 +198,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header"  style="background-image: url('https://bookthumb-phinf.pstatic.net/cover/074/430/07443083.jpg?type=m1&udate=20190817');" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -231,7 +231,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -264,7 +264,7 @@
 					<div class="card col">
 						<!-- 카드 헤더 -->
 						<div class="card-header" >
-							<div class = "card-header-is_closed" > 
+							<div class = "card-spoCheck" > 
 				                <div class = "card-header-text" > 스포 포함 </div > 
 				            </div >
 						</div>
@@ -369,6 +369,7 @@ $(document).ready(function() {
         }
     }); 
 }); 
+
 function spoAlert(spoCheck){
 	console.log(spoCheck);
 	if(spoCheck == "yes"){
@@ -393,6 +394,14 @@ document.querySelector("#writeR").addEventListener("click",function(){
 	}
 });
 	
+$(document).ready(function() {
+    $('#search').load(function() {
+        if ($('#reviewInput').val() == '') {
+            return false;
+        }
+    }); 
+}); 
+
 </script>
 </body>
 </html>

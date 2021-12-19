@@ -126,7 +126,7 @@ public class BookController {
 		if(id!=null) {			
 			cartservice.listCart(mView, request);
 		}
-        mView.setViewName("review/reviewBookList.page");
+        mView.setViewName("review/reviewBookList");
         return mView;
     }
     
