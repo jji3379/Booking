@@ -294,7 +294,7 @@
 				$("#bookTitle")[0].textContent = data.bookTitle;
 				$("#writer")[0].textContent = data.writer.loginId;
 				$("#viewCount")[0].textContent = data.viewCount;
-				$("#regdate")[0].textContent = data.regdate;
+				$("#regdate")[0].textContent = new Date(data.regdate).toLocaleDateString();
 				switch(data.rating) {
 				case 1 :
 					star = '<a href="#">★</a>';
