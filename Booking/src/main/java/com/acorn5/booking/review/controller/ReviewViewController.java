@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +28,19 @@ import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Controller
 public class ReviewViewController {
+	
+	@PersistenceContext
+	EntityManager em;
 	
 	// by남기, 의존객체 DI 을 필드에 선언해둔다_210303
 	@Autowired
@@ -76,7 +84,14 @@ public class ReviewViewController {
 		Review dto=reviewRepository.findReviewDetail(id);
 		reviewRepository.addViewCount(id);
 		
-		List<ReviewDtl> reviewCommentList= reviewCommentRepository.findByRefGroup(id);
+		JPAQueryFactory query = new JPAQueryFactory(em);
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		
+		List<ReviewDtl> reviewCommentList = query.selectFrom(qReviewDtl)
+				.where(qReviewDtl.refGroup.eq(id))
+				.orderBy(qReviewDtl.commentGroup.asc())
+				.fetch();
+				//reviewCommentRepository.findByRefGroup(id);
 		
 		if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
 			//cartservice.listCart(mView, request); 
