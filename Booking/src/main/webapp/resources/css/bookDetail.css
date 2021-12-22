@@ -6,19 +6,19 @@ html, body {
     body {
     	padding: 0;
     }	
-
-.container {
-    	width: 1200px !important;
-    	padding: 0;
-    	margin: 0 auto;
-    }
-	@font-face {
+@font-face {
    font-family: '777Balsamtint';
    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
    font-weight: normal;
    font-style: normal;
-   
 }
+.container {
+    	width: 1220px !important;
+    	padding: 0;
+    	margin: 0 auto;
+    	font-family: '777Balsamtint';
+    }
+	
 	.btn {
   font-family: '777Balsamtint';
   margin: 0 3px;
@@ -60,15 +60,102 @@ body{
 .box::-webkit-scrollbar{ 
 	display:none; 
 }
-@font-face {
-	   font-family: '777Balsamtint';
-	   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
-	   font-weight: normal;
-	   font-style: normal;
-	}
 	/*
 		Table CSS
 	*/
+	.tb-head {
+		padding: 15px 0 16px 10px;
+		border-top: 1px solid #e5e5e5;
+		border-bottom: 1px solid #a8a8a8;
+		display: table;
+		width: 100%;
+	}
+	.head-title {
+		display:table-cell;
+		font-size: 36px;
+    	font-weight: 500;
+	}
+	.head-star {
+		display:table-cell;
+		float: right;
+	    padding-right: 35px;
+		font-size: 19px;
+		color: #333333;
+	}
+	.head-star > p {
+		display: inline;
+		vertical-align: middle;
+		margin: 0;
+		padding: 0;
+	}
+	.star-value {
+		font-family: emoji;
+		display: inline;
+		vertical-align: baseline;
+	}
+	.star-value::before {
+	    content: "|";
+	    padding-left: 7px;
+	    padding-right: 7px;
+	    vertical-align: bottom;
+	    opacity: 0.9;
+	}
+	.book-info {
+		margin: 0;
+		padding: 0;
+	}
+	.info-list{
+		margin: 0;
+		padding: 0;
+	}
+	.info-list > li{
+		display:inline-block;
+	}
+	.info-list > li::before{
+	    content: "|";
+	    color: 33333387;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	    vertical-align: middle;
+	    opacity: 0.4;
+	    font-size: 27px
+	}
+	.info-list > li:first-child::before {
+		content: "";
+	    vertical-align: middle;
+		padding: 0;
+	}
+	th {
+		text-align: left;
+		width: 55px;
+		font-size: 20px;
+	}
+	.bookIntro {
+		position: relative;
+		border-top: 1px solid #d5d5d5;
+    	width: 100%;
+	}
+	.Intro-L {
+		position: absolute;    
+		padding: 5px 100px 0 0;
+	    width: 373px;
+	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
+	    color: #222;
+	    font-size: 24px;
+	}
+	.Intro-R {
+		float: left;
+		margin: 0 0 0 250px;
+		font-size: 28px;
+		line-height: 39px;
+		/**/
+	}
+	.finishLine {
+		margin: 40px 0 40px 0;
+    	padding: 0;
+    	border-top: 1px solid #d5d5d5;
+	}
+	
 	#isbn{
 		display:none;
 	}
@@ -92,36 +179,33 @@ body{
 	.h1{
       display:none;
     }
-	.description {
-		background-color: #80808024;
-		width: 850px;
-		height: 200px;
-		padding: 10px 15px;
-		margin-top: 50px;
-		margin-left: 150px;	
-		border-radius: 5px;
-		display: inline-block;
-		font-family: '777Balsamtint';
-		font-size: 28px;
-		line-height: 39px;
-		box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+	
+	.description{
+	    padding-top: 30px;
+	    padding-right: 28px;
+	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
+	    color: #333;
+	    font-size: 18px;
+	    line-height: 1.8;
+	    letter-spacing: -0.02em;
+	    text-align: left;
 	}
 	.tb {
-		font-family: '777Balsamtint';
-		width: 830px;
-		height: 100%;
-		display: block;
+		width: 1046px;
 		float: left;
 	}
 	.hori {
-		padding: 0 40px;
-		height: 350px;
-		position: relative;
+		padding-bottom: 30px;
+		height: 402px;
+		border-bottom: 1px solid #d5d5d5;
 	}
 	.quantity {
 	  position: relative;
 	}
-	
+	.trButton {
+	  vertical-align: bottom;
+	  height: 40px;
+	}
 	input[type=number]::-webkit-inner-spin-button,
 	input[type=number]::-webkit-outer-spin-button
 	{
@@ -188,9 +272,9 @@ body{
 	  height: 50%;
 	}
 	.tdImg {
-		width:250px; 
-		height:350px; 
-		padding-right:20px; 
+		width: 240px; 
+		height: 300px; 
+		padding: 20px 32px 0 20px; 
 	}
 	.tdImg > a > img {
 		width:100%; 
@@ -201,9 +285,11 @@ body{
 	.tdTitle {
 		font-size:30px; 
 		font-weight:500;
+		
 	}
-	.tdAuth {
-		font-size:24px;
+	.tdInfo {
+		border-bottom: 1px solid #e5e5e5;
+		font-size:18px;
 	}
 	.tdPrice {
 		font-size:23px;
@@ -215,10 +301,9 @@ body{
 		color:red;
 	}
 	.trCount {
-		height:42px;
 	}
 	.trCount > td {
-		display: -webkit-inline-box;
+		/* display: -webkit-inline-box; */
 	}
 	.trCount > td > p {
 		font-size:22px; 
@@ -247,7 +332,8 @@ body{
 	}
 	.divR {
 		float: right; 
-		height: 350px;
+		height: 369px;
+		margin-right: 30px;
 	}
 	/* SCROLL */
 	#simList::-webkit-scrollbar { width: 8px; }
@@ -263,17 +349,17 @@ body{
 	::-webkit-scrollbar-button { display: none; }
 	/* 위 아래 버튼 (버튼 없애기를 함) */
 	.Rtop {
-   		font-family: '777Balsamtint';
    		font-size: 19px;
 		border:1.5px solid #33333387; 
 		background-color: #d3cfcf80; 
 		text-align:center; 
-		margin:0 auto; 
+		margin:0 auto;
+		padding: 5px; 
 	}
 	#simList{
    		font-family: '777Balsamtint';
 		width: 140px;
-		height: 300px;
+		height: 252px;
 		border: 1.5px solid #33333387;
 		border-top: 0;
 		border-bottom: 0;
@@ -311,6 +397,7 @@ body{
 	}
 	
 	.Rbot {
+		padding-top: 5px;
 		height: 30px;
 		border:1.5px solid #33333387; 
 		background-color: #d3cfcf80; 

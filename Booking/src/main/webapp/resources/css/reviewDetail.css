@@ -1,0 +1,117 @@
+body{
+		font-size:20px;
+	}
+	.layout {
+		width: 1200px !important;
+		padding: 0;
+	    margin: 0 auto;
+	    font-family: '777Balsamtint';
+	}
+	
+	/* by남기, 글 내용을 출력할 div 에 적용할 css _210303 */
+	.contents{
+		width: 100%;
+		border: 1px dotted #cecece;
+	}
+	/* by남기, 댓글 프로필 이미지를 작은 원형으로 만든다. _210303 */
+	.profile-image{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
+	}
+	/* by남기, ul 요소의 기본 스타일 제거 _210303 */
+	.comments ul{
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+	.comments dt{
+		margin-top: 5px;
+	}
+	.comments dd{
+		margin-left: 35px;
+	}
+	
+	.comments li{
+		clear: left;
+		padding: 10px;
+		width: 100%;
+		display: contents
+	}
+	.comments ul li{
+		border-top: 1px solid #888;
+	}
+	
+	.comment-form {
+		
+	}
+	/* by남기, 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다 _210303 */
+	.comments .comment-form{
+		display: none;
+	}
+	/* by남기, .reply_icon 을 li 요소를 기준으로 배치 하기  _210303 */
+	.comments li{
+		position: relative;
+	}
+	.comments .reply-icon{
+		position: absolute;
+		top: 1em;
+		left: 1em;
+		color: red;
+	}
+	pre {
+	  display: block;
+	  padding: 9.5px;
+	  margin: 0;
+	  font-size: 13px;
+	  line-height: 1.42857143;
+	  color: #333333;
+	  word-break: break-all;
+	  word-wrap: break-word;
+	  background-color: #f5f5f5;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	}
+	/* by남기, 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 _210303 */
+	.contents img{
+		max-width: 100%;
+	}
+	.loader{
+		position: fixed; /* by남기, 좌하단 고정된 위치에 배치 하기 위해 _210303 */
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		text-align: center; /* by남기, 이미지를 좌우로 가운데  정렬 _210303 */
+		z-index: 1000;
+		display: none; /* by남기, 일단 숨겨 놓기 _210303 */
+	}	
+	#image{
+		width: 100%;
+	    height: 100%;
+	    border-radius: 3px;
+	    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+	}
+	#star a{ 
+		text-decoration: none; color: red; 
+	} 
+	ul.mylist li:before {
+	    content: ">";
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 0px 5px 6px 0px;
+	}
+	ul.mylist {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 18px;
+  
+    max-width: 250px;
+    width: 100%;
+	}
+	
+	.table th, .table td{
+		padding:0.3rem;
+		vertical-align: middle;
+	}

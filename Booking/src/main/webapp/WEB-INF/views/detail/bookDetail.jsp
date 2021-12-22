@@ -6,38 +6,69 @@
 <head>
 <meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
-<link rel="stylesheet" href="resources/css/bookDetail.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bookDetail.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
-
+<style>
+	.simAjax > li {
+		margin-bottom: 10px;
+	}
+	.shipping {
+		display: flex;
+		width: 100%;
+	}
+	.ship-L {
+		padding: 36px 114px 40px 43px;
+	    width: 373px;
+	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
+	    color: #222;
+	    font-size: 24px;
+	}
+	.ship-R {
+	
+	}
+</style>
 </head>
 <body>
 <div class="container">
 	<c:forEach var="b" items="${bookDetail }">
 		<div class="hori">
 			<table class="tb">
+				<div class="tb-head">
+					<h2 class="head-title"> > ${b.title }</h2>
+					<div class="head-star">
+						<p>별점</p>
+						<div class="star-value">★★★★★</div>
+					</div>
+				</div>
 		   		<tr>
 		   			<td class="tdImg" rowspan='6'><a id="image" href="${b.link }"><img src="${b.image}"/></a></td>
-		   			<td class="tdTitle">${b.title }</td>
+		   		</tr>
+		   		<tr class="book-info">
+		   			<td colspan="2" class="tdInfo">
+			   			<ul class="info-list">
+			   				<li>저자 : <span id="auth">${b.author }</span></li>
+			   				<li>출판사 : ${b.publisher }</li>
+			   				<li id="pubdate">발행 : ${b.pubdate }</li>
+			   				<li>ISBN : ${b.isbn }</li>
+			   			</ul>
+		   			</td>
 		   		</tr>
 		   		<tr>
-		   			<td class="tdAuth"><span id="auth">${b.author }</span>| ${b.publisher } | ${b.pubdate }</td>
+		   			<th >정가 </th>
+		   			<td class="tdPrice">${b.price} 원</td>
 		   		</tr>
 		   		<tr>
-		   			<td class="tdPrice">정가 ${b.price} 원</td>
-		   		</tr>
-		   		<tr>
-		   			<td class="tdDisc">판매가 <span>${b.discount } </span>원</td>
+		   			<th >판매가 </th>
+		   			<td class="tdDisc"><span>${b.discount } </span>원</td>
 		   		</tr>
 		   		<tr class="trCount">
-		   			<td>
-		   				<p>수량</p>
-						<div class="quantity">
-							<input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" />
-						</div>
-		           	</td>
+		   			<th>수량</th>
+		           	<td class="quantity">
+						<input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" />
+					</td>
 		   		</tr>
 	   			<tr>
-		           	<td>
+		           	<td class="trButton" colspan="2">
 		    	       	<input id="idP" type="hidden" name="id" value="${id }"/>
 					    <input id="imageP" type="hidden" name="image" value="${b.image }"/>
 					    <input id="titleP" type="hidden" name="title" value="${b.title }" />
@@ -62,11 +93,34 @@
 				</div>
 			</div>
 		</div>
-		<div class="description">
-			${b.description}
+		<div class="bottomWrap">
+			<div class="bookIntro">
+				<div class="Intro-L">책 소개</div>
+				<div class="Intro-R">
+					<div class="description">
+						${b.description}
+					</div>
+					<div class="finishLine"/>
+				</div>
+			</div>
+			<div class="shipping">
+				<div class="ship-L">배송안내</div>
+				<div class="ship-R">
+					<ul class="ship-guide">
+		                <li><p>북킹 상품은 택배로 배송되며, 출고완료 1~2일내 상품을 받아 보실 수 있습니다.</p></li>
+		                <li><p>출고가능 시간이 서로 다른 상품을 함께 주문할 경우 출고가능 시간이 가장 긴 상품을 기준으로 배송됩니다.</p></li>
+		                <li><p>군부대, 교도소 등 특정기관은 우체국 택배만 배송가능합니다.</p></li>
+		                <li><p>배송비는 업체 배송비 정책에 따릅니다.<br></p></li>
+		                <span style="display: block; margin-left: 10px; color: #777">- 도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</span>
+		                <span style="display: block; margin-left: 10px; color: #777">- 상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</span>
+		            </ul>
+				</div>
+			</div>
 		</div>
+		
     	</c:forEach>
-    	<!-- <div id="reviewList"></div>	 -->
+    	<!-- <div id="reviewList"></div>-->
+   	</div>
 	<script>
 		//by준영, 장바구니 로그인 필터 기능_210311
 		//by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
@@ -137,8 +191,6 @@
 			}	
 		}
 	</script>
-
-</div>
 <script type="text/javascript">
 //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
 var inputAuth=$("#auth").text();
@@ -236,6 +288,7 @@ function bookAuthor(){
 	   e.preventDefault();
 	}); 
 	 */
+	 //by준영, 수량 +- 동작
 	 jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
 	    jQuery('.quantity').each(function() {
 	      var spinner = jQuery(this),
