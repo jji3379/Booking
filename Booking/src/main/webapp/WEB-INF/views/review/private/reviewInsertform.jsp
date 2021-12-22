@@ -86,7 +86,7 @@
 			<input type="hidden" name="imagePath" id="imagePath" value="" />
 			<input type="hidden" name="rating" id="rating"/>
 		</div>
-		<button id="insertBtn" type="button" onclick="postAjax();">저장</button>
+		<button id="insertBtn" type="submit" onclick="postAjax();">저장</button>
 	</form>
 	</div>
 </div>
