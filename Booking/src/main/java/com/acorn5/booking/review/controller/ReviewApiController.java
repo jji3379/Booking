@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +40,7 @@ public class ReviewApiController {
 
 		// by남기, 글 목록 요청처리_210303
 		@RequestMapping("/review")
-		public List<Review> list(HttpServletRequest request) {
+		public Page<Review> list(HttpServletRequest request, Pageable pageable) {
 			
 			Long id=(Long)request.getSession().getAttribute("id");
 			if(id!=null) {
@@ -46,7 +48,7 @@ public class ReviewApiController {
 			//cartservice.listCart(request); 
 			}
 			
-			return service.getList(request);
+			return service.getList(request, pageable);
 		}
 		
 		// by남기, 글 상세정보 요청처리_210303  

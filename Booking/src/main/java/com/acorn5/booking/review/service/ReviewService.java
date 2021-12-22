@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +20,7 @@ public interface ReviewService {
 	// by남기, 새 리뷰를 저장하는 메소드 _210303
 	public Review saveContent(Review dto);
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
-	public List<Review> getList(HttpServletRequest request);
+	public Page<Review> getList(HttpServletRequest request, Pageable pageable);
 	// by남기, 이미지를 저장하는 메소드_210303
 	public String saveImage(MultipartFile image, HttpServletRequest request);
 	// by남기, 리뷰를 수정하는 메소드_210303
