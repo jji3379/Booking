@@ -80,7 +80,7 @@ body{
 		float: right;
 	    padding-right: 35px;
 		font-size: 19px;
-		color: #333333;
+		color: #333;
 	}
 	.head-star > p {
 		display: inline;
@@ -92,13 +92,16 @@ body{
 		font-family: emoji;
 		display: inline;
 		vertical-align: baseline;
+		color: #ffc80b;
 	}
-	.star-value::before {
+	
+	.head-star > .star-value::before {
 	    content: "|";
 	    padding-left: 7px;
 	    padding-right: 7px;
 	    vertical-align: bottom;
 	    opacity: 0.9;
+	    color: #333;
 	}
 	.book-info {
 		margin: 0;
@@ -132,16 +135,15 @@ body{
 	}
 	.bookIntro {
 		position: relative;
-		border-top: 1px solid #d5d5d5;
     	width: 100%;
 	}
 	.Intro-L {
-		position: absolute;    
-		padding: 5px 100px 0 0;
-	    width: 373px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
+		position: absolute;
+	    font-family: '777Balsamtint';
+	    padding: 30px 100px 0 20px;
+	    width: 130px;
 	    color: #222;
-	    font-size: 24px;
+	    font-size: 29px;
 	}
 	.Intro-R {
 		float: left;
@@ -150,12 +152,132 @@ body{
 		line-height: 39px;
 		/**/
 	}
+	.shipping{
+		position: relative;
+	    width: 100%;
+	    display: inline-block;
+	}
+	.ship-L{
+		position: absolute;    
+		padding: 15px 100px 0 20px;
+	    width: 130px;
+	    color: #333;
+	    font-size: 28px;
+	    letter-spacing: 2.2px;
+	    font-family: '777Balsamtint';
+
+	}
+	.ship-R{
+		margin: 0 0 0 250px;
+		line-height: 29px;
+		float: none;
+	}
+	.ship-R > ul {
+		display: inline-block;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0px;
+	}
+	.ship-guide > li {
+		float: none;
+	}
+	.ship-guide > li p{
+		margin: 0;
+		padding: 0 0 0 8px;
+	    background: url(//bimage.interpark.com/renewPark/reBookpark/last_inc_new/ico_dotGray3.gif) no-repeat left center;
+	    color: #333;
+	    font-size: 19px;
+	    letter-spacing: 1.012px;
+	}
+	
 	.finishLine {
-		margin: 40px 0 40px 0;
+		margin: 35px 0 ;
     	padding: 0;
     	border-top: 1px solid #d5d5d5;
 	}
-	
+	.reviewWrap {
+		position: relative;
+	    width: 100%;
+	    display: inline-block;
+	}
+	.review-L {
+		position: absolute;    
+		padding: 15px 100px 0 20px;
+	    width: 130px;
+	    color: #333;
+	    font-size: 28px;
+	    letter-spacing: 2.2px;
+	    font-family: '777Balsamtint';
+	}
+	.review-R {
+		float: left;
+		margin: 35px 0 0 250px;
+		line-height: 29px;
+	}
+	.review-top{
+		display:table-cell;
+		float: left;
+		padding-top:7px;
+	    padding-right: 35px;
+		font-size: 19px;
+		color: #333333;
+	}
+	.total-star{
+		font-family: emoji;
+		display: inline;
+		vertical-align: baseline;
+		color: #ffc80b;
+	}
+	.review-box{
+		position: relative;
+	    /* padding: 33px 0 0; */
+	    border-top: 1px solid #777;
+	}
+	.review-box > ul {
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0px;
+	}
+	.reviewList {
+	    border-top: 1px solid #ccc;
+	}
+	.reviewList > li {
+		position: relative;
+	    padding: 20px;
+	    border-bottom: 1px solid #ddd;
+	} 
+	.title-box {
+		display: table;
+	}
+	.star-box {
+		display: table-cell;
+	    width: 80px;
+	    vertical-align: middle;
+	}
+	.reviewTitle-box {
+		max-width: 600px;
+	    padding: 0 5px 0 10px;
+	    font-size: 14px;
+	    font-weight: bold;
+	    color: #333;
+	    line-height: 1.2;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    text-decoration: none;
+	}
+	.idDate-box {
+		position: absolute;
+	    right: 20px;
+	    top: 20px;
+	    font-size: 11px;
+	    color: #777;
+	}
 	#isbn{
 		display:none;
 	}
@@ -181,18 +303,19 @@ body{
     }
 	
 	.description{
-	    padding-top: 30px;
+	    font-family: '777Balsamtint';
+	    padding-top: 25px;
 	    padding-right: 28px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
 	    color: #333;
-	    font-size: 18px;
-	    line-height: 1.8;
-	    letter-spacing: -0.02em;
+	    font-size: 23px;
+	    line-height: 1.7;
+	    letter-spacing: 0.025em;
 	    text-align: left;
 	}
 	.tb {
 		width: 1046px;
 		float: left;
+		border-collapse: collapse;
 	}
 	.hori {
 		padding-bottom: 30px;
@@ -298,7 +421,7 @@ body{
 		font-size:23px;
 	}
 	.tdDisc > span {
-		color:red;
+		color: #ff0000b0;
 	}
 	.trCount {
 	}
@@ -359,7 +482,7 @@ body{
 	#simList{
    		font-family: '777Balsamtint';
 		width: 140px;
-		height: 252px;
+		height: 282px;
 		border: 1.5px solid #33333387;
 		border-top: 0;
 		border-bottom: 0;
@@ -373,6 +496,9 @@ body{
 		margin-bottom: 5px;
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+	.simAjax > li {
+		margin-bottom: 10px;
 	}
 	.simAjax > li > a {
 		color:black;

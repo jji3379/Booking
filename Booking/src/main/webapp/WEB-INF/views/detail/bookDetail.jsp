@@ -9,22 +9,73 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bookDetail.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	.simAjax > li {
-		margin-bottom: 10px;
+	.review-sort:before{
+	    content: "|";
+	    color: #333;
+	    padding-left: 7px;
+	    padding-right: 5px;
+	    vertical-align: bottom;
+	    opacity: 0.4;
+	    font-size: 22px;	
 	}
-	.shipping {
+	.review-sort:first-child::before {
+		content: "";
+	    vertical-align: middle;
+		padding: 0;
+	}
+	.sortWrap {
+		padding: 8px 18px 5px 0;
+		float: right;
+	}
+	.review-paging {
+		clear: both;
+	    margin-top: -10px;
+	    margin-bottom: 100px;
+	    /**/
+	    width: 100%;
+	    height: 35px;
+	    text-align: center;
+	    border-top: 1px solid #e5e5e5;
+	    border-bottom: 1px solid #cccccc;
+	    position: relative;
+	    background-color: #f9f9f9;
+	    font-family: "dotum";
+	}
+	#paging > ul {
+		margin:0;
+		padding: 0;
+		display: inline-block;
+	}
+	.pagination {
 		display: flex;
-		width: 100%;
+	    padding-left: 0;
+	    list-style: none;
 	}
-	.ship-L {
-		padding: 36px 114px 40px 43px;
-	    width: 373px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
-	    color: #222;
-	    font-size: 24px;
-	}
-	.ship-R {
 	
+	.page-link{
+		display: block;
+	    padding: 7px 13px;
+	    margin-left: -1px;
+	    line-height: 1.25;
+	    color: #5db794;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    font-family: '777Balsamtint';
+	    font-weight: bold;
+	    text-decoration: none;
+	}
+	.page-item.disabled .page-link {
+		color: #6c757d;
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
+		border-color: #dee2e6;
+	}
+	.page-item.active .page-link {
+		z-index: 3;
+		color: #fff;
+		background-color: #5db794;
+		border-color: #5db794;
 	}
 </style>
 </head>
@@ -37,7 +88,7 @@
 					<h2 class="head-title"> > ${b.title }</h2>
 					<div class="head-star">
 						<p>별점</p>
-						<div class="star-value">★★★★★</div>
+						<div class="total-star">★★★★★</div>
 					</div>
 				</div>
 		   		<tr>
@@ -100,7 +151,7 @@
 					<div class="description">
 						${b.description}
 					</div>
-					<div class="finishLine"/>
+					<div class="finishLine"></div>
 				</div>
 			</div>
 			<div class="shipping">
@@ -110,14 +161,134 @@
 		                <li><p>북킹 상품은 택배로 배송되며, 출고완료 1~2일내 상품을 받아 보실 수 있습니다.</p></li>
 		                <li><p>출고가능 시간이 서로 다른 상품을 함께 주문할 경우 출고가능 시간이 가장 긴 상품을 기준으로 배송됩니다.</p></li>
 		                <li><p>군부대, 교도소 등 특정기관은 우체국 택배만 배송가능합니다.</p></li>
-		                <li><p>배송비는 업체 배송비 정책에 따릅니다.<br></p></li>
-		                <span style="display: block; margin-left: 10px; color: #777">- 도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</span>
-		                <span style="display: block; margin-left: 10px; color: #777">- 상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</span>
+		                <li><p>배송비는 업체 배송비 정책에 따릅니다.</p></li>
+		                <li><p>도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</p></li> 
+		                <li><p>상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</p></li> 
 		            </ul>
+		            <div class="finishLine"></div>
+				</div>
+			</div>
+			<div class="reviewWrap">
+				<div class="review-L">
+					마이 리뷰
+				</div>
+				<div class="review-R">
+					<div class="head-star review-top">
+						<p>별점</p>
+						<div class="total-star">★★★★★</div>
+						<span>3.5</span>
+						<p> ( 총 <span>2</span> 건 )</p>
+					</div>
+					<div class="review-box">
+						<ul class="sortWrap">
+							<li class="review-sort">
+								<a href="#">
+									최근순
+								</a>
+							</li>
+							<li class="review-sort">
+								<a href="#">
+									추천순
+								</a>
+							</li>
+						</ul>
+						<ul class="reviewList">
+							<li>    
+								<div class="title-box">        
+									<div class="star-box">            
+										<div class="star_off">
+											<span class="star-value">★★★☆☆</span>
+										</div>       
+									</div>        	
+									<span class="reviewTitle-box">reviewTitle</span>           
+									<div class="idDate-box">            
+										<span class="review-writer">catcat3</span>            
+										<span class="review_date">2021/12/24</span>        
+									</div>    
+								</div>    
+								<div class="content-box">        
+									<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
+									<div class="replyCount">        
+										댓글<span>(0)</span>  
+										<a href="#">
+										더보기...
+										</a>   
+									</div>
+								</div>    
+							</li>
+							<!-- 더미 2 -->
+							<li>    
+								<div class="title-box">        
+									<div class="star-box">            
+										<div class="star_off">
+											<span class="star-value">★★★★☆</span>
+										</div>       
+									</div>        	
+									<span>reviewTitle</span>           
+									<div class="idDate-box">            
+										<span class="review-writer">catcat5</span>            
+										<span class="review_date">2021/12/23</span>        
+									</div>    
+								</div>    
+								<div class="content-box">        
+									<div class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
+									<div class="replyCount">        
+										댓글<span>(0)</span>  
+										<a href="#">
+										더보기...
+										</a>   
+									</div>
+								</div>   
+							</li>
+						</ul>
+						<div class="review-paging">
+							<nav id = "paging">
+							<ul class="pagination justify-content-center">
+								<c:choose>
+									<c:when test="${!list.first}">
+										<li class="page-item">
+											<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled">
+											<a class="page-link" href="javascript:">&lt;</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+								<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
+									<c:choose>
+										<c:when test="${i eq list.number }">
+											<li class="page-item active">
+												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+											</li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item">
+												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+											</li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${endPageNum lt totalPageCount }">
+										<li class="page-item">
+											<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled">
+											<a class="page-link" href="javascript:">&gt;</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</nav>
+						</div>	
+					</div>
 				</div>
 			</div>
 		</div>
-		
     	</c:forEach>
     	<!-- <div id="reviewList"></div>-->
    	</div>
