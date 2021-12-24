@@ -133,11 +133,13 @@
 			$(opener.document).find('#bookTitle').val(title);
 			$(opener.document).find('#isbn').val(isbn);
 			$(opener.document).find('#imagePath').val(image);
-			$(opener.document).find('#bookSearch').css({
-				'background':'url('+ image +')', 
-				'background-repeat' : 'no-repeat',
-				'background-size' : 'cover'});
-
+			$(opener.document).find('#selected').attr("src" , image );
+			$(opener.document).find('#selected').css({
+				"width":"100%" ,
+				"height":"100%",
+				"border-radius":"7px"
+			});
+			
 			window.close();
 		})
 	

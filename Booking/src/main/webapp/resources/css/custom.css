@@ -181,17 +181,15 @@ body {
 	    text-decoration: none;
 	}
 	.srcBtn {
-		background: url(${pageContext.request.contextPath }/resources/images/search.svg) no-repeat top left;
-	    background-size: contain;
+		background: transparent;
 	    cursor: pointer;
 	    display: inline-block;
-	    height: 37px;
-	    width: 30px;
+	    width: 29px;
 	    margin-right: 6px;
 	    border: none;
-    	outline:none;
-    	position: relative;
-    	top: 3px;
+	    outline: none;
+	    position: relative;
+	    top: 4px;
 	}
 	.member {
 		font-weight: bold;
@@ -274,6 +272,11 @@ body {
 	    position: relative;
 	    box-sizing: border-box;
 	}
+	#close {
+		float: right;
+		width: 15px;
+		cursor: pointer;
+	}
 	.popup-head{
 		width: 100%;/* 부모요소를 따라가기 때문에 굳이 가로값을 주지 않아도 되지만 일부 ie에서 인식 못하는 문제가 있음 */
 		margin-bottom: 40px;
@@ -282,11 +285,10 @@ body {
 		
 	}
 	.head-logo{
-		background: url(${pageContext.request.contextPath }/resources/images/bookinglogo.svg) no-repeat top left;
-		background-position: center;
-		background-size: contain;
 		display: block;
     	height: 50px;
+    	width: 200px;
+    	margin: 0 auto;
     	margin-top:30px;
     	
 	}

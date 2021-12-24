@@ -4,34 +4,7 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
 <style>
-	.head-logo{
-		background: url(${pageContext.request.contextPath }/resources/images/bookinglogo.svg) no-repeat top left;
-		background-position: center;
-		background-size: contain;
-		display: block;
-    	height: 50px;
-    	margin-top:30px;
-    	
-	}
-	.srcBtn {
-		background: url(${pageContext.request.contextPath }/resources/images/search.svg) no-repeat top left;
-	    background-size: contain;
-	    cursor: pointer;
-	    display: inline-block;
-	    height: 37px;
-	    width: 30px;
-	    margin-right: 6px;
-	    border: none;
-    	outline:none;
-    }
-    #close {
-		float: right;
-		background: url(${pageContext.request.contextPath }/resources/images/x.svg) no-repeat top left;
-		background-size: contain;
-		width: 15px;
-		height: 15px;
-		cursor: pointer;
-	}
+	
 </style>
 </head>
 	<div class="mainWrap">
@@ -47,7 +20,7 @@
 			           name="keyword" placeholder="검색어를 입력하세요"/>
 			        <input name="pageNum" value="1" hidden/>
 			        <input name="start" value="1" hidden/>
-			        <button type="submit" class="srcBtn" ></button>
+			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
 			    <a class="cartImg" href="${pageContext.request.contextPath }/pay/cart.do">
 		    		<img  src="${pageContext.request.contextPath }/resources/images/cart.svg"/>	
@@ -91,10 +64,10 @@
 	<div id="container"> 
 		<div class="popup-wrap" id="popup"> 
 			<div class="popup">		
-				<a id="close"></a>
+				<a id="close"><img src="${pageContext.request.contextPath }/resources/images/x.svg"/></a>
 				<div class="login-wrap">
 					<div class="popup-head">	
-						<span class="head-logo"></span>
+						<div class="head-logo"><img src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/></div>
 						<h2 class="title">북킹 로그인</h2>
 					</div>
 					<div class="popup-body">	

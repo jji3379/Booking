@@ -30,7 +30,7 @@
 							</colgroup>
 							<tr>
 								<td rowspan="3">
-									<button id="bookSearch" class="card" style="background:url(<c:out value="${b.isbn }"/>);"></button>
+									<button id="bookSearch" class="card"><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
 								</td>
 								<td class="td-title"> > 제목</td>
 								<td class="td-title" ><input type="text" name="bookTitle" id="bookTitle" value="" disabled/></td>
@@ -93,6 +93,8 @@
 
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
+	
+	
 	//by 준영, 책선택 팝업창 띄우기
 	$('#bookSearch').click(function(){ 
 		var popUrl = "${pageContext.request.contextPath }/review/reviewBookList.do?";
@@ -109,7 +111,7 @@
 		popUrl,
 		"책 선택",
 		"width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
-		
+                   
 	});
 	
 	function postAjax(){
