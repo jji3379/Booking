@@ -23,7 +23,15 @@
 	    margin-right: 6px;
 	    border: none;
     	outline:none;
-    	pos
+    }
+    #close {
+		float: right;
+		background: url(${pageContext.request.contextPath }/resources/images/x.svg) no-repeat top left;
+		background-size: contain;
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+	}
 </style>
 </head>
 	<div class="mainWrap">

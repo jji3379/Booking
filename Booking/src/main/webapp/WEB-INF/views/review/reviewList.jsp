@@ -132,6 +132,16 @@
 	</div>	<!-- layout end  -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
+	//by 남기, 리뷰작성폼 로그인 해야 넘어가게끔함
+	var isLogin=${not empty id};
+	
+	document.querySelector("#writeR").addEventListener("click",function(){
+		if(isLogin == false){			
+			$('#modal-open').trigger('click');
+		}else{
+			location.href="private/reviewInsertform.do";
+		}
+	});
 	//function pagingList(page) {
 		$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review",
@@ -282,16 +292,7 @@ function spoAlert(spoCheck){
 	}
 }
 
-//by 남기, 리뷰작성폼 로그인 해야 넘어가게끔함
-var isLogin=${not empty id};
 
-document.querySelector("#writeR").addEventListener("click",function(){
-	if(isLogin == false){			
-		$('#modal-open').trigger('click');
-	}else{
-		location.href="private/reviewInsertform.do";
-	}
-});
 	
 </script>
 </body>

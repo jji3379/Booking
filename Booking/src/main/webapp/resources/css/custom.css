@@ -414,13 +414,6 @@ body {
 	    line-height: 1;
 	    cursor: pointer;
 	}
-	#close {
-		float: right;
-		background: url(${pageContext.request.contextPath }/resources/images/x.svg) no-repeat top left;
-		background-size: contain;
-		width: 15px;
-		height: 15px;
-		cursor: pointer;
-	}
+	
 	
 	/*--- /header ---*/

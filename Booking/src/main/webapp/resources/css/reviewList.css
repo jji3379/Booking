@@ -73,9 +73,6 @@ h1 {
 .card-body {
 
 }
-
-
-
 .card-body-header{
 	line-height: 25px;
 	margin: 10px 20px 0px 20px;
@@ -182,7 +179,7 @@ h1 {
 }
 .menu{
 	font-family: '777Balsamtint';
-	border-bottom: 5px solid #333333a3;
+	border-bottom: 3px solid #333333a3;
 	padding-bottom: 30px;
 	
 }

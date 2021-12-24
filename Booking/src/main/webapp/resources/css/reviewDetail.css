@@ -1,7 +1,7 @@
 body{
 		font-size:20px;
 	}
-	.layout {
+	.container {
 		width: 1200px !important;
 		padding: 0;
 	    margin: 0 auto;
@@ -20,25 +20,16 @@ body{
 		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
+	.comments {
+		margin-bottom: -3px;
+	}
 	/* by남기, ul 요소의 기본 스타일 제거 _210303 */
 	.comments ul{
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
 	}
-	.comments dt{
-		margin-top: 5px;
-	}
-	.comments dd{
-		margin-left: 35px;
-	}
 	
-	.comments li{
-		clear: left;
-		padding: 10px;
-		width: 100%;
-		display: contents
-	}
 	.comments ul li{
 		border-top: 1px solid #888;
 	}
@@ -54,25 +45,40 @@ body{
 	.comments li{
 		position: relative;
 	}
-	.comments .reply-icon{
-		position: absolute;
-		top: 1em;
-		left: 1em;
-		color: red;
+	.reply-icon{
+		font-size: 19px;
+		vertical-align: middle;
+		color: #477160;
 	}
-	pre {
-	  display: block;
-	  padding: 9.5px;
-	  margin: 0;
-	  font-size: 13px;
-	  line-height: 1.42857143;
-	  color: #333333;
-	  word-break: break-all;
-	  word-wrap: break-word;
-	  background-color: #f5f5f5;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
+	.comment-full{
+		width: 1089px;
+	    display: inline-block;
+	    padding: 7.5px;
+	    margin: 0;
+	    font-size: 20px;
+	    line-height: 1.42857143;
+	    color: #333333;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    background-color: #f5f5f5;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
 	}
+	.comment-reply {
+		width: 1025px;
+	    display: inline-block;
+	    padding: 7.5px;
+	    margin: 0;
+	    font-size: 20px;
+	    line-height: 1.42857143;
+	    color: #333333;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    background-color: #f5f5f5;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
 	/* by남기, 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 _210303 */
 	.contents img{
 		max-width: 100%;
@@ -93,7 +99,8 @@ body{
 	    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
 	}
 	#star a{ 
-		text-decoration: none; color: red; 
+		text-decoration: none; 
+		color: #ffc80b; 
 	} 
 	ul.mylist li:before {
 	    content: ">";
@@ -114,4 +121,414 @@ body{
 	.table th, .table td{
 		padding:0.3rem;
 		vertical-align: middle;
+	}
+	.tb {
+		width: 100%;
+	    border-bottom: 1px solid #a8a8a8;
+	    padding-bottom: 15px;
+	}
+	.tb-head {
+		padding: 15px 0 16px 10px;
+		border-bottom: 2px solid #a8a8a8;
+		display: block;
+		width: 100%;
+	}
+	.head-title {
+		display:inline;
+		font-size: 36px;
+    	font-weight: 500;
+	}
+	.head-star {
+		display:block;
+		float: right;
+		padding-top: 9px;
+	    padding-right: 15px;
+		font-size: 19px;
+		color: #333333;
+	}
+	.head-star > p {
+		display: inline;
+		vertical-align: middle;
+		margin: 0;
+		padding: 0;
+	}
+	.star-value {
+		font-family: emoji;
+		display: inline;
+		vertical-align: baseline;
+	}
+	.star-value > a {
+		color: #ffc80b;
+		text-decoration: none;
+		vertical-align: bottom;
+	}
+	.star-value::before {
+	    content: "|";
+	    padding-left: 8px;
+	    padding-right: 2px;
+	    vertical-align: bottom;
+	    opacity: 0.9;
+	}
+	.tdInfo {
+		border-bottom: 1px solid #e5e5e5;
+		font-size:18px;
+		padding: 10px 10px;
+	}
+	.tdImg {
+		width: 240px; 
+		height: 300px; 
+		padding: 20px 15px 0 20px; 
+	}
+	#reviewTitle{
+		height: 53px;
+	}
+	.input-title {
+		font-family: '777Balsamtint';
+		opacity: 0.8;
+		font-size: 20px;
+	    width: 100%;
+	    height: 40px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.input-content {
+		font-family: '777Balsamtint';
+		opacity: 0.8;
+   		font-size: 20px;
+		width: 100%;
+	    height: 200px;
+	    border: 1px solid #e5e5e5;
+	    border-radius: 2px;
+	    padding: 9px 12px;
+	    outline: none;
+	    box-sizing: border-box;
+	}
+	.tr-review > th, .tr-review > td {
+		padding: 7px 3px;
+    	font-size: 20px;
+    	opacity: 0.8;
+    }
+	th{
+		text-align: left;
+	    width: 55px;
+	    font-size: 20px;
+	}
+	.book-info {
+		margin: 0;
+		padding: 0;
+	}
+	.info-list{
+		margin: 0;
+		padding: 0;
+	}
+	.info-list > li{
+		display:inline-block;
+	}
+	.info-list > li::before{
+	    content: "|";
+	    color: 33333387;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	    vertical-align: middle;
+	    opacity: 0.4;
+	    font-size: 27px
+	}
+	.info-list > li:first-child::before {
+		content: "";
+	    vertical-align: middle;
+		padding: 0;
+	}
+	.mylistBox{
+		border-bottom: 1px solid #e5e5e5;
+		width: 100%;
+	}
+	.list-header {
+		border-bottom: 2px solid #333333;
+	}
+	.list-title {
+		margin-bottom: 0;
+	    font-size: 28px;
+	    padding-left: 20px;
+	    padding-bottom: 5px;
+	    border-bottom: 3px solid #477160;
+	}
+	.registWrap{
+	    width: 98%;
+    	margin: 20px auto;
+	    padding: 20px 0;
+	    border: 1px solid #e3e3e3;
+	    background-color: #f9f9f9;
+	}
+	
+	
+	.list-menu {
+		border-bottom: 1px solid #a8a8a8;
+    	background: #f9f9f9;
+    	display: inline-block;
+    	width:100%;
+	}
+	.list-menu > ul {
+    	float: right;
+		padding-top: 10px;
+    	padding-bottom: 9px;
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0;
+	}
+	.listBtn {
+	    font-family: '777Balsamtint';
+	    text-decoration: none;
+	    color: #484646;
+	    font-weight: bold;
+	    font-size: 17px;
+	    margin-right: 18px;
+	    padding: 11px 2px;
+	    cursor: pointer;
+	}
+	
+	
+	.comment-box > h3 {
+	    border-bottom: 1px solid #a8a8a8;
+	    padding: 0 0 7px 20px;
+	    margin-bottom: 0;
+	    font-weight: 500;
+	}
+	
+	.comment-row {
+		width:100%;
+		display: flex;
+		margin: 0;
+		padding: 20px 0;
+		border-bottom: 1px solid #eee;
+	}
+	.comment-userId{
+		width: 5%;
+		margin:0;
+	}
+	.comment-content{
+		width:75%;
+		margin:0;
+	}
+	.comment-content  {
+		text-decoration: none;
+		color: #333;
+	}
+	.comment-content > div, a {
+		text-decoration: none;
+		color: #333;
+	}
+	
+	.commentList > tr {
+		padding: 8px 0;
+	    border-bottom: 1px solid #eee;
+	    text-align: left;
+	    font-size: 14px;
+	    color: #333;
+	}
+	.comment-paging{
+	    width: 100%;
+	    margin-bottom: 50px;
+	    height: 40px;
+	    text-align: center;
+	    border-top: 1px solid #e5e5e5;
+	    border-bottom: 1px solid #e5e5e5;
+	    position: relative;
+	    background-color: #f9f9f9;
+	    font-family: "dotum";
+	}
+	.reply-form {
+	    display: block;
+	    border-bottom: 1px solid;
+	    margin: 13px 0;
+	}
+	.reviewUpdate-form {
+	    display: block;
+	    padding-bottom: 15px;
+    	border-bottom: 1px solid #eee; 
+	}
+	.reply-form {
+		display: block;
+		padding-bottom: 15px;
+    	border-bottom: 1px solid #eee; 
+	}
+	.textarea-box{
+		width: 1135px;
+		margin: 0 auto;
+	}
+	.comment-form > textarea {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+		float:left;
+	    color: #333;
+	    width: 950px;
+	    height: 45px;
+	    padding: 8px;
+	    margin: 0 auto;
+	    resize: none;
+	    border: none;
+	    overflow-y: scroll;
+	    border-top: 1px solid #999;
+	    border-left: 1px solid #999;
+	    border-bottom: 1px solid #ccc;
+	    border-right: 1px solid #ccc;
+	}
+	.commentBtn {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+	    margin-left: 5px;
+	    width: 160px;
+	    height: 62px;
+	    border-left: 1px solid #ccc;
+	    border-top: 1px solid #ccc;
+	    border-right: 1px solid #999;
+	    border-bottom: 1px solid #999;
+	    background-color: #fff;
+	    color: #333;
+	}
+	.reply-form > textarea {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+		float:left;
+	    color: #333;
+	    margin-left: 75px;
+	    width: 909px;
+	    height: 45px;
+	    padding: 8px;
+	    resize: none;
+	    border: none;
+	    overflow-y: scroll;
+	    border-top: 1px solid #999;
+	    border-left: 1px solid #999;
+	    border-bottom: 1px solid #ccc;
+	    border-right: 1px solid #ccc;
+	}
+	.replyBtn {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+	    margin-left: 5px;
+	    width: 175px;
+	    height: 62px;
+	    border-left: 1px solid #ccc;
+	    border-top: 1px solid #ccc;
+	    border-right: 1px solid #999;
+	    border-bottom: 1px solid #999;
+	    background-color: #fff;
+	    color: #333;
+	}
+	.reviewUpdate-form > textarea {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+		float:left;
+	    color: #333;
+	    margin-left: 75px;
+	    width: 909px;
+	    height: 45px;
+	    padding: 8px;
+	    resize: none;
+	    border: none;
+	    overflow-y: scroll;
+	    border-top: 1px solid #999;
+	    border-left: 1px solid #999;
+	    border-bottom: 1px solid #ccc;
+	    border-right: 1px solid #ccc;
+	}
+	.updateBtn {
+		font-family: '777Balsamtint';
+		font-size: 17px;
+		margin-left: 5px;
+	    width: 175px;
+	    height: 62px;
+	    border-left: 1px solid #ccc;
+	    border-top: 1px solid #ccc;
+	    border-right: 1px solid #999;
+	    border-bottom: 1px solid #999;
+	    background-color: #fff;
+	    color: #333;
+	}
+	.comments > table {
+		width: 100%;
+		padding: 2px 0;
+		background: #fafafa;
+		border-collapse: collapse;
+		
+	}
+	.tr-comment {
+		padding: 7px 0;
+		border-bottom: 1px solid #eee;
+	}
+	.tr-hidden {
+		padding: 0;
+		margin: 0;
+	}
+	.td-userId > span {
+		margin-left: 15px;
+		margin-right: 7px;
+	}
+	.reply-link > b {
+		margin-right: 7px;
+	}
+	.td-content {
+	
+	}
+	.content-regdate {
+		display: inline-block;
+		float: right;
+		font-size: 16px;
+	}
+	.content-regdate > span, .content-regdate > a  {
+		vertical-align: -webkit-baseline-middle;
+	}
+	.content-regdate > a::before{
+	    content: "|";
+	    padding-left: 3px;
+	    padding-right: 3px;
+	    vertical-align: middle;
+	    opacity: 0.4;
+	    font-size: 16px;
+	}
+	.content-regdate > a:first-child::before {
+		content: "";
+	    vertical-align: middle;
+	}
+	#paging > ul {
+		margin:0;
+		padding: 0;
+		display: inline-block;
+	}
+	.pagination {
+		display: flex;
+	    padding-left: 0;
+	    list-style: none;
+	}
+	
+	.page-link{
+		display: block;
+	    padding: 7px 13px;
+	    margin-left: -1px;
+	    line-height: 1.25;
+	    color: #5db794;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    font-family: '777Balsamtint';
+	    font-weight: bold;
+	    text-decoration: none;
+	}
+	.page-item.disabled .page-link {
+		color: #6c757d;
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
+		border-color: #dee2e6;
+	}
+	.page-item.active .page-link {
+		z-index: 3;
+		color: #fff;
+		background-color: #5db794;
+		border-color: #5db794;
 	}
