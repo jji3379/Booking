@@ -7,7 +7,10 @@
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <style>
-
+	.star-value {
+		color: #ffc80b;
+		font-family: emoji;
+	}
 
 </style>
 <link rel="stylesheet" href="resources/css/reviewList.css">
@@ -187,10 +190,31 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
+				var rating = $('#star-rating[i]').text();	
+				
+				//by 준영, rating -> ★ 변환
+				switch(rating){
+				case 1:
+					rating.text('★☆☆☆☆');
+					break;
+				case 2:
+					rating.text('★★☆☆☆');
+					break;
+				case 3:
+					rating.text('★★★☆☆');
+					break;
+				case 4:
+					rating.text('★★★★☆');
+					break;
+				case 5:
+					rating.text('★★★★★');
+					break;
+				}
+				
 				reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 					reviewList += '<div class="card col">'
 					reviewList += '<div class="card-header" style="background-image:url('+data.content[i].imagePath+')">'
-					reviewList += '<div class = "card-header-is_closed" >'
+					reviewList += '<div class = "card-spoCheck" >'
 					reviewList += '<div class = "card-header-text" > 스포 포함 </div >'
 					reviewList += '</div >'
 					reviewList += '</div >'
@@ -199,14 +223,14 @@
 					reviewList += '<div class="card-body-header">'
 	
 					reviewList += '<h1>'+data.content[i].reviewTitle+'</h1>'
-					reviewList += '<p class="card-body-hashtag">rating": '+data.content[i].rating+'</p>'
+					reviewList += '<div class="star-value" id="star-rating'+[i]+'">'+data.content[i].rating+'</div>'
 					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
 					reviewList += '</div>'
 	
 					reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
 					
 					reviewList += '<div class="card-body-footer">'
-					reviewList += '<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">'
+					reviewList += '<hr class="underline">'
 					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
 					reviewList += '<div class="comment">댓글 ???개</div>'
 					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
@@ -214,7 +238,8 @@
 					reviewList += '</div>'
 					reviewList += '</div>'
 				reviewList += '</a>'
-					
+				
+				
 					
 					/*
 					reviewList += '<td class="ellipsis"> <img class="rounded-sm" src="' + data[i].imagePath + '"/>' + '</td>';
@@ -246,7 +271,12 @@
 					reviewList += '<td class="ellipsis"><p id="star">'+star+'</p></td>';
 				reviewList += '</tr>';
 				*/
+			
+				
+				
 			}
+			
+			
 			$("#reviewList").append(reviewList);
 			window.pagObj = $('#paging').twbsPagination({ 
 				totalPages: data.totalPages, 
@@ -268,29 +298,29 @@
 		}
 	});
 	//}
+/* 
+	pagingList(5); */
+	
 
-	pagingList(5);
-
-
-//by 준영, 리뷰검색폼 빈값 제출 막기
-$('#search').submit(function() {
-    if ($('#reviewInput').val() == '') {
-        return false;
-    }
-});
-
-function spoAlert(spoCheck){
-	console.log(spoCheck);
-	if(spoCheck == "yes"){
-		var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-		if(alert == true){
-		}else{
-			event.preventDefault();
+	//by 준영, 리뷰검색폼 빈값 제출 막기
+	$('#search').submit(function() {
+	    if ($('#reviewInput').val() == '') {
+	        return false;
+	    }
+	});
+	
+	function spoAlert(spoCheck){
+		console.log(spoCheck);
+		if(spoCheck == "yes"){
+			var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+			if(alert == true){
+			}else{
+				event.preventDefault();
+			}
+		}else if(spoCheck == "no"){
+			$('.card-header-is_closed').css('display', 'none');
 		}
-	}else if(spoCheck == "no"){
-		$('.card-header-is_closed').css('display', 'none');
 	}
-}
 
 
 	

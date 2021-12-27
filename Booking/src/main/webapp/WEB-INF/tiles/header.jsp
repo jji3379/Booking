@@ -50,7 +50,7 @@
 				<a href="${pageContext.request.contextPath }/CategoryList.do?d_catg=100&sort=count&start=1">전체도서</a>
 			</li>
 			<li>
-	        	<a href="${pageContext.request.contextPath }/bestSeller.do">베스트셀러 </a>
+	        	<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">베스트셀러 </a>
 	     	</li>
 			<li>
 				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
@@ -182,28 +182,28 @@
 					},
 					
 				});
-			break;
-		case 1:
-			if(loginId == '' && loginPwd == ''){
-				$('.errorId-off').attr('class','errorId-on');
-				$('.loginId').attr('class','loginId-error');
-				$('.errorPwd-off').attr('class','errorPwd-on');
-				$('.pwd').attr('class', 'pwd-error');
-				$('#loginId').focus();
-				return;
-			}else if(loginId == ''){
-				$('.errorId-off').attr('class','errorId-on');
-				$('.loginId').attr('class','loginId-error');
-				$('#loginId').focus();
-				return;
-			}else if(loginPwd == ''){
-				$('.errorPwd-off').attr('class','errorPwd-on');
-				$('.pwd').attr('class','pwd-error');
-				$('#pwd').focus();
-				return;
-			}
-	 	}	
-	}  
+				break;
+			case 1:
+				if(loginId == '' && loginPwd == ''){
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class', 'pwd-error');
+					$('#loginId').focus();
+					return;
+				}else if(loginId == ''){
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('#loginId').focus();
+					return;
+				}else if(loginPwd == ''){
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class','pwd-error');
+					$('#pwd').focus();
+					return;
+				}
+		 	}	
+		}  
 	//by 준영, 유효성검사 -실시간체크
 	$("#loginId").keyup(function(){
 		if(loginClickCheck == 0){
