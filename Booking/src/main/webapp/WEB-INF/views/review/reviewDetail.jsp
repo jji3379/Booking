@@ -334,7 +334,7 @@
 			<tr class="book-info">
 				<td colspan="2" class="tdInfo">
 					<ul class="info-list">
-						<li id="writer">작성자 : ${dto.writer }</li>
+						<li id="writer">작성자 : ${dto.writer.loginId }</li>
 						<li id="regdate">등록일 : ${dto.regdate }</li>
 						<li id="viewCount">조회수 : ${dto.viewCount }</li>
 					</ul>

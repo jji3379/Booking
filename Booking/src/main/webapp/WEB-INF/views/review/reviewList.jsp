@@ -22,9 +22,9 @@
 			</div>
 			
 			<ul class="sortBar">
-				<li class="viewSort"><a href="">조회순</a></li>
-				<li class="starSort"><a href="">별점순</a></li>
-				<li class="newSort"><a href="">최신순</a></li>
+				<li class="viewSort"><a href="#" onclick="pagingList(0, 'viewCount')">조회순</a></li>
+				<li class="starSort"><a href="#" onclick="pagingList(0, 'rating')">별점순</a></li>
+				<li class="newSort"><a href="#" onclick="pagingList(0, 'regdate')">최신순</a></li>
 			</ul>
 		</div>
 		<div class="row">
@@ -66,7 +66,7 @@
 			</div>	<!-- row row-col-4 end  -->
 		</div>	<!-- row end  -->
 		<div class="bottom">
-			<form id="search" action="reviewList.do" method="get">
+			<form id="search" action="${pageContext.request.contextPath}/v1/review" method="get">
 				<label for="condition" hidden>검색조건</label>
 				<select name="condition" id="condition">
 					<option value="bookTitle_content" ${condition eq 'bookTitle_content' ? 'selected' : '' }>제목 + 내용</option>
@@ -77,6 +77,7 @@
 				<input type="search" id="reviewInput" name="keyword" class="searchBar" placeholder="검색어..." value="${keyword }"/>
 			</form>
 			<nav id = "paging">
+				<!-- 
 				<ul class="pagination justify-content-center">
 					<c:choose>
 						<c:when test="${!list.first}">
@@ -117,6 +118,7 @@
 						</c:otherwise>
 					</c:choose>
 				</ul>
+				 -->
 			</nav>
 			<button id="writeR" type="button" >리뷰 작성</button>
 		</div>
@@ -132,46 +134,13 @@
 	</div>	<!-- layout end  -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
-	//function pagingList(page) {
+	function pagingList(page, sort) {
 		$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review",
+		url:"${pageContext.request.contextPath}/v1/review?page="+page+"&sort="+sort,
 		method:"GET",
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			/*
-			// 페이징
-			var paging = '';
-			paging += '<ul class="pagination justify-content-center">';
-			// 첫 페이지 이면
-			if (data.first) {
-				paging += '<li class="page-item disabled"><a class="page-link" href="javascript:">Prev</a></li>';
-			} else {
-				paging += '<li class="page-item"><a class="page-link" href="review?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a></li>';
-			}
-			// 페이지 수
-			var pagingSize = (data.totalPages < data.size ? data.totalPages : data.size);
-			var startPage = (data.number == data.number + data.size -1 ? data.number + data.size : data.number); 
-			for (var j = startPage; j < pagingSize; j++){
-				if (j == data.totalPages - 1){
-					if (data.last) {
-						paging += '<li class="page-item disabled"><a class="page-link" href="javascript:">Next</a></li>';
-					} else {
-						paging += '<li class="page-item"><a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a></li>';
-					}
-				}
-				else {
-					if (j == data.number) {
-						paging += '<li class="page-item active"><a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">'+(j+1)+'</a></li>';
-					} else {
-						paging += '<li class="page-item"><a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">'+(j+1)+'</a></li>';
-					}
-				} 
-			}
-			paging += '</ul>';
-			$("#paging").append(paging);
-			*/
-			
 			// item list
 			var dataSize = data.content.length;
 			var reviewList = "";
@@ -204,42 +173,25 @@
 					reviewList += '</div>'
 					reviewList += '</div>'
 				reviewList += '</a>'
-					
-					
-					/*
-					reviewList += '<td class="ellipsis"> <img class="rounded-sm" src="' + data[i].imagePath + '"/>' + '</td>';
-					reviewList += '<td class="ellipsis">'
-						+'<a href="${pageContext.request.contextPath}/review/'+data[i].id+'"'
-						+'onclick="spoAlert("'+data[i].spoCheck+'")">'
-						+data[i].reviewTitle+'</a></td>';
-					reviewList += '<td class="ellipsis">'+data[i].bookTitle+'</td>';
-					reviewList += '<td class="ellipsis">'+data[i].writer.loginId+'</td>';
-					reviewList += '<td class="ellipsis">'+data[i].viewCount+'</td>';
-					reviewList += '<td class="ellipsis">'+data[i].regdate+'</td>';
-					switch(data[i].rating) {
-						case 1 :
-							star = '<a href="#">★</a>';
-							break;
-						case 2 :
-							star = '<a href="#">★★</a>';
-							break;
-						case 3 :
-							star = '<a href="#">★★★</a>';
-							break;
-						case 4 :
-							star = '<a href="#">★★★★</a>';
-							break;
-						case 5 :
-							star = '<a href="#">★★★★★</a>';
-							break;
-					}
-					reviewList += '<td class="ellipsis"><p id="star">'+star+'</p></td>';
-				reviewList += '</tr>';
-				*/
 			}
-			$("#reviewList").append(reviewList);
+			$("#reviewList").html(reviewList);
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+	}
+
+	pagingList(0, 'regdate');
+	// 페이징 처리
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/review",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
 			window.pagObj = $('#paging').twbsPagination({ 
-				totalPages: data.totalPages, 
+				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
 				startPage: data.number+1, 
 				visiblePages: 5, 
 				prev: "‹", 
@@ -250,17 +202,13 @@
 					console.info("current page : " + page); 
 				} 
 			}).on('page', function (event, page) { 
-				//searchGalleryList(page); 
+				pagingList(page-1);
 			});
 		},
 		error : function(data) {
 			console.log("오류");
 		}
 	});
-	//}
-
-	pagingList(5);
-
 
 //by 준영, 리뷰검색폼 빈값 제출 막기
 $('#search').submit(function() {

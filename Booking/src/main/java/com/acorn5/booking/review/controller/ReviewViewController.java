@@ -34,6 +34,7 @@ import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
+import com.acorn5.booking.users.entity.QUsers;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Controller
@@ -86,8 +87,11 @@ public class ReviewViewController {
 		
 		JPAQueryFactory query = new JPAQueryFactory(em);
 		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		QUsers qUsers = QUsers.users;
 		
 		List<ReviewDtl> reviewCommentList = query.selectFrom(qReviewDtl)
+				.join(qReviewDtl.writer, qUsers)
+				.fetchJoin()
 				.where(qReviewDtl.refGroup.eq(id))
 				.orderBy(qReviewDtl.commentGroup.asc())
 				.fetch();

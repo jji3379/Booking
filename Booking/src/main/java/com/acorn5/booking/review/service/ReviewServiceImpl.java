@@ -138,6 +138,8 @@ public class ReviewServiceImpl implements ReviewService{
 		*/
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
+		System.out.println("keyword : "+keyword);
+		System.out.println("condition : "+condition);
 		// by남기, 만일 키워드가 넘어오지 않는다면 _210303
 		if(keyword==null){
 			// by남기, 키워드와 검색 조건에 빈 문자열을 넣어준다 _210303
@@ -183,7 +185,6 @@ public class ReviewServiceImpl implements ReviewService{
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		pageable = new PageRequest(pageable.getPageNumber(), 8, pageable.getSort());
 		OrderSpecifier<?> orderCondition = null;
-		
 		if (pageable.getSort() != null && pageable.getSort().toString().contains("viewCount")) {
 			orderCondition = qReview.viewCount.desc(); //조회순 정렬
 		} else if (pageable.getSort() != null && pageable.getSort().toString().contains("rating")) {
@@ -195,6 +196,7 @@ public class ReviewServiceImpl implements ReviewService{
 		QueryResults<Review> list = queryFactory.selectFrom(qReview)
 				.join(qReview.writer, qUsers)
 				.fetchJoin()
+				.where(qReview.reviewTitle.contains(keyword))
 				.orderBy(orderCondition, qReview.regdate.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
