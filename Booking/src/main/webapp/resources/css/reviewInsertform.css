@@ -4,7 +4,7 @@
 		font-family: emoji;
 	} 
 	#star a.on{ 
-		color: red; 
+		color: #ffc80b; 
 	}
 	
 	
@@ -28,14 +28,16 @@
    		width:1200px; 
 		margin:auto;
    	}
+   	#selected {
+		width: 45px;
+	}
    	.card{
-   		background: url(${pageContext.request.contextPath }/resources/imgages/searchBook.svg) no-repeat top left;
-   		background-position: center;
-		background-size: contain;
+   		background: #e5e5e538; 
+   		padding:0;
    		margin-right: 24px;
    		height: 170px;
 		width: 150px;
-		border-radius: 15px;
+		border-radius: 7px;
 		display: inline-block;
 		position: relative;
 		box-shadow:rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
@@ -62,7 +64,7 @@
    		display: flex;
    	}
    	.bookDesc {
-		border: 5px solid #e5e5e5;
+		border: 3px solid #e5e5e5;
     	padding: 4px;
    		width: 100%;
    	}

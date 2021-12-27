@@ -9,23 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bookDetail.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	.simAjax > li {
-		margin-bottom: 10px;
-	}
-	.shipping {
-		display: flex;
-		width: 100%;
-	}
-	.ship-L {
-		padding: 36px 114px 40px 43px;
-	    width: 373px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
-	    color: #222;
-	    font-size: 24px;
-	}
-	.ship-R {
 	
-	}
 </style>
 </head>
 <body>
@@ -37,7 +21,7 @@
 					<h2 class="head-title"> > ${b.title }</h2>
 					<div class="head-star">
 						<p>별점</p>
-						<div class="star-value">★★★★★</div>
+						<div class="total-star">★★★★★</div>
 					</div>
 				</div>
 		   		<tr>
@@ -100,7 +84,7 @@
 					<div class="description">
 						${b.description}
 					</div>
-					<div class="finishLine"/>
+					<div class="finishLine"></div>
 				</div>
 			</div>
 			<div class="shipping">
@@ -110,18 +94,175 @@
 		                <li><p>북킹 상품은 택배로 배송되며, 출고완료 1~2일내 상품을 받아 보실 수 있습니다.</p></li>
 		                <li><p>출고가능 시간이 서로 다른 상품을 함께 주문할 경우 출고가능 시간이 가장 긴 상품을 기준으로 배송됩니다.</p></li>
 		                <li><p>군부대, 교도소 등 특정기관은 우체국 택배만 배송가능합니다.</p></li>
-		                <li><p>배송비는 업체 배송비 정책에 따릅니다.<br></p></li>
-		                <span style="display: block; margin-left: 10px; color: #777">- 도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</span>
-		                <span style="display: block; margin-left: 10px; color: #777">- 상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</span>
+		                <li><p>배송비는 업체 배송비 정책에 따릅니다.</p></li>
+		                <li><p>도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</p></li> 
+		                <li><p>상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</p></li> 
 		            </ul>
+		            <div class="finishLine"></div>
+				</div>
+			</div>
+			<div class="reviewWrap">
+				<div class="review-L">
+					마이 리뷰
+				</div>
+				<div class="review-R">
+					<div class="review-box">
+						<div class="head-star review-top">
+							<p>별점</p>
+							<div class="total-star">★★★★★</div>
+							<span class="total-value">3.5</span>
+							<p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
+						</div>
+						<ul class="sortWrap">
+							<li class="review-sort">
+								<a href="#">
+									최근순
+								</a>
+							</li>
+							<li class="review-sort">
+								<a href="#">
+									추천순
+								</a>
+							</li>
+						</ul>
+						<ul class="reviewList">
+							<li>    
+								<div class="title-box">        
+									<div class="star-box">            
+										<div class="star_off">
+											<span class="star-value">★★★☆☆</span>
+										</div>       
+									</div>        	
+									<span class="reviewTitle-box">reviewTitle</span>           
+									<div class="idDate-box">            
+										<span class="review-writer">catcat3</span>            
+										<span class="review_date">2021/12/24</span>        
+									</div>    
+								</div>    
+								<div class="content-box">        
+									<div id="content${tmp.id }" class="moreTxt-off">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
+									<div class="replyCount">        
+										댓글<span>(0)</span>  
+										<a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
+									</div>
+								</div>   
+							</li>
+							<!-- 더미 2 -->
+							<li>    
+								<div class="title-box">        
+									<div class="star-box">            
+										<div class="star_off">
+											<span class="star-value">★★★★☆</span>
+										</div>       
+									</div>        	
+									<span class="reviewTitle-box">reviewTitle</span> 
+									<span class="spoCheck-box">스포일러</span>          
+									<div class="idDate-box">            
+										<span class="review-writer">catcat3</span>            
+										<span class="review_date">2021/12/25</span>        
+									</div>    
+								</div>    
+								<div class="content-box">        
+									<div id="content${tmp.id }" class="spoAlert">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
+									<div class="replyCount">        
+										댓글<span>(0)</span>  
+										<a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
+										
+									</div>
+								</div>    
+							</li>
+						</ul>
+						<div class="review-paging">
+							<nav id = "paging">
+							<ul class="pagination justify-content-center">
+								<c:choose>
+									<c:when test="${!list.first}">
+										<li class="page-item">
+											<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled">
+											<a class="page-link" href="javascript:">&lt;</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+								<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
+									<c:choose>
+										<c:when test="${i eq list.number }">
+											<li class="page-item active">
+												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+											</li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item">
+												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+											</li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${endPageNum lt totalPageCount }">
+										<li class="page-item">
+											<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item disabled">
+											<a class="page-link" href="javascript:">&gt;</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</ul>
+						</nav>
+						</div>	
+					</div>
 				</div>
 			</div>
 		</div>
-		
     	</c:forEach>
     	<!-- <div id="reviewList"></div>-->
    	</div>
-	<script>
+<script>
+		//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+		var inputAuth=$("#auth").text();
+		function bookAuthor(){
+		    $.ajax({ 
+		       url:"detailAjax.do?sort=sim",
+		        method:"GET",
+		        data:"d_auth="+inputAuth,
+		        success:function(data){
+		           $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		bookAuthor();
+		
+		//by준영, 리뷰 폴드 기능
+		/* $(document).on('click','#more', function(){
+			var contents = '#content'+$(this).attr('data-num');
+
+			if($(contents).hasClass('moreTxt-off') == true) {
+				$(contents).attr('class','moreTxt-on');
+			}else if($(contents).hasClass('moreTxt-off') == false){
+				$(contents).removeClass('moreTxt-on');
+				$(contents).attr('class', 'moreTxt-off');
+			}
+			if($(this).text("> 펼쳐보기")){
+				if($(contents).hasClass('spoAlert') == true){
+					var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+					if(alert == true){
+					}else{
+						event.preventDefault();
+					}
+				$(this).text("> 접기");
+			}else if($(this).text("> 접기")){
+				$(this).text("> 펼쳐보기"); 
+			})	
+		})
+		 */
+	
 		//by준영, 장바구니 로그인 필터 기능_210311
 		//by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
 		var id=$("#idP").val();
@@ -190,104 +331,8 @@
 				})
 			}	
 		}
-	</script>
-<script type="text/javascript">
-//by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
-var inputAuth=$("#auth").text();
-function bookAuthor(){
- return new Promise((resolve, reject) => {
-    $.ajax({ 
-       url:"detailAjax.do?sort=sim",
-        method:"GET",
-        data:"d_auth="+inputAuth,
-        success:function(data){
-           resolve(data);
-           $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-        },
-        error:function(error){
-           reject(error)
-        },
-    })
- })
-}
-//by준영, 이 책의 리뷰페이지를 불러오는 ajax 호출 함수_210226
- var inputIsbn=$("#isbn").text();
+
  
- function bookReview(){
-    return new Promise((resolve, reject) => {
-       $.ajax({
-             url:"${pageContext.request.contextPath }/review/reviewList.do?condition=isbn",
-             method:"GET",
-             data:"&keyword="+inputIsbn,
-             success:function(data){
-                resolve(data);
-                $("#reviewList").html(data); //by 준영, 책 리뷰 리스트 페이지를 #reviewList div 에 html 로 추가_210226
-             },
-           error:function(error){
-              reject(error)
-           },
-       })
-    })
- }
- //by준영, 2개의 ajax 호출을 위한 promise 비동기처리_210307
- bookAuthor()
-    .then((data) => {
-       bookReview()
-    })
-    .catch((error) => {
-       console.log(error)
-    })
-		
-	/* //by 준영,반응형 캐러셀 정의_210224
-	var $owl = $('.owl-carousel');
-	
-	$owl.children().each( function( index ) {
-	  $(this).attr( 'data-position', index ); 
-	});
-	
-	$owl.owlCarousel({
-		navigation:true,
-		center: true,
-		loop: true,
-		mouseDrag:true,
-		mouseDraggable:true,
-		touchDrag: true,
-		autoplay: true,
-		autoplayTimeout: 2500,
-		rewind:true,
-		responsive:{
-		0:{
-		    items:1,
-		    nav:true
-		},
-		600:{
-		    items:3,
-		    nav:false
-		},
-		1000:{
-		    items:5,
-		    nav:true,
-		    loop:false
-	  	}
-	  }
-	});
-	
-	//by 준영, 클릭 항목으로 이동하는 기능_210224
-	$(document).on('click', '.owl-item>div', function() {
-	  var $speed = 300;  // in ms
-	  $owl.trigger('to.owl.carousel', [$(this).data( 'position' ), $speed] );
-	});
-	//by 준영 스크롤로 캐러셀 조정 기능_210224
-	var owl = $('.owl-carousel');
-	owl.on('mousewheel', '.owl-stage', function(e) {
-	   if (e.deltaY > 0) {
-	      owl.trigger('next.owl');
-	   } else {
-	      owl.trigger('prev.owl');
-	   }
-	   e.preventDefault();
-	}); 
-	 */
 	 //by준영, 수량 +- 동작
 	 jQuery('<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>').insertAfter('.quantity input');
 	    jQuery('.quantity').each(function() {

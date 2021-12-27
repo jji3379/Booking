@@ -60,7 +60,7 @@ public class BookController {
         {
             mView.addObject("bestSeller",service.bestSeller("1", 10, 1, "count"));
         }
-        mView.setViewName("bookList/bestSeller");
+        mView.setViewName("bookList/bestSeller.page");
         return mView;
     }
     

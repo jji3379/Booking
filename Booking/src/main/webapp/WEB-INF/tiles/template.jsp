@@ -11,18 +11,16 @@
 	    }
     
         }
-        #content{
+        #main{
             max-width: 100%;
          	height: 100%; 
         }
         #footer{
         	height: 200px;
         	background-color: #e2e6eb;
-	    	min-width: 992px !important;
 		    width: 100%;
 	    	
         }
-        
          #left, #main{  
          	height: 100%; 
          } 
@@ -31,9 +29,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <div style="width:100%; height:100%;">
+    <div>
 	    <div id="header"><tiles:insertAttribute name="header" /></div>
-	    <div class="content">
+	    <div id="main">
 	    	<tiles:insertAttribute name="body" />
 	    </div>
 	   	<div id="footer"><tiles:insertAttribute name="footer" /></div>   

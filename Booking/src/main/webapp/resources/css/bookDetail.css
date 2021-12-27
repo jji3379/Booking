@@ -6,6 +6,10 @@ html, body {
     body {
     	padding: 0;
     }	
+    a{
+    	color: #333;
+	    text-decoration: none;
+    }
 @font-face {
    font-family: '777Balsamtint';
    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Balsamtint.woff') format('woff');
@@ -80,25 +84,34 @@ body{
 		float: right;
 	    padding-right: 35px;
 		font-size: 19px;
-		color: #333333;
+		color: #333;
 	}
 	.head-star > p {
 		display: inline;
 		vertical-align: middle;
 		margin: 0;
 		padding: 0;
+		padding-left: 9px;
 	}
 	.star-value {
 		font-family: emoji;
 		display: inline;
 		vertical-align: baseline;
+		color: #ffc80b;
 	}
-	.star-value::before {
+	
+	.head-star > .star-value::before {
 	    content: "|";
 	    padding-left: 7px;
 	    padding-right: 7px;
 	    vertical-align: bottom;
 	    opacity: 0.9;
+	    color: #333;
+	}
+	.total-count {
+		font-weight: bold;
+		font-size: 12px;
+		vertical-align: baseline;
 	}
 	.book-info {
 		margin: 0;
@@ -132,16 +145,15 @@ body{
 	}
 	.bookIntro {
 		position: relative;
-		border-top: 1px solid #d5d5d5;
     	width: 100%;
 	}
 	.Intro-L {
-		position: absolute;    
-		padding: 5px 100px 0 0;
-	    width: 373px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
+		position: absolute;
+	    font-family: '777Balsamtint';
+	    padding: 30px 100px 0 20px;
+	    width: 130px;
 	    color: #222;
-	    font-size: 24px;
+	    font-size: 29px;
 	}
 	.Intro-R {
 		float: left;
@@ -150,12 +162,237 @@ body{
 		line-height: 39px;
 		/**/
 	}
+	.shipping{
+		position: relative;
+	    width: 100%;
+	    display: inline-block;
+	}
+	.ship-L{
+		position: absolute;    
+		padding: 15px 100px 0 20px;
+	    width: 130px;
+	    color: #333;
+	    font-size: 28px;
+	    letter-spacing: 2.2px;
+	    font-family: '777Balsamtint';
+
+	}
+	.ship-R{
+		margin: 0 0 0 250px;
+		line-height: 29px;
+		float: none;
+	}
+	.ship-R > ul {
+		display: inline-block;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0px;
+	}
+	.ship-guide > li {
+		float: none;
+	}
+	.ship-guide > li p{
+		line-height: 1.4;
+		margin: 0;
+		padding: 0 0 0 8px;
+	    background: url(//bimage.interpark.com/renewPark/reBookpark/last_inc_new/ico_dotGray3.gif) no-repeat left center;
+	    color: #333;
+	    font-size: 19px;
+	    letter-spacing: 1.012px;
+	}
+	
 	.finishLine {
-		margin: 40px 0 40px 0;
+		margin: 35px 0 ;
     	padding: 0;
     	border-top: 1px solid #d5d5d5;
 	}
+	.reviewWrap {
+		position: relative;
+	    width: 100%;
+	    display: inline-block;
+	}
+	.review-L {
+		position: absolute;    
+		padding: 5px 100px 0 20px;
+	    width: 130px;
+	    color: #333;
+	    font-size: 28px;
+	    letter-spacing: 2.2px;
+	    font-family: '777Balsamtint';
+	}
+	.review-R {
+		float: left;
+		margin: 20px 0 0 250px;
+		line-height: 29px;
+	}
+	.review-top{
+		display:table-cell;
+		float: left;
+		padding-top:7px;
+	    padding-right: 35px;
+		font-size: 19px;
+		color: #333333;
+	}
+	.total-star{
+		padding-left: 5px;
+		font-family: emoji;
+		display: inline;
+		vertical-align: baseline;
+		color: #ffc80b;
+	}
+	.review-box{
+		position: relative;
+	    /* padding: 33px 0 0; */
+	    border-top: 1px solid #777;
+	}
+	.review-box > ul {
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0px;
+	}
+	.reviewList {
+	    border-top: 1px solid #ccc;
+	}
+	.reviewList > li {
+		background: #fafafa;
+		position: relative;
+	    padding: 20px;
+	    border-bottom: 1px solid #ddd;
+	} 
+	.title-box {
+		display: table;
+	}
+	.star-box {
+		display: table-cell;
+	    width: 80px;
+	    vertical-align: middle;
+		font-size: 15px;
+	}
+	.reviewTitle-box {
+		max-width: 600px;
+	    padding: 0 5px 0 10px;
+	    font-size: 16px;
+	    font-weight: bold;
+	    color: #333;
+	    line-height: 1.2;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    text-decoration: none;
+	}
+	.spoCheck-box{
+		color: #fff;
+	    border: 1px solid #5db794;
+	    padding: 1px 5px;
+	    border-radius: 5px;
+	    background: #5db794;
+	    
+	}
+	.spoAlert {
+		-webkit-filter: blur(2px);
+    	backdrop-filter: blur(20px) saturate(120%) contrast(200%);
+    	background: #fafafa;
+	}
+	.idDate-box {
+		position: absolute;
+	    right: 20px;
+	    top: 20px;
+	    font-size: 14px;
+	    color: #777;
+	}
+	#more {
+		cursor: pointer;
+		float: right;
+	}
+	#content{
+		font-size: 18px;
+	}
+	.moreTxt-off{
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+	}
+	.moreTxt-on{
 	
+	}
+	.replyCount > a {
+		float: right;
+	}
+	.review-sort:before{
+	    content: "|";
+	    color: #333;
+	    padding-left: 7px;
+	    padding-right: 5px;
+	    vertical-align: bottom;
+	    opacity: 0.4;
+	    font-size: 22px;	
+	}
+	.review-sort:first-child::before {
+		content: "";
+	    vertical-align: middle;
+		padding: 0;
+	}
+	.sortWrap {
+		padding: 8px 18px 5px 0;
+		float: right;
+	}
+	.review-paging {
+		clear: both;
+	    margin-top: -10px;
+	    margin-bottom: 100px;
+	    /**/
+	    width: 100%;
+	    height: 35px;
+	    text-align: center;
+	    border-top: 1px solid #e5e5e5;
+	    border-bottom: 1px solid #cccccc;
+	    position: relative;
+	    background-color: #f9f9f9;
+	    font-family: "dotum";
+	}
+	#paging > ul {
+		margin:0;
+		padding: 0;
+		display: inline-block;
+	}
+	.pagination {
+		display: flex;
+	    padding-left: 0;
+	    list-style: none;
+	}
+	
+	.page-link{
+		display: block;
+	    padding: 7px 13px;
+	    margin-left: -1px;
+	    line-height: 1.25;
+	    color: #5db794;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    font-family: '777Balsamtint';
+	    font-weight: bold;
+	    text-decoration: none;
+	}
+	.page-item.disabled .page-link {
+		color: #6c757d;
+		pointer-events: none;
+		cursor: auto;
+		background-color: #fff;
+		border-color: #dee2e6;
+	}
+	.page-item.active .page-link {
+		z-index: 3;
+		color: #fff;
+		background-color: #5db794;
+		border-color: #5db794;
+	}
 	#isbn{
 		display:none;
 	}
@@ -181,18 +418,19 @@ body{
     }
 	
 	.description{
-	    padding-top: 30px;
+	    font-family: '777Balsamtint';
+	    padding-top: 25px;
 	    padding-right: 28px;
-	    font-family: malgun, "Malgun Gothic", Dotum, 돋움, sans-serif;
 	    color: #333;
-	    font-size: 18px;
-	    line-height: 1.8;
-	    letter-spacing: -0.02em;
+	    font-size: 23px;
+	    line-height: 1.7;
+	    letter-spacing: 0.025em;
 	    text-align: left;
 	}
 	.tb {
 		width: 1046px;
 		float: left;
+		border-collapse: collapse;
 	}
 	.hori {
 		padding-bottom: 30px;
@@ -298,7 +536,7 @@ body{
 		font-size:23px;
 	}
 	.tdDisc > span {
-		color:red;
+		color: #ff0000b0;
 	}
 	.trCount {
 	}
@@ -359,7 +597,7 @@ body{
 	#simList{
    		font-family: '777Balsamtint';
 		width: 140px;
-		height: 252px;
+		height: 282px;
 		border: 1.5px solid #33333387;
 		border-top: 0;
 		border-bottom: 0;
@@ -373,6 +611,9 @@ body{
 		margin-bottom: 5px;
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+	.simAjax > li {
+		margin-bottom: 10px;
 	}
 	.simAjax > li > a {
 		color:black;
