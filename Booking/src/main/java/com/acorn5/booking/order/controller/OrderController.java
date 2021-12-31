@@ -4,15 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.order.dto.OrderDto;
 import com.acorn5.booking.order.entity.Order;
+import com.acorn5.booking.order.repository.OrderRepository;
 import com.acorn5.booking.order.service.OrderService;
+import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Users;
@@ -27,12 +32,19 @@ public class OrderController {
 	//UsersDao dao;
 	
 	@Autowired
-	private UsersRepository usersRepository;
+	private 
+	UsersRepository usersRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
 	
 	//by욱현. 결제한 책들을 my_order 테이블에 저장하기_2021317
-	@RequestMapping("/pay/order_insert.do")
-	public void orderInsert(HttpServletRequest request, Order dto) {
-		orderService.orderInsert(dto, request);
+	@RequestMapping(value = "/pay/orderInsert", method = RequestMethod.POST)
+	public ResponseEntity<Order> orderInsert(@RequestBody Order dto, HttpServletRequest request) {
+		//dto객체 전달해서 db수정
+		//orderRepository.save(dto);
+		Order order = orderService.orderInsert(dto, request);
+		return ResponseEntity.ok(order);
 	}
 	
 	//by욱현.내 주문 내역 조회_2021316

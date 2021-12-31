@@ -29,9 +29,9 @@
           <form id="form" action="pay.do" method="post">
            <c:forEach var="o" items="${list}" varStatus="status">
             <tr>
-              <td id="c_id${status.count }" hidden>${o.c_id }</td><!-- 장바구니번호 -->
+              <td id="c_id${status.count }" hidden>${o.id }</td><!-- 장바구니번호 -->
               <td id="o_id${status.count }"></td>
-            <td id="buyer${status.count }">${o.id }</td>
+            <td id="buyer${status.count }">${o.userId.loginId }</td>
             <td id="image${status.count }">${o.image }</td>
             <td id="title${status.count }">${o.title }</td>
             <td id="price${status.count }">${o.price }</td>
@@ -48,14 +48,14 @@
 <script>
    // by욱현.주문번호(o_id) 만들기_2021317
    //책 단품의 장바구니 고유번호의 합 + 랜덤수 (일단은 난수만으로 테스트)
-   let ran = Math.floor(Math.random()*10000 + 1);// 난수
+   //let ran = Math.floor(Math.random()*10000 + 1);// 난수
    
    // by욱현.각 구매책의 정보를 post방식으로 pay.do에 전송_2021317
    let totalnum = $('#status').text(); // 총 책의 갯수
-   let o_id = ran; //주문번호
+   //let o_id = ran; //주문번호
    $(window).ready(function(){ //페이지 로딩완료시 함수호출
       for(let i=1; i<=totalnum; i++) { //각 로우별로 값을 추출해 전송한다.
-         $("#o_id"+[i]).text(o_id); //row의 주문번호 표시
+         //$("#o_id"+[i]).text(o_id); //row의 주문번호 표시
          let buyer = $('#buyer'+[i]).text();//구매자
          let image = $('#image'+[i]).text();//이미지
          let title = $('#title'+[i]).text();//제목
@@ -64,12 +64,15 @@
          let count = $('#count'+[i]).text();//책별 갯수
          let isbn = $('#isbn'+[i]).text(); //책별 isbn
          (function(){ //for문을 돌때마다 호출되는 익명함수
+        	var data = {buyer_id:${sessionScope.id}, image:image, title:title, price:price,
+                d_price:d_price, count:count, isbn:isbn }; 
+         console.log(data);
             $.ajax({
-               url:"${pageContext.request.contextPath }/pay/order_insert.do",
-               method:"POST",
-               dataType: "text",
-               data: { o_id:o_id, buyer:buyer, image:image, title:title, price:price,
-                     d_price:d_price, count:count, isbn:isbn },
+               url:"${pageContext.request.contextPath }/pay/orderInsert",
+	   		   method:"post",
+			   dataType : "json",
+			   contentType : "application/json; charset=utf-8",
+			   data : JSON.stringify(data),
                success : function(){
                   if(i==totalnum) { //장바구니에 담긴 책의 종류를 모두 post전송을 했다면 paid.do로 이동한다.
                      location.href = "${pageContext.request.contextPath }/pay/paid.do";

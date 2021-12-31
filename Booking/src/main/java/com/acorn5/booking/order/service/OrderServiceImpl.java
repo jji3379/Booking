@@ -17,6 +17,7 @@ import com.acorn5.booking.order.entity.Order;
 import com.acorn5.booking.order.repository.OrderRepository;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.users.entity.Users;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -32,9 +33,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	//by욱현, my_order에 테이블에 담기_210317
 	@Override
-	public void orderInsert(Order dto,HttpServletRequest request) {
+	public Order orderInsert(Order dto, HttpServletRequest request) {
 		// 전송된 파라미터들을 받는다.
 		// form 으로 전송하면 안되는건가???
+		/*
 		Long id = Long.parseLong(request.getParameter("o_id"));
 		Long buyer = Long.parseLong(request.getParameter("buyer"));
 		String image = request.getParameter("image");
@@ -43,7 +45,9 @@ public class OrderServiceImpl implements OrderService {
 		int d_price = Integer.parseInt(request.getParameter("d_price"));
 		int count = Integer.parseInt(request.getParameter("count"));
 		String isbn = request.getParameter("isbn");
+		*/
 		// dto객체에 담기
+		/*
 		dto.setId(id);
 		dto.setBuyer(buyer);
 		dto.setImage(image);
@@ -52,8 +56,13 @@ public class OrderServiceImpl implements OrderService {
 		dto.setD_price(d_price);
 		dto.setCount(count);
 		dto.setIsbn(isbn);
+		*/
+		Users users = new Users();
+		Long loginId=(Long)request.getSession().getAttribute("id");
+		users.setId(loginId);
+		dto.setBuyer(users);
 		//dto객체 전달해서 db수정
-		orderRepository.save(dto);
+		return orderRepository.save(dto);
 		//dao.insertOrder(dto);
 	}
 

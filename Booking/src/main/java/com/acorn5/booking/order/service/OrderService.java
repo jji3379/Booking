@@ -12,7 +12,7 @@ import com.acorn5.booking.pay.dto.CartDto;
 public interface OrderService {
 	
 	//by욱현, my_order에 테이블에 담기_210317
-	public void orderInsert(Order dto,HttpServletRequest request);
+	public Order orderInsert(Order dto, HttpServletRequest request);
 	
 	//by욱현, my_order에서 구매자 주문내역 불러오기 로직 _2021317
 	public void getMyOrder(HttpSession session,ModelAndView mView, Order dto, HttpServletRequest request);
