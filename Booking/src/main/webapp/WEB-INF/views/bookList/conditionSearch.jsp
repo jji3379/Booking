@@ -1,135 +1,164 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	div#box1 {
-		margin-top: 100px
-	}
-	.ellipsis2 {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-}
-.ellipsis{
-  	  width:150px;
-      white-space : nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-}
-/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-   .img-wrapper:hover{
-      /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.02);
-      transition: transform 0.3s ease-out;
-   }
-</style>
-<title>책과의 즉석만남 Booking</title>
+<meta charset="UTF-8">
+<title>/bookList.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/conditionSearch.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	
+</style>
 </head>
 <body>
-	<jsp:include page="../include/navbar.jsp"></jsp:include>
-	<div>
-	<div></div>
-		<h1><span><b>${keyword }</b></span> 검색결과  </h1>
-		<div>
-			<form action="conditionSearch.do" method="get" id="conditionForm">
-				<input name="start" value="1" hidden /> <label for="condition"></label>
-				<select class="form-control" name="condition" id="condition">
-					<option  value="title_content"
-						${condition eq 'title_content' ? "selected" : '' }>제목+내용</option>
-					<option value="title" ${condition eq 'title' ? "selected" : '' }>제목</option>
-					<option value="writer" ${condition eq 'writer' ? "selected" : '' }>작성자</option>
-				</select> 
-				<input class="form-control" type="text" name="keyword" placeholder="검색어 입력" id="conditionSearch"/>
-				<button type="submit" >검색</button>
+	<div class="layout">
+		<div class="listWrap">
+			<c:if test="${not empty keyword}">
+				<h2 class="notice-box">
+                   "<b id="keyword">${keyword }</b>" 에 대한 검색결과는 
+					<b id="key-value">${total }</b>개의 상품이 검색되었습니다.
+				</h2>
+			</c:if>
+			<div class="ranking">
+				<ul>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/conditionSearch.do?keyword=${keyword }&sort=count&start=1">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/conditionSearch.do?keyword=${keyword }&sort=count&start=51">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/conditionSearch.do?keyword=${keyword }&sort=count&start=101">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/conditionSearch.do?keyword=${keyword }&sort=count&start=151">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<div class="date-box">
+						<span id="date"></span>
+					</div>
+				</ul>
+				
+			</div>
+			<form action="">
+				 <div class="book-box">
+				 	<table>
+				 		<colgroup>
+				 			<col style="width:90px;">
+				 			<col style="width:150px;">
+				 			<col style="width:570px;">
+				 			<col style="width:105px;">
+				 		</colgroup>
+				 		<c:forEach var="b" items="${conditionSearch}" varStatus="status">
+				 			<tr>
+					 			<td class="td-info">
+					 				<div class="book-rank">${status.count}.</div>
+					 			</td>
+					 			<td >
+					 				<div>
+					 					<a href=""><img src="${b.image}" class="book-img"></a>
+					 				</div>
+					 			</td>
+					 			<td class="td-info" >
+					 				<div class="infoWrap">
+						 				<ul>
+											<li class="grid-li bd-title">
+												<span class="book-title">${b.title}</span>
+											</li>
+											<li class="grid-li bd-info">
+												<div>
+													<span class="book-info">${b.author}</span>
+													<span class="book-info">${b.publisher}</span>
+													<span class="book-info">${b.pubdate}</span>
+												</div>
+											</li>
+											<li class="grid-li bd-price">
+												<div >
+													<span class="book-price">${b.price} 원</span> → <span class="discount">${b.discount} 원</span>
+												</div> 
+											</li>
+											<li class="grid-li bd-review">
+												 <div class="book-review">
+												 	<div class="star-box">
+														<span class="total-star">★★★★★</span>
+														<span>5.0</span>
+													</div>
+													<div class="total-comment">(<a href="">163</a>)</div>
+												 </div>
+											</li> 
+										</ul>
+									</div>
+					 			</td>
+					 			<td class="td-info" >
+					 				<div class="buttonWrap">
+					 					<div >
+					 						<button class="cart btn">장바구니</button>
+					 					</div>
+					 					<div >
+					 						<button class="buy btn">바로구매</button>
+					 					</div>
+				 					</div>
+					 			</td>
+					 		</tr>
+					 		<tr></tr>
+				 		</c:forEach>
+				 	</table>
+				 	<div class="bottom-bar">
+				 		바닥
+				 	</div>
+				 </div>
 			</form>
 		</div>
-		<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
-		<c:if test="${not empty keyword}">
-				<button class="btn btn-outline-light"><strong> ${total } </strong> 개의 자료가 검색되었습니다.</button>
-		</c:if>
-		<table>
-			<div class="row row-cols-4" >
-				<c:forEach var="b" items="${conditionSearch}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
-					<div class="col mb-4">
-						<div class="card h-100">
-							<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-								<img src="${b.image }" class="card-img-top img-wrapper" >
-							</a>
-							<div class="card-body">
-								<a href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${b.isbn}">
-									<h5 class="card-title ellipsis2">${b.title }</h5>
-								</a>
-								<div class="card-text ellipsis">${b.author }</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</table>
-		<!-- by 준익, 페이징 처리_2021.02.26 -->
-		<nav>
-			<ul class="pagination justify-content-center">
-				<c:choose>
-					<c:when test="${startPageNum != 1 }">
-						<!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
-						<li class="page-item"><a class="page-link"
-							href="conditionSearch.do?keyword=${encodedK }&condition=${condition }&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">Prev</a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<!-- by 준익, 시작페이지가 1인 경우 Prev 비활성화_2021.02.28 -->
-						<li class="page-item disabled"><a class="page-link"
-							href="javascript:">Prev</a></li>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-					<!-- by 준익, 페이징 시작부터 끝까지 만들기_2021.02.28 -->
-					<c:choose>
-						<c:when test="${i eq pageNum }">
-							<!-- by 준익, 순서가 pageNum 과 같을 때 -->
-							<li class="page-item active">
-								<!-- by 준익, active 활성화_2021.02.28 --> <a class="page-link"
-								href="conditionSearch.do?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link"
-								href="conditionSearch.do?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${endPageNum lt totalPageCount }">
-						<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   -->
-						<li class="page-item"><a class="page-link"
-							href="conditionSearch.do?keyword=${encodedK }&condition=${condition }&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">Next</a>
-						<!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 --></li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-							<!-- by 준익, 전체페이지 끝일 때 Next 비활성화 --> <a class="page-link"
-							href="javascript:">Next</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</nav>
+		<div id="topButton"><img id="topButtonImg" src="https://image.aladin.co.kr/img/bu/btn_top2.png" alt="맨위로"></div>
+		<svg version="1.1" id="L5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+		  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+		  <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+		    <animateTransform 
+		       attributeName="transform" 
+		       dur="1s" 
+		       type="translate" 
+		       values="0 15 ; 0 -15; 0 15" 
+		       repeatCount="indefinite" 
+		       begin="0.1"/>
+		  </circle>
+		  <circle fill="#fff" stroke="none" cx="30" cy="50" r="6">
+		    <animateTransform 
+		       attributeName="transform" 
+		       dur="1s" 
+		       type="translate" 
+		       values="0 10 ; 0 -10; 0 10" 
+		       repeatCount="indefinite" 
+		       begin="0.2"/>
+		  </circle>
+		  <circle fill="#fff" stroke="none" cx="54" cy="50" r="6">
+		    <animateTransform 
+		       attributeName="transform" 
+		       dur="1s" 
+		       type="translate" 
+		       values="0 5 ; 0 -5; 0 5" 
+		       repeatCount="indefinite" 
+		       begin="0.3"/>
+		  </circle>
+		</svg>
 	</div>
-</body>
 <script>
-$(document).ready(function() {
-    $('#conditionForm').submit(function() {
-        if ($('#conditionSearch').val() == '') {
-            alert('검색어를 입력하세요.');
-            return false;
-        }
-    }); 
-}); 
+	//by준영, 현재시간 출력
+	let today = new Date();
+	
+	$('#date').html(today.toLocaleString() + '&nbsp; 기준');
+	//by준영, 맨위로 가기 버튼
+	$(document).ready(function() {
+
+		$(window).scroll(function() {
+		    // top button controll
+		    if ($(this).scrollTop() > 500) {
+		        $('#topButton').fadeIn();
+		    } else {
+		        $('#topButton').fadeOut();
+		    }
+		});
+
+		$("#topButtonImg").click(function() {
+			$('html, body').animate({scrollTop:0}, '300');
+		});
+
+	});
+	
 </script>
+</body>
 </html>
+
+

@@ -47,8 +47,9 @@
 	    width: 950px;
 	    text-align: left;
 	    padding: 45px 28px 50px;
-	    border: 2px solid #bbbbbbde;
-	    margin: 0 auto;
+	    border: 1px solid #bbbbbbde;
+	    margin: 50px auto;
+	    margin-bottom: 80px;
    	}
    	.selectBook{
    		padding: 20px;

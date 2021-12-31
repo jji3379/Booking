@@ -33,7 +33,7 @@ public class PayController {
 	@RequestMapping("/pay/cart")
 	public ModelAndView listCart(ModelAndView mView, HttpServletRequest request){
 		service.listCart(mView, request); 
-		mView.setViewName("pay/cart");
+		mView.setViewName("pay/cart.page");
 		return mView;
 	}	
 	//by준영, 주문테이블 저장양식_210316
@@ -71,7 +71,7 @@ public class PayController {
 	@RequestMapping("/pay/pay")
 	public ModelAndView payItem(ModelAndView mView, HttpServletRequest request){
 		service.listCart(mView, request); 
-		mView.setViewName("pay/pay");
+		mView.setViewName("pay/pay.page");
 		return mView;
 	}	
 	
@@ -80,6 +80,6 @@ public class PayController {
 	public String deletePaid(HttpServletRequest request) {
 		Long id=(Long)request.getSession().getAttribute("id");
 		service.deletPay(id,request);
-		return "pay/paid";
+		return "pay/paid.page";
 	}
 }

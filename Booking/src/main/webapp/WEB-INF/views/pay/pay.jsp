@@ -5,310 +5,31 @@
 <html>
 <head>
 <style>
-	::-webkit-scrollbar {
-		display:none;
-	} 
-	.orderContainer{
-		position:relative;
-		width:980px;
-		margin:80px auto;
-		
-		
-	}
-	.orderContents{
-		width:700px;
-		padding-right:15px;
-	}
-	.orderHead{
-		border-bottom:3px solid #0f4c81;
-		display:flex;
-		width:685px;
-	}
-	.orderList{
-		background:#fff;
-		border:1px solid #efefef;
-		width:685px;
-		overflow:auto;
-		margin-bottom:50px;
-	}
-	.orderList ul{
-		list-style:none;
-		border-bottom:1px dashed #a0a0a0;
-		display:table;
-		padding:10px 15px;
-		width:685px;
-		margin:0px;
-	}
-	.orderList li{
-		display:contents;
-	}
-	.AllCheckBox{
-		height:33px;
-		border-bottom:1px dashed #d4d2d2;
-		padding:3px 7px 5px 15px;
-	}
-	.AllCheck{
-		float:left;
-		padding-top:7px;
-	}
-	.AllCheck input{
-		vertical-align:middle;
-	}
-	.deleteBtn{
-		float:right;
-		
-	}
-	.checkBox{
-		padding-right:10px;
-	}
-	
-	#Bimg{
-		width:65px;
-		height:80px;
-	}
-	.orderImage{
-		display: table-cell;
-		width:50px;
-		padding-right:4px;
-	}
-	.orderSubject{
-		display: table-cell;
-		padding:5px 4px 5px 6px;
-		width:392px;
-		height:47px;
-		max-width: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	.orderQuantity{
-		display: table-cell;
-		width:128px;
-		text-align:center;
-		
-	}
-	.orderPrice{
-		display: table-cell;
-		width:123px;
-		text-align:end;
-	}
-	.addressWrap{
-		background:#fff;
-		border:1px solid #efefef;
-		width:685px;
-		padding:20px;
-		
-	}
-	.addressWrapDl{
-		padding:0px 2px 0px 8px;
-		font-size: 12px;
-	    font-family: "dotum", "sans-serif";
-	    color: #666;
-	}
-	.addressNotice{
-		margin-top:10px;
-		display:table;
-		background:#fff;
-		border:1px solid #efefef;
-		width:685px;
-		
-	}
-	#noticeLogo{
-		display: table-cell;
-	    width: 107px;
-	    height: 67px;
-	    padding: 15px 0 25px;
-	    border: 1px solid #efefef;
-	    border-right: 0;
-	    text-indent: -9999px;
-	    background: url(//bimage.interpark.com/UI/pc/order/2016/common/h4_noticeCircle.png) no-repeat center center;
-	    background-size: 67px;
-	}
-	.addressNoticeList{
-		display:table-cell;
-		padding:15px 0px 25px 0px;
-		font-size: 12px;
-	    font-family: "dotum", "sans-serif";
-	    color: #666;
-	    list-style: initial;
-	}
-	.addressNoticeList ul{
-		padding-left:10px;
-	}
-	
-	input{
-		background:#fffdf0;
-		border:1px solid #ddd;
-		
-	}
-	dt{
-		float:left;
-		width:112px;
-	}
-	#addressDetailUl{
-		list-style:none;
-	    padding:0 0 0 112px;
-	    width:645px;
-	}
-	#postCode{
-		width:85px;
-		padding:0 10px 2px 10px;
-		margin-bottom:4px;
-	}
-	#roadAddress{
-		width:382px;
-		padding:0 10px 2px 10px;
-		margin-bottom:4px;
-	}
-	#detailAddress{
-		width:382px;
-		padding:0 10px 2px 10px;
-	}
-	
-	dd.cellNumber{
-		margin:0 0 7px 112px;
-		width:451px;
-		height:25px;
-	}
-	.customSelect{
-		position:relative;
-		z-index:4;
-		display:inline-block;
-	}
-	.options{
-		list-style:none;
-	}
-	.cellNumber select{
-		background:#fffdf0;
-		width:56px;
-		height:28px;
-		border:1px solid #ddd;
-		padding:0 0 0 5px;
-	}
-	#normalRecipientMpno2{
-		width:60px;
-	
-	}
-	#normalRecipientMpno3{
-		width:60px;
-		
-	}
-	#normalReciptientMpno3{
-		width:60px;
-	}
-	#normalRecipientTelno1{
-		width:56px;
-	}
-	#normalRecipientTelno2{
-		width:60px;
-	}
-	#normalRecipientTelno3{
-		width:60px;
-	}
-	#selbox{
-		width:450px;
-		background:#fffdf0;
-		padding:3px 8px 5px 8px;
-		color: #666;
-	}
-	#selboxDirect{
-		width:450px;
-		margin-left:112px;
-	}
-	/* fixed 부모요소 틀 */
-	.orderAside{
-		margin-top:50px;
-		position:absolute; top:-3; right:0;
-	    width: 280px;
-	    
-	}
-	.orderBox{
-		position:fixed;
-		background:#fff;
-		border:2px solid #efefef;
-		width:280px;
-		height:252px;
-	}
-	.topBox{
-		padding:10px 20px 8px 20px;
-		border-bottom:1px solid #efefef;
-		border-top:1px solid #a0a0a0;
-	}
-	.itemPriceL{
-		
-	}
-	.itemPriceR{
-		text-align: end;
-	}
-	.shipFeeL{
-	
-	}
-	.shipFeeR{
-		text-align: end;
-	}
-	.totalL{
-		float: left;
-	    padding-top: 5px;
-	    font-size: 16px;
-	    font-weight: bold;
-	    color: #135fa1;
-	}
-	.totalR{
-		text-align: end;
-		font-style: normal;
-		font-size: 22px;
-		color: #135fa1;
-		
-	}
-	.myPageInfo{
-	    margin-top: -1px;
-	    border-top: 1px solid #eaeaea;
-	    background: #fafafa url(//bimage.interpark.com/UI/pc/order/2016/common/icon_exclamation.png) no-repeat 20px 13px;
-	    padding: 10px 23px 0px 37px;
-	    font-size: 11px;
-	    letter-spacing: -1px;
-	    color: #777;
-	    position: absolute;
-		bottom: 63px;
-	}
-	.orderBtn{
-		position: absolute;
-		bottom: 0px;
-	}
-	#check_module{
-		padding: 15px 0 21px;
-	    border-radius: 0;
-	    background: #135fa1;
-	    width: 280px;
-	    height:63px;
-	    font-size: 26px;
-	    font-weight: normal;
-	    color: #fff;
-	    
-	}
-	button.btn{
-		width: 59px;
-	    padding: 4px 0 2px;
-	    font-size: 12px;
-	    color: #fff;
-	    background:#135fa1;
-	    vertical-align: middle;
-	}
-	.coupon{
-		width:70px;
-		height:50px;
-	}
+
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/pay.css">
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="BS" name="thisPage"/>
-</jsp:include>
 <div class="orderContainer">
-
+	<div class="breadcrumb">
+		<ul class="steps">
+	  		<li class="location">
+ 		 		<span>주문서 작성</span> 배송/결제 정보를 정확히 입력해 주세요.
+	  		</li>
+			<li class="step">
+			  	<a >북카트</a>
+			</li>
+			<li class="active">
+			  	<a>주문 / 결제</a>
+			</li>
+			<li class="step">
+			  	<a>주문 완료</a>
+			</li>
+		</ul>
+	</div>
 	<div class="orderContents">
 		<div class="orderHead">
 		<h2>주문 상품</h2>
@@ -322,10 +43,11 @@
 		<div class="orderList">
 			<div class="allCheckBox">
 				<dt class="allCheck">
-					<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label>
+					<input type="checkbox" name="allCheck" id="allCheck" />
+					<label for="allCheck">전체 선택</label>
 				</dt>
 				<dd class="deleteBtn">
-					<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
+					<button id="selectDeleteBtn" type="submit" class="btn" onClick="deleteChk(this)" >선택 삭제</button> 
 				</dd> 
 			</div>
 			<script>
@@ -374,13 +96,13 @@
 			<c:forEach var="p" items="${list }" varStatus="status">
 			<ul>
 				<li>
-					<div class="checkBox">
-						<input type="checkbox" name="chBox" class="chBox" value="${p.c_id }"/>
-					</div>&nbsp;
-					<div class="orderImage"><img id="Bimg"src="${p.image }"/></div>
-					<div class="orderSubject">[도서] ${p.title}</div>
-					<div class="orderQuantity">${p.count} 개</div>
-					<div class="orderPrice">${p.d_price * p.count} 원</div>
+					<div class="checkBox valign">
+						<input type="checkbox" name="chBox" class="chBox" value="${p.id }"/>
+					</div>
+					<div class="orderImage valign"><img id="Bimg"src="${p.image }"/></div>
+					<div class="orderSubject valign">${p.title}</div>
+					<div class="orderQuantity valign">${p.count} 개</div>
+					<div class="orderPrice valign">${p.d_price * p.count} 원</div>
 				</li>
 			</ul>	
 			</c:forEach>
@@ -391,25 +113,25 @@
 			<h2>배송정보</h2>
 		</div>
 		<div class="newAddressFormWrapper" >
-			<div id="divNomalDelv" class="newAddressForm domesticDelivery current" style="display: block;">
+			<div id="divNomalDelv" class="newAddressForm domesticDelivery current">
 				<div class="addressWrap">
 					<dl class="addressWrapDl">
 						<dt class="addressName">수령인</dt>
 						<dd class="addressName">
-							<input type="iText" name="normalRecipientNm" id="normalRecipientNm" />
+							<input type="iText" class="inputBg" name="normalRecipientNm" id="normalRecipientNm" />
 						</dd>
 						<dt class="addressDetail">주소</dt>
 						<dd class="addressDetail">
 							<ul id="addressDetailUl">
 								<li class="postNumber">
-									<input type="text" id="postCode" name="postCode" id="postCode" placeholder="우편번호" readonly/>
-									<button class="btn btn" type="button" value="우편번호 찾기&nbsp;" onClick="execDaumPostCode()">우편번호</button>
+									<input type="text" id="postCode" class="inputBg" name="postCode" id="postCode" placeholder="우편번호" readonly/>
+									<button class="postBtn" type="button" value="우편번호 찾기&nbsp;" onClick="execDaumPostCode()">우편번호</button>
 								</li>
 								<li class="address1">
-									<input type="text" id="roadAddress" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly/>
+									<input type="text" class="inputBg" id="roadAddress" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly/>
 								</li>
 								<li class="address2">
-									<input type="text" id="detailAddress" name="detailAddress" id="detailAddress" placeholder="상세주소"/>
+									<input type="text"  class="inputBg" id="detailAddress" name="detailAddress" id="detailAddress" placeholder="상세주소"/>
 								</li>
 							</ul>
 						</dd>
@@ -434,23 +156,23 @@
 								</ul>
 							</div>
 							<span class="divide">-</span>
-							<input type="text" class="iText" name="normalRecipientMpno2" id="normalRecipientMpno2" maxlength="4" numberonly="true"/>
-							<span class="divide">-</span>
-							<input type="text" class="iText" name="normalRecipientMpno3" id="normalRecipientMpno3" maxlength="4" numberonly="true"/>
+								<input type="text" class="iText inputBg" name="normalRecipientMpno2" id="normalRecipientMpno2" maxlength="4" numberonly="true"/>
+								<span class="divide">-</span>
+								<input type="text" class="iText inputBg" name="normalRecipientMpno3" id="normalRecipientMpno3" maxlength="4" numberonly="true"/>
 						</dd>	
 						<dt class="phoneNumber">전화번호</dt>
 						<dd class="phoneNumber">
-							<input type="text" class="iText" name="normalRecipientTelno1" id="normalRecipientTelno1" maxlength="3" numberonly="true"/>
+							<input type="text" class="iText inputBg" name="normalRecipientTelno1" id="normalRecipientTelno1" maxlength="3" numberonly="true"/>
 							<span class="devide">-</span>
-							<input type="text" class="iText" name="normalRecipientTelno2" id="normalRecipientTelno2" maxlength="4" numberonly="true"/>
+							<input type="text" class="iText inputBg" name="normalRecipientTelno2" id="normalRecipientTelno2" maxlength="4" numberonly="true"/>
 							<span class="devide">-</span>
-							<input type="text" class="iText" name="normalRecipientTelno3" id="normalRecipientTelno3" maxlength="4" numberonly="true"/>
+							<input type="text" class="iText inputBg" name="normalRecipientTelno3" id="normalRecipientTelno3" maxlength="4" numberonly="true"/>
 						</dd>
 						<div id="divGiftInfoNew">
 							<dt class="presentCover">선물포장</dt>
 							<dd class="presentCover">
 								<label>
-									<input type="checkbox" class="iCheckbox" name="chkGiftYn" value="Y" />
+									<input type="checkbox" class="presentChk" name="chkGiftYn" value="Y" />
 									<span>선물 신청하기</span>
 								</label>
 							</dd>
@@ -473,7 +195,7 @@
 							</div>
 							<div class="customInput">
 								<label class="labelPlaceholder">
-									<input type="text" id="selboxDirect" name="selboxDirect" maxlength="50" placeholder="최대 50자까지 입력가능"/>
+									<input type="text" class="inputBg" id="selboxDirect" name="selboxDirect" maxlength="50" placeholder="최대 50자까지 입력가능"/>
 								</label>
 								<script>
 								$(function(){
@@ -514,61 +236,49 @@
 				</ul>
 			</div>
 		</div>
-		<div class="orderAside">
-			<div class="orderBox">
-				<div class="topBox">
-					<div class="priceBox">
-						<c:forEach var="p" items="${list }">
-							<c:set var= "sumP" value="${sumP + (p.count * p.d_price)}"/>
+	</div>
+	<div class="orderAside">
+		<div class="orderBox">
+			<div class="topBox">
+				<div class="priceBox">
+					<c:forEach var="p" items="${list }">
+						<c:set var= "sumP" value="${sumP + (p.count * p.d_price)}"/>
 					</c:forEach>
-						<dt class="itemPriceL">상품 가격</dt>
-						<dd>
-							<div class="itemPriceR">
-								<p class="itemSum"><c:out value="${sumP }"></c:out>원</p>
-							</div>
-						</dd>
-						<dt class="shipFeeL">배송비</dt>
-						<dd>
-							<div class="shipFeeR">
-							<!-- 배송비 -->
-							</div>
-						</dd>
-						<dt class="totalL">총 결제금액</dt>
-						<dd>
-							<div class="totalR">
-							<!-- 총 결제액 -->
-							</div>
-						</dd>
-					</div>
-				</div>
-				
-				<div class="bottomBox">
-					<p class="myPageInfo">
-						주문 완료 후 주문확인은 마이페이지 > 주문내역에서 확인할 수 있습니다.
-					</p>
-				</div>
-				<div class="orderBtn">
-					<button id="check_module" type="button" class="btn btn-lg">결제하기</button>
+					<dt class="itemPriceL">상품 가격</dt>
+					<dd>
+						<div class="itemSum itemPriceR"><c:out value="${sumP }"></c:out> 원</div>
+					</dd>
+					<dt class="shipFeeL">배송비</dt>
+					<dd>
+						<div class="shipFeeR">
+						<!-- 배송비 -->
+						</div>
+					</dd>
+					<dt class="totalL">총 결제금액</dt>
+					<dd>
+						<div class="totalR">
+						<!-- 총 결제액 -->
+						</div>
+					</dd>
 				</div>
 			</div>
-			
+			<div class="bottomBox">
+				<p class="myPageInfo">
+					주문 완료 후 주문확인은 마이페이지 > 주문내역에서 확인할 수 있습니다.
+				</p>
+			</div>
+			<div class="orderBtn">
+				<button id="check_module" type="button" class="btn btn-lg">결제하기</button>
+			</div>
 		</div>
 	</div>
 </div>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
-	<br /><br />
-	<br />
-	<br />
 	<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 	<div id="layer" style="display:none; position:fixed; overflow:hidden; z-index:1; -webkit-overflow-scrolling:touch;">
 	<img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 </body>
 <script>
-	
+
 	<!--도로명 주소 API-->
 	// 우편번호 찾기 화면을 넣을 element
 	var element_layer = document.getElementById('layer');
@@ -648,13 +358,13 @@
 	if(price != "원"){
 		if(parseInt(price) >= 20000){
 			shipFee=0;
-			$(".shipFeeR").text(shipFee+"원");
+			$(".shipFeeR").text(shipFee+" 원");
 		}else{
 			shipFee=2500;
-			$(".shipFeeR").text(shipFee+"원");
+			$(".shipFeeR").text(shipFee+" 원");
 		}
 		total=parseInt(price)+shipFee;
-		$(".totalR").text(total+"원");
+		$(".totalR").text(total+" 원");
 	}else{
 		alert("상품을 최소 한개 이상 담아주세요");	
 		location.replace("${pageContext.request.contextPath }/home.do");
@@ -758,6 +468,7 @@
 			alert(msg);
 		});
 	});
+	
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>

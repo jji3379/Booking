@@ -159,7 +159,7 @@ body {
 	    margin-block-end: 1em;
 	    margin-inline-start: 0px;
 	    margin-inline-end: 0px;
-	    padding-inline-start: 315px;
+	    padding-inline-start: 310px;
 	}
 	ul li {
 		list-style: none;
@@ -181,6 +181,8 @@ body {
 	    text-decoration: none;
 	}
 	.srcBtn {
+		margin:0;
+		padding:0;
 		background: transparent;
 	    cursor: pointer;
 	    display: inline-block;
