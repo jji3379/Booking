@@ -1,0 +1,336 @@
+	.layout{
+		width: 1300px;
+		margin: 0 auto;
+		padding: 0;
+		font-family: '777Balsamtint';
+	}
+	.jumbotron{
+		margin-top: 40px;
+		height:50px;
+		border-bottom: 2px solid #41495c;
+	}
+	
+	.breadcrumb{
+		text-align: center;
+		
+	}
+	.breadcrumb > ul{
+		width: 1300px;
+		margin: 0 auto;
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0;
+	}
+	.tb {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.btn {
+		height: 30px;
+		width: 50px;
+		cursor: pointer;
+		font-family: '777Balsamtint';
+	    display: inline-block;
+	    font-weight: 400;
+	    text-align: center;
+	    vertical-align: middle;
+	    user-select: none;
+	    padding: 2px 5px;
+	    font-size: 1rem;
+	    line-height: 1.5;
+	    border-radius: 0.25rem;
+    }
+
+	.steps {
+		list-style: none;
+  		display: inline-block;
+  	}
+  	.location{
+  		font-size: 16px;
+  		color: #fff;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    width: 720px;
+    	text-align: initial;
+  	}
+  	.location > span {
+  		font-size: 35px;
+  		padding-right: 5px;
+  	}
+  	.location::after {
+  		transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		border-left: 25px solid #86b3e3;
+		border-top: 25px solid #fff;
+		border-bottom: 25px solid #fff;
+		content: "";
+  	}
+  	
+  	.step {
+  		font-size: 22px;
+  		width: 110px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    opacity:0.7;
+	}
+	.step > a {
+		color: #fff;
+		
+	}
+    .active {
+    	width: 110px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #e2e6eb;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    color: #5394CB;
+    }
+    .active > a {
+    	color: #41495cd9;
+    	font-size: 22px;
+    }
+    .active::before {
+		transition: 0.3s ease-in-out;
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: -25px;
+	    border-left: 25px solid transparent;
+	    border-top: 25px solid #e2e6eb;
+	    border-bottom: 25px solid #e2e6eb;
+    }
+    .active::after{
+    	transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		border-left: 25px solid #e2e6eb;
+		border-top: 25px solid #fff;
+		border-bottom: 25px solid #fff;
+		content: "";
+    }
+
+    .step:last-child {
+      margin-right: 0;
+    }
+
+
+    .step::before {
+      transition: 0.3s ease-in-out;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25px;
+      border-left: 25px solid transparent;
+      border-top: 25px solid #86b3e3;
+      border-bottom: 25px solid #86b3e3;
+    }
+	
+    .step:first-child::before {
+      display: none;
+    }
+
+    .step::after {
+      transition: 0.3s ease-in-out;
+      position: absolute;
+      top: 0;
+      right: -25px;
+      border-left: 25px solid #86b3e3;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      content: "";
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step:hover {
+      background: #5394cbad;
+    }
+
+    .step:hover::before {
+      border-top-color: #5394cbad;
+      border-bottom-color: #5394cbad;
+    }
+
+    .step:hover::after {
+      border-left-color: #5394cbad;
+    }
+    .allCheckWrap {
+    	border-bottom:1px solid #e5e5e5;
+    	background: #fafafa;
+    	padding: 7px 0;
+    }
+    .btn {
+    	background: #fff;
+	    cursor: pointer;
+	    font-family: '777Balsamtint';
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 2px 5px;
+	    line-height: 1.5;
+	    color: #212529;
+	    text-align: center;
+	    border: 1px solid gray;
+	    font-size: 15px;
+	    border-radius: 1.25rem;
+    }
+    .updateBtn{
+    	background: #e2e6eb;
+	    color: #41495cd9;
+	    border: 1px solid gray;
+    }
+    .deleteBtn{
+    	background: #e2e6eb;
+    	color: #41495cd9;
+    	border: 1px solid gray;    
+    }
+    button.plus{
+	    height: 30px;
+	    width: 30px;
+    }
+	button.minus{
+	  height: 30px;
+	  width: 30px;
+	}
+	#selectDeleteBtn{
+		background: #fff;
+	    margin-left: 10px;
+	    height: 30px;
+	    width: 70px;
+	    cursor: pointer;
+	    font-family: '777Balsamtint';
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 2px 5px;
+	    line-height: 1.5;
+	    font-weight: bold;
+	    color: #212529;
+	    text-align: center;
+	    border: 1px solid gray;
+	    font-size: 15px;
+	    border-radius: 1.25rem;
+	}
+	.payBtn{
+	    width: 115px;
+		text-decoration: none;
+		color: #fff;
+		height: 35px;
+		border-radius: 5px;
+		font-size: 23px;
+		border: 1px solid #86b3e3;
+		background: #86b3e3;
+		
+	}
+	.homeBtn{
+		width: 115px;
+		text-decoration: none;
+		color: #fff;
+		height: 35px;
+		border-radius: 5px;
+		font-size: 23px;
+		border: 1px solid #484848;
+		background: #484848;
+	}
+	.tr-th {
+		padding: 10px;
+		border-bottom: 1px solid #e5e5e5;
+    	background: #fafafa;
+	}
+	.tr-th > th {
+		padding: 10px;
+		color: #333333d6;
+		font-size: 16px;
+	}
+	.tr-td{
+		border-bottom: 1px solid #e2e6eb;
+	}
+	.td-public{
+		font-size: 20px;
+		padding: 0 15px;
+		text-align: center;
+		border-left: 1px dashed #e5e5e5;
+	}
+	.td-title{
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-size: 20px;
+		padding: 0 15px;
+	} 
+	.bookImg {
+		width: 100%;
+		height: 140px;
+	}
+	.numBox{
+		width: 25px;
+		height: 20px;
+	}
+	.pay{
+   		text-align:center;
+    	height:200px;
+    	margin-top: 40px;
+   }
+	.pay-box {
+		border-collapse: collapse;
+		text-align: left;
+		line-height: 1.5;
+		border-collapse:collapse; 
+		border:3px #41495c solid;
+		margin-bottom:50px;
+		width:800px;
+		height:100px;
+		margin:0 auto;
+		margin-bottom:20px;
+	}
+	.pay-box thead th {
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  color: #6c6c6c;
+	  border-bottom: 1px solid #41495c;
+	}
+	.pay-box tbody th {
+	  width: 150px;
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	  background: #f3f6f7;
+	}
+	.pay-box td {
+	  width: 350px;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-bottom: 1px solid #ccc;
+	}
+    #total {
+    	color: #86b3e3;
+    	font-weight: bold;
+    }
+
+    
+  

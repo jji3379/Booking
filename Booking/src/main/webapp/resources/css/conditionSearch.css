@@ -1,0 +1,217 @@
+	.layout {
+	    padding: 0;
+	    margin: 0 auto;
+	    font-family: '777Balsamtint';
+	    width: 960px;
+	}
+	.page-title{
+	    border-bottom: 2px solid #e5e5e5;
+    	padding-bottom: 5px;
+    	margin-bottom: 0;
+	}
+	.notice-box{
+		font-weight: 500;
+		border-bottom: 2px solid #e5e5e5;
+		padding: 5px 0 3px 10px;
+		margin-bottom: 0;
+		font-size: 23px;
+	}
+	.notice-box > b {
+		font-size: 27px;
+	}
+	.ranking {
+		background: url(//bimage.interpark.com/renewPark/reBookpark/rankChart2016/common/img_rankContentsHeader.png) no-repeat;
+    	background-size: 100%;
+	}
+	.ranking > ul {
+		margin: 0;
+		height: 42px;
+		border-bottom: 1px solid #e5e5e5;
+		margin-block-start: 0;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		padding-inline-start: 0px;
+	}
+	.date-box {
+		padding-top: 6px;
+		padding-right: 20px;
+		float: right;
+	}
+	#date{
+		background: white;
+	    border: 1px solid #fff;
+	    border-radius: 3px;
+	    padding: 2px 5px;
+		vertical-align: -webkit-baseline-middle;
+	}
+	.rank-sort {
+		font-size: 19px;
+		display: block;
+		padding: 10px 7px;
+		cursor: pointer;
+		width: 55px;
+		text-align: center;
+		border-right: 1px solid #d6d6d6;
+		text-decoration: none;
+		color: #666;
+	}
+	.rank-sort > img {
+		margin-left: 5px;
+	}
+	.rank-sort.active {
+		background: #fff;
+		color: #333;
+	}
+	.book-box{
+	
+	}
+	.book-box > table {
+		padding-top: 10px;
+	    border-right: 1px solid #e5e5e5;
+	    border-left: 1px solid #e5e5e5;
+	    background: #f0f8ff61;
+		width: 100%;
+		border-collapse: separate;
+    	border-spacing: 0 10px;
+	}
+	.td-info{
+		position: relative;
+		padding:0 10px;
+	}
+	.book-rank{
+		position: absolute;
+		top:0;
+		font-size: 33px;
+		color: #666;
+		border-bottom: 1px solid #666;
+    	font-family: "dotum", "sans-serif";
+	}
+	.infoWrap{
+		position: absolute;
+		top:0;
+		font-size: 22px;
+    	color: #333;
+	}
+	.infoWrap > ul{
+		display: grid;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		padding-inline-start: 0px;
+		margin:0;
+	}
+	.book-img{
+		border: 1px solid #e5e5e5;
+		width: 150px;
+		height: 175px;
+	}
+	.grid-li {
+		width: 577px;
+	}
+	.book-title {
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+		font-size: 21px;
+    	font-family: "맑은 고딕", "Malgun Gothic", "나눔고딕", "NanumGothic", "Dotum", sans-serif;
+	}
+	
+	.book-info {
+		font-size: 14px;
+		color: #666;
+	}
+	.book-info::before{
+	    content: "|";
+	    padding-left: 3px;
+	    padding-right: 7px;
+	    vertical-align: text-bottom;
+	    opacity: 0.6;
+	    font-size: 17px;
+	}
+	.book-info:first-child::before {
+		content: "";
+	    vertical-align: middle;
+		padding: 0;
+	}
+	.book-price {
+	
+	}
+	.discount {
+	
+	}
+	.star-box, .total-comment{
+		display: inline-block;
+		font-size: 16px;
+	}
+	.total-star{
+		font-family: emoji;
+		display: inline;
+		vertical-align: baseline;
+		color: #ffc80b;
+	}
+	.buttonWrap{
+		position: absolute;
+		top: 42px;
+	}
+	.cart{
+	    border: 1px solid #5db794;
+	    background-color: #5db794;
+	    color: white;
+	    margin-bottom: 4px;
+	}
+	.buy{
+	    border: 1px solid #5394CB;
+	    background-color: #5394CB;
+	    color: white;
+	}
+	.btn {
+		height: 63px;
+		width: 90px;
+		cursor: pointer;
+		font-family: '777Balsamtint';
+	    display: inline-block;
+	    font-weight: 400;
+	    text-align: center;
+	    vertical-align: middle;
+	    user-select: none;
+	    padding: 0.375rem 0.75rem;
+	    font-size: 1rem;
+	    line-height: 1.5;
+	    border-radius: 0.25rem;
+    }
+    .bd-title {
+		border-bottom: 1px solid #e5e5e5;
+    	padding-bottom: 10px;
+	}
+	.bd-info{
+		padding-bottom: 35px;
+	}
+	.bd-info > div {
+		padding-bottom: 3px;
+	}
+	.bd-price{
+		border-bottom: 1px solid #e5e5e5;
+    	padding-bottom: 3px;
+	}
+	.bd-review{
+		padding-top: 3px;
+	    border-bottom: 1px solid #e5e5e5;
+	    padding-bottom: 7px;
+	    background:#fafafa7a;
+	}
+	.bottom-bar{
+		border-top: 1px solid #e5e5e5;
+	    border-bottom: 1px solid #e5e5e5;
+	    background: #eee;
+	    padding: 10px 0;
+	    margin-bottom: 105px;
+	}
+	#topButton {
+		position: fixed; 
+		bottom: 10px; 
+		right: 10px; 
+		z-index: 100;
+	}

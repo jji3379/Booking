@@ -29,7 +29,7 @@
           <form id="form" action="pay.do" method="post">
            <c:forEach var="o" items="${list}" varStatus="status">
             <tr>
-              <td id="c_id${status.count }" hidden>${o.c_id }</td><!-- 장바구니번호 -->
+              <td id="c_id${status.count }" hidden>${o.id }</td><!-- 장바구니번호 -->
               <td id="o_id${status.count }"></td>
             <td id="buyer${status.count }">${o.id }</td>
             <td id="image${status.count }">${o.image }</td>
@@ -68,7 +68,7 @@
                url:"${pageContext.request.contextPath }/pay/order_insert.do",
                method:"POST",
                dataType: "text",
-               data: { o_id:o_id, buyer:buyer, image:image, title:title, price:price,
+               data: { id:o_id, buyer:buyer, image:image, title:title, price:price,
                      d_price:d_price, count:count, isbn:isbn },
                success : function(){
                   if(i==totalnum) { //장바구니에 담긴 책의 종류를 모두 post전송을 했다면 paid.do로 이동한다.

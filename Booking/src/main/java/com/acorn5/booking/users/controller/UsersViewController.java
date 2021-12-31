@@ -127,7 +127,7 @@ public class UsersViewController {
     		//by 우석, view page 에서 cartitem 불러오기_210315
         	cartservice.listCart(mView, request);
     	}
-		mView.setViewName("users/private/info");
+		mView.setViewName("users/private/info.page");
 		return mView;
 	}
 	
@@ -147,7 +147,7 @@ public class UsersViewController {
 		//로그인 폼에 관련된 로직을 서비스를 통해서 처리한다.
 		usersService.loginformLogic(request, mView);
 		//view page 정보도 담는다.
-		mView.setViewName("users/login_form");
+		mView.setViewName("users/login_form.page");
 		//리턴
 		return mView;
 	}

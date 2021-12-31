@@ -1,0 +1,221 @@
+	.layout{
+		width: 900px;
+		margin: 80px auto 200px;
+		padding: 0;
+		font-family: '777Balsamtint';
+	}
+	.breadcrumb{
+		text-align: center;
+		margin-top: 30px;
+		height: 50px;
+		
+	}
+	.breadcrumb > ul{
+		width: 900px;
+		margin: 0 auto;
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0;
+	}
+	.steps {
+		list-style: none;
+  		display: inline-block;
+  		border-bottom: 2px solid #41495c;
+  	}
+  	.location{
+  		font-size: 16px;
+  		color: #fff;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    width: 425px;
+    	text-align: initial;
+  	}
+  	.location > span {
+  		font-size: 35px;
+  		padding-right: 5px;
+  	}
+  	.location::after {
+  		transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		border-left: 25px solid #86b3e3;
+		border-top: 25px solid #fff;
+		border-bottom: 25px solid #fff;
+		content: "";
+  	}
+  	
+  	.step {
+  		font-size: 22px;
+  		width: 75px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    opacity: 0.7;
+	}
+	.step > a {
+		color: #fff;
+		
+	}
+    .active {
+    	width: 75px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #e2e6eb;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    padding: 0 20px;
+	    color: #5394CB;
+    }
+    .active > a {
+    	color: #41495cd9;
+    	font-size: 22px;
+    }
+    .active::before {
+		transition: 0.3s ease-in-out;
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: -25px;
+	    border-left: 25px solid transparent;
+	    border-top: 25px solid #e2e6eb;
+	    border-bottom: 25px solid #e2e6eb;
+    }
+    .active::after{
+    	transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		content: "";
+    }
+
+    .step:last-child {
+      margin-right: 0;
+    }
+
+
+    .step::before {
+      transition: 0.3s ease-in-out;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25px;
+      border-left: 25px solid transparent;
+      border-top: 25px solid #86b3e3;
+      border-bottom: 25px solid #86b3e3;
+    }
+	
+    .step:first-child::before {
+      display: none;
+    }
+
+    .step::after {
+      transition: 0.3s ease-in-out;
+      position: absolute;
+      top: 0;
+      right: -25px;
+      border-left: 25px solid #86b3e3;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      content: "";
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step:hover {
+      background: #5394cbad;
+    }
+
+    .step:hover::before {
+      border-top-color: #5394cbad;
+      border-bottom-color: #5394cbad;
+    }
+
+    .step:hover::after {
+      border-left-color: #5394cbad;
+    }
+    #headset{
+		width:85px;
+		height:85px;
+	}
+    .orderWrap {
+    	border:2px solid #e5e5e5;
+    	padding-top: 50px;
+    	height: 400px;
+    	margin-bottom: 250px;
+    }
+    
+    .order-box {
+    	width: 450px;
+    	margin: 0 auto;
+    	text-align: center;
+    }
+    .order-body{
+    	font-size: 20px;
+    }
+    .order-msg{
+    	margin-top: 0;
+    }
+    .order-info{
+    	border-top: 2px solid #e5e5e5;
+    	border-bottom: 2px solid #e5e5e5;
+    	background: #fafafa;
+    	padding: 15px;
+    	margin-bottom: 50px;
+    }
+    .order-num{
+    	display: inline-block;
+    	width: 207px;
+    	border-right:2px solid #e5e5e5;
+    }
+    .order-num > p{
+    	margin: 0;
+    }	
+    .order-date{
+    	display: inline-block;
+		width: 207px;
+    }
+    .order-date > p{
+    	margin: 0;
+    }
+    .order-text{
+    	color: #86b3e3;
+    	font-weight: bold;
+    	letter-spacing: 1.2px;
+    }
+    .home{
+    	background: #484848;
+    	border: 1px solid #484848;
+    }
+    .order{
+    	border: 1px solid #86b3e3;
+	    background: #86b3e3;
+    }
+    .btn{
+    	width: 115px;
+	    text-decoration: none;
+	    color: #fff;
+	    height: 35px;
+	    border-radius: 5px;
+	    font-size: 23px;
+	    padding: 5px 10px;
+    	margin: 2px;
+    }
+	

@@ -30,8 +30,8 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-					<a href="" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-					<a href="" class="member" >${loginId } 님</a>
+					<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
+					<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
 					<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 				</div>
 				</c:when>

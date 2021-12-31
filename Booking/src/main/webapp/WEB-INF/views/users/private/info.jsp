@@ -7,63 +7,124 @@
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
-	.profileBox{
-		display:inline-block; 
-		border:3px solid #135fa1; 
-		width:300px; 
-		height:165px;
-		margin:0px 20px 40px;
-		padding:15px 15px;
+	a {
+		text-decoration: none;
 	}
-	.menuIcon{
-		width:80px; 
-		height:80px; 
-		float:right;
+	.layout{
+	    width: 100%;
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 0%;
+		max-width: 1200px;
+		margin: 0px auto;
+		padding: 0px 65px;
+		min-height: 446px;
+	}	
+	.header{
+		width: 100%;
+	    display: flex;
+	    flex-flow: row nowrap;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    padding: 32px 0px 12px;
+	    box-sizing: border-box;
+	}
+	.primary{
+		width: 155px;
+    	margin-right: 65px;
+	}
+	.secondary{
+	    flex: 1 1 0%;
+    	height: 100%;
+	}
+	.top3{
+		display: flex;
+	    height: 100%;
+	    background-color: #eee;
+	    border-radius: 4px;
+	    padding: 16px 0px;
+	}
+	.bd-card {
+	    border-right: 1px solid #bbb;
+    	flex: 1 1 0%;
+   		color: #333;
+	}
+	.last {
+		border: none;
+    	flex: 1 1 0%;
+   		color: #333;
+	}
+	dl.card{
+		margin: 0px;
+	    display: flex;
+	    flex-flow: column nowrap;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+	    height: 100%;
+	    padding: 0px 28px;
+	}
+	dd.value{
+		margin: 0;
+	}
+	.body{
+		width: 100%;
+    	display: flex;
+    	box-sizing: border-box;
 	}
 </style>
 <body >
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div ></div>
-<div class="row" >
-	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
-	<div class="col-9">
-		<h1 class="d-flex justify-content-center">${id}님 환영합니다</h1>
-		<div class="profileBox">
-			<h3>
-				<a href="${pageContext.request.contextPath }/users/private/my_review.do">내가 작성한 리뷰
-					<img src="${pageContext.request.contextPath }/resources/images/myreview.png" class="menuIcon"/>
-				</a>
-			</h3>
+<div class="layout">
+	<div class="header">
+		<div class="primary">
+			<h4>안녕하세요,</h4>
+			<span>catacat3</span>님!
 		</div>
-		<div class="profileBox">
-			<h3>
-				<a href="${pageContext.request.contextPath }/users/private/my_order.do">주문 조회
-					<img src="${pageContext.request.contextPath }/resources/images/delivery.png" class="menuIcon"/>
+		<div class="secondary">
+			<div class="top3">
+				<a class="bd-card" href="">
+					<dl class="card">
+						<dt class="label">
+							<span>작성글</span>
+						</dt>
+						<dd class="value">
+							<span>0</span>
+							<span>개</span>
+						</dd>
+					</dl>
 				</a>
-			</h3>
-		</div>
-		<div class="profileBox">
-			<h3>
-				<a href="${pageContext.request.contextPath }/users/private/pwd_updateform.do">비밀번호 수정
-					<img src="${pageContext.request.contextPath }/resources/images/password.png" class="menuIcon"/>
+				<a class="bd-card" href="">
+					<dl class="card">
+						<dt class="label">
+							<span>작성 댓글</span>
+						</dt>
+						<dd class="value">
+							<span>0</span>
+							<span>개</span>
+						</dd>
+					</dl>
 				</a>
-			</h3>
-		</div>
-		<div class="profileBox">
-			<h3>
-				<a href="${pageContext.request.contextPath }/users/private/updateform.do">개인정보 수정
-					<img src="${pageContext.request.contextPath }/resources/images/info.png" class="menuIcon"/>
+				<a class="bd-card last" href="">
+					<dl class="card">
+						<dt class="label">
+							<span>???</span>
+						</dt>
+						<dd class="value">
+							<span>???</span>
+							<span></span>
+						</dd>
+					</dl>
 				</a>
-			</h3>
+			</div>
 		</div>
-	</div><!-- col-9 END -->
-</div><!-- row End -->
+	</div>
+	<div class="body">
+		
+	</div>
+</div>
 <script>
 //회원탈퇴묻기
 function deleteConfirm(){

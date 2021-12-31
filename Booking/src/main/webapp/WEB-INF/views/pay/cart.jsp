@@ -7,101 +7,54 @@
 <html>
 <head>
 <style>
-	button.btn{
-      background-color:#135fa1;
-      color:white;
-   }
-   #pay{
-		background-color:#135fa1;
-		color:white;
-   }
-   button.plus{
-   		width: 30px;
-	    height: 30px;
-	    text-align: center;
-	    padding: 6px 0;
-	    font-size: 12px;
-	    line-height: 1.428571429;
-	    border-radius: 15px;
-   }
-    button.minus{
-   		 width: 30px;
-	    height: 30px;
-	    text-align: center;
-	    padding: 6px 0;
-	    font-size: 12px;
-	    line-height: 1.428571429;
-	    border-radius: 15px;
-   }
-   .pay{
-   		text-align:center;
-    	height:200px;
-   }
-	table.type09 {
-		border-collapse: collapse;
-		text-align: left;
-		line-height: 1.5;
-		border-collapse:collapse; border:3px #0f4c81 solid;
-		margin-bottom:50px;
-		width:800px;
-		height:100px;
-		margin:0 auto;
-		margin-bottom:20px;
-	}
-	table.type09 thead th {
-	  padding: 10px;
-	  font-weight: bold;
-	  vertical-align: top;
-	  color: #135fa1;
-	  border-bottom: 1px solid #036;
-	}
-	table.type09 tbody th {
-	  width: 150px;
-	  padding: 10px;
-	  font-weight: bold;
-	  vertical-align: top;
-	  border-bottom: 1px solid #ccc;
-	  background: #f3f6f7;
-	}
-	table.type09 td {
-	  width: 350px;
-	  padding: 10px;
-	  vertical-align: top;
-	  border-bottom: 1px solid #ccc;
-	}
-	#selectDeleteBtn{
-		margin-bottom:5px;
-		margin-left:10px;
-	}
-	#home{
-		background-color:#484848;
-		color:white;
-	}
-	#title{
-		max-width: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}  
+	 
 </style>
 <meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<script src="https://kit.fontawesome.com/df193849aa.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/cart.css">
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-	<jsp:param value="BS" name="thisPage"/>
-</jsp:include>
-<div>
-		<div class="jumbotron">
-	    
-	    <hr class="my-4">
-	    <h2>북카트  &nbsp;<span class="badge badge-warning">쇼핑중</span></h2>
+<div class="layout">
+	<div class="jumbotron">
+	    <div class="breadcrumb">
+			<ul class="steps">
+		  		<li class="location">
+	 		 		<span>BookCart</span> 주문하실 상품을 선택해 주세요.
+		  		</li>
+				<li class="active">
+				  	<a >북카트</a>
+				</li>
+				<li class="step">
+				  	<a>주문 / 결제</a>
+				</li>
+				<li class="step">
+				  	<a>주문 완료</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="allCheckWrap">
+		<span>
+			<span class="allCheck">
+				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
+			</span>
+			전체선택
+			<button id="selectDeleteBtn" type="submit" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
+		</span>
+		<script>
+			//by준영, 체크박스 전체선택,전체해제 기능_210307
+			$("#allCheck").click(function(){
+				var chk = $("#allCheck").prop("checked");
+				if(chk) {
+					$(".chBox").prop("checked", true);
+				} else {
+					$(".chBox").prop("checked", false);
+				}
+			});
+		</script>
 	</div>	
-	
-	<span class="deleteBtn">
-		<button id="selectDeleteBtn" type="submit" class="btn" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
-	</span>
 	<script>
 		//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 		function deleteChk(){
@@ -134,25 +87,20 @@
 			}
 		}
 	</script>
-	<table class="table" style=border-bottm-style:dotted;>
-	    <thead class="thead-light">
-	    <tr>
-	      <th>
-		  	<span class="allCheck">
-				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
-			</span>
-			<script>
-			//by준영, 체크박스 전체선택,전체해제 기능_210307
-				$("#allCheck").click(function(){
-					var chk = $("#allCheck").prop("checked");
-					if(chk) {
-						$(".chBox").prop("checked", true);
-					} else {
-						$(".chBox").prop("checked", false);
-					}
-				});
-			</script>
-		  </th>
+	<table class="tb">
+		<colgroup>
+			<col style="width:10px"/>
+			<col style="width:120px"/>
+			<col style="width:560px"/>
+			<col style="width:90px"/>
+			<col style="width:90px"/>
+			<col style="width:230px"/>
+			<col style="width:100px"/>
+			<col style="width:100px"/>
+		</colgroup>
+	    <thead>
+	    <tr class="tr-th">
+	      <th></th>
 	      <th></th>
 	      <th>도서명</th>
 	      <th>가격</th>
@@ -160,62 +108,60 @@
 	      <th>수량</th>
 	      <th>금액</th>
 	      <th></th>
-	      
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <c:forEach var="c" items="${list}" varStatus="status">
-	        <tr>
+	        <tr class="tr-td">
 	        	<c:if test="${fn:length(list) == 0}">
 	        		<td align="center">북카트가 비었습니다</td>
 	        	</c:if>
-	        		<td style=width:3%;>
+	        		<td>
         				<div class="checkBox">
 							<input type="checkbox" name="chBox" class="chBox" value="${c.id }"/>
 						</div>
 		        	</td>
-		            <td><img src="${c.image}"/></td>
-		            <td id="title" >${c.title}</td>
-		            <td>${c.price }</td>
-		            <td><font color="red">${c.d_price }</font></td>
-		            <td>
+		            <td><img class="bookImg" src="${c.image}"/></td>
+		            <td class="td-title">${c.title}</td>
+		            <td class="td-public">${c.price} 원</td>
+		            <td class="td-public"><font color="red">${c.d_price}</font> 원</td>
+		            <td class="td-public">
 			            <form action="update.do" method="post">
 			            	<input type="hidden" name="id" value="${c.id }" />
-			            	<button type="button" class="minus" class="btn btn-secondary" >-</button>
-							<input type="number" name="count" class="numBox" class="btn"  min="1" max="100" value="${c.count }" readonly="readonly" style="width:40px"/>
-			            	<button type="button" class="plus" class="btn btn-secondary" >+</button>
-			            	<button id="updateBtn" class="btn btn-secondary" type="submit" onClick="submit(this)" >변경</button>
+			            	<button type="button" class="minus btn">-</button>
+							<input type="number" name="count" class="numBox" min="1" max="100" value="${c.count }" readonly="readonly" style="width:25px"/>
+			            	<button type="button" class="plus btn">+</button>
+			            	<button type="submit" class="updateBtn btn" onClick="submit(this)" >변경</button>
 			            </form>
 		            </td>
-		            <td>${c.d_price * c.count}</td>
+		            <td class="td-public">${c.d_price * c.count} 원</td>
 		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
-				<td>
+				<td class="td-public">
 					<form action="delete.do" method="post">
 		            	<input name="id" type="hidden" value="${c.id}" />
-		            	<button type="submit" class="btn" class="deleteBtn"   onClick="submit(this)" >삭제</button>
+		            	<button type="submit" class="btn deleteBtn"   onClick="submit(this)" >삭제</button>
 					</form>
-				</td>	            
-	            
+				</td>	
 	        </tr>
 	    </c:forEach>
 	  </tbody>
 	</table>
 	<div class="pay">
-		<table class="type09" >
+		<table class="pay-box" >
 			<thead>
 				<th>상품 가격</th>
 				<th>배송비&nbsp;(2만원 이상 무료배송)</th>
 				<th><strong>총 결제 예상금액</strong></th>
 			</thead>
 			<tbody>
-				<td id="price" ><c:out value="${sum }"></c:out><span>원</span></td>
+				<td id="price" ><c:out value="${sum }"></c:out><span> 원</span></td>
 				<td id="shipFee"></td>
 				<td id="total"></td>
 			</tbody>
 		</table>
-		<a id="pay" type="button"  class="btn btn-lg" href="pay.do">주문하기</a>
-		<a  id="home" type="button"  class="btn btn-lg"	href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
+		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
+		<a id="pay" type="button" class="btn payBtn" href="pay.do">주문하기</a>
 	</div>
 </div>
 </body>
@@ -234,13 +180,13 @@
 	}else{
 		if(parseInt(price) >= 20000){
 			shipFee=0;
-			$("#shipFee").text(shipFee+"원");
+			$("#shipFee").text(shipFee+" 원");
 		}else{
 			shipFee=2500;
-			$("#shipFee").text(shipFee+"원");
+			$("#shipFee").text(shipFee+" 원");
 		}
 		total=parseInt(price)+shipFee;
-		$("#total").text(total+"원");
+		$("#total").text(total+" 원");
 	}
 	
 	//by준영 수량 +- 기능_210311-----------------------------

@@ -1,0 +1,557 @@
+	::-webkit-scrollbar {
+		display:none;
+	}
+	.orderContainer{
+		width: 1000px;
+		margin: 0 auto;
+		padding: 0;
+		font-family: '777Balsamtint';
+	}
+	
+	.breadcrumb{
+		text-align: center;
+		margin: 40px 0 25px 0;
+		height: 50px;
+		
+	}
+	.breadcrumb > ul{
+		width: 1000px;
+		margin: 0 auto;
+		display: inline-block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0;
+	}
+	.steps {
+		list-style: none;
+  		border-bottom: 2px solid #41495c;
+  	}
+  	.location{
+  		font-size: 16px;
+  		color: #fff;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    width: 495px;
+    	text-align: initial;
+  	}
+  	.location > span {
+  		font-size: 35px;
+  		padding-right: 5px;
+  	}
+  	.location::after {
+  		transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		border-left: 25px solid #86b3e3;
+		border-top: 25px solid #fff;
+		border-bottom: 25px solid #fff;
+		content: "";
+  	}
+  	
+  	.step {
+  		font-size: 22px;
+  		width: 85px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #86b3e3;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    opacity:0.7;
+	}
+	.step > a {
+		color: #fff;
+		
+	}
+    .active {
+    	width: 85px;
+	    white-space: nowrap;
+	    transition: 0.3s ease-in-out;
+	    background: #e2e6eb;
+	    position: relative;
+	    height: 50px;
+	    line-height: 50px;
+	    margin-right: 30px;
+	    padding: 0 20px;
+	    color: #5394CB;
+    }
+    .active > a {
+    	color: #41495cd9;
+    	font-size: 22px;
+    }
+    .active::before {
+		transition: 0.3s ease-in-out;
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: -25px;
+	    border-left: 25px solid transparent;
+	    border-top: 25px solid #e2e6eb;
+	    border-bottom: 25px solid #e2e6eb;
+    }
+    .active::after{
+    	transition: 0.3s ease-in-out;
+		position: absolute;
+		top: 0;
+		right: -25px;
+		border-left: 25px solid #e2e6eb;
+		border-top: 25px solid #fff;
+		border-bottom: 25px solid #fff;
+		content: "";
+    }
+
+    .step:last-child {
+      margin-right: 0;
+    }
+
+
+    .step::before {
+      transition: 0.3s ease-in-out;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -25px;
+      border-left: 25px solid transparent;
+      border-top: 25px solid #86b3e3;
+      border-bottom: 25px solid #86b3e3;
+    }
+	
+    .step:first-child::before {
+      display: none;
+    }
+
+    .step::after {
+      transition: 0.3s ease-in-out;
+      position: absolute;
+      top: 0;
+      right: -25px;
+      border-left: 25px solid #86b3e3;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      content: "";
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step:hover {
+      background: #5394cbad;
+    }
+
+    .step:hover::before {
+      border-top-color: #5394cbad;
+      border-bottom-color: #5394cbad;
+    }
+
+    .step:hover::after {
+      border-left-color: #5394cbad;
+    }
+    .orderContents{
+    	float: left;
+		width:700px;
+		padding-right:15px;
+		margin-bottom: 90px;
+	}
+    .orderHead{
+		border-bottom:3px solid #666;
+		width:699px;
+	}
+	.orderHead > h2 {
+		display: inline-block;
+	    margin: 0;
+	    padding: 4px;
+	}
+	.orderList{
+		background:#fff;
+		border:1px solid #efefef;
+		width:698px;
+		overflow:auto;
+		margin-bottom:50px;
+	}
+	.orderList ul{
+		list-style:none;
+		border-bottom:1px dashed #a0a0a0;
+		padding:10px 8px;
+		width:670px;
+		margin:0px;
+	}
+	.orderList li{
+		display:contents;
+	}
+	.allCheckBox{
+		height: 28px;
+    	border-bottom: 1px dashed #d4d2d2;
+    	padding: 3px 7px 5px 8px;
+	}
+	.allCheck{
+		padding-top:5px;
+		float:left;
+		width:112px;
+	}
+	.allCheck input{
+		vertical-align:bottom;
+	}
+	.allCheck label {
+		cursor: pointer;
+	}
+	.addressWrap{
+		background: #fff;
+	    border: 1px solid #efefef;
+	    width: 658px;
+	    padding: 20px;
+	}
+	.inputBg{
+		background:#fffdf0;
+		border:1px solid #ddd;
+		line-height: 1.2;
+	}
+	.addressWrapDl{
+		padding:0px 2px 0px 8px;
+		font-size: 12px;
+	    font-family: "dotum", "sans-serif";
+	    color: #666;
+	    margin:0;
+	}
+	dt.addressDetail{
+		float:left;
+		width:112px;
+		padding-top: 5px;
+	}
+	#addressDetailUl{
+		list-style:none;
+	    width:645px;
+	    display: block;
+	    margin-block-start: 0;
+	    margin-block-end: 0;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 0;
+	    margin-bottom: 10px;
+	}
+	dt.addressName{
+		float:left;
+		width:112px;
+		padding-top: 5px;
+	}
+	dd.addressName{
+	    margin-bottom: 6px;
+	    margin-left: 112px;
+	}
+	#normalRecipientNm{
+		padding: 2px 10px 2px 10px;
+		width: 100px;
+	}
+	#postCode{
+		width:52px;
+		padding:2px 10px 2px 10px;
+		margin-bottom:4px;
+	}
+	.address1{
+		float: none;
+		padding-left: 72px;
+		display: inline-block;
+	}
+	.address2{
+		float: none;
+		padding-left: 72px;
+		display: inline-block;
+	}
+	#roadAddress{
+		width:382px;
+		padding:2px 10px 2px 10px;
+		margin-bottom:4px;
+	}
+	#detailAddress{
+		width:382px;
+		padding:2px 10px 2px 10px;
+	}
+	.options{
+		list-style:none;
+	}
+	.optionList{
+		margin: 0 0 4px 72px;
+	}
+	#selbox{
+		width:450px;
+		background:#fffdf0;
+		padding:3px 8px 5px 8px;
+		color: #666;
+	}
+	#selboxDirect{
+	    width: 442px;
+	    height: 20px;
+	    margin-left: 72px;
+	}
+	.customSelect{
+		width: 55px;
+	    height: 25px;
+	    display: inline-block;
+	}
+	
+	.cellNumber select{
+		background:#fffdf0;
+		width:56px;
+		height:25px;
+		border:1px solid #ddd;
+		padding:0 0 0 5px;
+	}
+	dt.cellNumber{
+		float:left;
+		width:112px;
+		padding-top: 5px;
+	}
+	dd.cellNumber{
+		margin:0 0 5px 112px;
+		width:451px;
+	}
+	#normalRecipientMpno2{
+		width: 55px;
+		height:16px;
+    	text-align: center;
+	}
+	#normalRecipientMpno3{
+		width: 55px;
+	    height: 16px;
+	    text-align: center;
+	}
+	#normalRecipientTelno1{
+		width:50px;
+	    text-align: center;
+	}
+	#normalRecipientTelno2{
+		width:55px;
+	    text-align: center;
+	}
+	#normalRecipientTelno3{
+		width:55px;
+	    text-align: center;
+	}
+	dt.phoneNumber{
+		float:left;
+		width:112px;
+		padding-top: 5px;
+	}
+	dd.phoneNumber {
+		margin-bottom: 7px;
+	}
+	.presentChk{
+		margin:0;
+	}
+	dt.addressMemo{
+		float:left;
+		width:112px;
+		padding-top: 5px;
+	}
+	dt.presentCover{
+		float: left;
+    	width: 112px;
+    	padding-top: 5px;
+	}
+	dd.presentCover{
+		padding-top: 4px;
+		padding-bottom: 10px;
+	    margin-bottom: 10px;
+	    border-bottom: 1px dashed #e5e5e5;
+	    margin-left: 112px;
+	}
+	#selectDeleteBtn{
+		background: #fff;
+	    margin-left: 10px;
+	    height: 28px;
+	    width: 70px;
+	    cursor: pointer;
+	    font-family: '777Balsamtint';
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 1px 5px;
+	    line-height: 1.5;
+	    font-weight: bold;
+	    color: #212529;
+	    text-align: center;
+	    border: 1px solid gray;
+	    font-size: 15px;
+	    border-radius: 1.25rem;
+	}
+	.deleteBtn{
+		float:right;
+	}
+	.postBtn {
+	    background: #fff;
+	    cursor: pointer;
+	    font-family: '777Balsamtint';
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 1px 5px;
+	    line-height: 1.2;
+	    color: #212529;
+	    text-align: center;
+	    border: 1px solid gray;
+	    font-size: 15px;
+	    border-radius: 2px;
+	    height: 23px;
+	}
+	.checkBox{
+		padding-right:10px;
+		display: table-cell;
+	}
+	.orderImage{
+		display: table-cell;
+		padding-right:4px;
+	}
+	.orderSubject{
+		display: table-cell;
+		padding:5px 4px 5px 6px;
+		width:392px;
+		height:47px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.orderQuantity{
+		display: table-cell;
+		width:128px;
+		text-align:center;
+		
+	}
+	.orderPrice{
+		display: table-cell;
+		width:123px;
+		text-align:end;
+	}
+	#Bimg{
+		width:80px;
+		height:90px;
+	}
+	.valign {
+		vertical-align: middle;
+	}
+	.addressNotice{
+		margin-top:10px;
+		display:table;
+		background:#fff;
+		border:1px solid #efefef;
+		width:698px;
+		
+	}
+	#noticeLogo{
+		display: table-cell;
+	    width: 107px;
+	    height: 67px;
+	    padding: 15px 0 25px;
+	    border: 1px solid #efefef;
+	    border-right: 0;
+	    text-indent: -9999px;
+	    background: url(//bimage.interpark.com/UI/pc/order/2016/common/h4_noticeCircle.png) no-repeat center center;
+	    background-size: 67px;
+	}
+	.addressNoticeList{
+		display:table-cell;
+		padding:15px 0px 25px 0px;
+		font-size: 12px;
+	    font-family: "dotum", "sans-serif";
+	    color: #666;
+	    list-style: initial;
+	}
+	.addressNoticeList ul{
+		padding-left:10px;
+	}
+	.btn{
+		background: #fff;
+	    cursor: pointer;
+	    font-family: '777Balsamtint';
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 2px 5px;
+	    line-height: 1.5;
+	    color: #212529;
+	    text-align: center;
+	    border: 1px solid gray;
+	    font-size: 15px;
+	    border-radius: 1.25rem;
+	}
+	/* fixed 부모요소 틀 */
+	.orderAside{
+		position: relative;
+		float: right;
+		margin-top: 37px;
+	    width: 280px;
+	    
+	}
+	.orderBox{
+		position: fixed;
+		background:#fff;
+		border:1px solid #efefef;
+		width:280px;
+		height:240px;
+	}.topBox{
+		padding:10px 18px 8px 18px;
+		border-bottom:1px solid #efefef;
+		border-top:2px solid #a0a0a0;
+	}
+	.itemPriceL{
+		float: left;
+		padding: 10px 0;
+		
+	}
+	.itemPriceR{
+		text-align: end;
+		padding: 10px 0;
+	}
+	.totalL{
+		float: left;
+		padding: 13px 0 5px 0;
+	    font-size: 16px;
+	    font-weight: bold;
+	    color: #86b3e3;
+	}
+	.totalR{
+		padding: 9px 0 5px 0;
+		text-align: end;
+		font-style: normal;
+		font-size: 22px;
+		color: #86b3e3;
+	}
+	.shipFeeL{
+		float: left;
+		padding: 5px 0 5px 0;
+	    border-bottom: 1px dashed #e5e5e5;
+		
+	}
+	.shipFeeR{
+		text-align: end;
+		padding: 5px 0 5px 0;
+		border-bottom: 1px dashed #e5e5e5;
+		
+	}
+	.myPageInfo{
+    	margin: 0;
+	    margin-top: -1px;
+	    border-top: 1px solid #eaeaea;
+	    background: #FAFAFA url(//bimage.interpark.com/UI/pc/order/2016/common/icon_exclamation.png) no-repeat 4px 17px;
+	    padding: 17px 5px 15px 20px;
+	    font-size: 12px;
+	    color: #777;
+	}
+	#check_module{
+		padding: 15px 0 21px;
+	    border-radius: 0;
+	    border: 1px solid #86b3e3;
+	    background: #86b3e3;
+	    width: 280px;
+	    height:65px;
+	    font-size: 26px;
+	    font-weight: normal;
+	    color: #fff;
+	}
