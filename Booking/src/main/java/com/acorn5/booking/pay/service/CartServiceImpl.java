@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jdo.annotations.Transactional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.acorn5.booking.pay.dao.CartDao;
 import com.acorn5.booking.pay.dto.CartDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.pay.repository.CartRepository;
+import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -27,6 +30,9 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void insertCart(Cart dto,HttpServletRequest request) {
 		Long id=(Long)request.getSession().getAttribute("id");
+		Users userId = new Users();
+		userId.setId(id);
+		dto.setUserId(userId);
 		cartRepository.save(dto);
 		//cartDao.insert(dto);	
 	}
@@ -34,7 +40,9 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void listCart(ModelAndView mView, HttpServletRequest request) {
 		Long id=(Long)request.getSession().getAttribute("id");
-		List<Cart> list = cartRepository.findAll(); 
+		Users userId = new Users();
+		userId.setId(id);
+		List<Cart> list = cartRepository.findByUserId(userId);
 				//cartDao.getlist(id);
 		//장바구니에 담긴 배열의 size를 담을 basketCount
 		int basketCount=list.size();
@@ -61,8 +69,14 @@ public class CartServiceImpl implements CartService {
 	}
 	//by준영, 북카트 내 도서 수량변경_210310
 	@Override
-	public void update(CartDto dto) {
-		cartDao.update(dto);
+	@Transactional
+	public void update(Cart dto) {
+		Long id = dto.getId();
+		Cart cart = cartRepository.findById(id);
+		cart.setCount(dto.getCount());
+		cart.setIndate(dto.getIndate());
+		cartRepository.save(cart);
+		//cartDao.update(dto);
 	}
 	
 	

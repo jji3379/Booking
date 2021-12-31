@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.acorn5.booking.order.entity.Order;
+import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 
 @Entity
@@ -36,6 +38,12 @@ public class Users {
 	
 	@OneToMany(mappedBy = "writer")
 	List<Review> review = new ArrayList<Review>();
+
+	@OneToMany(mappedBy = "userId")
+	List<Cart> cart = new ArrayList<Cart>();
+
+	@OneToMany(mappedBy = "buyer")
+	List<Order> order = new ArrayList<Order>();
 	
 	public Long getId() {
 		return id;
@@ -84,6 +92,24 @@ public class Users {
 	}
 	public void setRecentSearch(String recentSearch) {
 		this.recentSearch = recentSearch;
+	}
+	public List<Review> getReview() {
+		return review;
+	}
+	public void setReview(List<Review> review) {
+		this.review = review;
+	}
+	public List<Cart> getCart() {
+		return cart;
+	}
+	public void setCart(List<Cart> cart) {
+		this.cart = cart;
+	}
+	public List<Order> getOrder() {
+		return order;
+	}
+	public void setOrder(List<Order> order) {
+		this.order = order;
 	}
 	
 	/*

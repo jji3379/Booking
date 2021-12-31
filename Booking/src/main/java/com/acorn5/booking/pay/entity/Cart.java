@@ -1,11 +1,22 @@
 package com.acorn5.booking.pay.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.acorn5.booking.users.entity.Users;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "MY_CART_ITEM_MST")
@@ -15,27 +26,29 @@ public class Cart {
 	@Column(name = "CART_ID")
 	private Long id;//장바구니 번호
 	
-	@Column(name = "USER_ID")
-    private String userId;//회원 아이디
+	@ManyToOne
+	@JoinColumn(name = "USER_ID")
+	//@Column(name = "USER_ID")
+    private Users userId;//회원 아이디
     private String image;//책 이미지
     private String title;//책 제목
     private int price;//책 정가
     private int d_price;//책 할인가
     private int count;// 갯수
-    private String indate;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@CreationTimestamp
+    private Date indate;
     private String isbn;
+    
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	
 	public String getImage() {
 		return image;
 	}
@@ -66,19 +79,23 @@ public class Cart {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public String getIndate() {
-		return indate;
-	}
-	public void setIndate(String indate) {
-		this.indate = indate;
-	}
 	public String getIsbn() {
 		return isbn;
 	}
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-    
-	
+	public Users getUserId() {
+		return userId;
+	}
+	public void setUserId(Users userId) {
+		this.userId = userId;
+	}
+	public Date getIndate() {
+		return indate;
+	}
+	public void setIndate(Date indate) {
+		this.indate = indate;
+	}
     
 }

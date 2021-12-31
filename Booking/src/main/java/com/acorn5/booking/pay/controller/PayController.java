@@ -63,7 +63,7 @@ public class PayController {
 	}
 	//by준영, 북카트 내 도서 수량변경_210310
 	@RequestMapping("/pay/update")
-	public String update(CartDto dto) {
+	public String update(Cart dto) {
 		service.update(dto);
 		return "pay/update";
 	}
