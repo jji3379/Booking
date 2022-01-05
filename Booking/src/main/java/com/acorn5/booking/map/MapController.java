@@ -17,7 +17,7 @@ public class MapController {
 	
 	@RequestMapping("/map/mapsearch")
 	public ModelAndView mapsearch(ModelAndView mView,HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
+		Long id=(Long)request.getSession().getAttribute("id");
     	if(id!=null) {
     		//by 우석, view page 에서 cartitem 불러오기_210315
         	cartservice.listCart(mView, request);
