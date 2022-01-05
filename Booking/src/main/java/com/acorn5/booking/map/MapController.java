@@ -22,7 +22,7 @@ public class MapController {
     		//by 우석, view page 에서 cartitem 불러오기_210315
         	cartservice.listCart(mView, request);
     	}
-		mView.setViewName("map/mapsearch");
+		mView.setViewName("map/mapsearch.page");
         return mView;
 		
 	}
