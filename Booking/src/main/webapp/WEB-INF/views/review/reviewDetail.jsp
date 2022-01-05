@@ -97,7 +97,7 @@
 	       			</div>
 	        	</div>
 				<div class="comment-box">
-		        	<h3>전체 댓글 <span>n</span> 개</h3>
+		        	<h3>전체 댓글 <span id="total-reply"></span> 개</h3>
 					<!-- by남기, 댓글 목록 _210303 -->
 					<div class="comments">
 						<table>							
@@ -268,7 +268,20 @@
 			</div>
 		</div>
 	</div>
-	<script>
+<script>
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/review/reply/${reviewId}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			$("#total-reply").html(data);
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+
 	$(document).ready(function(){
 		var review = $('.input-content').val();
 		

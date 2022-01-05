@@ -15,6 +15,7 @@ import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.querydsl.core.Tuple;
 
 public interface ReviewService {
 	// by남기, 새 리뷰를 저장하는 메소드 _210303
@@ -41,4 +42,13 @@ public interface ReviewService {
 	
 	// by욱현, 내가 쓴 리뷰 모아보기 메소드_2021309
 	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request);
+	
+	// by준익, 책 별 리뷰 조회
+	public Page<Review> getBookReview(String isbn, Pageable pageable);
+
+	// by준익, 책 별점 평균 조회
+	public Double reviewAvgRating(String isbn);
+	
+	// by준익, 리뷰의 댓글 총 개수 조회
+	public int reviewTotalReply(Long refGroup);
 }

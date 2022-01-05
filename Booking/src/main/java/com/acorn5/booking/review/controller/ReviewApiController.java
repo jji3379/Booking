@@ -23,6 +23,7 @@ import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.entity.Users;
+import com.querydsl.core.Tuple;
 
 @RestController
 @RequestMapping("/v1")
@@ -96,5 +97,17 @@ public class ReviewApiController {
 			Review saveReview = service.saveContent(dto);
 			// by남기, view page 로 forward 이동해서 응답_210303
 			return ResponseEntity.ok(saveReview);
+		}
+		
+		// by준익, 글 상세정보 요청처리_210303  
+		@RequestMapping(value = "/review/rating/{isbn}", method = RequestMethod.GET)
+		public String reviewAvgRating(@PathVariable String isbn) {
+			return String.format("%.1f", service.reviewAvgRating(isbn));
+		}
+
+		// by준익, 글 상세정보 요청처리_210303  
+		@RequestMapping(value = "/review/reply/{refGroup}", method = RequestMethod.GET)
+		public int reviewTotalReply(@PathVariable Long refGroup) {
+			return service.reviewTotalReply(refGroup);
 		}
 }

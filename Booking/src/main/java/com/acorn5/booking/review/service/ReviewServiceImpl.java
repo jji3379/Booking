@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -54,7 +56,9 @@ import com.acorn5.booking.users.entity.QUsers;
 import com.acorn5.booking.users.entity.Users;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -102,9 +106,9 @@ public class ReviewServiceImpl implements ReviewService{
 	      dto.setImagePath(imagePath);
 	      */
 	      // by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
-	      
-	      return reviewRepository.save(dto);
-	      //reviewDao.insert(dto);  
+		
+	    return reviewRepository.save(dto);
+	    //reviewDao.insert(dto);  
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
@@ -500,5 +504,47 @@ public class ReviewServiceImpl implements ReviewService{
 				
 		return list;
 		
+	}
+	@Override
+	public Page<Review> getBookReview(String isbn, Pageable pageable) {
+		QReview qReview = QReview.review;
+		QUsers qUsers = QUsers.users;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 3, pageable.getSort());
+		OrderSpecifier<?> orderCondition = null;
+		
+		if (pageable.getSort() != null && pageable.getSort().toString().contains("rating")) {
+			orderCondition = qReview.rating.desc(); //별점순 정렬
+		} else if (pageable.getSort() == null || pageable.getSort().toString().contains("regdate") || orderCondition == null) {
+			orderCondition = qReview.regdate.desc(); // 최신순 정렬
+		}
+		
+		QueryResults<Review> list = queryFactory.select(qReview)
+				.from(qReview)
+				.join(qReview.writer, qUsers)
+				.fetchJoin()
+				.where(qReview.isbn.eq(isbn))
+				.orderBy(orderCondition, qReview.regdate.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+	}
+	@Override
+	public Double reviewAvgRating(String isbn) {
+		QReview qReview = QReview.review;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+				
+		Double avgRating = queryFactory.select(qReview.rating.avg())
+				.from(qReview)
+				.where(qReview.isbn.eq(isbn))
+				.fetchOne();
+		return avgRating;
+	}
+	@Override
+	public int reviewTotalReply(Long refGroup) {
+		int totalReply = reviewCommentRepository.findByRefGroup(refGroup).size();
+		return totalReply;
 	}
 }
