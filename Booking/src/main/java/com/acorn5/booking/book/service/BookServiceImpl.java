@@ -1435,6 +1435,7 @@ public class BookServiceImpl implements BookService {
 		//파라미터들을 dto객체에 담고
 		Users dto = usersRepository.findById(id);
 		dto.setRecentSearch(keyword);
+		usersRepository.save(dto);
 		//di된 dao메소드의 인자로 전달
 		//dao.searchInput(dto);
 	}

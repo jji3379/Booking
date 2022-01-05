@@ -110,43 +110,22 @@
                   <div class="head-star review-top">
                      <p>별점</p>
                      <div class="total-star">★★★★★</div>
-                     <span class="total-value">3.5</span>
+                     <span class="total-value" id="total-value">3.5</span>
                      <p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
                   </div>
                   <ul class="sortWrap">
                      <li class="review-sort">
-                        <a href="#">
+                        <a href="#" onclick="pagingList(0, 'regdate')">
                            최근순
                         </a>
                      </li>
                      <li class="review-sort">
-                        <a href="#">
+                        <a href="#" onclick="pagingList(0, 'rating')">
                            별점순
                         </a>
                      </li>
                   </ul>
                   <ul class="reviewList">
-                     <li>    
-                        <div class="title-box">        
-                           <div class="star-box">            
-                              <div class="star_off">
-                                 <span class="star-value">★★★☆☆</span>
-                              </div>       
-                           </div>           
-                           <span class="reviewTitle-box">reviewTitle</span>           
-                           <div class="idDate-box">            
-                              <span class="review-writer">catcat3</span>            
-                              <span class="review_date">2021/12/24</span>        
-                           </div>    
-                        </div>    
-                        <div class="content-box">        
-                           <div id="content${tmp.id }" class="moreTxt-off">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
-                           <div class="replyCount">        
-                              댓글<span>(0)</span>  
-                              <a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
-                           </div>
-                        </div>   
-                     </li>
                      <!-- 더미 2 -->
                      <li>    
                         <div class="title-box">        
@@ -173,48 +152,8 @@
                      </li>
                   </ul>
                   <div class="review-paging">
-                     <nav id = "paging">
-                     <ul class="pagination justify-content-center">
-                        <c:choose>
-                           <c:when test="${!list.first}">
-                              <li class="page-item">
-                                 <a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
-                              </li>
-                           </c:when>
-                           <c:otherwise>
-                              <li class="page-item disabled">
-                                 <a class="page-link" href="javascript:">&lt;</a>
-                              </li>
-                           </c:otherwise>
-                        </c:choose>
-                        <c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
-                           <c:choose>
-                              <c:when test="${i eq list.number }">
-                                 <li class="page-item active">
-                                    <a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-                                 </li>
-                              </c:when>
-                              <c:otherwise>
-                                 <li class="page-item">
-                                    <a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-                                 </li>
-                              </c:otherwise>
-                           </c:choose>
-                        </c:forEach>
-                        <c:choose>
-                           <c:when test="${endPageNum lt totalPageCount }">
-                              <li class="page-item">
-                                 <a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
-                              </li>
-                           </c:when>
-                           <c:otherwise>
-                              <li class="page-item disabled">
-                                 <a class="page-link" href="javascript:">&gt;</a>
-                              </li>
-                           </c:otherwise>
-                        </c:choose>
-                     </ul>
-                  </nav>
+                    <nav id = "paging">
+                  	</nav>
                   </div>   
                </div>
             </div>
@@ -223,114 +162,213 @@
        </c:forEach>
        <!-- <div id="reviewList"></div>-->
       </div>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
-      //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
-      var inputAuth=$("#auth").text();
-      function bookAuthor(){
-          $.ajax({ 
-             url:"detailAjax.do?sort=sim",
-              method:"GET",
-              data:"d_auth="+inputAuth,
-              success:function(data){
-                 $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-              },
-              
-          })
-      }
-      bookAuthor();
-      
-      //by준영, 리뷰 폴드 기능
-      /* $(document).on('click','#more', function(){
-         var contents = '#content'+$(this).attr('data-num');
+	// by 준익, 페이징 처리된 책에 대한 리뷰 리스트
+	function pagingList(page, sort) {
+		var isbn = $("#isbnP").val();
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/bookReview/"+isbn+"?page="+page+"&sort="+sort,
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				$("#total-count").html(data.totalElements);
+				// item list
+				var reviewList = "";
+				for(var i=0; i<data.content.length; i++) {
+					reviewList += '<li>'
+						reviewList += '<div class="title-box">'
+							reviewList += '<div class="star-box">'
+								reviewList += '<div class="star_off">'
+									reviewList += '<span class="star-value">'+data.content[i].rating+'</span>'
+								reviewList += '</div>'
+							reviewList += '</div>'
+							reviewList += '<span class="reviewTitle-box">'+data.content[i].reviewTitle+'</span>'
+							reviewList += '<div class="idDate-box">'
+								reviewList += '<span class="review-writer">'+data.content[i].writer.loginId+'</span>'
+								reviewList += '<span class="review_date">'+data.content[i].regdate+'</span>'
+							reviewList += '</div>'
+						reviewList += '</div>'
+						reviewList += '<div class="content-box">'
+							reviewList += '<div id="content${tmp.id }" class="moreTxt-off">'+data.content[i].content+'</div>'
+								// 댓글 총 개수
+								$.ajax({
+									url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
+									method:"GET",
+									dataType : "json",
+									async: false,
+									success:function(data) {
+							reviewList += '<div class="replyCount">댓글<span>('+data+')</span>'
+									},
+									error : function(data) {
+										console.log("오류");
+									}
+								});
+							
+							reviewList += '<a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a>'
+							reviewList += '</div>'
+						reviewList += '</div>'
+					reviewList += '</li>'
+					
+				}
+				$(".reviewList").html(reviewList);
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+	// by 준익, 초기 리뷰 리스트 호출
+	pagingList(0, 'regdate');
+	var isbn = $("#isbnP").val();
+	// by 준익, 페이징 스크립트 적용
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/bookReview/"+isbn,
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			window.pagObj = $('#paging').twbsPagination({ 
+				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
+				startPage: data.number+1, 
+				visiblePages: 5, 
+				prev: "‹", 
+				next: "›", 
+				first: '«', 
+				last: '»', 
+				onPageClick: function (event, page) { 
+					console.info("current page : " + page); 
+				} 
+			}).on('page', function (event, page) { 
+				pagingList(page-1);
+			});
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+	// by 준익, 리뷰 평균 평점 호출 api
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			$("#total-value").html(data);
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
 
-         if($(contents).hasClass('moreTxt-off') == true) {
-            $(contents).attr('class','moreTxt-on');
-         }else if($(contents).hasClass('moreTxt-off') == false){
-            $(contents).removeClass('moreTxt-on');
-            $(contents).attr('class', 'moreTxt-off');
-         }
-         if($(this).text("> 펼쳐보기")){
-            if($(contents).hasClass('spoAlert') == true){
-               var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-               if(alert == true){
-               }else{
-                  event.preventDefault();
-               }
-            $(this).text("> 접기");
-         }else if($(this).text("> 접기")){
-            $(this).text("> 펼쳐보기"); 
-         })   
-      })
-       */
-   
-      //by준영, 장바구니 로그인 필터 기능_210311
-      //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
-      var id=$("#idP").val();
-      
-      function insert(){
-         var image = $("#imageP").val();
-         var title = $("#titleP").val();
-         var price = $("#priceP").val();
-         var d_price = $("#d_priceP").val();
-         var count = $("#countP").val();
-         var isbn=$("#isbnP").val();
-         
-         var url ="${pageContext.request.contextPath }/pay/insert.do";
-         var data = null;
-         if(d_price == ""){
-            data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
-         }else if(d_price != ""){
-            data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
-         }
-         console.log(data);
-         if(id == ""){
-            $('#modal-open').trigger('click');
-         }else{
-            $.ajax({
-               url:url,
-               method:'post',
-               data: data,
-               success:function(data){
-                  var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
-                  if(chk){
-                     location.replace("${pageContext.request.contextPath }/pay/cart.do");
-                  }else{
-                     return false;
-                  }
-               }
-            })
-         }   
-      }
-      
-      function direct(){
-         var image = $("#imageP").val();
-         var title = $("#titleP").val();
-         var price = $("#priceP").val();
-         var d_price = $("#d_priceP").val();
-         var count = $("#countP").val();
-         var isbn=$("#isbnP").val();
-         
-         var url ="${pageContext.request.contextPath }/pay/insert.do";
-         var data = null;
-         if(d_price == ""){
-            data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
-         }else if(d_price != ""){
-            data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
-         }
-         console.log(data);
-         if(id == ""){
-            $('#modal-open').trigger('click');
-         }else{
-            $.ajax({
-               url:url,
-               method:'post',
-               data: data,
-               success:function(data){
-                  location.replace("${pageContext.request.contextPath }/pay/pay.do");
-               }
-            })
-         }   
-      }
+    //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
+    var inputAuth=$("#auth").text();
+    function bookAuthor(){
+        $.ajax({ 
+           url:"detailAjax.do?sort=sim",
+            method:"GET",
+            data:"d_auth="+inputAuth,
+            success:function(data){
+               $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+            },
+            
+        })
+    }
+    bookAuthor();
+    
+    //by준영, 리뷰 폴드 기능
+    /* $(document).on('click','#more', function(){
+       var contents = '#content'+$(this).attr('data-num');
+
+       if($(contents).hasClass('moreTxt-off') == true) {
+          $(contents).attr('class','moreTxt-on');
+       }else if($(contents).hasClass('moreTxt-off') == false){
+          $(contents).removeClass('moreTxt-on');
+          $(contents).attr('class', 'moreTxt-off');
+       }
+       if($(this).text("> 펼쳐보기")){
+          if($(contents).hasClass('spoAlert') == true){
+             var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+             if(alert == true){
+             }else{
+                event.preventDefault();
+             }
+          $(this).text("> 접기");
+       }else if($(this).text("> 접기")){
+          $(this).text("> 펼쳐보기"); 
+       })   
+    })
+     */
+ 
+    //by준영, 장바구니 로그인 필터 기능_210311
+    //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
+    var id=$("#idP").val();
+    
+    function insert(){
+       var image = $("#imageP").val();
+       var title = $("#titleP").val();
+       var price = $("#priceP").val();
+       var d_price = $("#d_priceP").val();
+       var count = $("#countP").val();
+       var isbn=$("#isbnP").val();
+       
+       var url ="${pageContext.request.contextPath }/pay/insert.do";
+       var data = null;
+       if(d_price == ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+       }else if(d_price != ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+       }
+       console.log(data);
+       if(id == ""){
+          $('#modal-open').trigger('click');
+       }else{
+          $.ajax({
+             url:url,
+             method:'post',
+             data: data,
+             success:function(data){
+                var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
+                if(chk){
+                   location.replace("${pageContext.request.contextPath }/pay/cart.do");
+                }else{
+                   return false;
+                }
+             }
+          })
+       }   
+    }
+    
+    function direct(){
+       var image = $("#imageP").val();
+       var title = $("#titleP").val();
+       var price = $("#priceP").val();
+       var d_price = $("#d_priceP").val();
+       var count = $("#countP").val();
+       var isbn=$("#isbnP").val();
+       
+       var url ="${pageContext.request.contextPath }/pay/insert.do";
+       var data = null;
+       if(d_price == ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+       }else if(d_price != ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+       }
+       console.log(data);
+       if(id == ""){
+          $('#modal-open').trigger('click');
+       }else{
+          $.ajax({
+             url:url,
+             method:'post',
+             data: data,
+             success:function(data){
+                location.replace("${pageContext.request.contextPath }/pay/pay.do");
+             }
+          })
+       }   
+    }
 
  
     //by준영, 수량 +- 동작
