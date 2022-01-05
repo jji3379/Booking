@@ -5,13 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../include/resource.jsp"></jsp:include>
-
 <title>책과의 즉석만남 Booking</title>
 <style>
-	
-	
-	
-
 </style>
 <link rel="stylesheet" href="resources/css/signup_form.css">
 <script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>

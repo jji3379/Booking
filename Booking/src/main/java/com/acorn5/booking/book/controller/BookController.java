@@ -154,7 +154,7 @@ public class BookController {
           }
           mView.addObject("conditionSearch",service.conditionSearch(keyword, 8, start, request, mView));
        }
-        mView.setViewName("bookList/conditionSearch");
+        mView.setViewName("bookList/conditionSearch.page");
         return mView;
     }
 }

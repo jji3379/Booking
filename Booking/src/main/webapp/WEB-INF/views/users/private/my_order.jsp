@@ -2,88 +2,41 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<jsp:include page="../../include/resource.jsp"></jsp:include>
-</head>
-<body >
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div></div>
-<div class="row">
-    <jsp:include page="../../include/sideusers.jsp"></jsp:include>
-   <div class="col-9">
-   		<div>
-		   <h1>주문 내역</h1>
-		   <table class="table table-striped">
-		      <thead>
-		         <tr>
-		            <th>주문 번호</th>
-		             <th>주문 금액</th><!-- 할인가로 -->
-		             <th>주문 일자</th>
-		             <th>주문 개수</th>
-		         </tr>
-		      </thead>
-		      <tbody>
-		      <c:forEach var="os" items="${oslist}" varStatus="status">
-		           <tr class="orderRow">
-		             <td><a href="order_detail.do?o_id=${os.o_id }">${os.o_id }</a></td>
-		             <td id="totalPayment${status.count }" hidden>${os.totalPayment }</td>
-		             <td id="commaplusPayment${status.count }"></td>
-		             <td>${os.o_date }</td>
-		             <td>${os.totalNum }</td>
-		             <td id="status" hidden>${fn:length(oslist)}</td>
-		           </tr>
-		       </c:forEach>
-		      </tbody>
-		   </table>
-		   <nav>
-		      <ul class="pagination justify-content-center">
-		         <c:choose>
-		            <c:when test="${startPageNum != 1 }">
-		               <li class="page-item">
-		                  <a class="page-link" href="my_order.do?pageNum=${startPageNum-1 }">Prev</a>
-		               </li>
-		            </c:when>
-		            <c:otherwise>
-		               <li class="page-item disabled">
-		                  <a class="page-link" href="javascript:">Prev</a>
-		               </li>
-		            </c:otherwise>
-		         </c:choose>
-		         <c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-		            <c:choose>
-		               <c:when test="${i eq pageNum }">
-		                  <li class="page-item active">
-		                     <a class="page-link" href="my_order.do?pageNum=${i }">${i }</a>
-		                  </li>
-		               </c:when>
-		               <c:otherwise>
-		                  <li class="page-item">
-		                     <a class="page-link" href="my_order.do?pageNum=${i }">${i }</a>
-		                  </li>
-		               </c:otherwise>
-		            </c:choose>
-		         </c:forEach>
-		         <c:choose>
-		            <c:when test="${endPageNum lt totalPageCount }">
-		               <li class="page-item">
-		                  <a class="page-link" href="my_order.do?pageNum=${endPageNum+1 }">Next</a>
-		               </li>
-		            </c:when>
-		            <c:otherwise>
-		               <li class="page-item disabled">
-		                  <a class="page-link" href="javascript:">Next</a>
-		               </li>
-		            </c:otherwise>
-		         </c:choose>
-		      </ul>
-		   </nav>
-	   </div>
-   </div> 
-</div>
+
+<div class="content">
+	<div class="order-box">
+		<h2>주문 내역</h2>
+		<ul class="order-list">
+			<li class="order">
+				<a class="" href="">
+					<div>
+						<div class="myOrder-num">123456890</div>
+						<div class="myOrder-date">2022/01/02</div>
+					</div>
+					<span class="detailBtn">></span>	
+				</a>
+			</li>
+			<li class="order">
+				<a class="" href="">
+					<div>
+						<div class="myOrder-num">123456889</div>
+						<div class="myOrder-date">2022/01/01</div>
+					</div>
+					<span class="detailBtn">></span>	
+				</a>
+			</li>
+			<li class="order">
+				<a class="" href="">
+					<div>
+						<div class="myOrder-num">123456888</div>
+						<div class="myOrder-date">2021/12/31</div>
+					</div>
+					<span class="detailBtn">></span>	
+				</a>
+			</li>
+		</ul>
+	</div>
+</div> 
 <script>
 	// by욱현. 주문내역 주문금액 표기법_2021322
  	let totalnum = $('#status').text(); 

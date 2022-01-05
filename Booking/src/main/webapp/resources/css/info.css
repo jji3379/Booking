@@ -1,0 +1,544 @@
+a {
+		text-decoration: none;
+	}
+	.layout{
+		font-family: '777Balsamtint';
+	    width: 100%;
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 0%;
+		max-width: 1200px;
+		margin: 0px auto;
+		padding: 0px 65px;
+		min-height: 446px;
+	}	
+	.header{
+		width: 100%;
+	    display: flex;
+	    flex-flow: row nowrap;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    padding: 45px 0px 12px;
+	    box-sizing: border-box;
+	}
+	.primary{
+		width: 155px;
+    	margin-right: 65px;
+		font-size: 27px;
+	}
+	.primary > h4 {
+		font-size: 30px;
+		font-weight: 500;
+    	line-height: 40px;
+    	letter-spacing: .2px;
+    	margin:0;
+	}
+	.primary > span {
+		font-size: 30px;
+		font-weight: bold;
+    	line-height: 40px;
+    	letter-spacing: .2px;
+	}
+	.secondary{
+	    flex: 1 1 0%;
+    	height: 100%;
+	}
+	.top3{
+		display: flex;
+	    height: 100%;
+	    background-color: #eee;
+	    border-radius: 4px;
+	    padding: 16px 0px;
+	}
+	.bd-card {
+	    border-right: 1px solid #bbb;
+    	flex: 1 1 0%;
+   		color: #333;
+	}
+	.last {
+		border: none;
+    	flex: 1 1 0%;
+   		color: #333;
+	}
+	dl.card{
+		margin: 0px;
+	    display: flex;
+	    flex-flow: column nowrap;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+	    height: 100%;
+	    padding: 0px 28px;
+	}
+	dt.label{
+		font-size: 16px;
+		margin: 0px 0px 18px;
+	}
+	dd.value{
+		font-size: 20px;
+		margin: 0;
+	}
+	.count{
+		font-weight: bold;
+		font-size: 30px;
+	}
+	.body{
+		width: 100%;
+    	display: flex;
+    	box-sizing: border-box;
+    	margin-top: 25px;
+    	margin-bottom: 200px;
+	}
+	.navigation{
+		width: 155px;
+    	margin-right: 65px;
+	}
+	div.section{
+	    width: 100%;
+    	display: flex;
+    	flex-direction: column;
+	}
+	.section-name{
+	    margin-top: 15px;
+    	margin-bottom: 7px;
+    	font-size: 24px;
+    	font-weight: 600;
+	}
+	.linkList{
+	    font-size: 18px;
+   		line-height: 24px;
+    	letter-spacing: .2px;
+    	display: flex;
+    	flex-direction: column;
+	}
+	.link{
+		color: #333;
+		text-decoration: none;
+		margin-top: 4px;
+    	margin-bottom: 2px;
+	}
+	.logoutBtn{
+		color: rgb(136, 136, 136);
+    	text-align: left;
+   		text-decoration: underline;
+    	border: none;
+    	padding:0;
+    	background: transparent;
+		font-family: '777Balsamtint';	
+	}
+	.logoutBtn > div{
+		cursor: pointer;
+	    font-size: 17px;
+    	line-height: 20px;
+    	letter-spacing: .2px;
+	}
+	.content{
+		flex: 1 1 0%;
+	}
+	.content-list{
+		width: 100%;
+    	display: flex;
+    	flex-direction: column;
+	    margin-block-start: 0;
+	    margin-block-end: 0; 
+	    margin-inline-start: 0; 
+	    margin-inline-end: 0; 
+	    padding-inline-start: 0px;
+	}
+	li.part{
+		margin-bottom: 32px;
+	}
+	.part-header{
+		font-size: 20px;
+		font-weight: bold;
+		width: 100%;
+    	display: flex;
+    	-webkit-box-pack: justify;
+	    justify-content: space-between;
+	    -webkit-box-align: center;
+	    align-items: center;
+	    padding: 11px 0px;
+	    border-bottom: 1px solid rgb(10, 10, 10);
+	}
+	.part-header > a {
+		font-size: 17px;
+		color: #333;
+		font-weight: 400;
+	}
+	.part-body > table {
+		font-size: 18px;
+		width: 100%;
+	    table-layout: fixed;
+	    border-collapse: collapse;
+	}
+	.part-body > table > tbody > tr {
+		width: 100%;
+	    height: 40px;
+	    padding: 8px 0px;
+	    cursor: pointer;
+	}
+	.order-num {
+		text-align: end;
+    	padding-right: 10px;
+	}
+	.info-account{
+		padding-top: 10px;
+		font-size: 18px;
+		line-height: 1.5;
+	}
+	<!--my info -->
+	.order-box{
+		width: 100%;
+	}
+	.order-box > h2 {
+		
+	}
+	.order-list {
+		width: 100%;
+    	display: flex;
+    	flex-direction: column;
+	    margin-block-start: 0;
+	    margin-block-end: 0; 
+	    margin-inline-start: 0; 
+	    margin-inline-end: 0; 
+	    padding-inline-start: 0px;
+	}
+	.order{
+		padding: 0px 16px 4px;
+	    border: 1px solid rgb(228, 228, 228);
+	    box-sizing: border-box;
+	}
+	.order > a {
+	    height: 64px;
+	    display: flex;
+	    text-decoration: none;
+	    color: #333;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+	    -webkit-box-align: center;
+	    align-items: center;
+	}
+	.myOrder-num{
+		font-size: 22px;
+		font-weight: bold;
+	}
+	.myOrder-date{
+	
+	}
+	.detailBtn{
+		display: inline-block;
+	    font-size: 32px;
+	    transform: scale(0.9, 0.6);
+	}
+	<!-- my_order -->
+	.order-info{
+	    align-items: flex-start;
+    	padding: 28px 0px 12px;
+	}
+	.orderDetail-num{
+		font-size: 23px;
+	    line-height: 28px;
+	    letter-spacing: .2px;
+	}
+	.orderDetail-date{
+		margin-top: 4px;
+		font-size: 20px;
+    	line-height: 24px;
+    	letter-spacing: .2px;
+	}
+	.orderDetail-tb{
+		margin-top:30px;
+	}
+	.orderDetail-tb > h3 {
+		font-size: 21px;
+		margin: 0;
+		padding: 12px 0px;
+    	border-bottom: 1px solid #333;		
+    }
+    .orderDetail-tbody{
+    	padding:12px 0;
+    	margin-bottom: 32px;
+    }
+    .orderDetail-tr{
+   	    border-bottom: 1px dashed #e5e5e5;
+    	padding-bottom: 5px;
+    }
+    .orderDetail-tr > a {
+   	    flex: 1 1 0%;
+   		display: flex;
+   		text-decoration: none;
+   		color: #333;
+    }
+    .left{
+   	    flex: 0 0 85px;
+	    height: 95px;
+	    padding: 12px;
+	    margin-right: 20px;
+    }
+    .right {
+    	padding-top: 10px;
+    	flex: 1 1 0%;
+    }
+    .right > div {
+    	font-size: 19px;
+	    line-height: 28px;
+	    letter-spacing: .2px;
+    }
+    .right > span {
+    	padding-right: 4px;
+    	font-size: 17px;
+    	color: #888888;
+	    line-height: 20px;
+	    letter-spacing: .2px;
+    }
+    .action{
+	    flex: 0 0 155px;
+	    display: flex;
+	    flex-direction: column;
+	    width: 155px;
+	    -webkit-box-pack: center;
+	    justify-content: center;
+    }
+    .action > button {
+   	    font-weight: bold;
+	    border: 1px solid rgb(211, 211, 211);
+	    background-color: rgb(255, 255, 255);
+	    color: #333;
+	    border-radius: 1px;
+	    height: 32px;
+	    font-family: '777Balsamtint';
+	    font-size: 15px;
+	    cursor: pointer;
+    }
+    .orderDetail-payment{
+    	
+    }
+    .orderDetail-payment > h3 {
+   		padding: 12px 0px;
+    	border-bottom: 1px solid rgb(10, 10, 10);
+    }
+    .orderDetail-rows{
+    	font-size: 18px;
+    	line-height: 24px;
+    	letter-spacing: .3px;
+    }
+    .orderDetail-row{
+    	display: flex;
+	    -webkit-box-pack: justify;
+	    justify-content: space-between;
+    }
+    
+    .orderDetail-label{
+    
+    }
+    .orderDetail-price{
+    
+    }
+    .discount {
+    	color: red;
+    }
+    .final-price {
+    	font-weight: bold;
+    }
+    <!-- orderDetail -->
+    .account-form{
+    
+    }
+    .account-form > h2{
+    	margin: 10px 0;
+    	padding: 7px 0;
+    	border-bottom: 1px solid #333;
+    }
+    .profile-box{
+    	display: flex;
+    	border-bottom: 1px dashed #e5e5e5;
+    	padding:0px 10px 10px 5px;
+    	margin-bottom: 20px;
+    }
+    #profileForm {
+    	padding-left: 15px;
+    	padding-top: 8px;
+    }
+    #profileForm > input {
+    	display: flex;
+    }
+    .profile-buttons > button {
+   	    min-width: 65px;
+	    border: 0;
+	    border-radius: 1px;
+	    padding: 0 17px;
+	    height: 30px;
+	    background-color: rgb(10, 10, 10);
+	    color: rgb(255, 255, 255);
+	    cursor: pointer;
+	    font-size: 16px;
+	    font-family: '777Balsamtint';
+    }
+    .profile-buttons > a{
+    	display: block;
+    	text-align: center;
+    	min-width: 30px;
+	    border: 0;
+	    border-radius: 1px;
+	    margin-top: 3px;
+	    padding: 0 17px;
+	    height: 30px;
+	    line-height: 1.88;
+	    background-color: rgb(10, 10, 10);
+	    color: rgb(255, 255, 255);
+	    cursor: pointer;
+	    font-size: 16px;
+	    font-family: '777Balsamtint';
+    }
+    
+    .account-inputBox{
+    	display: flex;
+    	padding:10px 0;
+    }
+    .account-formGroup{
+    	width: 100%;
+  	    margin-right: 16px;
+  	    font-size: 18px;
+    	line-height: 24px;
+    	letter-spacing: 0.9px;
+    }
+    .account-formGroup:last-child{
+    	width: 100%;
+  	    font-size: 18px;
+    	line-height: 24px;
+    	letter-spacing: 0.9px;
+    }
+    .account-label{
+   	    display: flex;
+    	padding-left: 4px;
+    	padding-bottom: 4px;
+    	height: 25px;
+    }
+    .account-label > span {
+    	font-size: 14px;
+	    padding-left: 5px;
+	    font-weight: bold;
+	    line-height: 2.1;
+    }
+    #preImg{
+    	width: 80px;
+    	height: 75px;
+    	border: 1px solid #e5e5e5;
+    	border-radius: 2.5rem;
+    }
+    .account-updateform{
+    	width: 100%;
+    	display: flex;
+	    height: 40px;
+	    padding: 0px 12px;
+	    box-sizing: border-box;
+	    border: 1px solid rgb(228, 228, 228);
+	    background-color: rgb(255, 255, 255);
+    }
+    .scroll-box{
+    	overflow-y: scroll;
+	    height: 335px;
+	    width: 390px;
+	    border: 1px solid #d1d1d1;
+	    font-size: 12px;
+	    margin-bottom: 20px;
+    }
+    #interest {
+    	margin: 0 0 0 8px;
+	    font-size: 15px;
+	    font-weight: 600;
+	    color: #757575;
+    }
+    .interestChk > td{
+    	font-size: 15px;
+    	padding: 5px 0;
+    	border-top: 1px solid #dedfda;
+    }
+    .interestChk > td > label > input {
+		margin: 3px;
+		vertical-align: middle;
+	} 
+	.scroll-box > table > tr > td {
+		
+	}
+    .account-save{
+    	min-width: 120px;
+	    border: 0;
+	    border-radius: 1px;
+	    padding: 0px 28px;
+	    height: 44px;
+   	    background-color: rgb(10, 10, 10);
+    	color: rgb(255, 255, 255);
+    	cursor: pointer;
+    	font-size: 16px;
+    	font-family: '777Balsamtint';
+    }
+    .account-delete{
+    	margin-left: 16px;
+	    color: rgb(136, 136, 136);
+	    text-decoration: underline;
+	    cursor: pointer;
+    }
+    
+    /* profile-updateform */
+    
+    .pwd-updateform > h2{
+    	margin:0;
+    	margin-bottom: 30px;
+    	padding: 7px 0;
+    	border-bottom: 1px solid #333;	
+    }
+    #myPwd-form {
+    	line-height: 14px;
+	    width: 356px;
+	    padding: 25px 29px 32px;
+	    border: 1px solid #dadada;
+	    background: #fff;
+    }
+    .myForm-header > p{
+    	margin-top: 8px;
+    	padding-left: 5px;
+    	color: #666;
+    	background: url(https://static.nid.naver.com/images/web/user/bg_contxt_list.gif) no-repeat 0 7px;
+    }
+    .pwdform-group{
+   	    display: flex;
+	    justify-content: space-between;
+    	margin-bottom: 3px;
+    }
+    .pwdform-group > label {
+    	padding-top: 9px;
+    	font-size: 17px;
+    }
+    .pwdform-control{
+    	flex: 0 0 180px;
+	    display: flex;
+	    flex-direction: column;
+    	height: 35px;
+    	padding: 0 10px;
+    	border: 1px solid #ccc;
+    }
+    .pwd-updateformBtn{
+    	margin: 30px 0 3px 0;
+	    padding: 10px 12px;
+	    width: 100%;
+	    background: black;
+	    color: #fff;
+	    border: 0;
+	    border-radius: 1px;
+	    font-family: '777Balsamtint';
+    	font-size: 17px;
+    }
+    .pwd-resetBtn{
+    	margin: 3px 0;
+	    padding: 10px 12px;
+	    width: 100%;
+	    border: 1px solid #bfbfbf;
+    	background: #fff;
+	    color: #333;
+	    border-radius: 1px;
+	    font-family: '777Balsamtint';
+    	font-size: 17px;
+    }
+    /* pwd_updateform*/

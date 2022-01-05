@@ -1,67 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>책과의 즉석만남 Booking</title>
-<jsp:include page="../../include/resource.jsp"></jsp:include>
-<style>
-	/* 프로필 업로드 폼을 화면에 안보이게 숨긴다 */
-	#profileForm{
-		display: none;
-	}
-</style>
-</head>
-<body>
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
-<div style="margin-top:30px"></div>
-<div class="row">
-	<jsp:include page="../../include/sideusers.jsp"></jsp:include>
-	<div class="col-9">
-		<h1>개인정보 수정</h1>
-		<a id="profileLink" href="javascript:">
+
+<div class="account-form">
+	<h2>기본 정보</h2>
+	<div class="profile-box">
+		<img id="preImg" src="" alt="" />
 		<c:choose>
 			<c:when test="${empty dto.profile }">
-				<span style="margin-left:7px" >프로필 이미지 수정</span>
+				<form name="profile" action="profile_upload.do" method="post" 
+					enctype="multipart/form-data" id="profileForm">
+					<label for="image"></label>
+					<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
+					<input type="hidden" name = "target_url">
+					<div class="profile-buttons" style="padding-top:40px;">
+						<button type="submit">업로드</button>
+					</div>
+				</form>
 			</c:when>
 			<c:otherwise>
-				<span>프로필 이미지 수정</span>
-				<span><a href="javascript:deleteProfile();">삭제</a></span>
+				<form name="profile" action="profile_upload.do" method="post" 
+					enctype="multipart/form-data" id="profileForm">
+					<label for="image"></label>
+					<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
+					<input type="hidden" name = "target_url">
+					<div class="profile-buttons">
+						<button type="submit">업로드</button>
+						<a href="javascript:deleteProfile();">삭제</a>
+					</div>
+				</form>
 			</c:otherwise>
 		</c:choose>
-		</a>
-		<form action="update.do" method="post" id="myForm">
-			<div class="form-group" >
-				<label for="id">아이디</label>
-				<input type="text" id="id" value="${id }" class="form-control" disabled/>
-			</div>
-			<div class="form-group" >
-				<label for="email">이메일</label>
-				<input type="text" id="email" name="email" value="${dto.email }" class="form-control"/>
-				<div class="invalid-feedback">이메일 형식을 확인 하세요.</div>
-			</div>
-			<div class="form-group" >
-				<label for="care">관심사</label>
-				<input type="text" id="care" name="care" value="${dto.care }" class="form-control"/>
-			</div>
-			<div>
-				<button type="button" class="btn btn-outline-info" id="btn">수정확인</button>
-				<button type="reset" class="btn btn-outline-secondary">취소</button>
-				<a href="javascript:deleteConfirm();" class="btn btn-outline-danger" style="float:right; margin-right:50px">회원탈퇴</a>
-			</div>
-		</form>
 	</div>
-	<form action="profile_upload.do" method="post" 
-		enctype="multipart/form-data" id="profileForm">
-		<label for="image">프로필 이미지 선택</label>
-		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-		<button type="submit">업로드</button>
+	<form action="update.do" method="post" id="myProfile-form">
+		<div class="account-inputBox">
+			<div class="account-formGroup">
+				<div class="account-label"><label for="id">아이디</label></div>
+				<div><input type="text" id="id" class="account-updateform" value="${id }" class="form-control" disabled/></div>
+			</div>
+			<div class="account-formGroup" >
+				<div class="account-label"><label for="email">이메일</label></div>
+				<div><input type="text" id="email" class="account-updateform" name="email" value="${dto.email }" class="form-control"/></div>
+			</div>
+		</div>
+		<div class="account-formGroup">
+			<label class="account-label" for="care">관심사 <span>(최대 세가지 선택해주세요)</span></label>
+	 		<div class="scroll-box">
+	 			<table>
+					<colgroup>
+						<col style="width:20%">
+						<col style="width:25%">
+						<col style="width:25%">
+						<col style="width:30%">
+					</colgroup>
+					<tr >
+						<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
+					</tr>
+					<tr class="interestChk" >
+						<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="novel"/> 소설</label></td>
+						<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="care" id="humanities" value="humanities"/> 인문</label></td>
+						<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="poetry"/> 시 / 에세이</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="care" id="hobby" value="hobby"/> 취미/레저</label></td>
+						<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="care" id="health" value="health"/> 건강</label></td>
+						<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="care" id="home" value="home"/> 가정/생활/요리</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="care" id="economy" value="economy"/> 경제/경영</label></td>
+						<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="care" id="self" value="self"/> 자기계발</label></td>
+						<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="care" id="society" value="society"/> 사회</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="care" id="history" value="history"/> 역사/문화</label></td>
+						<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="care" id="religion" value="religion"/> 종교</label></td>
+						<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="care" id="art" value="art"/> 예술/대중문화</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="care" id="dictionary" value="dictionary"/> 사전</label></td>
+						<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="care" id="magazine" value="magazine"/> 잡지</label></td>
+						<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="care" id="language" value="language"/> 국어/외국어</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="care" id="science" value="science"/> 과학/공학</label></td>
+						<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="care" id="trip" value="trip"/> 여행/지도</label></td>
+						<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="care" id="employment" value="employment"/> 취업/수험서</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="care" id="IT" value="IT"/> 컴퓨터/IT</label></td>
+						<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="care" id="teenager" value="teenager"/> 청소년</label></td>
+						<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="care" id="reference" value="reference"/> 학습/참고서</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="care" id="infant" value="infant"/> 유아</label></td>
+						<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="care" id="child" value="child"/> 어린이</label></td>
+						<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="care" id="comic" value="comic" /> 만화</label></td>
+					</tr>
+					<tr class="interestChk">
+						<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="care" id="overseas" value="overseas"/>해외도서</label></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+		<div>
+			<button type="button" class="account-save">저장</button>
+			<a href="javascript:deleteConfirm();" class="account-delete" >회원탈퇴</a>
+		</div>
 	</form>
-	
 </div>
 <script>
+	$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
+	$('#preImg').click(function (e) {
+	    document.profile.target_url.value = document.getElementById( 'preImg' ).src;
+	    e.preventDefault();
+	    $('#image').click();
+	}); 
+	
+	
+	//by 준영, 프로필 사진 업로드시, 미리보기
+	$(function() {
+	    $("#image").on('change', function(){
+	        readURL(this);
+	    });
+	});
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	       var reader = new FileReader();
+	       reader.onload = function (e) {
+	          $('#preImg').attr('src', e.target.result);
+	       }
+	       reader.readAsDataURL(input.files[0]);
+	    }
+	}
+
 	//프로필 링크를 클릭했을때 실행할 함수 등록
 	$("#profileLink").on("click", function(){
 		// 아이디가 image 인 요소를 강제 클릭하기
