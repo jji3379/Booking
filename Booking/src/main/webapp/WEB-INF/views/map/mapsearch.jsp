@@ -58,7 +58,6 @@
 	</style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div style="width:1050px; height:800px; margin:auto;">
 	<div style="margin-top:30px">
 		<center><h1><strong>주변 서점 검색</strong></h1></center>
