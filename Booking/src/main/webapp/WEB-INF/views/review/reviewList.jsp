@@ -202,7 +202,20 @@
 					reviewList += '<div class="card-body-footer">'
 					reviewList += '<hr class="underline">'
 					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
-					reviewList += '<div class="comment">댓글 ???개</div>'
+					reviewList += '<div class="comment">'
+						$.ajax({
+							url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
+							method:"GET",
+							dataType : "json",
+							async: false,
+							success:function(data) {
+					reviewList += '댓글 '+data+'개'
+							},
+							error : function(data) {
+								console.log("오류");
+							}
+						});
+					reviewList += '</div>'
 					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
 					reviewList += '</div>'
 					reviewList += '</div>'
