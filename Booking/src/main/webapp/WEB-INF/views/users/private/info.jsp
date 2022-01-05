@@ -7,91 +7,26 @@
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/info.css">
 </head>
 <style>
-	a {
-		text-decoration: none;
-	}
-	.layout{
-	    width: 100%;
-		display: flex;
-		flex-direction: column;
-		flex: 1 1 0%;
-		max-width: 1200px;
-		margin: 0px auto;
-		padding: 0px 65px;
-		min-height: 446px;
-	}	
-	.header{
-		width: 100%;
-	    display: flex;
-	    flex-flow: row nowrap;
-	    -webkit-box-pack: justify;
-	    justify-content: space-between;
-	    -webkit-box-align: center;
-	    align-items: center;
-	    padding: 32px 0px 12px;
-	    box-sizing: border-box;
-	}
-	.primary{
-		width: 155px;
-    	margin-right: 65px;
-	}
-	.secondary{
-	    flex: 1 1 0%;
-    	height: 100%;
-	}
-	.top3{
-		display: flex;
-	    height: 100%;
-	    background-color: #eee;
-	    border-radius: 4px;
-	    padding: 16px 0px;
-	}
-	.bd-card {
-	    border-right: 1px solid #bbb;
-    	flex: 1 1 0%;
-   		color: #333;
-	}
-	.last {
-		border: none;
-    	flex: 1 1 0%;
-   		color: #333;
-	}
-	dl.card{
-		margin: 0px;
-	    display: flex;
-	    flex-flow: column nowrap;
-	    -webkit-box-pack: justify;
-	    justify-content: space-between;
-	    height: 100%;
-	    padding: 0px 28px;
-	}
-	dd.value{
-		margin: 0;
-	}
-	.body{
-		width: 100%;
-    	display: flex;
-    	box-sizing: border-box;
-	}
 </style>
 <body >
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요,</h4>
-			<span>catacat3</span>님!
+			<h4>안녕하세요 ,</h4>
+			<span>catacat3 </span>님!
 		</div>
 		<div class="secondary">
 			<div class="top3">
 				<a class="bd-card" href="">
 					<dl class="card">
 						<dt class="label">
-							<span>작성글</span>
+							<span>작성글 ></span>
 						</dt>
 						<dd class="value">
-							<span>0</span>
+							<span class="count">0</span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -99,10 +34,10 @@
 				<a class="bd-card" href="">
 					<dl class="card">
 						<dt class="label">
-							<span>작성 댓글</span>
+							<span>작성 댓글 ></span>
 						</dt>
 						<dd class="value">
-							<span>0</span>
+							<span class="count">0</span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -110,11 +45,11 @@
 				<a class="bd-card last" href="">
 					<dl class="card">
 						<dt class="label">
-							<span>???</span>
+							<span>북카트 ></span>
 						</dt>
 						<dd class="value">
-							<span>???</span>
-							<span></span>
+							<span class="count">0</span>
+							<span>개</span>
 						</dd>
 					</dl>
 				</a>
@@ -122,19 +57,143 @@
 		</div>
 	</div>
 	<div class="body">
-		
+		<div class="navigation">
+			<div class="section">
+				<div class="section-name">나의 쇼핑</div>
+				<div class="linkList">
+					<a id="side-order" class="link" href="javascript:">주문 내역</a>
+					<a class="link" href=""></a>
+					<a class="link" href=""></a>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section-name">계정 관리</div>
+				<div class="linkList">
+					<a id="side-profile" class="link" href="javascript:">계정정보 수정</a>
+					<a id="side-pwd" class="link" href="javascript:">비밀번호 수정</a>
+					<a class="link" href="">최근 검색 기록</a>
+				</div>
+			</div>
+			<div class="section">
+				<div class="section-name">북킹 소개</div>
+			</div>
+			<button class="logoutBtn">
+				<div>로그아웃</div>
+			</button>
+		</div>
+		<div class="content">
+			<ul class="content-list">
+				<li class="part">
+					<div class="part-header">
+						최근 주문내역
+						<a href="">주문전체보기 ></a>
+					</div>
+					<div id="myOrder" class="part-body">
+						<table>
+							<colgroup>
+								<col style="width:60%"/>
+								<col style="width:20%"/>
+								<col style="width:20%"/>
+							</colgroup>
+							<thead>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div>총 1개 상품</div>
+									</td>
+									<td>
+										<div>2021/10/10</div>
+									</td>
+									<td>
+										<div class="order-num">1234567890</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</li>
+				<li class="part">
+					<div class="part-header">
+						내 계정 정보
+						<a href="">변경하기 ></a>
+					</div>
+					<div class="part-body">
+						<div class="info-account">
+							catcat3
+							<br />
+							catcat3@naver.com
+							<br />
+							<span>고양이</span>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>
+			
+	
 <script>
-//회원탈퇴묻기
-function deleteConfirm(){
-		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+	$('#side-order').on('click',function(){
+		function updateInfo(){
+		    $.ajax({ 
+		       	url:"my_order.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		updateInfo();
+	})
+	
+	//sidebar ajax
+	$('#side-profile').on('click',function(){
+		function updateProfile(){
+		    $.ajax({ 
+		       	url:"updateform.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		updateProfile();
+	})
+	$('#side-pwd').on('click',function(){
+		function updatePwd(){
+		    $.ajax({ 
+		       	url:"pwd_updateform.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		updatePwd();
+	})
+	
+	
+	
+	
+	//회원탈퇴묻기
+	function deleteConfirm(){
+		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }/users/private/delete.do";
 		} else {
 			location.reload();
 		}
-}
+	}
 </script>
 </body>
 </html>
