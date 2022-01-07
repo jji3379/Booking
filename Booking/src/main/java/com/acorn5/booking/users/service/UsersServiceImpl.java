@@ -19,8 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.acorn5.booking.exception.DBFailException;
 import com.acorn5.booking.order.dao.OrderDao;
 import com.acorn5.booking.pay.dao.CartDao;
+import com.acorn5.booking.pay.repository.CartRepository;
 import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
+import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.repository.ReviewCommentRepository;
+import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Users;
@@ -45,6 +49,15 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Autowired
 	private UsersRepository usersRepository;
+
+	@Autowired
+	private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private ReviewCommentRepository reviewCommentRepository;
+
+	@Autowired
+	private CartRepository cartRepository;
 	
 	//by욱현.비밀번호 암호 인코딩위한 객체 필드선언_2021222
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -190,12 +203,13 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
-	public Users getInfo(ModelAndView mView, HttpSession session) {
+	public Users getInfo(HttpSession session) {
 		//로그인된 아이디를 읽어와서
 		Long id=(Long)session.getAttribute("id");
 		//개인정보를 읽어온다.
 		//Users dto= dao.getData(id);
 	 	Users dto = usersRepository.findById(id);
+	 			
 		return dto;
 	}
 	

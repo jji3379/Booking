@@ -58,7 +58,7 @@ public class UsersViewController {
 	@RequestMapping("/users/private/updateform")
 	public ModelAndView updateform(ModelAndView mView, 
 			HttpSession session,HttpServletRequest request) {
-		usersService.getInfo(mView, session);
+		usersService.getInfo(session);
 		Long id=(Long)request.getSession().getAttribute("id");
     	if(id!=null) {
     		//by 우석, view page 에서 cartitem 불러오기_210315
@@ -102,7 +102,7 @@ public class UsersViewController {
     	}
 		
 		//Users dto= dao.getData(id);
-    	Users dto = usersService.getInfo(mView, session);
+    	Users dto = usersService.getInfo(session);
 		mView.addObject("dto", dto);
 	
 		mView.setViewName("users/private/pwd_updateform");
@@ -118,10 +118,8 @@ public class UsersViewController {
 	
 	//by욱현.개인정보 보기 요청처리_2021222
 	@RequestMapping("/users/private/info")
-	public ModelAndView info(ModelAndView mView, HttpSession session
-			,HttpServletRequest request) {
+	public ModelAndView info(ModelAndView mView, HttpSession session ,HttpServletRequest request) {
 		
-		usersService.getInfo(mView, session);
 		Long id=(Long)request.getSession().getAttribute("id");
     	if(id!=null) {
     		//by 우석, view page 에서 cartitem 불러오기_210315
