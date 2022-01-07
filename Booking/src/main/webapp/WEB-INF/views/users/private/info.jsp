@@ -172,7 +172,7 @@ $('#date').html(today.toLocaleString());
 		myReply();
 	})
 	$('#side-order').on('click',function(){
-		function updateInfo(){
+		function my_order(){
 		    $.ajax({ 
 		       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
 		        method:"GET",
@@ -187,7 +187,7 @@ $('#date').html(today.toLocaleString());
 						        	orderList += '<li class="order">'
 							        	orderList += '<a class="" href="">'
 								        	orderList += '<div>'
-									        	orderList += '<div class="myOrder-num">'+data[1].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
+									        	orderList += '<div class="myOrder-num">'+data[i].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
 									        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'
 								        	orderList += '</div>'
 								        	orderList += '<span class="detailBtn">></span>'
@@ -203,6 +203,7 @@ $('#date').html(today.toLocaleString());
 		        
 		    })
 		}
+		my_order();
 	})
 	
 	//sidebar ajax
