@@ -16,6 +16,8 @@ import com.acorn5.booking.review.entity.Review;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	Review findById(Long id);
+
+	Review findByWriter(Long id);
 	
 	@Query(value = "select r from Review r join fetch r.writer")
 	List<Review> findAllReivew();
