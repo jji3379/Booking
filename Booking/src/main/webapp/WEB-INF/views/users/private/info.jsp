@@ -143,10 +143,31 @@
 	$('#side-order').on('click',function(){
 		function updateInfo(){
 		    $.ajax({ 
-		       	url:"my_order.do",
+		       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
 		        method:"GET",
 		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        	var orderList = "";
+			        	orderList += '<div class="content">'
+				        	orderList += '<div class="order-box">'
+					        	orderList += '<h2>주문 내역</h2>'
+					        	orderList += '<ul class="order-list">'
+					        	
+					        	for (var i=0; i<data.length; i++) {
+						        	orderList += '<li class="order">'
+							        	orderList += '<a class="" href="">'
+								        	orderList += '<div>'
+									        	orderList += '<div class="myOrder-num">'+data[1].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
+									        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'
+								        	orderList += '</div>'
+								        	orderList += '<span class="detailBtn">></span>'
+							        	orderList += '</a>'
+						        	orderList += '</li>'
+		    			    	}
+					        	
+					        	orderList += '</ul>'
+				        	orderList += '</div>'
+			        	orderList += '</div>'
+		            $(".content").html(orderList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
 		        },
 		        
 		    })
@@ -189,7 +210,7 @@
 	function deleteConfirm(){
 		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
 		if(isDelete){
-			location.href="${pageContext.request.contextPath }/users/private/delete.do";
+			location.href="${pageContext.request.contextPath}/users/private/delete.do";
 		} else {
 			location.reload();
 		}

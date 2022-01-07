@@ -1,8 +1,10 @@
 package com.acorn5.booking.order.dto;
 
+import java.util.Date;
+
 public class OrderSum {
    private int o_id; //주문번호
-   private String o_date; //주문일자
+   private Date o_date; //주문일자
    private int totalPayment; //주문금액
    private int totalNum; //주문갯수
    private int startRowNum; // 시작 번호
@@ -14,10 +16,10 @@ public class OrderSum {
    public void setO_id(int o_id) {
       this.o_id = o_id;
    }
-   public String getO_date() {
+   public Date getO_date() {
       return o_date;
    }
-   public void setO_date(String o_date) {
+   public void setO_date(Date o_date) {
       this.o_date = o_date;
    }
    public int getTotalPayment() {

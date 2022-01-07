@@ -11,6 +11,6 @@ import com.acorn5.booking.users.entity.Users;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>{
 
-	List<Order> findByBuyer(Long buyer);
+	List<Order> findByBuyer(Users buyer);
 	List<Order> findById(Long id);
 }

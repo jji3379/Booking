@@ -3,6 +3,8 @@ package com.acorn5.booking.order.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,16 +16,21 @@ import com.acorn5.booking.order.dao.OrderDao;
 import com.acorn5.booking.order.dto.OrderDto;
 import com.acorn5.booking.order.dto.OrderSum;
 import com.acorn5.booking.order.entity.Order;
+import com.acorn5.booking.order.entity.QOrder;
 import com.acorn5.booking.order.repository.OrderRepository;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.users.entity.QUsers;
 import com.acorn5.booking.users.entity.Users;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 	//@Autowired
 	//private OrderDao dao;
 	
+	@PersistenceContext
+	EntityManager em;
 	
 	//@Autowired
 	//private ReviewDao reviewDao;
@@ -68,17 +75,31 @@ public class OrderServiceImpl implements OrderService {
 
 	//by욱현, my_order에서 구매자 주문내역 불러오기 로직 _2021317
 	@Override
-	public void getMyOrder(HttpSession session, ModelAndView mView, Order dto, HttpServletRequest request) {
+	public List<Order> getMyOrder(Long id, HttpServletRequest request) {
 		
-		Long id = (Long) session.getAttribute("id");
+		//Long id = (Long) session.getAttribute("id");
 		//회원의 주문내역 전체 얻기 
-		List<Order> list = orderRepository.findByBuyer(id); 
+		Users buyerId = new Users();
+		buyerId.setId(id);
+		//List<Order> list = orderRepository.findByBuyer(buyerId); 
 				//dao.getMyOrder((String)session.getAttribute("id"));
 		//주문번호 끼리 묶기
-		List<OrderSum> oslist = new ArrayList<OrderSum>();
+		//List<OrderSum> orderList = new ArrayList<OrderSum>();
 		
+		JPAQueryFactory query = new JPAQueryFactory(em);
+		QOrder qOrder = QOrder.order;
+		QUsers qUsers = QUsers.users;
+		
+		List<Order> orderGroupList = query.selectFrom(qOrder)
+				.join(qOrder.buyer, qUsers)
+				.fetchJoin()
+				.where(qOrder.buyer.eq(buyerId))
+				.groupBy(qOrder.o_date)
+				.fetch();
+		
+		/*
 		Long preO_id = (long) 0; //이전인덱스의 책의 주문번호
-		for(int i=0;i<list.size();i++) {
+		for (int i = 0; i < list.size(); i++) {
 			Order orderDto = list.get(i); //주문내역 하나를 얻어냄
 			Long o_id = orderDto.getId(); //하나의 주문내역의 주문번호를 얻어냄
 			if(o_id!= preO_id) { // 현제인덱스의 책의 주문번호가 이전인덱스의 책의 주문번호와 같지 않다면
@@ -99,11 +120,12 @@ public class OrderServiceImpl implements OrderService {
 				}
 				os.setTotalPayment(totalPayment);
 				os.setTotalNum(totalNum);
-				oslist.add(os);
+				orderList.add(os);
 			} 
 			
 		}
-		
+		*/
+		/*
 		final int DISPLAY_COUNT = 5;
 		final int PAGE_DISPLAY_COUNT=5;
 
@@ -117,18 +139,18 @@ public class OrderServiceImpl implements OrderService {
 		
 		int endRow = (pageNum-1)*DISPLAY_COUNT+4;
 		int startRow =  (pageNum*DISPLAY_COUNT) - DISPLAY_COUNT;
-		int totalRow = oslist.size();
+		int totalRow = orderList.size();
 
 		List<OrderSum> osslist = new ArrayList<>();
 		OrderSum oss = null;
 		if(totalRow<= endRow) {
 			for(int i=startRow; i<=totalRow-1; i++) {
-				oss = oslist.get(i);
+				oss = orderList.get(i);
 				osslist.add(oss);
 			}
 		} else {
 			for(int i=startRow; i<=endRow; i++) {
-				oss = oslist.get(i);
+				oss = orderList.get(i);
 				osslist.add(oss);
 			}
 		}
@@ -142,13 +164,16 @@ public class OrderServiceImpl implements OrderService {
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
 		}
-		mView.addObject("oslist", osslist);
+		*/
+		//mView.addObject("oslist", osslist);
+		/*
 		mView.addObject("pageNum", pageNum);
 		mView.addObject("startPageNum", startPageNum);
 		mView.addObject("endPageNum", endPageNum);
 		mView.addObject("totalPageCount", totalPageCount);
 		mView.addObject("totalRow", totalRow);
-		
+		*/
+		return orderGroupList;
 	}
 	
 	//by욱현, order_detail에서 주문내역 디테일 불러오는 로직_2021320
