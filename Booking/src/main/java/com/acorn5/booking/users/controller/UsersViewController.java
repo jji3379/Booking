@@ -191,12 +191,36 @@ public class UsersViewController {
     		//by 우석, view page 에서 cartitem 불러오기_210315
         	cartservice.listCart(mView, request);
     	}
-		List<ReviewDto> list = reviewService.getMyReview(session, mView, request); // 내가 쓴 리뷰를 셀렉트하기 위한 비즈니스 로직 메소드 실행
-		mView.addObject("list", list);
 		mView.setViewName("users/private/my_review");
 				
 		return mView;
 	}
+	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
+	@RequestMapping("/users/private/my_reply.do")
+	public ModelAndView myReply(HttpSession session, ModelAndView mView, HttpServletRequest request) {
+		Long id=(Long)request.getSession().getAttribute("id");
+    	if(id!=null) {
+    		//by 우석, view page 에서 cartitem 불러오기_210315
+        	cartservice.listCart(mView, request);
+    	}
+		
+		mView.setViewName("users/private/my_reply");
+				
+		return mView;
+	}
+	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
+		@RequestMapping("/users/private/recentSearch.do")
+		public ModelAndView myRecent(HttpSession session, ModelAndView mView, HttpServletRequest request) {
+			Long id=(Long)request.getSession().getAttribute("id");
+	    	if(id!=null) {
+	    		//by 우석, view page 에서 cartitem 불러오기_210315
+	        	cartservice.listCart(mView, request);
+	    	}
+			
+			mView.setViewName("users/private/recentSearch");
+					
+			return mView;
+		}
 	
 	//by욱현. 가입정보수정폼에서 db에있는 이메일, 관심사 와 수정내용 비교하기 위_2021323
 	@RequestMapping("/users/private/check_update.do")

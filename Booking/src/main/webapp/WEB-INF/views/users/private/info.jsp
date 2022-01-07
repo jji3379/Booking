@@ -20,29 +20,29 @@
 		</div>
 		<div class="secondary">
 			<div class="top3">
-				<a class="bd-card" href="">
-					<dl class="card">
+				<a class="bd-card" href="javascript:">
+					<dl id="top-post" class="card">
 						<dt class="label">
 							<span>작성글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">0</span>
+							<span class="count">3</span>
 							<span>개</span>
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card" href="">
-					<dl class="card">
+				<a class="bd-card" href="javascript:">
+					<dl id="top-reply" class="card">
 						<dt class="label">
 							<span>작성 댓글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">0</span>
+							<span class="count">3</span>
 							<span>개</span>
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card last" href="">
+				<a class="bd-card last" href="${pageContext.request.contextPath }/pay/cart.do">
 					<dl class="card">
 						<dt class="label">
 							<span>북카트 ></span>
@@ -71,7 +71,7 @@
 				<div class="linkList">
 					<a id="side-profile" class="link" href="javascript:">계정정보 수정</a>
 					<a id="side-pwd" class="link" href="javascript:">비밀번호 수정</a>
-					<a class="link" href="">최근 검색 기록</a>
+					<a id="side-recent" class="link" href="javascript:">최근 검색 기록</a>
 				</div>
 			</div>
 			<div class="section">
@@ -140,6 +140,37 @@
 			
 	
 <script>
+//by준영, 현재시간 출력
+let today = new Date();
+
+$('#date').html(today.toLocaleString());
+
+	$('#top-post').on('click',function(){
+		function myPost(){
+		    $.ajax({ 
+		       	url:"my_review.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		myPost();
+	})
+	$('#top-reply').on('click',function(){
+		function myReply(){
+		    $.ajax({ 
+		       	url:"my_reply.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		myReply();
+	})
 	$('#side-order').on('click',function(){
 		function updateInfo(){
 		    $.ajax({ 
@@ -151,7 +182,6 @@
 		        
 		    })
 		}
-		updateInfo();
 	})
 	
 	//sidebar ajax
@@ -180,6 +210,19 @@
 		    })
 		}
 		updatePwd();
+	})
+	$('#side-recent').on('click',function(){
+		function recentSearch(){
+		    $.ajax({ 
+		       	url:"recentSearch.do",
+		        method:"GET",
+		        success:function(data){
+		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		        },
+		        
+		    })
+		}
+		recentSearch();
 	})
 	
 	

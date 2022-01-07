@@ -529,6 +529,7 @@ a {
 	    border-radius: 1px;
 	    font-family: '777Balsamtint';
     	font-size: 17px;
+    	cursor: pointer;
     }
     .pwd-resetBtn{
     	margin: 3px 0;
@@ -540,5 +541,219 @@ a {
 	    border-radius: 1px;
 	    font-family: '777Balsamtint';
     	font-size: 17px;
+    	cursor: pointer;
     }
     /* pwd_updateform*/
+    .recent-box{
+    
+    }
+    .recent-box > h2 {
+    	margin:0;
+    	padding:10px 0;
+    	border-bottom:1px solid #333;
+    }
+    .recent-sysdate {
+    	font-size: 18px;
+    	padding-left: 10px;
+    	float: right;
+    }
+    .recent-list{
+    	margin-top: 20px;
+	    font-size: 18px;
+    }
+    .recent-listheader{
+    	font-size:20px;
+    	padding: 15px 10px;
+	    border-top: 1px solid #e5e5e5;
+	    border-left: 1px solid #e5e5e5;
+	    border-right: 1px solid #e5e5e5;
+   	}
+   	.allCheckWrap{
+   		display: flex;
+   		line-height: 1.6;
+   		justify-content: space-between;
+   	}
+   	.allCheck > span {
+   		font-size: 16px;
+   	}
+   	#selectDeleteBtn{
+   		min-width: 65px;
+	    border: 0;
+	    border-radius: 1px;
+	    padding: 0 17px;
+	    height: 32px;
+	    background-color: #86b3e3;
+	    color: rgb(255, 255, 255);
+	    cursor: pointer;
+	    font-size: 16px;
+	    font-family: '777Balsamtint';
+   	}
+   	.recent-listbody{
+   		border: 1px solid #e5e5e5;
+   	}
+   	.recent-li{
+    	padding: 10px;
+    	display: flex;
+    	line-height: 1.6;
+    	border-bottom: 1px dashed #e5e5e5;
+   	}
+   	.recent-li:last-child{
+    	padding: 10px;
+    	display: flex;
+    	border:none;
+   	}
+   	.recent-Chk{
+   		flex: 0.32;
+   	}
+   	.recent-date{
+		flex: 1;  	
+   	}
+   	.recent-word{
+   		flex: 5;
+   	}
+   	.recent-delete{
+   		
+   	}
+   	.recent-btn{
+   		min-width: 65px;
+	    border: 0;
+	    border-radius: 1px;
+	    padding: 0 17px;
+	    height: 30px;
+	    background-color: rgb(10, 10, 10);
+	    color: rgb(255, 255, 255);
+	    cursor: pointer;
+	    font-size: 16px;
+	    font-family: '777Balsamtint';
+   	}
+   	/* recentSearch.jsp */
+   	.myPost > h1 {
+   		margin: 5px 0;
+    	font-size: 25px;
+   	}
+   	.myPost-tb {
+   		width: 100%;
+    	background-color: #f9f9f985;
+    	border-collapse: collapse;
+   	}
+   	.myPost-tb > caption {
+   		text-align: inherit;
+	    border-bottom: 1px solid #e5e5e5;
+	    padding: 7px 0px;
+	    font-size: 17px;
+   	}
+   	.myPost-tr > th,
+   	.myPost-tr > td {
+   		padding:8px;
+   		line-height: 1.6;
+   		font-size:17px;
+    	letter-spacing: 1.2px;
+   		text-align: inherit;
+   		border-bottom: 1px solid #e5e5e5;
+   	}
+   	.myPost-tdTitle{
+   		color: #41495c;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+	    
+   	}
+   	.myPost-tdTitle:hover{
+   		text-decoration:underline;
+   	}
+   	thead > .myPost-tr:hover{
+   		background-color: #f9f9f985;
+   		cursor: default;
+   	}
+   	.myPost-tr:hover{
+   		background: #f5f5f5;
+   		cursor: pointer;
+   	}
+   	/* my_review */
+   	
+   	.myReply > h1 {
+   		margin: 5px 0;
+    	font-size: 25px;
+   	}
+   	.myReply-tb {
+   		width: 100%;
+    	background-color: #f9f9f985;
+    	border-collapse: collapse;
+   	}
+   	.myReply-tb > caption {
+   		text-align: inherit;
+	    border-bottom: 1px solid #e5e5e5;
+	    padding: 7px 0px;
+	    font-size: 17px;
+   	}
+   	.myReply-tr > th,
+   	.myReply-tr > td {
+   		padding:8px;
+   		line-height: 1.6;
+   		font-size:17px;
+    	letter-spacing: 1.2px;
+   		text-align: inherit;
+   		border-bottom: 1px solid #e5e5e5;
+   	}
+   	.myReply-tdTitle,
+   	.myReply-tdReply{
+   		color: #41495c;
+   		overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+	    
+   	}
+   	.myReply-tdTitle:hover,
+   	.myReply-tdReply:hover{
+   		text-decoration:underline;
+   	}
+   	thead > .myReply-tr:hover{
+   		background-color: #f9f9f985;
+   		cursor: default;
+   	}
+   	.myReply-tr:hover{
+   		background: #f5f5f5;
+   		cursor: pointer;
+   	}
+   	
+	/* my_reply */
+   	#paging{
+	    border-bottom: 1px solid #dedede;
+    	background: #fafafa;
+   	}
+   	.pagination{
+		display: table;
+	    padding-left: 0;
+	    list-style: none;
+	    border-radius: 0.25rem;
+	    margin: 0 auto;
+	}
+	.page-link{
+		position: relative;
+	    display: block;
+	    padding: 0.5rem 0.75rem;
+	    margin-left: -1px;
+	    line-height: 1.25;
+	    color: #5db794;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    font-family: '777Balsamtint';
+	    font-weight: bold;
+	    text-decoration: none;
+	}
+	.page-item.disabled .page-link {
+	  color: #6c757d;
+	  pointer-events: none;
+	  cursor: auto;
+	  background-color: #fff;
+	  border-color: #dee2e6;
+	}
+	.page-item.active .page-link {
+	  z-index: 3;
+	  color: #fff;
+	  background-color: #5db794;
+	  border-color: #5db794;
+	}
+   	
