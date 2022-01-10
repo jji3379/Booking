@@ -66,7 +66,20 @@ public class OrderController {
 		//mView.setViewName("users/private/my_order");
 		return orderService.getMyOrder(id, request);
 	}
-	
+	//by욱현. 주문조회 디테일 페이지
+		@RequestMapping("/users/private/my_order.do")
+		public ModelAndView my_order(HttpSession session, ModelAndView mView,
+				HttpServletRequest request) {
+			//뷰페이지에서 프로필이미지 로드를 위한 로직 
+			Long id = (Long) session.getAttribute("id");
+			Users dto = usersRepository.findById(id);  
+					//dao.getData(id);
+			mView.addObject("dto", dto);
+			
+			
+			mView.setViewName("users/private/my_order.page");
+			return mView;
+		}
 	//by욱현. 주문조회 디테일 페이지
 	@RequestMapping("/users/private/order_detail.do")
 	public ModelAndView orderDetail(HttpSession session, ModelAndView mView,
@@ -77,11 +90,8 @@ public class OrderController {
 				//dao.getData(id);
 		mView.addObject("dto", dto);
 		
-		//주문내역을 조회하기 위한 로직
-		//이것도 잘못됨
-		OrderDto orderDto = new OrderDto();
-		orderService.getOrderDetail(mView, request);
-		mView.setViewName("users/private/order_detail");
+		
+		mView.setViewName("users/private/order_detail.page");
 		return mView;
 	}
 	

@@ -36,7 +36,7 @@
 		<div class="account-inputBox">
 			<div class="account-formGroup">
 				<div class="account-label"><label for="id">아이디</label></div>
-				<div><input type="text" id="id" class="account-updateform" value="${id }" class="form-control" disabled/></div>
+				<div><input type="text" id="id" class="account-updateform" value="${sessionScope.loginId }" class="form-control" disabled/></div>
 			</div>
 			<div class="account-formGroup" >
 				<div class="account-label"><label for="email">이메일</label></div>
@@ -201,16 +201,16 @@
 			url:"${pageContext.request.contextPath }/users/private/check_update.do",
 			method:"POST",
 			data:"inputId="+inputId,
-			success:function(responseData){
- 				console.log(responseData);
-				let dbcare = responseData["care"];
-				let dbemail = responseData["email"];
-				let dbprofile = "/booking" + responseData["image"];
-				if(care==dbcare && email==dbemail ) {
+			success:function(data){
+ 				console.log(data);
+				let currentCare = data["care"];
+				let currentEmail = data["email"];
+				let currentProfile = "/booking" + data["image"];
+				if(care==currentCare && email==currentEmail ) {
 					alert("수정되지 않았습니다.");
 					event.preventDefault();//폼 전송 막기
 				} else {
-					$("#myForm").trigger("submit");
+					$("#myProfile-form").trigger("submit");
 				}
 			}
 		})
