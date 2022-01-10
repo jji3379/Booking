@@ -3,6 +3,4 @@
     
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/custom.css" />
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.bundle.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

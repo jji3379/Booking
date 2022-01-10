@@ -67,7 +67,7 @@ public class UsersViewController {
 		//String id = (String)session.getAttribute("id");
 		//UsersDto dto= dao.getData(id);
 		//mView.addObject("dto", dto);
-		mView.setViewName("users/private/updateform");
+		mView.setViewName("users/private/updateform.page");
 		return mView;
 	}
 	
@@ -105,7 +105,7 @@ public class UsersViewController {
     	Users dto = usersService.getInfo(session);
 		mView.addObject("dto", dto);
 	
-		mView.setViewName("users/private/pwd_updateform");
+		mView.setViewName("users/private/pwd_updateform.page");
 		return mView;
 	}
 	
@@ -189,7 +189,7 @@ public class UsersViewController {
     		//by 우석, view page 에서 cartitem 불러오기_210315
         	cartservice.listCart(mView, request);
     	}
-		mView.setViewName("users/private/my_review");
+		mView.setViewName("users/private/my_review.page");
 				
 		return mView;
 	}
@@ -202,7 +202,7 @@ public class UsersViewController {
         	cartservice.listCart(mView, request);
     	}
 		
-		mView.setViewName("users/private/my_reply");
+		mView.setViewName("users/private/my_reply.page");
 				
 		return mView;
 	}
@@ -215,7 +215,7 @@ public class UsersViewController {
 	        	cartservice.listCart(mView, request);
 	    	}
 			
-			mView.setViewName("users/private/recentSearch");
+			mView.setViewName("users/private/recentSearch.page");
 					
 			return mView;
 		}
