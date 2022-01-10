@@ -13,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.acorn5.booking.order.entity.Order;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "BK_USER_MST")
@@ -31,6 +34,8 @@ public class Users {
 	private String pwd;
 	private String email;
 	private String profile;
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@CreationTimestamp
 	private Date regdate;
 	private String care;
