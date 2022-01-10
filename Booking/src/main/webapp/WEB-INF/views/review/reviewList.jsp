@@ -20,17 +20,18 @@
 	<div class="layout">
 		<div class="menu">
 			<div class="menuText">
-				<h2>● Booking review</h2>
-				<p>다양한 도서와 후기를 만나보세요</p>
+				<h2>다양한 도서와 후기를 만나보세요</h2>
 			</div>
-			
 			<ul class="sortBar">
 				<li class="viewSort"><a href="#" onclick="pagingList(0, 'viewCount')">조회순</a></li>
 				<li class="starSort"><a href="#" onclick="pagingList(0, 'rating')">별점순</a></li>
 				<li class="newSort"><a href="#" onclick="pagingList(0, 'regdate')">최신순</a></li>
 			</ul>
 		</div>
-		<div class="row">
+		<div>
+		
+		</div>
+		<div class="row-box">
 			<div class="row row-cols-4" id="reviewList">
 			<!--  
 				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">

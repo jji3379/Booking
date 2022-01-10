@@ -22,7 +22,7 @@ p, h1, ul {
 }
 .card {
 	font-family: '777Balsamtint';
-	height: 345px;
+	height: 310px;
 	width: 265px;
 	border-radius: 15px;
 	display: inline-block;
@@ -38,7 +38,7 @@ p, h1, ul {
     -o-transition: 0.5s;  /*오페라*/
     transition: 0.5s;
 	width: 100%;
-	height: 220px;
+	height: 180px;
 	border-radius: 15px 15px 0 0;
 	background-image: url("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?type=m1&udate=20210813");
 	background-size: 100% 280px;
@@ -47,7 +47,7 @@ p, h1, ul {
 
 .card:hover .card-header  {
 	opacity: 0.8;
-	height: 165px;
+	height: 135px;
 }
 
 .card-spoCheck {
@@ -82,11 +82,11 @@ h1 {
     opacity: 0;
     color: #757B82;
     line-height: 25px;
-    -webkit-transition: .2s ease-in-out; /*사파리&크롬*/
-    -moz-transition: .2s ease-in-out; /*파이어폭스*/
-    -ms-transition: .2s ease-in-out; /*익스플로러*/
-    -o-transition: .2s ease-in-out; /*오페라*/
-    transition : .2s ease-in-out;
+    -webkit-transition: .5s ease-in-out; /*사파리&크롬*/
+    -moz-transition: .5s ease-in-out; /*파이어폭스*/
+    -ms-transition: .5s ease-in-out; /*익스플로러*/
+    -o-transition: .5s ease-in-out; /*오페라*/
+    transition : .5s ease-in-out;
 	height: 50px;
 	overflow: hidden;
     text-overflow: ellipsis;
@@ -157,16 +157,21 @@ h1 {
 	width:1300px; 
 	margin:auto;
 }
+.row-box{
+	padding-top: 10px;
+}
 .row {
+	margin: 0 auto;
+	width: 1170px;
+	clear: both;
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 }
 .row-cols-4 > * {
-	-ms-flex: 0 0 21%;
-	flex: 0 0 21%;
-	max-width: 21%;
+	flex: 0 0 20.55%;
+	max-width: 20.55%;
 }
 .col{
 	position: relative;
@@ -184,28 +189,27 @@ h1 {
 }
 .menu{
 	font-family: '777Balsamtint';
-	border-bottom: 3px solid #333333a3;
-	padding-bottom: 30px;
-	
+	border-bottom: 2px solid #333333a3;
+	margin-top: 17px;
+	padding-bottom: 10px;
+	display: flex;
+	    justify-content: space-between;
 }
 .menuText{
-	
+	display: inline-block;
 }
 .menuText > h2 {
 	color: #333333;
-	margin-bottom: 10px;
-	font-size: 35px;
-}
-.menuText > p {
-	color:#41495c;
-	font-size: 24px;
+	margin: 10px 0 5px 0;
+	font-size: 25px;
 }
 .sortBar{
-	font-weight: bold;
-	float: right;
-	list-style: none;
+	height: 20px;
+    font-weight: bold;
+    list-style: none;
     padding: 0;
-    margin: 0;   
+    margin: 0;
+    padding-top: 25px;  
 }
 .sortBar > li > a{
 	text-decoration: none;
@@ -230,7 +234,8 @@ h1 {
 }
 .bottom{
 	font-family: '777Balsamtint';
-	margin-top: 50px;
+	margin-top: 10px;
+    margin-bottom: 100px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -238,7 +243,7 @@ h1 {
 	align-items: center;
 }
 .searchBar{
-	width: 200px;
+	width: 165px;
     border-radius: 20px;
     border: 1px solid #bbb;
     margin: 10px 0;
@@ -251,12 +256,15 @@ h1 {
     opacity: 0.7;
     margin-left: 20px;
 }
+#paging{
+	width: 260px;
+}
 .pagination{
 	display: flex;
     padding-left: 0;
     list-style: none;
     border-radius: 0.25rem;
-    margin-right: 186px;
+    margin-right: 130px;
 }
 .page-link{
 	position: relative;
@@ -310,13 +318,13 @@ h1 {
 }
 #writeR{
 	font-family: '777Balsamtint';
-	text-decoration: none;
-	color: #484646;
-	font-weight: bold;
-	font-size: 16px;
-	width: 108px;
-	margin-right: 23px;
-    border-radius: 25px;
+    text-decoration: none;
+    color: #484646;
+    font-weight: bold;
+    font-size: 16px;
+    width: 150px;
+    margin-right: 20px;
+    border-radius: 5px;
     border: 1px solid #bbb;
     padding: 10px 12px;
     background: #fff;
