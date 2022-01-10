@@ -16,6 +16,7 @@ import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 
 @Service
@@ -55,4 +56,6 @@ public interface UsersService {
 	public Page<ReviewDtl> getMyReply(Long id, Pageable pageable);
 	
 	public Page<Cart> getMyCart(Long id, Pageable pageable);
+
+	public Page<Search> getMySearch(Long id, Pageable pageable);
 }

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.service.UsersService;
 
@@ -69,4 +70,11 @@ public class UsersApiController {
 	public Page<Cart> myCart(@PathVariable Long id, Pageable pageable) {
 		return usersService.getMyCart(id, pageable);
 	}
+
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/search/{id}", method = RequestMethod.GET)
+	public Page<Search> mySearch(@PathVariable Long id, Pageable pageable) {
+		return usersService.getMySearch(id, pageable);
+	}
+	
 }

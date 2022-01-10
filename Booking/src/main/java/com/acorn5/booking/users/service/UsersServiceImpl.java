@@ -39,7 +39,9 @@ import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.QSearch;
 import com.acorn5.booking.users.entity.QUsers;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.UsersRepository;
 import com.querydsl.core.QueryResults;
@@ -397,6 +399,27 @@ public class UsersServiceImpl implements UsersService{
 				.fetchResults();
 		
 		return new PageImpl<Cart>(list.getResults(), pageable, list.getTotal());
+	}
+	@Override
+	public Page<Search> getMySearch(Long id, Pageable pageable) {
+		Users userId = new Users();
+		userId.setId(id);
+		
+		QUsers qUsers = QUsers.users;
+		QSearch qSearch = QSearch.search;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());
+		
+		QueryResults<Search> list = queryFactory.selectFrom(qSearch)
+				.join(qSearch.userId, qUsers)
+				.fetchJoin()
+				.where(qSearch.userId.eq(userId))
+				.orderBy(qSearch.regdate.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<Search>(list.getResults(), pageable, list.getTotal());
 	}
 
 }
