@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.entity.Users;
 
 @Repository
 public interface ReviewCommentRepository extends JpaRepository<ReviewDtl, Long>{
@@ -18,4 +19,6 @@ public interface ReviewCommentRepository extends JpaRepository<ReviewDtl, Long>{
 	List<ReviewDtl> findByRefGroup(Long refGroup);
 	
 	ReviewDtl findById(Long id);
+
+	List<ReviewDtl> findByWriter(Users id);
 }

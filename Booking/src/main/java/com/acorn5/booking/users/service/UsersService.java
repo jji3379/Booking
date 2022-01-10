@@ -1,13 +1,20 @@
 package com.acorn5.booking.users.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.pay.entity.Cart;
+import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Users;
 
@@ -42,4 +49,10 @@ public interface UsersService {
 	public Users getCareEmail(Long id);
 	
 	public void deleteProfile(Users inputId);
+	
+	public Page<Review> getMyReview(Long id, Pageable pageable);
+
+	public Page<ReviewDtl> getMyReply(Long id, Pageable pageable);
+	
+	public Page<Cart> getMyCart(Long id, Pageable pageable);
 }

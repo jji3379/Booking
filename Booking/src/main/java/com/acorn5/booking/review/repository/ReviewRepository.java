@@ -11,13 +11,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.users.entity.Users;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	Review findById(Long id);
 
-	Review findByWriter(Long id);
+	List<Review> findByWriter(Users id);
 	
 	@Query(value = "select r from Review r join fetch r.writer")
 	List<Review> findAllReivew();
