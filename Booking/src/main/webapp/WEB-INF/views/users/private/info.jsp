@@ -26,7 +26,7 @@
 							<span>작성글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="myReview">3</span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -37,7 +37,7 @@
 							<span>작성 댓글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="myReply">3</span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -48,7 +48,7 @@
 							<span>북카트 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">0</span>
+							<span class="count" id="myCart">0</span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -134,127 +134,254 @@
 					</div>
 				</li>
 			</ul>
+			<nav id = "paging">
+			</nav>
 		</div>
 	</div>
 </div>
 			
-	
+<script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>	
 <script>
 //by준영, 현재시간 출력
 let today = new Date();
 
 $('#date').html(today.toLocaleString());
+	
+	// 작성글 토탈
+	$.ajax({ 
+	   	url:"${pageContext.request.contextPath}/v1/users/review/${sessionScope.id}",
+	    method:"GET",
+	    success:function(data){
+	    	$("#myReview").html(data.totalElements);
+	    },
+	})
+	
+	// 작성글 토탈
+	$.ajax({ 
+	   	url:"${pageContext.request.contextPath}/v1/users/reply/${sessionScope.id}",
+	    method:"GET",
+	    success:function(data){
+	    	$("#myReply").html(data.totalElements);
+	    },
+	})
+	
+	// 작성글 토탈
+	$.ajax({ 
+	   	url:"${pageContext.request.contextPath}/v1/users/cart/${sessionScope.id}",
+	    method:"GET",
+	    success:function(data){
+	    	$("#myCart").html(data.totalElements);
+	    },
+	})
 
 	$('#top-post').on('click',function(){
 		function myPost(){
 		    $.ajax({ 
-		       	url:"my_review.do",
+		       	url:"${pageContext.request.contextPath}/v1/users/review/${sessionScope.id}",
 		        method:"GET",
 		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+		        	var reviewList =  "";
+		        	reviewList += '<div class="myPost">'
+			        	reviewList += '<h1>작성 글 보기</h1>'
+			        	reviewList += '<table class="myPost-tb">'
+				        	reviewList += '<caption>Total : '+data.totalElements+'</caption>'
+				        	reviewList += '<colgroup>'						
+					        	reviewList += '<col style="width:10%"/>'
+					        	reviewList += '<col style="width:55%"/>'
+					        	reviewList += '<col style="width:15%"/>'
+					        	reviewList += '<col style="width:10%"/>'
+					        	reviewList += '<col style="width:10%"/>'
+				        	reviewList += '</colgroup>'						
+				        	reviewList += '<thead>'						
+					        	reviewList += '<tr class="myPost-tr">'						
+						        	reviewList += '<th>번호</th>'						
+						        	reviewList += '<th>제목</th>'						
+						        	reviewList += '<th>날짜</th>'						
+						        	reviewList += '<th>조회 수</th>'						
+						        	reviewList += '<th>댓글 수</th>'						
+					        	reviewList += '</tr>'						
+				        	reviewList += '</thead>'						
+				        	reviewList += '<tbody>'
+				        		
+							for (var i = 0; i < data.content.length; i++) {
+								reviewList += '<tr class="myPost-tr">'
+									reviewList += '<td>'+(i+1)+'</td>'
+									reviewList += '<td class="myPost-tdTitle">'+data.content[i].reviewTitle+'</td>'
+									reviewList += '<td>'+data.content[i].regdate.slice(0, 10)+'</td>'
+									reviewList += '<td>'+data.content[i].viewCount+'</td>'
+									reviewList += '<td>'+data.content[i].viewCount+'</td>'
+								reviewList += '</tr>'
+							}
+							reviewList += '</tbody>'
+						reviewList += '</table>'
+					reviewList += '</div>'
+
+				$(".content").html(reviewList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		myPost();
 	})
-	$('#top-reply').on('click',function(){
-		function myReply(){
-		    $.ajax({ 
-		       	url:"my_reply.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	
+	$('#top-reply').on('click', function() {
+		function myReply() {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/v1/users/reply/${sessionScope.id}",
+				method : "GET",
+				success : function(data) {
+					var replyList =  "";
+		        	replyList += '<div class="myReply">'
+			        	replyList += '<h1>작성 댓글 보기</h1>'
+			        	replyList += '<table class="myReply-tb">'
+				        	replyList += '<caption>Total : '+data.totalElements+'</caption>'
+				        	replyList += '<colgroup>'						
+					        	replyList += '<col style="width:8%"/>'
+					        	replyList += '<col style="width:57%"/>'
+					        	replyList += '<col style="width:15%"/>'
+					        	replyList += '<col style="width:20%"/>'
+				        	replyList += '</colgroup>'						
+				        	replyList += '<thead>'						
+					        	replyList += '<tr class="myReply-tr">'						
+						        	replyList += '<th>번호</th>'						
+						        	replyList += '<th>댓글</th>'						
+						        	replyList += '<th>날짜</th>'						
+						        	replyList += '<th>원문</th>'						
+					        	replyList += '</tr>'						
+				        	replyList += '</thead>'						
+				        	replyList += '<tbody>'
+				        		
+							for (var i = 0; i < data.content.length; i++) {
+								replyList += '<tr class="myReply-tr">'
+									replyList += '<td>'+(i+1)+'</td>'
+									replyList += '<td class="myReply-tdReply">'+data.content[i].content+'</td>'
+									replyList += '<td>'+data.content[i].regdate.slice(0, 10)+'</td>'
+									replyList += '<td class="myReply-tdTitle">'+data.content[i].content+'</td>'
+								replyList += '</tr>'
+							}
+							replyList += '</tbody>'
+						replyList += '</table>'
+					replyList += '</div>'
+					$(".content").html(replyList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		myReply();
 	})
-	$('#side-order').on('click',function(){
-		function my_order(){
-		    $.ajax({ 
-		       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
-		        method:"GET",
-		        success:function(data){
-		        	var orderList = "";
-			        	orderList += '<div class="content">'
-				        	orderList += '<div class="order-box">'
-					        	orderList += '<h2>주문 내역</h2>'
-					        	orderList += '<ul class="order-list">'
-					        	
-					        	for (var i=0; i<data.length; i++) {
-						        	orderList += '<li class="order">'
-							        	orderList += '<a class="" href="">'
-								        	orderList += '<div>'
-									        	orderList += '<div class="myOrder-num">'+data[i].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
-									        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'
-								        	orderList += '</div>'
-								        	orderList += '<span class="detailBtn">></span>'
-							        	orderList += '</a>'
-						        	orderList += '</li>'
-		    			    	}
-					        	
-					        	orderList += '</ul>'
-				        	orderList += '</div>'
-			        	orderList += '</div>'
-		            $(".content").html(orderList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$('#side-order').on('click',function() {
+		function my_order() {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+				method : "GET",
+				success : function(data) {
+					var orderList = "";
+					orderList += '<div class="content">'
+						orderList += '<div class="order-box">'
+							orderList += '<h2>주문 내역</h2>'
+							orderList += '<ul class="order-list">'
+
+							for (var i = 0; i < data.length; i++) {
+								orderList += '<li class="order">'
+									orderList += '<a class="" href="#" onclick="orderDetail('+data[i].id+')">'
+										orderList += '<div>'
+											orderList += '<div class="myOrder-num">'+ data[i].o_date.replace('-','').replace('-','').slice(0, 8)+ (data[i].id + "").padStart(8,'0')+ '</div>'
+											orderList += '<div class="myOrder-date">'+ data[i].o_date + '</div>'
+										orderList += '</div>'
+										orderList += '<span class="detailBtn">></span>'
+									orderList += '</a>'
+								orderList += '</li>'
+							}
+
+							orderList += '</ul>'
+						orderList += '</div>'
+					orderList += '</div>'
+					$(".content").html(orderList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		my_order();
 	})
 	
+	function orderDetail(id) {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+		method : "GET",
+		success : function(data) {
+			var orderList = "";
+			orderList += '<div class="content">'
+				orderList += '<div class="order-box">'
+					orderList += '<h2>주문 내역</h2>'
+					orderList += '<ul class="order-list">'
+
+					for (var i = 0; i < data.length; i++) {
+						orderList += '<li class="order">'
+							orderList += '<a class="" href="#" onclick="orderDetail('+data[i].id+')">'
+								orderList += '<div>'
+									orderList += '<div class="myOrder-num">'+ data[i].o_date.replace('-','').replace('-','').slice(0, 8)+ (data[i].id + "").padStart(8,'0')+ '</div>'
+									orderList += '<div class="myOrder-date">'+ data[i].o_date + '</div>'
+								orderList += '</div>'
+								orderList += '<span class="detailBtn">></span>'
+							orderList += '</a>'
+						orderList += '</li>'
+					}
+
+					orderList += '</ul>'
+				orderList += '</div>'
+			orderList += '</div>'
+			$(".content").html(orderList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+		},
+
+	})
+}
+
 	//sidebar ajax
-	$('#side-profile').on('click',function(){
-		function updateProfile(){
-		    $.ajax({ 
-		       	url:"updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$('#side-profile').on('click', function() {
+		function updateProfile() {
+			$.ajax({
+				url : "updateform.do",
+				method : "GET",
+				success : function(data) {
+					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		updateProfile();
 	})
-	$('#side-pwd').on('click',function(){
-		function updatePwd(){
-		    $.ajax({ 
-		       	url:"pwd_updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$('#side-pwd').on('click', function() {
+		function updatePwd() {
+			$.ajax({
+				url : "pwd_updateform.do",
+				method : "GET",
+				success : function(data) {
+					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		updatePwd();
 	})
-	$('#side-recent').on('click',function(){
-		function recentSearch(){
-		    $.ajax({ 
-		       	url:"recentSearch.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$('#side-recent').on('click', function() {
+		function recentSearch() {
+			$.ajax({
+				url : "recentSearch.do",
+				method : "GET",
+				success : function(data) {
+					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 		recentSearch();
 	})
-	
-	
-	
-	
+
 	//회원탈퇴묻기
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/private/delete.do";
+	function deleteConfirm() {
+		let isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
+		if (isDelete) {
+			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
 		} else {
 			location.reload();
 		}
