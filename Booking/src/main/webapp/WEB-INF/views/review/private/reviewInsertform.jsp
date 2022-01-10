@@ -30,7 +30,7 @@
 							</colgroup>
 							<tr>
 								<td rowspan="3">
-									<button id="bookSearch" class="card"><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
+									<button id="bookSearch" class="card"><span>책 검색</span><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
 								</td>
 								<td class="td-title"> > 제목</td>
 								<td class="td-title" ><input type="text" name="bookTitle" id="bookTitle" value="" disabled/></td>
