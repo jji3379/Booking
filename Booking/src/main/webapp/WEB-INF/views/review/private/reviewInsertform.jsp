@@ -86,7 +86,7 @@
 			<input type="hidden" name="imagePath" id="imagePath" value="" />
 			<input type="hidden" name="rating" id="rating"/>
 		</div>
-		<button id="insertBtn" type="submit" onclick="postAjax();">저장</button>
+		<button id="insertBtn" type="button" onclick="postAjax();">저장</button>
 	</form>
 	</div>
 </div>
@@ -135,10 +135,10 @@
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(data),
 			success:function(data) {
-				console.log("성공");
+				location.href="${pageContext.request.contextPath }/review";
 			},
 			error : function(data) {
-				console.log("오류");
+				alert('저장 실패');
 			}
 		});
 	} 
