@@ -74,7 +74,7 @@
 			<ul >
 				<li><a class="listBtn" href="${pageContext.request.contextPath }/review">목록보기</a></li>
 				<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
-					<li><a class="listBtn" href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
+					<li><a class="listBtn" href="${pageContext.request.contextPath }/private/review/update/${dto.id }">수정</a></li>
 					<li><a class="listBtn" href="#" onclick="deletea();">삭제</a></li>
 				</c:if>
 			</ul>
@@ -158,7 +158,7 @@
 												</form> 
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
-													<form class="comment-form reviewUpdate-form"
+													<form class="comment-form commentUpdate-form"
 														action="private/reviewComment_update.do" method="post">
 														<input type="hidden" name="id" value="${tmp.id }" />
 														<textarea name="content">${tmp.content }</textarea>
@@ -202,7 +202,7 @@
 												</form> 
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
-													<form class="comment-form reviewUpdate-form"
+													<form class="comment-form commentUpdate-form"
 														action="private/reviewComment_update.do" method="post">
 														<input type="hidden" name="id" value="${tmp.id }" />
 														<textarea name="content">${tmp.content }</textarea>
@@ -269,6 +269,7 @@
 		</div>
 	</div>
 <script>
+
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review/reply/${reviewId}",
 		method:"GET",
@@ -289,16 +290,6 @@
 		$(document).find('.input-content').val(content);
 	})
 	
-	function deletea() {
-		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
-			method:"DELETE",
-			dataType : "json",
-			success:function(data){
-				window.location = '${pageContext.request.contextPath}/review'; 
-			}
-		});
-	}
 	$(document).ready(function(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
@@ -336,54 +327,8 @@
 			}
 		});
 	}); 
-
-	// by남기. _210303
-	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
-	$(document).on("click",".update-link", function(){
-		/*
-			click 이벤트가 일어난 댓글 수정 링크에 저장된 data-num 속성의 값을 
-			읽어와서 id 선택자를 구성한다.
-		*/
-		var selector="#comment"+$(this).attr("data-num");
-		//구성된 id  선택자를 이용해서 원하는 li 요소에서 .update-form 을 찾아서 동작하기
-		$(selector)
-		.find(".reviewUpdate-form")
-		.slideToggle();
-		
-		if($(this).text()=="수정"){//링크 text를 답글일때 클릭하면 
-			$(this).text("취소");//취소로 바꾸고 
-		}else{//취소일때 클릭하면 
-			$(this).text("수정");//답들로 바꾼다. 
-		}	
-	});
-	//로딩한 jquery.form.min.js jquery플러그인의 기능을 이용해서 댓글 수정폼을 
-	//ajax 요청을 통해 전송하고 응답받기
-	$(document).on("submit", ".reviewUpdate-form", function(){
-		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
-		$(this).ajaxSubmit(function(data){
-			//console.log(data);
-			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
-			var selector="#comment"+data.id; //"#comment6" 형식의 선택자 구성
-			
-			//댓글 수정 폼을 안보이게 한다. 
-			$(selector).find(".reviewUpdate-form").slideUp();
-			//pre 요소에 출력된 내용 수정하기
-			$(selector).find(".reviewUpdate-form").text(data.content);
-		});
-		//폼 전송을 막아준다.
-		return false;
-	});
 	
-	$(document).on("click",".delete-link", function(){
-		//삭제할 글번호 
-		var num=$(this).attr("data-num");
-		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath }"+
-			"/review/private/reviewComment_delete.do?num="+num+"&refGroup=${dto.id}";
-		}
-	});
-	//답글 달기 링크를 클릭했을때 실행할 함수 등록
+	//by준영, 답글 달기 링크 클릭시 슬라이드 토글 
 	$(document).on("click",".reply-link", function(){
 		//로그인 여부
 		var isLogin="${not empty sessionScope.id}";
@@ -398,13 +343,27 @@
 		$(selector)
 		.find(".reply-form")
 		.slideToggle();
+	});
+	//by준영, 댓글 수정 링크 클릭시 슬라이드 토글
+	$(document).on("click",".update-link", function(){
+		/*
+			click 이벤트가 일어난 댓글 수정 링크에 저장된 data-num 속성의 값을 
+			읽어와서 id 선택자를 구성한다.
+		*/
+		var selector="#comment"+$(this).attr("data-num");
+		//구성된 id  선택자를 이용해서 원하는 li 요소에서 .update-form 을 찾아서 동작하기
+		$(selector)
+		.find(".commentUpdate-form")
+		.slideToggle();
 		
-		/* if($(this).text()=="답글"){//링크 text를 답글일때 클릭하면 
+		if($(this).text()=="수정"){//링크 text를 답글일때 클릭하면 
 			$(this).text("취소");//취소로 바꾸고 
 		}else{//취소일때 클릭하면 
-			$(this).text("답글");//답들로 바꾼다. 
-		}	*/
+			$(this).text("수정");//답들로 바꾼다. 
+		}	
 	});
+	
+	//by 준영, 댓글 추가 폼 제출 시 함수
 	$(document).on("submit",".comment-form", function(){
 		//로그인 여부
 		var isLogin=${not empty sessionScope.id};
@@ -415,92 +374,82 @@
 			return false; //폼 전송 막기 		
 		}
 	});
+	//by 준영, 대댓글 작성폼 제출 시 함수
+	$(document).on("submit",".reply-form", function(){
+		//로그인 여부
+		var isLogin=${not empty sessionScope.id};
+		if(isLogin == false){
+			alert("로그인 페이지로 이동합니다.")
+			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
+					"url=${pageContext.request.contextPath }/review/${dto.id}";
+			return false; //폼 전송 막기 		
+		}
+	});
+	//by준영, 댓글 수정 폼 제출 시 함수
+	$(document).on("submit", ".commentUpdate-form", function(){
+		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
+		$(this).ajaxSubmit(function(data){
+			//console.log(data);
+			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
+			var selector="#comment"+data.id; //"#comment6" 형식의 선택자 구성
+			
+			//댓글 수정 폼을 안보이게 한다. 
+			$(selector).find(".commentUpdate-form").slideUp();
+			//pre 요소에 출력된 내용 수정하기
+			$(selector).find(".commentUpdate-form").text(data.content);
+		});
+		//폼 전송을 막아준다.
+		return false;
+	});
+	
+
+	
+	//by 준영, 댓글 수정 폼 제출시 로그인필터
+	$(document).on("submit",".commentUpdate-form", function(){
+		//로그인 여부
+		var isLogin=${not empty sessionScope.id};
+		if(isLogin == false){
+			alert("로그인 페이지로 이동합니다.")
+			location.reload();
+			//location.href="${pageContext.request.contextPath }/users/login_form.do?"+
+				//	"url=${pageContext.request.contextPath }/review/${dto.id}";
+			return false; //폼 전송 막기 		
+		}
+	});
+	//by준영, 삭제처리 시 컨펌 함수
 	function deleteConfirm(){
 		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
 		if(isDelete){
 			location.href="reviewDelete.do?num=${dto.id}";
 		}
 	}
-	
-	//페이지가 처음 로딩될때 1page 를 보여준다고 가정
-	var currentPage=1;
-	//전체 페이지의 수를 javascript 변수에 담아준다.
-	//var totalPageCount=${totalPageCount};
-	//현재 로딩중인지 여부
-	var isLoading=false;
-	
-	/*
-	페이지 로딩 시점에 document 의 높이가 window 의 실제 높이 보다 작고
-	전체 페이지의 갯수가(totalPageCount) 현재페이지(currentPage)
-	보다 크면 추가로 댓글을 받아오는 ajax 요청을 해야한다.
-	*/
-	var dH=$(document).height();//문서의 높이
-	var wH=window.screen.height;//window 의 높이
-	
-	//if(dH < wH && totalPageCount > currentPage){
-		//로딩 이미지 띄우기
-		$(".loader").show();
-		
-		currentPage++; //페이지를 1 증가 시키고 
-		//해당 페이지의 내용을 ajax  요청을 해서 받아온다. 
-		/*
-		$.ajax({
-			url:"reviewCommentList.do",
-			method:"get",
-			data:{pageNum:currentPage, refGroup:${dto.id}},
-			success:function(data){
-				console.log(data);
-				//data 가 html 마크업 형태의 문자열 
-				$(".comments ul").append(data);
-				//로딩 이미지를 숨긴다. 
-				$(".loader").hide();
-			}
-		});
-		*/
-	//}	
-	
-	//웹브라우저에 scoll 이벤트가 일어 났을때 실행할 함수 등록 
-	$(window).on("scroll", function(){
-		
-		//위쪽으로 스크롤된 길이 구하기
-		var scrollTop=$(window).scrollTop();
-		//window 의 높이
-		var windowHeight=$(window).height();
-		//document(문서)의 높이
-		var documentHeight=$(document).height();
-		//바닥까지 스크롤 되었는지 여부
-		var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
-		if(isBottom){//만일 바닥까지 스크롤 했다면...
-			if(currentPage == totalPageCount || isLoading){//만일 마지막 페이지 이면 
-				return; //함수를 여기서 종료한다. 
-			}
-			//현재 로딩 중이라고 표시한다. 
-			isLoading=true;
-			//로딩 이미지 띄우기
-			$(".loader").show();
-			
-			currentPage++; //페이지를 1 증가 시키고 
-			//해당 페이지의 내용을 ajax  요청을 해서 받아온다
-			/*
+	//by준영, 게시글 삭제 함수
+	function deletea() {
+		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
+		if(isDelete){
 			$.ajax({
-				url:"reviewCommentList.do",
-				method:"get",
-				data:{pageNum:currentPage, refGroup:${dto.id}},
+				url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
+				method:"DELETE",
+				dataType : "json",
 				success:function(data){
-					console.log(data);
-					//data 가 html 마크업 형태의 문자열 
-					$(".comments ul").append(data);
-					//로딩 이미지를 숨긴다. 
-					$(".loader").hide();
-					//로딩중이 아니라고 표시한다.
-					isLoading=false;
+					window.location = '${pageContext.request.contextPath}/review'; 
 				}
 			});
-			*/
 		}
-	});	
+		
+	}
+	//by준영, 댓글 삭제 클릭시 함수
+	$(document).on("click",".delete-link", function(){
+		//삭제할 글번호 
+		var num=$(this).attr("data-num");
+		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath }"+
+			"/review/private/reviewComment_delete.do?num="+num+"&refGroup=${dto.id}";
+		}
+	});
 	
-	
+		
 </script>
 </body>
 </html>
