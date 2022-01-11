@@ -135,9 +135,14 @@
 			$(opener.document).find('#imagePath').val(image);
 			$(opener.document).find('#selected').attr("src" , image );
 			$(opener.document).find('#selected').css({
-				"width":"100%" ,
-				"height":"100%",
-				"border-radius":"7px"
+				"width":"147px" ,
+				"height":"167px",
+				"border":"1px solid #333",
+				"border-radius":"6px",
+				"position":"absolute",
+				"top":"-2px",
+				"left":"-1px"
+				
 			});
 			
 			window.close();
