@@ -137,7 +137,6 @@
 							}
 						</script>
 					</div>
-<<<<<<< HEAD
 					<div class="recent-listbody" id="recentSearchList">
 							<!-- 
 						<div class="recent-li">
