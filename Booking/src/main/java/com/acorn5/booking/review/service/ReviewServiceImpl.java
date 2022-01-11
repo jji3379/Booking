@@ -141,8 +141,8 @@ public class ReviewServiceImpl implements ReviewService{
 			[ 검색 키워드에 관련된 처리 ]
 			-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다 _210303	
 		*/
-		String keyword=request.getParameter("keyword");
-		String condition=request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String condition = request.getParameter("condition");
 		System.out.println("keyword : "+keyword);
 		System.out.println("condition : "+condition);
 		// by남기, 만일 키워드가 넘어오지 않는다면 _210303
@@ -154,7 +154,7 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		// by남기, 특수기호를 인코딩한 키워드를 미리 준비한다 _210303
-		String encodedK=URLEncoder.encode(keyword);
+		String encodedK = URLEncoder.encode(keyword);
 		
 		// by남기, startRowNum 과 endRowNum  을 ReviewDto 객체에 담는다 _210303
 
@@ -191,10 +191,11 @@ public class ReviewServiceImpl implements ReviewService{
 		pageable = new PageRequest(pageable.getPageNumber(), 8, pageable.getSort());
 		OrderSpecifier<?> orderCondition = null;
 		if (pageable.getSort() != null && pageable.getSort().toString().contains("viewCount")) {
-			orderCondition = qReview.viewCount.desc(); //조회순 정렬
+			orderCondition = qReview.viewCount.desc(); // 조회순 정렬
 		} else if (pageable.getSort() != null && pageable.getSort().toString().contains("rating")) {
-			orderCondition = qReview.rating.desc(); //별점순 정렬
-		} else if (pageable.getSort() == null || pageable.getSort().toString().contains("regdate") || orderCondition == null) {
+			orderCondition = qReview.rating.desc(); // 별점순 정렬
+		} else if (pageable.getSort() == null || pageable.getSort().toString().contains("regdate")
+				|| orderCondition == null) {
 			orderCondition = qReview.regdate.desc(); // 최신순 정렬
 		}
 		
@@ -335,18 +336,18 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public void saveComment(HttpServletRequest request) {
 		// by남기, 댓글 작성자(로그인된 아이디) _210303
-		Long writer=(Long)request.getSession().getAttribute("id");
+		Long writer = (Long) request.getSession().getAttribute("id");
 		// by남기, 폼 전송되는 댓글의 정보 얻어내기 _210303
-		Long ref_group=Long.parseLong(request.getParameter("refGroup"));
-		Long target_id=Long.parseLong(request.getParameter("target_id"));
-		String content=request.getParameter("content");
+		Long ref_group = Long.parseLong(request.getParameter("refGroup"));
+		Long target_id = Long.parseLong(request.getParameter("target_id"));
+		String content = request.getParameter("content");
 		/*
 		 *  by남기, 
 		 * 원글의 댓글은 comment_group 번호가 전송이 안되고
 		 * 댓글의 댓글은 comment_group 번호가 전송이 된다.
 		 * 따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판별할수 있다  _210303
 		 */
-		String comment_group=request.getParameter("commentGroup");
+		String comment_group = request.getParameter("commentGroup");
 		// by남기, 새 댓글의 글번호는 미리 얻어낸다  _210303
 		//int seq=reviewCommentDao.getSequence();
 		// by남기, 저장할 새 댓글 정보를 dto 에 담기 _210303
@@ -355,7 +356,9 @@ public class ReviewServiceImpl implements ReviewService{
 		review.setId(ref_group);
 		//dto.setNum(seq);
 		Users writerId = new Users();
-		writerId.setId(writer);
+		if (writer != null) {
+			writerId.setId(writer);
+		}
 
 		Users targetId = new Users();
 		targetId.setId(target_id);
@@ -380,15 +383,14 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public void deleteComment(HttpServletRequest request) {
 		// by남기, GET 방식 파라미터로 전달되는 삭제할 댓글 번호  _210303
-		Long num=Long.parseLong(request.getParameter("num"));
+		Long num = Long.parseLong(request.getParameter("num"));
 		// by남기, 세션에 저장된 로그인된 아이디 _210303
-		Long id=(Long)request.getSession().getAttribute("id");
+		Long id = (Long) request.getSession().getAttribute("id");
 		// by남기, 댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다 _210303
-		ReviewDtl writer= reviewCommentRepository.findById(num);
+		ReviewDtl writer = reviewCommentRepository.findById(num);
 		Long writerId = writer.getWriter().getId();
-				//reviewCommentDao.getData(num).getWriter();
-		System.out.println("writerId : "+writerId);
-		if(!writerId.equals(id)) {
+		// reviewCommentDao.getData(num).getWriter();
+		if (!writerId.equals(id)) {
 			throw new DBFailException("남의 댓글을 삭제 할수 없습니다.");
 		}
 		reviewCommentRepository.delete(num);
@@ -440,74 +442,6 @@ public class ReviewServiceImpl implements ReviewService{
 		request.setAttribute("totalPageCount", totalPageCount);		
 	}
 	
-	
-	//by욱현. 내가쓴리뷰 모아보기 비즈니스로직(내부 코드는 남기꺼 복붙)_2021309
-	@Override
-	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request) {
-		
-		Long id = (Long)session.getAttribute("id");
-		//UsersDto usersDto = usersdao.getData(id);
-		//mView.addObject("dto", usersDto);
-		
-		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
-		final int PAGE_ROW_COUNT=4;
-		// by남기, 하단 페이지를 몇개씩 표시할 것인지_210303
-		final int PAGE_DISPLAY_COUNT=5;
-				
-		// by남기, 보여줄 페이지의 번호를 일단 1이라고 초기값 지정_210303
-		int pageNum=1;
-		// by남기, 페이지 번호가 파라미터로 전달되는지 읽어와 본다_210303
-		String strPageNum=request.getParameter("pageNum");
-		// by남기, 만일 페이지 번호가 파라미터로 넘어 온다면_210303
-		if(strPageNum != null){
-			// by남기, 숫자로 바꿔서 보여줄 페이지 번호로 지정한다_210303
-			pageNum=Integer.parseInt(strPageNum);
-		}				
-				
-		// by남기, 보여줄 페이지의 시작 ROWNUM_210303
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		// by남기, 보여줄 페이지의 끝 ROWNUM_210303
-		int endRowNum=pageNum*PAGE_ROW_COUNT;
-				
-		
-		// by남기, startRowNum 과 endRowNum  을 ReviewDto 객체에 담는다 _210303
-		Review dto=new Review();
-		dto.setWriter((Users) session.getAttribute("id"));
-		//dto.setStartRowNum(startRowNum);
-		//dto.setEndRowNum(endRowNum);
-				
-		// by남기, ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다 _210303
-		List<Review> list=null;
-		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
-		int totalRow=0;
-		// by남기, 글목록 얻어오기_210303
-		//list=reviewDao.getList(dto);
-		// by남기, 글의 갯수_210303
-		//totalRow=reviewDao.getCount(dto);
-				
-		// by남기, 하단 시작 페이지 번호_210303 
-		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
-		// by남기, 하단 끝 페이지 번호_210303
-		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
-				
-		// by남기, 전체 페이지의 갯수 구하기_210303
-		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
-		if(endPageNum > totalPageCount){
-			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
-		}	
-				
-		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
-		mView.addObject("list", list);
-		mView.addObject("pageNum", pageNum);
-		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);
-		mView.addObject("totalPageCount", totalPageCount);
-		mView.addObject("totalRow", totalRow);
-				
-		return list;
-		
-	}
 	@Override
 	public Page<Review> getBookReview(String isbn, Pageable pageable) {
 		QReview qReview = QReview.review;
@@ -517,7 +451,7 @@ public class ReviewServiceImpl implements ReviewService{
 		OrderSpecifier<?> orderCondition = null;
 		
 		if (pageable.getSort() != null && pageable.getSort().toString().contains("rating")) {
-			orderCondition = qReview.rating.desc(); //별점순 정렬
+			orderCondition = qReview.rating.desc(); // 별점순 정렬
 		} else if (pageable.getSort() == null || pageable.getSort().toString().contains("regdate") || orderCondition == null) {
 			orderCondition = qReview.regdate.desc(); // 최신순 정렬
 		}
@@ -552,6 +486,7 @@ public class ReviewServiceImpl implements ReviewService{
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		Review review = new Review();
 		review.setId(refGroup);
+		
 		Long totalReply = queryFactory.select(qReviewDtl.count())
 				.from(qReviewDtl)
 				.where(qReviewDtl.refGroup.eq(review))

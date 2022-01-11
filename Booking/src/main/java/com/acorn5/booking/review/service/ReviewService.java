@@ -40,9 +40,6 @@ public interface ReviewService {
 	// by남기, 댓글 추가 응답_210303
 	public void moreCommentList(HttpServletRequest request);
 	
-	// by욱현, 내가 쓴 리뷰 모아보기 메소드_2021309
-	public List<ReviewDto> getMyReview(HttpSession session, ModelAndView mView, HttpServletRequest request);
-	
 	// by준익, 책 별 리뷰 조회
 	public Page<Review> getBookReview(String isbn, Pageable pageable);
 

@@ -142,6 +142,7 @@
 	
 	document.querySelector("#writeR").addEventListener("click",function(){
 		if(isLogin == false){			
+			alert("로그인이 필요합니다.");
 			$('#modal-open').trigger('click');
 		}else{
 			location.href="private/reviewInsertform.do";

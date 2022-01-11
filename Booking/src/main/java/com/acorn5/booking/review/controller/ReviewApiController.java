@@ -43,12 +43,6 @@ public class ReviewApiController {
 		@RequestMapping("/review")
 		public Page<Review> list(HttpServletRequest request, Pageable pageable) {
 			
-			Long id=(Long)request.getSession().getAttribute("id");
-			if(id!=null) {
-			//by 우석, view page 에서 cartitem 불러오기_210315 
-			//cartservice.listCart(request); 
-			}
-			
 			return service.getList(request, pageable);
 		}
 		
@@ -58,11 +52,7 @@ public class ReviewApiController {
 				,HttpServletRequest request) {
 			// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
 			//service.getDetail(id);
-			Long loginId=(Long)request.getSession().getAttribute("id");
-			//reviewRepository.addViewCount(id);
-			if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
-				//cartservice.listCart(mView, request); 
-			}
+			
 			// by남기, view page 로 forward 이동해서 응답_210303
 			//mView.setViewName("review/reviewDetail");
 			return service.getDetail(id);

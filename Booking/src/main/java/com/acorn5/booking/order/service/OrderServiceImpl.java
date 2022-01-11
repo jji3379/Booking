@@ -66,9 +66,11 @@ public class OrderServiceImpl implements OrderService {
 		*/
 		Users users = new Users();
 		Long loginId=(Long)request.getSession().getAttribute("id");
-		users.setId(loginId);
-		dto.setBuyer(users);
-		//dto객체 전달해서 db수정
+		if(loginId != null) {
+			users.setId(loginId);
+			dto.setBuyer(users);
+			//dto객체 전달해서 db수정
+		}
 		return orderRepository.save(dto);
 		//dao.insertOrder(dto);
 	}
@@ -178,10 +180,14 @@ public class OrderServiceImpl implements OrderService {
 	
 	//by욱현, order_detail에서 주문내역 디테일 불러오는 로직_2021320
 	@Override
-	public void getOrderDetail(ModelAndView mView, HttpServletRequest request) {
-		Long o_id = Long.parseLong(request.getParameter("o_id"));
-		Order list = orderRepository.findOne(o_id); 
-				//dao.getOrderDetail(o_id);
-		mView.addObject("list", list);
+	public List<Order> getOrderDetail(Long id, HttpServletRequest request) {
+		Long orderId = Long.parseLong(request.getParameter("o_id"));
+		if (orderId != null) {
+			//mView.addObject("list", list);
+			//dao.getOrderDetail(o_id);
+		}
+		// 이거 수정해야됨
+		List<Order> list = orderRepository.findAll();
+		return list;
 	}
 }

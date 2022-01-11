@@ -96,42 +96,40 @@ public class UsersServiceImpl implements UsersService{
 		// id  존재 여부를 리턴해준다. 
 		Users users = usersRepository.findByLoginId(loginId);
 		boolean isExisted = true;
-		if(users != null) {
+		if (users != null) {
 			isExisted = false;
 		}
 		return isExisted;
 	}
 	//by욱현.로그인폼관련 로직_2021222
 	@Override
-	public void loginformLogic(HttpServletRequest request, 
-				ModelAndView mView) {
+	public void loginformLogic(HttpServletRequest request, ModelAndView mView) {
 		// GET 방식 파라미터 url 이라는 이름으로 전달되는 값이 있는지 읽어와보기
-		String url=request.getParameter("url");
-		//만일 넘어오는 값이 없다면 
-		if(url==null){
-			//로그인 후에  home.do 요청이 되도록 절대 경로를 구성한다.
-			String cPath=request.getContextPath();
-			url=cPath+"/home.do";
+		String url = request.getParameter("url");
+		// 만일 넘어오는 값이 없다면
+		if (url == null) {
+			// 로그인 후에 home.do 요청이 되도록 절대 경로를 구성한다.
+			String cPath = request.getContextPath();
+			url = cPath + "/home.do";
 		}
 		//쿠키에 저장된 아이디와 비밀번호를 담을 변수
-		String savedId="";
-		String savedPwd="";
-		//쿠키에 저장된 값을 위의 변수에 저장하는 코드
-		Cookie[] cooks=request.getCookies();
-		if(cooks!=null){
-			//반복문 돌면서 쿠키객체를 하나씩 참조해서 
-			for(Cookie tmp: cooks){
-				//저장된 키값을 읽어온다.
-				String key=tmp.getName();
-				//만일 키값이 savedId 라면 
-				if(key.equals("savedId")){
-					//쿠키 value 값을 savedId 라는 지역변수에 저장
-					savedId=tmp.getValue();
+		String savedId = "";
+		String savedPwd = "";
+		// 쿠키에 저장된 값을 위의 변수에 저장하는 코드
+		Cookie[] cooks = request.getCookies();
+		if (cooks != null) {
+			// 반복문 돌면서 쿠키객체를 하나씩 참조해서
+			for (Cookie tmp : cooks) {
+				// 저장된 키값을 읽어온다.
+				String key = tmp.getName();
+				// 만일 키값이 savedId 라면
+				if (key.equals("savedId")) {
+					// 쿠키 value 값을 savedId 라는 지역변수에 저장
+					savedId = tmp.getValue();
 				}
-				if(key.equals("savedPwd")){
-					savedPwd=tmp.getValue();
+				if (key.equals("savedPwd")) {
+					savedPwd = tmp.getValue();
 				}
-				
 			}
 		}			
 		//view page 에서 필요한 데이터를 담는다. 
@@ -160,64 +158,63 @@ public class UsersServiceImpl implements UsersService{
 		 */
 		Users dto = new Users();
 		
-		Users findById = usersRepository.findByLoginId(loginId); 
-		if(findById==null) {
-			throw new DBFailException("아이디가 없습니다."); 
-		} //by욱현.미등록 아이디에 관한 예외처리 수정_21310
+		Users findById = usersRepository.findByLoginId(loginId);
+		if (findById == null) {
+			throw new DBFailException("아이디가 없습니다.");
+		} // by욱현.미등록 아이디에 관한 예외처리 수정_21310
 		
-		String savedPwd = findById.getPwd(); 
-		System.out.println("savePwd : " +savedPwd);
-		if(savedPwd==null) {
+		String savedPwd = findById.getPwd();
+		System.out.println("savePwd : " + savedPwd);
+		if (savedPwd == null) {
 			throw new DBFailException("비밀번호가 일치하지 않습니다.");
 		}
 		
-	    boolean isEqual = BCrypt.checkpw(pwd, savedPwd); 
-	    if(isEqual) { 
-		    dto.setLoginId(loginId);
-		    dto.setPwd(savedPwd); 
-	    } 
-	    else { 
-		    throw new DBFailException("비밀번호가 일치하지 않습니다.");
-	    }
-		 
-		//2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=findById.getLoginId().equals(loginId);
-		
+		boolean isEqual = BCrypt.checkpw(pwd, savedPwd);
+		if (isEqual) {
+			dto.setLoginId(loginId);
+			dto.setPwd(savedPwd);
+		} else {
+			throw new DBFailException("비밀번호가 일치하지 않습니다.");
+		}
+
+		// 2. DB 에 실제로 존재하는 (유효한) 정보인지 확인한다.
+		boolean isValid = findById.getLoginId().equals(loginId);
+
 		Long id = findById.getId();
-		
-		//3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
-		if(isValid) {
-			//HttpSession 객체를 이용해서 로그인 처리를 한다. 
+
+		// 3. 유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디혹은 비밀번호가 틀렸다고 응답
+		if (isValid) {
+			// HttpSession 객체를 이용해서 로그인 처리를 한다.
 			request.getSession().setAttribute("id", id);
 			request.getSession().setAttribute("loginId", loginId);
 		}
-		//체크박스를 체크 하지 않았으면 null 이다. 
-		String isSave=request.getParameter("isSave");
-		
-		if(isSave == null){//체크 박스를 체크 안했다면
-			//저장된 쿠키 삭제 
-			Cookie idCook=new Cookie("savedId", loginId);
-			idCook.setMaxAge(0);//삭제하기 위해 0 으로 설정 
+		// 체크박스를 체크 하지 않았으면 null 이다.
+		String isSave = request.getParameter("isSave");
+
+		if (isSave == null) {// 체크 박스를 체크 안했다면
+			// 저장된 쿠키 삭제
+			Cookie idCook = new Cookie("savedId", loginId);
+			idCook.setMaxAge(0);// 삭제하기 위해 0 으로 설정
 			response.addCookie(idCook);
-			
-			Cookie pwdCook=new Cookie("savedPwd", pwd);
+
+			Cookie pwdCook = new Cookie("savedPwd", pwd);
 			pwdCook.setMaxAge(0);
 			response.addCookie(pwdCook);
-		}else{//체크 박스를 체크 했다면 
-			//아이디와 비밀번호를 쿠키에 저장
-			Cookie idCook=new Cookie("savedId", loginId);
-			idCook.setMaxAge(60*60*24);//하루동안 유지
+		} else {// 체크 박스를 체크 했다면
+				// 아이디와 비밀번호를 쿠키에 저장
+			Cookie idCook = new Cookie("savedId", loginId);
+			idCook.setMaxAge(60 * 60 * 24);// 하루동안 유지
 			response.addCookie(idCook);
-			
-			Cookie pwdCook=new Cookie("savedPwd", pwd);
-			pwdCook.setMaxAge(60*60*24);
+
+			Cookie pwdCook = new Cookie("savedPwd", pwd);
+			pwdCook.setMaxAge(60 * 60 * 24);
 			response.addCookie(pwdCook);
 		}
-		//view page 에서 필요한 데이터를 request 에 담고
+		// view page 에서 필요한 데이터를 request 에 담고
 		request.setAttribute("dto", dto);
-		//request.setAttribute("encodedUrl", encodedUrl);
+		// request.setAttribute("encodedUrl", encodedUrl);
 		request.setAttribute("url", url);
-		request.setAttribute("isValid", isValid);	
+		request.setAttribute("isValid", isValid);
 		
 		return dto;
 	}
@@ -229,14 +226,17 @@ public class UsersServiceImpl implements UsersService{
 		Long id=(Long)session.getAttribute("id");
 		//개인정보를 읽어온다.
 		//Users dto= dao.getData(id);
-	 	Users dto = usersRepository.findById(id);
-	 			
+		Users dto = new Users();
+		if (id != null) {
+			dto = usersRepository.findById(id);
+		}
 		return dto;
 	}
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
 	@Override
 	public void deleteUser(HttpSession session) {
+		// ***** 수정 필요 *****
 		//로그인된 아이디를 읽어온다. 
 		Long id=(Long)session.getAttribute("id");
 		//DB 에서 삭제
@@ -258,33 +258,34 @@ public class UsersServiceImpl implements UsersService{
 	public void updateUserPwd(ModelAndView mView, Users dto, HttpServletRequest request,
 			HttpSession session) {
 		//로그인 된 아이디를 읽어와서 
-		Long id=(Long)session.getAttribute("id");
-		
+		Long id = (Long) session.getAttribute("id");
+
 		String pwd = request.getParameter("pwd");
 		String nP = request.getParameter("newPwd");
-	
-		String savedPwd = usersRepository.findById(id).getPwd(); 
-				//dao.getData(id).getPwd();//db에서 불러온 기존 pwd(인코딩된 상태)
-		Users dto2 = usersRepository.findById(id);
-		
-		boolean isSuccess= BCrypt.checkpw(pwd, savedPwd); 
-		//만일 성공이면 
-		if(isSuccess) {
-			String newPwd=
-					new BCryptPasswordEncoder().encode(nP);
-			//dto.setPwd(savedPwd);
-			//dto.setId(id);
-			dto2.setPwd(newPwd);
-			usersRepository.save(dto2);
-			//dao.updatePwd(dto);
-			//비밀번호가 수정되었으므로 다시 로그인 하도록 로그인 아웃 처리를 한다.
-			session.removeAttribute("id");
+		String savedPwd = "";
+		Users dto2 = new Users();
+		if (id != null) {
+			savedPwd = usersRepository.findById(id).getPwd();
+			// dao.getData(id).getPwd();//db에서 불러온 기존 pwd(인코딩된 상태)
+			dto2 = usersRepository.findById(id);
 		}
 		
+		boolean isSuccess = BCrypt.checkpw(pwd, savedPwd);
+		// 만일 성공이면
+		if (isSuccess) {
+			String newPwd = new BCryptPasswordEncoder().encode(nP);
+			// dto.setPwd(savedPwd);
+			// dto.setId(id);
+			dto2.setPwd(newPwd);
+			usersRepository.save(dto2);
+			// dao.updatePwd(dto);
+			// 비밀번호가 수정되었으므로 다시 로그인 하도록 로그인 아웃 처리를 한다.
+			session.removeAttribute("id");
+		}
 		//성공 여부를 ModelAndView 객체에 담는다.
 		mView.addObject("isSuccess", isSuccess);
-		
 	}
+	
 	//by욱현.프로필이미지 업로드 관련 로직_2021222
 	@Override
 	public void saveProfileImage(MultipartFile image, HttpServletRequest request) {
@@ -343,7 +344,7 @@ public class UsersServiceImpl implements UsersService{
 	public Page<Review> getMyReview(Long id, Pageable pageable) {
 		Users userId = new Users();
 		userId.setId(id);
-		
+
 		QReview qReview = QReview.review;
 		QUsers qUsers = QUsers.users;
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
@@ -401,6 +402,7 @@ public class UsersServiceImpl implements UsersService{
 		
 		return new PageImpl<Cart>(list.getResults(), pageable, list.getTotal());
 	}
+	
 	@Override
 	public Page<Search> getMySearch(Long id, Pageable pageable) {
 		Users userId = new Users();

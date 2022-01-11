@@ -50,6 +50,9 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	@Autowired
 	private SearchRepository searchRepository; 
 	
+	@Autowired
+    private CartService cartservice;
+	
     /**
      * Tiles를 사용하지 않은 일반적인 형태
      */    
@@ -100,7 +103,7 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 		Long id = (Long) session.getAttribute("id");
 		//by 우석, view page 에서 cartitem 불러오기_210315
 		if (id != null) {
-			// cartservice.listCart(mView, request);
+			cartservice.listCart(mView, request);
 			Users userId = new Users();
 			userId.setId(id);
 			
@@ -132,12 +135,12 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	@RequestMapping("/booking.do")
 	@ResponseBody
 	public Map<String, Object> booking() {
-		//책을 랜덤으로 추천해야 하니까
-		int ran = (int) (Math.random()*300);
+		// 책을 랜덤으로 추천해야 하니까
+		int ran = (int) (Math.random() * 300);
 		// 부킹버튼을 눌러 요청하는순간 올랜덤 검색 로직 실행 및 이미지경로와 isbn만 맵객체에 넣어서 받기
-		Map<String, Object> data = service.recommendBook("sim",1, ran);
-		// 뷰페이지로 이동 후  자바스크립트로 추출 (ajax로 그부분만 뿌려주기) 
-		
+		Map<String, Object> data = service.recommendBook("sim", 1, ran);
+		// 뷰페이지로 이동 후 자바스크립트로 추출 (ajax로 그부분만 뿌려주기)
+
 		return data;
 	}
 	

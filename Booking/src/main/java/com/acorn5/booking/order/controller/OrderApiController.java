@@ -32,7 +32,7 @@ public class OrderApiController {
 	public List<Order> myOrder(@PathVariable Long id, HttpServletRequest request) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
 		//id = (Long) session.getAttribute("id");
-		Users dto = usersRepository.findById(id); 
+		//Users dto = usersRepository.findById(id); 
 				//dao.getData(id);
 		//mView.addObject("dto", dto);
 		
