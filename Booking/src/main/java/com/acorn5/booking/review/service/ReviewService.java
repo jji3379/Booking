@@ -50,5 +50,5 @@ public interface ReviewService {
 	public Double reviewAvgRating(String isbn);
 	
 	// by준익, 리뷰의 댓글 총 개수 조회
-	public int reviewTotalReply(Long refGroup);
+	public Long reviewTotalReply(Long refGroup);
 }

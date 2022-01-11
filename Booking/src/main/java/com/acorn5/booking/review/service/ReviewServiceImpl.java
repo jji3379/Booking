@@ -46,6 +46,7 @@ import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
 import com.acorn5.booking.review.entity.QReview;
+import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
@@ -350,6 +351,8 @@ public class ReviewServiceImpl implements ReviewService{
 		//int seq=reviewCommentDao.getSequence();
 		// by남기, 저장할 새 댓글 정보를 dto 에 담기 _210303
 		ReviewDtl dto=new ReviewDtl();
+		Review review=new Review();
+		review.setId(ref_group);
 		//dto.setNum(seq);
 		Users writerId = new Users();
 		writerId.setId(writer);
@@ -360,7 +363,7 @@ public class ReviewServiceImpl implements ReviewService{
 		dto.setWriter(writerId);
 		dto.setTarget_id(targetId);
 		dto.setContent(content);
-		dto.setRefGroup(ref_group);
+		dto.setRefGroup(review);
 		if(comment_group == null) {// by남기, 원글의 댓글인 경우 _210303 
 			// by남기, 댓글의 글번호와 comment_group 번호를 같게 한다 _210303
 			dto.setCommentGroup(reviewCommentRepository.findByNextId());
@@ -543,8 +546,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return avgRating;
 	}
 	@Override
-	public int reviewTotalReply(Long refGroup) {
-		int totalReply = reviewCommentRepository.findByRefGroup(refGroup).size();
+	public Long reviewTotalReply(Long refGroup) {
+		//int totalReply = reviewCommentRepository.findByRefGroup(refGroup).size();
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		Review review = new Review();
+		review.setId(refGroup);
+		Long totalReply = queryFactory.select(qReviewDtl.count())
+				.from(qReviewDtl)
+				.where(qReviewDtl.refGroup.eq(review))
+				.fetchOne();
 		return totalReply;
 	}
 }
