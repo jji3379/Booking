@@ -78,7 +78,7 @@
 				<div class="section-name">북킹 소개</div>
 			</div>
 			<button class="logoutBtn">
-				<div>로그아웃</div>
+				<a href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 			</button>
 		</div>
 		<div class="content">
@@ -86,7 +86,7 @@
 				<li class="part">
 					<div class="part-header">
 						<span>최근 주문내역</span>
-						<a href="">주문전체보기 ></a>
+						<a href="my_order.do">주문전체보기 ></a>
 					</div>
 					<div id="myOrder" class="part-body">
 						<table>
@@ -121,7 +121,7 @@
 				<li class="part">
 					<div class="part-header">
 						<span>내 계정 정보</span>
-						<a href="">변경하기 ></a>
+						<a href="updateform.do">변경하기 ></a>
 					</div>
 					<div class="part-body">
 						<div class="info-account">
@@ -147,140 +147,10 @@
 	$('#date').html(today.toLocaleString());
 	
 
-	$('#top-post').on('click',function(){
-		function myPost(){
-		    $.ajax({ 
-		       	url:"my_review.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	$('#top-reply').on('click',function(){
-		function myReply(){
-		    $.ajax({ 
-		       	url:"my_reply.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	$('#side-order').on('click',function(){
-		function my_order(){
-		    $.ajax({ 
-		       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
-		        method:"GET",
-		        success:function(data){
-		        	var orderList = "";
-			        	orderList += '<div class="content">'
-				        	orderList += '<div class="order-box">'
-					        	orderList += '<h2>주문 내역</h2>'
-					        	orderList += '<div class="myOrder-dateSort">'
-					        		orderList += '<div class="myOrder-dateSort-main">'
-						        		orderList += '<a href="javascript:">1주일</a>'
-					        			orderList += '<a href="javascript:">1개월</a>'
-				        				orderList += '<a href="javascript:">3개월</a>'
-				        				orderList += '<a href="javascript:">전체기간</a>'
-					  				orderList += '</div>'
-					  				orderList += '<div class="datepicker-div">'
-					  					orderList += '<input type="text" class="datepicker" id="datepicker1" placeholder="-"/>'
-					        			orderList += '<img class="datepickerBtn" src="${pageContext.request.contextPath}/resources/images/calendar.svg" alt="날짜 선택" title="날짜 선택">'
-					  				orderList += '</div>'
-					  				orderList += '<div class="datepicker-div">'
-					  					orderList += '<input type="text" class="datepicker" id="datepicker2" placeholder="-"/>'
-					        			orderList += '<img class="datepickerBtn" src="${pageContext.request.contextPath}/resources/images/calendar.svg" alt="날짜 선택" title="날짜 선택">'
-					  				orderList += '</div>'
-					        		orderList += '<button type="button" class="dateBtn">조회</button>'
-					        	orderList += '</div>'
-					        	orderList += '<div class="order-th">'
-					        		orderList += '<div class="order-th-L">주문번호 / 일자</div>'
-			        				orderList += '<div class="order-th-R">주문금액(수량)</div>'
-					        	orderList += '</div>'
-					        	orderList += '<ul class="order-list">'
-					        	
-					        	for (var i=0; i<data.length; i++) {
-						        	orderList += '<li class="order">'
-							        	orderList += '<a id="orderDetail'+[i]+'" href="javascript:">'
-								        	orderList += '<div class="order-td-L">'
-									        	orderList += '<div class="myOrder-num">'+data[i].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
-									        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'	
-									        orderList += '</div>'
-									        orderList += '<div class="order-td-R">'
-									        	orderList += '<div class="myOrder-price">'+data[i].o_price+'</div>'
-									        	orderList += '<div class="myOrder-count">'+data[i].o_count+'</div>'				
-									        orderList += '</div>'
-								        	orderList += '<span class="detailBtn">></span>'
-							        	orderList += '</a>'
-						        	orderList += '</li>'
-					        	}
-					        	orderList += '</ul>'
-					        orderList += '</div>'
-					        orderList += '<nav id="paging">'
-					        orderList += '<ul class="pagination justify-content-center">'
-					        	orderList += '<li class="page-item disabled">'
-					        		orderList += '<a class="page-link" href="</a>'
-					        	orderList += '</li>'
-				        		orderList += '<li class="page-item">'
-					        		orderList += '<a class="page-link" href="reviewList.do?pageNum=0&amp;condition=&amp;keyword=">0</a>'
-					        	orderList += '</li>'
-				        		orderList += '<li class="page-item disabled">'
-					        		orderList += '<a class="page-link" href="javascript:">&gt;</a>'
-					        	orderList += '</li>'
-					        orderList += '</ul>'
-					    orderList += '</nav>'
-					        	
-			        	orderList += '</div>'
-		            $(".content").html(orderList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-	            
-		        },
-		        
-		    })
-		}
-	})
-	
-	//sidebar ajax
-	$('#side-profile').on('click',function(){
-		function updateProfile(){
-		    $.ajax({ 
-		       	url:"updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	$('#side-pwd').on('click',function(){
-		function updatePwd(){
-		    $.ajax({ 
-		       	url:"pwd_updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	$('#side-recent').on('click',function(){
-		function recentSearch(){
-		    $.ajax({ 
-		       	url:"recentSearch.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
+	function logout(){
+		
+		
+	}
 	
 	
 	
