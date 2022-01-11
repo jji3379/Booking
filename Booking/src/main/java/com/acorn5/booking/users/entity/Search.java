@@ -32,7 +32,7 @@ public class Search {
 	
 	@ManyToOne
 	@JoinColumn(name = "USER_ID")
-	private Users userId; // 리뷰 작성자
+	private Users userId; 
 
 	public Long getId() {
 		return id;

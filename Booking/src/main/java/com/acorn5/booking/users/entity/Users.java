@@ -49,6 +49,9 @@ public class Users {
 	
 	@OneToMany(mappedBy = "buyer")
 	List<Order> order = new ArrayList<Order>();
+
+	@OneToMany(mappedBy = "userId")
+	List<Search> search = new ArrayList<Search>();
 	
 	public Long getId() {
 		return id;
