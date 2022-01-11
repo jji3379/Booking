@@ -31,13 +31,11 @@
 		margin:auto;
    	}
    	#selected {
-		width: 45px;
-		position: absolute;
-	    top: 75px;
-	    left: 56px;
+		width: 100%;
+	    height: 100%;
+	    border-radius: 7px;
 	}
    	.card{
-   		position: relative;
    		background: #e5e5e538;
    		cursor: pointer;
    		padding:0;
@@ -49,16 +47,7 @@
 		position: relative;
 		box-shadow:rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
    	}
-   	.card:hover{
-   		background: #fafafa;
-	}
-   	.card > span{
-	    position: absolute;
-	    top: 25px;
-	    left: 48px;
-	    font-family: '777Balsamtint';
-	    font-size: 21px;
-   	}
+   	
    	.writeForm{
    		font-family: '777Balsamtint';
 	    width: 950px;
