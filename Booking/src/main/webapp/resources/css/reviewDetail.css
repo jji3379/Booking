@@ -462,6 +462,13 @@ body{
 		padding: 7px 0;
 		border-bottom: 1px solid #eee;
 	}
+	
+	.comment-full:hover{
+		background: #e6e6e6;
+	}
+	.comment-reply:hover{
+		background: #e6e6e6;
+	}
 	.tr-hidden {
 		padding: 0;
 		margin: 0;
