@@ -6,77 +6,88 @@
 <head>
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/reviewUpdateform.css">
 <jsp:include page="../../include/resource.jsp"></jsp:include>
-<style>
-	#star a{ 
-		text-decoration: none; color: gray; 
-	} 
-	#star a.on{ 
-		color: red; 
-	}
-	div.container{
-		font-size:18px;
-	}
-</style>
+
 </head>
 <body>
-<jsp:include page="../../include/navbar.jsp">
-	<jsp:param value="review" name="thisPage"/>
-</jsp:include>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.form.min.js"></script>
-<script>
-	function update() {
-		var mydata = JSON.stringify($('#form').serializeArray());
-		console.log(mydata);
-		$.ajax({
-			url:"${pageContext.request.contextPath}/review/reviewUpdate/${dto.id}",
-			method:"PUT",
-			contentType:"application/json",
-			data : mydata,
-			success:function(data){
-				console.log(data);
-				console.log("수정됨");
-				alert("수정됨");
-			}
-		});
-	}
-</script>
-<div style="margin-top:30px"></div>
-<div style="margin:auto; width:1050px">
-	<center><h1>리뷰 수정 폼</h1></center>
-	<form id="form">
-		<input type="hidden" name="id" value="${dto.id }"/>
+<div class="layout">
+	<div class="writeForm">
+	<form id="insertForm">
 		<div class="form-group">
-			<label for="imagePath">이미지</label><br />
-			<img src="${dto.imagePath }"/>
+			<div class="selectBook">
+				<h2>● 리뷰 수정</h2>
+				<div class="form-header">
+					<div class="bookDesc">
+						<table>
+							<colgroup>
+								<col style="width:20%">
+								<col style="width:10%"> 
+								<col style="width:70%">
+							</colgroup>
+							<tr>
+								<td rowspan="3">
+									<div id="bookSearch" class="card"><img id="selected" src="${dto.imagePath }" alt=""/></div>
+								</td>
+								<td class="td-title"> > 제목</td>
+								<td class="td-title" ><input type="text" name="bookTitle" id="bookTitle" value="${dto.bookTitle }" disabled/></td>
+							</tr>
+							<tr>
+								<td class="td-isbn">> isbn</td>
+								<td class="td-isbn" ><input type="text" name="isbn" id="isbn"  value="${dto.isbn }" disabled/></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- by남기, 북 리스트로 이동해서 책을 검색하고 정보를 가져온다_210303 -->
+			<div class="form-body">
+				<table>
+					<colgroup>
+						<col style="width:20%">
+						<col style="width:80%">
+					</colgroup>
+					<tr>
+						<td class="td-Rtitle td-bg"><label for="reviewTitle"> >  리뷰 제목</label></td>
+						<td class="td-Rtitle"><input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${dto.reviewTitle }"/></td>
+					</tr>
+					<tr>
+						<td class="td-star td-bg"> > 별점</td>
+						<td class="td-star">
+							<p id="star">
+								<a href="#" value="1">★</a>
+								<a href="#" value="2">★</a> 
+								<a href="#" value="3">★</a> 
+								<a href="#" value="4">★</a> 
+								<a href="#" value="5">★</a>
+							<p>
+						</td>
+					</tr>
+					<tr>
+						<td class="td-content td-bg"><label for="content"> >  리뷰 내용</label></td>
+						<td class="td-content"><textarea class="form-control" name="content" id="content">${dto.content }</textarea></td>
+					</tr>
+					<tr>
+						<td class="td-spoCheck td-bg"><strong style="color:#41495c";>※ 스포일러 유무</strong></td>
+						<td class="td-spoCheck">
+							<div class="form-group " >
+								<!--by채영_스포일러 포함 체크박스  -->
+								<label for ="spoCheck" ></label>
+								<input type="checkbox" id="spoCheck" name="spoCheck">
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<input type="hidden" name="writer" id="writer" value="${sessionScope.id}" />
+			<input type="hidden" name="imagePath" id="imagePath" value="${dto.imagePath }" />
+			<input type="hidden" name="rating" id="rating"/>
 		</div>
-		<div class="form-group">
-			<label>작성자</label>
-			<input class="form-control" type="text" value="${dto.writer.loginId }" disabled/>
-		</div>
-		<div class="form-group">
-			<label for="reviewTitle">제목</label>
-			<input class="form-control" type="text" name="reviewTitle" id="reviewTitle" value="${dto.reviewTitle }"/>
-		</div>
-		<div class="form-group">
-			<label for="rating">별점</label>
-			<input class="form-control" type="hidden" name="rating" id="rating" value="${dto.rating }"/>
-			<!-- by남기, 평점 선택창_210310 -->
-			<p id="star">
-				<a href="#" value="1">★</a>
-				<a href="#" value="2">★</a> 
-				<a href="#" value="3">★</a> 
-				<a href="#" value="4">★</a> 
-				<a href="#" value="5">★</a>
-			<p>
-		</div>
-		<div class="form-group">
-			<label for="content">내용</label>
-			<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
-		</div>
-		<input class="btn btn-primary" type="button" onclick="update()">수정확인
+		<button id="insertBtn" type="button" onclick="updateAjax();">저장</button>
 	</form>
+	</div>
 </div>
+
 <script>
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 
@@ -89,6 +100,36 @@
 <!-- by남기, SmartEditor 에서 필요한 javascript 로딩 _210303 -->
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
+	//
+	function updateAjax(){
+		var spoCheckYn = $('input:checkbox[id="spoCheck"]').is(":checked");
+		var spoCheckData = (spoCheckYn ? "Y" : "N");
+		
+		var data = {
+			isbn : $("#isbn").val(),
+			reviewTitle : $("#reviewTitle").val(),
+			rating : $("#rating").val(),
+			content : $("#content").val(),
+			spoCheck : spoCheckData,
+			bookTitle : $("#bookTitle").val(),
+			imagePath : $("#imagePath").val(),
+		};
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/review",
+			method:"post",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
+			success:function(data) {
+				location.href="${pageContext.request.contextPath }/review";
+			},
+			error : function(data) {
+				alert('저장 실패');
+			}
+		});
+	} 
+	
 	// by남기. _210303
 	var oEditors = [];
 	
