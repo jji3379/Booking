@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.exception.DBFailException;
+import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.order.dao.OrderDao;
 import com.acorn5.booking.pay.dao.CartDao;
 import com.acorn5.booking.pay.entity.Cart;
@@ -141,19 +142,19 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.로그인 비즈니스 로직_2021222
 	@Override
-	public Users loginLogic(HttpServletRequest request, HttpServletResponse response, Users users) {
+	public Users loginLogic(HttpServletRequest request, HttpServletResponse response, LoginDto loginDto) {
 		//로그인후 가야하는 목적지 정보
 
-		String url=request.getParameter("url");
+		String url = loginDto.getUrl(); 
+				//request.getParameter("url");
 		//로그인 실패를 대비해서 목적지 정보를 인코딩한 결과도 준비 한다.
 		//String encodedUrl=URLEncoder.encode(url);
 		//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
-		String loginId=users.getLoginId();
+		String loginId = loginDto.getLoginId(); 
 				//request.getParameter("loginId");
-		String pwd=users.getPwd();
+		String pwd = loginDto.getPwd(); 
 				//request.getParameter("pwd");
 		
-		System.out.println("loginId : "+loginId+", pwd : "+pwd+",url : "+url);
 		/*
 		 	인코딩되 저장된 패스워드와 비교
 		 */

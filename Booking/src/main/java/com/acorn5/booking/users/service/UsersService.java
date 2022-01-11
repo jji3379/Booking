@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
@@ -31,8 +32,7 @@ public interface UsersService {
 			ModelAndView mView);
 	//로그인 관련 처리를 하는 메소드
 	public Users loginLogic(HttpServletRequest request,
-			HttpServletResponse response,
-			Users users);
+			HttpServletResponse response, LoginDto loginDto);
 	//개인정보를 ModelAndView  객체에 담아주는 메소드
 	public Users getInfo(HttpSession session);
 	//개인정보를 삭제하는 처리를 하는 메소드

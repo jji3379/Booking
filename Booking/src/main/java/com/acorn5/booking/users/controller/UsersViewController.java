@@ -1,5 +1,7 @@
 package com.acorn5.booking.users.controller;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.repository.CartRepository;
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.dto.ReviewDto;
@@ -139,6 +143,31 @@ public class UsersViewController {
 		return "users/logout";
 	}
 	
+	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
+	public void login(HttpServletRequest request,
+			HttpServletResponse response, LoginDto loginDto) throws IOException {
+		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
+		usersService.loginLogic(request, response, loginDto);
+		
+        String url=request.getParameter("url");
+        //GET 방식 전송 파라미터를 query 문자열로 읽어오기 ( a=xxx&b=xxx&c=xxx )
+        String query=request.getQueryString();
+        //특수 문자는 인코딩을 해야한다.
+        String encodedUrl=null;
+        if(query==null) {//전송 파라미터가 없다면 
+           encodedUrl=URLEncoder.encode(url);
+        }else {
+           // 원래 목적지가 /test/xxx.jsp 라고 가정하면 아래와 같은 형식의 문자열을 만든다.
+           // "/test/xxx.jsp?a=xxx&b=xxx ..."
+           encodedUrl=URLEncoder.encode(url+"?"+query);
+        }
+        //3. 로그인을 하지 않았으면 로그인 폼으로 이동할수 있도록 리다일렉트 응답을 준다.
+        String cPath=request.getContextPath();
+        // ServletResponse type 을 HttpServletResponse type 으로 casting
+        //리다일렉트 시킬때 원래 목적지 정보를 url 라는 파라미터 명으로 같이 보낸다.
+        response.sendRedirect(url);
+	}
+	
 	//by욱현.로그인 폼 요청 처리_2021222
 	@RequestMapping("/users/login_form")
 	public ModelAndView loginform(HttpServletRequest request, 
@@ -146,7 +175,7 @@ public class UsersViewController {
 		//로그인 폼에 관련된 로직을 서비스를 통해서 처리한다.
 		usersService.loginformLogic(request, mView);
 		//view page 정보도 담는다.
-		mView.setViewName("users/login_form.page");
+		mView.setViewName("users/login_form");
 		//리턴
 		return mView;
 	}
