@@ -22,7 +22,7 @@
 			        <input name="start" value="1" hidden/>
 			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
-			    <a class="cartImg" href="${pageContext.request.contextPath }/pay/cart.do">
+			    <a class="cartImg" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
 		    		<img  src="${pageContext.request.contextPath }/resources/images/cart.svg"/>	
 			    	<span class="cartBadge">${count}</span>
 			   	</a>
@@ -62,9 +62,7 @@
 	</div>
 	<!-- The Modal -->
 	<div id="container"> 
-		<div class="popup-wrap" id="popup"> 
-
-		</div>
+		
 	</div>
 <script>
 $(document).ready(function() {
@@ -78,13 +76,13 @@ $(document).ready(function() {
 //by준영. 로그인 시 모달창 기능
 $(function(){
 	$("#modal-open").click(function(){   
-		$("#popup").css('display','flex').hide().fadeIn();
+		//$("#container").css('display','flex').hide().fadeIn();
 		function modal(){
             $.ajax({ 
                 url:"${pageContext.request.contextPath}/users/login_form.do",
                 method:"GET",
                 success:function(data){
-                   $("#popup").html(data); 
+                   $("#container").html(data); 
                 },
             })
         }
@@ -92,5 +90,12 @@ $(function(){
 	});
 });
 
+$("#cartBtn").click(function(){
+	if("${sessionScope.id}" == '') {
+		alert("로그인이 필요합니다.");
+		document.getElementById('modal-open').click();
+		return false;
+	}		
+});
 </script>
 

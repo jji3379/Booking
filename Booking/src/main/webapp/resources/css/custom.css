@@ -248,7 +248,7 @@ body {
 		left:0;
 		right:0;
 		bottom:0;               /* 모든 방향에 0을 주면 화면에 꽉차게 됩니다. */
-		display:none; 
+		display:flex; 
 		/* 이벤트가 발생할 때 띄우기 위해 숨김
 		처음부터 보이게 하는 상황이라면 display:flex; */
 		padding:15px; 

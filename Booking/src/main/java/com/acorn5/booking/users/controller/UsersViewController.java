@@ -139,7 +139,7 @@ public class UsersViewController {
 	public String logout(HttpSession session) {
 		// session.invalidate(); //세션 초기화 
 		session.removeAttribute("id"); //세션에서 id 삭제
-		
+		session.removeAttribute("loginId"); //세션에서 id 삭제
 		return "users/logout";
 	}
 	

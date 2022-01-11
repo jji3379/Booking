@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<div class="popup-wrap" id="popup">
 	<div class="popup">		
 		<a id="close"><img src="${pageContext.request.contextPath }/resources/images/x.svg"/></a>
 		<div class="login-wrap">
@@ -47,6 +48,7 @@
 			</div>	
 		</div>		
 	</div>
+</div>
 </body>
 </html>
 <script>	
