@@ -2,16 +2,20 @@ package com.acorn5.booking;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +25,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.service.BookService;
 import com.acorn5.booking.pay.service.CartService;
+import com.acorn5.booking.review.entity.QReview;
+import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.QSearch;
+import com.acorn5.booking.users.entity.QUsers;
+import com.acorn5.booking.users.entity.Search;
+import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.SearchRepository;
+import com.acorn5.booking.users.repository.UsersRepository;
+import com.acorn5.booking.users.service.UsersService;
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Controller
 public class HomeController {
 private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	private UsersRepository usersRepository;
+
+	@Autowired
+	private SearchRepository searchRepository; 
 	
     /**
      * Tiles를 사용하지 않은 일반적인 형태
@@ -75,32 +97,31 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	public ModelAndView home(HttpSession session,HttpServletRequest request) {
 		
 		ModelAndView mView = new ModelAndView();
-		               
 		Long id = (Long) session.getAttribute("id");
-		//UsersDto dto = null;
 		//by 우석, view page 에서 cartitem 불러오기_210315
-		/*
-		 * if(id!=null) { //cartservice.listCart(mView, request); }
-		 */
-		//if(id != null && dao.getData(id).getRecentSearch() != null) { //세션에 로그인된 아이디가 저장되어 있으면
-		/*
-		 * int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기 //dto=dao.getData(id);
-		 * String recent=dto.getRecentSearch(); //by 우석, view page 에서 cartitem
-		 * 불러오기_210315 if(recent==null) { // 최근 검색어가 없을 경우 관심사로 추천 String query =
-		 * dto.getCare(); // 회원의 관심사를 query로 설정 service.recommendBook(10, 1,"count",
-		 * query, mView); } else { //최근 검색어가 있을 경우 최근 검색어 기준 추천
-		 * service.recommendBook(10, 1,"count", recent, mView); }
-		 */
-		//}else if (id==null) { // 로그인을 안한경우 
-			service.recommendBook("1",10, 1,"count", mView);
-		//}else if (id!=null && dao.getData(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
-			//dto = dao.getData(id); 
-			/*
-			 * String query = dto.getCare(); service.recommendBook(10, 1,"count", query,
-			 * mView);
-			 */
-		//}
-		
+		if (id != null) {
+			// cartservice.listCart(mView, request);
+			Users userId = new Users();
+			userId.setId(id);
+			
+			List<Search> searchList = searchRepository.findByUserId(userId);
+			
+			String recentKeyword = searchList.get(0).getKeyword();
+			
+			for (int i = 0; i < searchList.size(); i++) {
+				recentKeyword = searchList.get(i).getKeyword();
+				System.out.println("recentKeyword : "+recentKeyword);
+			}
+
+			if (recentKeyword == null) { // 최근 검색어가 없을 경우 관심사로 추천
+				String query = usersRepository.findById(id).getCare();// 회원의 관심사를 query로 설정
+				service.recommendBook(10, 1, "count", query, mView);
+			} else { // 최근 검색어가 있을 경우 최근 검색어 기준 추천
+				service.recommendBook(10, 1, "count", recentKeyword, mView);
+			}
+		} else if (id == null) { // 로그인을 안한경우
+			service.recommendBook("1", 10, 1, "count", mView);
+		}
 		
 		//mView.addObject("dto", dto);//by욱현. 뷰페이지로 로그인된 회원의 회원정보 전달_2021225
 		mView.setViewName("home.page");
