@@ -171,16 +171,14 @@
 					contentType : "application/json; charset=utf-8",
 					data : JSON.stringify(loginData),
 					success : function(result){
-						if(result == 0){
-							alert("아이디,비번 확인");
-							return false;
-						}else{//로그인성공	
-							/* $('.mainWrap').load(document.URL +  ' .mainWrap'); */
-							location.reload();
-							$("#popup").fadeOut();
-						}
+						/* $('.mainWrap').load(document.URL +  ' .mainWrap'); */
+						location.reload();
+						$("#popup").fadeOut();
 					},
-					
+					error : function(result) {
+						// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우)
+						alert("아이디 또는 비밀번호를 확인해주세요.");
+					}
 				});
 				break;
 			case 1:

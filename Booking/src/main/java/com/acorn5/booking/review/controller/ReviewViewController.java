@@ -92,7 +92,7 @@ public class ReviewViewController {
 		List<ReviewDtl> reviewCommentList = query.selectFrom(qReviewDtl)
 				.join(qReviewDtl.writer, qUsers)
 				.fetchJoin()
-				.where(qReviewDtl.refGroup.eq(id))
+				.where(qReviewDtl.refGroup.eq(dto))
 				.orderBy(qReviewDtl.commentGroup.asc())
 				.fetch();
 				//reviewCommentRepository.findByRefGroup(id);

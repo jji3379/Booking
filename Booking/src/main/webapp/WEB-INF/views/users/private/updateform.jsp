@@ -316,16 +316,16 @@
 			url:"${pageContext.request.contextPath }/users/private/check_update.do",
 			method:"POST",
 			data:"inputId="+inputId,
-			success:function(responseData){
- 				console.log(responseData);
-				let dbcare = responseData["care"];
-				let dbemail = responseData["email"];
-				let dbprofile = "/booking" + responseData["image"];
-				if(care==dbcare && email==dbemail ) {
+			success:function(data){
+ 				console.log(data);
+				let currentCare = data["care"];
+				let currentEmail = data["email"];
+				let currentProfile = "/booking" + data["image"];
+				if(care==currentCare && email==currentEmail ) {
 					alert("수정되지 않았습니다.");
 					event.preventDefault();//폼 전송 막기
 				} else {
-					$("#myForm").trigger("submit");
+					$("#myProfile-form").trigger("submit");
 				}
 			}
 		})

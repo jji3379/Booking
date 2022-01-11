@@ -137,37 +137,20 @@
 							}
 						</script>
 					</div>
-					<div class="recent-listbody">
+<<<<<<< HEAD
+					<div class="recent-listbody" id="recentSearchList">
+							<!-- 
 						<div class="recent-li">
 							<div class="recent-Chk">
 								<input class="chBox" name="chBox" type="checkbox"/>
 							</div>
-							<div class="recent-date">2022/01/03</div>
-							<div class="recent-word">김치</div>
+							<div class="recent-date"></div>
+							<div class="recent-word"></div>
 							<div class="recent-delete">
-								<button class="recent-btn">삭제</button>
+								<button class="recent-btn"></button>
 							</div>
 						</div>
-						<div class="recent-li">
-							<div class="recent-Chk">
-								<input class="chBox" name="chBox" type="checkbox"/>
-							</div>
-							<div class="recent-date">2022/01/02</div>
-							<div class="recent-word">딸기</div>
-							<div class="recent-delete">
-								<button class="recent-btn">삭제</button>
-							</div>
-						</div>
-						<div class="recent-li">
-							<div class="recent-Chk">
-								<input class="chBox" name="chBox" type="checkbox"/>
-							</div>
-							<div class="recent-date">2022/01/01</div>
-							<div class="recent-word">초코</div>
-							<div class="recent-delete">
-								<button class="recent-btn">삭제</button>
-							</div>
-						</div>
+							 -->
 					</div>
 				</div>
 			</div>
@@ -179,21 +162,28 @@
 	let today = new Date();
 	
 	$('#date').html(today.toLocaleString());
-	
-	$('#side-recent').on('click',function(){
-		function recentSearch(){
-		    $.ajax({ 
-		       	url:"recentSearch.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	
-	
+		
+    $.ajax({ 
+       	url:"${pageContext.request.contextPath}/v1/users/search/${sessionScope.id}",
+        method:"GET",
+        dataType : "json",
+        success:function(data){
+        	var searchList = "";
+        	for (var i=0; i<data.content.length; i++) {
+	        	searchList += '<div class="recent-li">'
+		        	searchList += '<div class="recent-Chk">'
+			        	searchList += '<input class="chBox" name="chBox" type="checkbox"/>'
+		        	searchList += '</div>'
+		        	searchList += '<div class="recent-date">'+data.content[i].regdate+'</div>'
+		        	searchList += '<div class="recent-word">'+data.content[i].keyword+'</div>'
+		        	searchList += '<div class="recent-delete">'
+			        	searchList += '<button class="recent-btn">삭제</button>'
+		        	searchList += '</div>'
+	        	searchList += '</div>'
+        	}
+           $("#recentSearchList").html(searchList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+        },
+    })
 	
 	//회원탈퇴묻기
 	function deleteConfirm(){
@@ -205,11 +195,6 @@
 		}
 	}
 	
-</script>
-<script>
-let time = new Date();
-
-$('#date').html(time.toLocaleString());
 </script>
 </body>
 </html>

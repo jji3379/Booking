@@ -2,13 +2,20 @@ package com.acorn5.booking.users.service;
 
 import java.io.File;
 import java.net.URLEncoder;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,16 +26,26 @@ import org.springframework.web.servlet.ModelAndView;
 import com.acorn5.booking.exception.DBFailException;
 import com.acorn5.booking.order.dao.OrderDao;
 import com.acorn5.booking.pay.dao.CartDao;
+import com.acorn5.booking.pay.entity.Cart;
+import com.acorn5.booking.pay.entity.QCart;
 import com.acorn5.booking.pay.repository.CartRepository;
 import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
+import com.acorn5.booking.review.entity.QReview;
+import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.QSearch;
+import com.acorn5.booking.users.entity.QUsers;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.UsersRepository;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -46,6 +63,9 @@ public class UsersServiceImpl implements UsersService{
 	//private CartDao cartDao;
 	//@Autowired
 	//private OrderDao orderDao;
+	
+	@PersistenceContext
+	EntityManager em;
 	
 	@Autowired
 	private UsersRepository usersRepository;
@@ -316,6 +336,90 @@ public class UsersServiceImpl implements UsersService{
 	public void deleteProfile(Users inputId) {
 		usersRepository.delete(inputId);
 		//dao.deleteProfile(inputId);
+	}
+
+	@Override
+	public Page<Review> getMyReview(Long id, Pageable pageable) {
+		Users userId = new Users();
+		userId.setId(id);
+		
+		QReview qReview = QReview.review;
+		QUsers qUsers = QUsers.users;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());
+		
+		QueryResults<Review> list = queryFactory.selectFrom(qReview)
+				.join(qReview.writer, qUsers)
+				.fetchJoin()
+				.where(qReview.writer.eq(userId))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+	}
+	
+	@Override
+	public Page<ReviewDtl> getMyReply(Long id, Pageable pageable) {
+		Users userId = new Users();
+		userId.setId(id);
+		
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		QUsers qUsers = QUsers.users;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());
+		
+		QueryResults<ReviewDtl> list = queryFactory.selectFrom(qReviewDtl)
+				.join(qReviewDtl.writer, qUsers)
+				.fetchJoin()
+				.where(qReviewDtl.writer.eq(userId))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<ReviewDtl>(list.getResults(), pageable, list.getTotal());
+	}
+	
+	@Override
+	public Page<Cart> getMyCart(Long id, Pageable pageable) {
+		Users userId = new Users();
+		userId.setId(id);
+		
+		QCart qCart = QCart.cart;
+		QUsers qUsers = QUsers.users;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());
+		
+		QueryResults<Cart> list = queryFactory.selectFrom(qCart)
+				.join(qCart.userId, qUsers)
+				.fetchJoin()
+				.where(qCart.userId.eq(userId))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<Cart>(list.getResults(), pageable, list.getTotal());
+	}
+	@Override
+	public Page<Search> getMySearch(Long id, Pageable pageable) {
+		Users userId = new Users();
+		userId.setId(id);
+		
+		QUsers qUsers = QUsers.users;
+		QSearch qSearch = QSearch.search;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());
+		
+		QueryResults<Search> list = queryFactory.selectFrom(qSearch)
+				.join(qSearch.userId, qUsers)
+				.fetchJoin()
+				.where(qSearch.userId.eq(userId))
+				.orderBy(qSearch.regdate.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<Search>(list.getResults(), pageable, list.getTotal());
 	}
 
 }

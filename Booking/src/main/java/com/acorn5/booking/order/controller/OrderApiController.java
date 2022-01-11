@@ -42,4 +42,10 @@ public class OrderApiController {
 		//mView.setViewName("users/private/my_order");
 		return orderService.getMyOrder(id, request);
 	}
+	
+	@RequestMapping("/users/myOrder/detail/{id}")
+	public List<Order> myOrderDetail(@PathVariable Long id, HttpServletRequest request) {
+
+		return orderService.getOrderDetail(id, request);
+	}
 }

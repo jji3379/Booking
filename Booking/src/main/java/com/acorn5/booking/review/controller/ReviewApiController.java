@@ -107,7 +107,7 @@ public class ReviewApiController {
 
 		// by준익, 글 상세정보 요청처리_210303  
 		@RequestMapping(value = "/review/reply/{refGroup}", method = RequestMethod.GET)
-		public int reviewTotalReply(@PathVariable Long refGroup) {
+		public Long reviewTotalReply(@PathVariable Long refGroup) {
 			return service.reviewTotalReply(refGroup);
 		}
 }

@@ -146,14 +146,6 @@
 	
 	$('#date').html(today.toLocaleString());
 	
-
-	function logout(){
-		
-		
-	}
-	
-	
-	
 	//회원탈퇴묻기
 	function deleteConfirm(){
 		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");

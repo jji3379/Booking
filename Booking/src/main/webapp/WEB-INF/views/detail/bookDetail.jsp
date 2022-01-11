@@ -21,7 +21,7 @@
                <h2 class="head-title"> > ${b.title }</h2>
                <div class="head-star">
                   <p>별점</p>
-                  <div class="total-star">★★★★★</div>
+                  <div class="total-star" id="starValue">★★★★★</div>
                </div>
             </div>
                <tr>
@@ -256,6 +256,7 @@
 		async: false,
 		success:function(data) {
 			$("#total-value").html(data);
+			$("#starValue").html(data);
 		},
 		error : function(data) {
 			console.log("오류");

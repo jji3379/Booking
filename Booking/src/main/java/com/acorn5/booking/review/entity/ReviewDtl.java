@@ -36,8 +36,10 @@ public class ReviewDtl {
 	@JoinColumn(name = "target_id")
 	private Users target_id; // 댓글 대상자
 	
-	@Column(name = "ref_group")
-	private Long refGroup; // 원글의 글번호
+	//@Column(name = "ref_group")
+	@ManyToOne
+	@JoinColumn(name = "ref_Group")
+	private Review refGroup; // 원글의 글번호
 	
 	@Column(name = "comment_group")
 	private Long commentGroup; // 댓글 내에서의 그룹번호
@@ -74,12 +76,6 @@ public class ReviewDtl {
 	public void setTarget_id(Users target_id) {
 		this.target_id = target_id;
 	}
-	public Long getRefGroup() {
-		return refGroup;
-	}
-	public void setRefGroup(Long refGroup) {
-		this.refGroup = refGroup;
-	}
 	public Long getCommentGroup() {
 		return commentGroup;
 	}
@@ -98,6 +94,11 @@ public class ReviewDtl {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-
+	public Review getRefGroup() {
+		return refGroup;
+	}
+	public void setRefGroup(Review refGroup) {
+		this.refGroup = refGroup;
+	}
 	
 }

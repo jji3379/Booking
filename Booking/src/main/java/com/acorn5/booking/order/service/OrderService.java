@@ -21,5 +21,5 @@ public interface OrderService {
 	public List<Order> getMyOrder(Long id, HttpServletRequest request);
 	
 	//by욱현, order_detail에서 주문내역 디테일 불러오는 로직_2021320
-	public void getOrderDetail(ModelAndView mView, HttpServletRequest request);
+	public List<Order> getOrderDetail(Long id, HttpServletRequest request);
 }

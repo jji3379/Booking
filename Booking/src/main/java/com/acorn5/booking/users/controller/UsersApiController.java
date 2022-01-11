@@ -1,10 +1,14 @@
 package com.acorn5.booking.users.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.acorn5.booking.pay.entity.Cart;
+import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.service.UsersService;
 
@@ -44,4 +52,29 @@ public class UsersApiController {
 		//usersService.addUser(dto);
 		return usersService.addUser(dto);
 	}
+
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/review/{id}", method = RequestMethod.GET)
+	public Page<Review> myReview(@PathVariable Long id, Pageable pageable) {
+		return usersService.getMyReview(id, pageable);
+	}
+	
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/reply/{id}", method = RequestMethod.GET)
+	public Page<ReviewDtl> myReply(@PathVariable Long id, Pageable pageable) {
+		return usersService.getMyReply(id, pageable);
+	}
+
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/cart/{id}", method = RequestMethod.GET)
+	public Page<Cart> myCart(@PathVariable Long id, Pageable pageable) {
+		return usersService.getMyCart(id, pageable);
+	}
+
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/search/{id}", method = RequestMethod.GET)
+	public Page<Search> mySearch(@PathVariable Long id, Pageable pageable) {
+		return usersService.getMySearch(id, pageable);
+	}
+	
 }
