@@ -11,7 +11,6 @@
 		color: #ffc80b;
 		font-family: emoji;
 	}
-
 </style>
 <link rel="stylesheet" href="resources/css/reviewList.css">
 </head>
@@ -161,23 +160,23 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				var rating = $('#star-rating[i]').text();	
+				var rating = $("#star-rating[i]").text();	
 				
 				//by 준영, rating -> ★ 변환
 				switch(rating){
-				case 1:
+				case (rating == 1):
 					rating.text('★☆☆☆☆');
 					break;
-				case 2:
+				case (rating == 2):
 					rating.text('★★☆☆☆');
 					break;
-				case 3:
+				case (rating == 3):
 					rating.text('★★★☆☆');
 					break;
-				case 4:
+				case (rating == 4):
 					rating.text('★★★★☆');
 					break;
-				case 5:
+				case (rating == 5):
 					rating.text('★★★★★');
 					break;
 				}

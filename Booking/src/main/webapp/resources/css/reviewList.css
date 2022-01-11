@@ -71,7 +71,7 @@ h1 {
 }
 
 .card-body {
-
+	color: #333;
 }
 .card-body-header{
 	line-height: 25px;
@@ -131,7 +131,7 @@ h1 {
 .underline{
 	margin-bottom: 8px; 
 	opacity: 0.5; 
-	border-color: #EF5A31;
+	border-color: #5db794;
 	
 }
 .icon {
@@ -200,7 +200,7 @@ h1 {
 }
 .menuText > h2 {
 	color: #333333;
-	margin: 10px 0 5px 0;
+	margin: 10px 0 5px 5px;
 	font-size: 25px;
 }
 .sortBar{
@@ -209,6 +209,7 @@ h1 {
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-right: 12px;
     padding-top: 25px;  
 }
 .sortBar > li > a{
@@ -242,6 +243,9 @@ h1 {
 	justify-content: space-between;
 	align-items: center;
 }
+#search{
+	flex: 1;
+}
 .searchBar{
 	width: 165px;
     border-radius: 20px;
@@ -258,6 +262,7 @@ h1 {
 }
 #paging{
 	width: 260px;
+	flex: 1.18;
 }
 .pagination{
 	display: flex;
@@ -322,8 +327,8 @@ h1 {
     color: #484646;
     font-weight: bold;
     font-size: 16px;
-    width: 150px;
-    margin-right: 20px;
+    width: 160px;
+    margin-right: 35px;
     border-radius: 5px;
     border: 1px solid #bbb;
     padding: 10px 12px;
