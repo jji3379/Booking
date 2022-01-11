@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,16 +42,16 @@ public class Users {
 	private String care;
 	private String recentSearch;
 	
-	@OneToMany(mappedBy = "writer")
+	@OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
 	List<Review> review = new ArrayList<Review>();
 
-	@OneToMany(mappedBy = "userId")
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
 	List<Cart> cart = new ArrayList<Cart>();
 	
-	@OneToMany(mappedBy = "buyer")
+	@OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
 	List<Order> order = new ArrayList<Order>();
 
-	@OneToMany(mappedBy = "userId")
+	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
 	List<Search> search = new ArrayList<Search>();
 	
 	public Long getId() {

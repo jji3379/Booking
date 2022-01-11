@@ -251,6 +251,7 @@ public class UsersServiceImpl implements UsersService{
 		//orderDao.delete(id);
 		//로그아웃 처리
 		session.removeAttribute("id");
+		usersRepository.delete(id);
 	}
 	
 	//by욱현.비밀번호 수정 관련 로직_2021222
@@ -324,7 +325,11 @@ public class UsersServiceImpl implements UsersService{
 		//로그인된 아이디를 읽어온다.
 		Long id=(Long)session.getAttribute("id");
 		//dto 에 담는다.
-		dto.setId(id);
+		Users users = usersRepository.findById(id);
+		users.setCare(dto.getCare());
+		users.setEmail(dto.getEmail());
+		System.out.println("care : "+dto.getCare()+"email : "+dto.getEmail());
+		usersRepository.save(users);
 		//dao 를 이용해서 DB 에 수정 반영한다.
 		//dao.update(dto);
 	}

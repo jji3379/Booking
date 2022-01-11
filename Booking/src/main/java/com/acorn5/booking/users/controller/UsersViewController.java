@@ -61,7 +61,9 @@ public class UsersViewController {
 	@RequestMapping("/users/private/updateform")
 	public ModelAndView updateform(ModelAndView mView, 
 			HttpSession session,HttpServletRequest request) {
-		usersService.getInfo(session);
+		Users userDetail = usersService.getInfo(session);
+		System.out.println("care : "+userDetail.getCare());
+		
 		Long id = (Long) request.getSession().getAttribute("id");
 		if (id != null) {
 			// by 우석, view page 에서 cartitem 불러오기_210315
@@ -69,7 +71,8 @@ public class UsersViewController {
 		}
 		//String id = (String)session.getAttribute("id");
 		//UsersDto dto= dao.getData(id);
-		//mView.addObject("dto", dto);
+		mView.addObject("dto", userDetail);
+		mView.addObject("care", userDetail.getCare());
 		mView.setViewName("users/private/updateform.page");
 		return mView;
 	}

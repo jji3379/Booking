@@ -112,11 +112,11 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<form action="update.do" method="post" id="myProfile-form">
+				<form action="${pageContext.request.contextPath }/users/private/update" method="post" id="myProfile-form">
 					<div class="account-inputBox">
 						<div class="account-formGroup">
 							<div class="account-label"><label for="id">아이디</label></div>
-							<div><input type="text" id="id" class="account-updateform" value="${id }" class="form-control" disabled/></div>
+							<div><input type="text" id="id" class="account-updateform" value="${loginId }" class="form-control" disabled/></div>
 						</div>
 						<div class="account-formGroup" >
 							<div class="account-label"><label for="email">이메일</label></div>
@@ -185,7 +185,7 @@
 						</div>	
 					</div>
 					<div>
-						<button type="button" class="account-save">저장</button>
+						<button type="submit" class="account-save">저장</button>
 						<a href="javascript:deleteConfirm();" class="account-delete" >회원탈퇴</a>
 					</div>
 				</form>
@@ -194,36 +194,41 @@
 	</div>
 </div>
 <script>
+
+	var myCare = "${care}"; 
+	var careList = myCare.split(',');
+	for (var i = 0; i < careList.length; i++) {
+		$('input:checkbox[id=' + careList[i] + ']').attr("checked", true);
+	}
+
 	//by준영, 현재시간 출력
 	let today = new Date();
-	
+
 	$('#date').html(today.toLocaleString());
-	
+
 	//sidebar ajax
-	$('#side-profile').on('click',function(){
-		function updateProfile(){
-		    $.ajax({ 
-		       	url:"updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$('#side-profile').on('click', function() {
+		function updateProfile() {
+			$.ajax({
+				url : "updateform.do",
+				method : "GET",
+				success : function(data) {
+					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
 		}
 	})
-	
-	
+
 	//회원탈퇴묻기
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/private/delete.do";
+	function deleteConfirm() {
+		let isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
+		if (isDelete) {
+			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
 		} else {
 			location.reload();
 		}
 	}
-	
 </script>
 <script>
 	$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
@@ -305,7 +310,7 @@
 	$("#care").on("input", function(){
 		care = $("#care").val();
 	})
-	
+	/*
 	//db에 저장된 모델(버튼을 누르는 동시에 데이터를 받아 대조)
 	document.querySelector("#btn")
 	.addEventListener("click", function(event){//이미지를 선택했을때 실행할 함수 등록
@@ -330,7 +335,7 @@
 			}
 		})
 	});
-	
+	*/
 	
 	//욱현.프로필이미지 삭제_2021323
 	function deleteProfile(){
