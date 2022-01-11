@@ -127,7 +127,7 @@ html, body {
  	text-align: center;
  }
 .g-i {
-	background-color: #5db794;
+	background-color: #5db794f7;
 	color: #fff;
 }	
 	
@@ -241,8 +241,8 @@ a {
   padding-left: 0;
   list-style: none;
   border-radius: 0.25rem;  
-  margin-top: 122px;
-  margin-bottom: 100px;
+  margin-top: 55px;
+  margin-bottom: 140px;
   margin-right: 10px;
 }
 .page-link {

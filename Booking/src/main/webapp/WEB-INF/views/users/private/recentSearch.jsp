@@ -137,6 +137,7 @@
 							}
 						</script>
 					</div>
+<<<<<<< HEAD
 					<div class="recent-listbody" id="recentSearchList">
 							<!-- 
 						<div class="recent-li">
@@ -161,8 +162,6 @@
 	let today = new Date();
 	
 	$('#date').html(today.toLocaleString());
-	
-	
 		
     $.ajax({ 
        	url:"${pageContext.request.contextPath}/v1/users/search/${sessionScope.id}",
@@ -185,10 +184,6 @@
            $("#recentSearchList").html(searchList); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
         },
     })
-		
-	
-	
-	
 	
 	//회원탈퇴묻기
 	function deleteConfirm(){
@@ -200,11 +195,6 @@
 		}
 	}
 	
-</script>
-<script>
-let time = new Date();
-
-$('#date').html(time.toLocaleString());
 </script>
 </body>
 </html>

@@ -72,7 +72,7 @@
 		</div>
 		<div class="list-menu">
 			<ul >
-				<li><a class="listBtn" href="/review">목록보기</a></li>
+				<li><a class="listBtn" href="${pageContext.request.contextPath }/review">목록보기</a></li>
 				<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
 					<li><a class="listBtn" href="private/reviewUpdateform.do?num=${dto.id }">수정</a></li>
 					<li><a class="listBtn" href="#" onclick="deletea();">삭제</a></li>
@@ -295,7 +295,7 @@
 			method:"DELETE",
 			dataType : "json",
 			success:function(data){
-				alert("삭제됨");
+				window.location = '${pageContext.request.contextPath}/review'; 
 			}
 		});
 	}

@@ -130,7 +130,8 @@ a {
     	background: transparent;
 		font-family: '777Balsamtint';	
 	}
-	.logoutBtn > div{
+	.logoutBtn > a{
+		color: #333;
 		cursor: pointer;
 	    font-size: 17px;
     	line-height: 20px;

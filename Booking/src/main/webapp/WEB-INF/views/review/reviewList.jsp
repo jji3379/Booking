@@ -11,7 +11,6 @@
 		color: #ffc80b;
 		font-family: emoji;
 	}
-
 </style>
 <link rel="stylesheet" href="resources/css/reviewList.css">
 </head>
@@ -20,17 +19,18 @@
 	<div class="layout">
 		<div class="menu">
 			<div class="menuText">
-				<h2>● Booking review</h2>
-				<p>다양한 도서와 후기를 만나보세요</p>
+				<h2>다양한 도서와 후기를 만나보세요</h2>
 			</div>
-			
 			<ul class="sortBar">
 				<li class="viewSort"><a href="#" onclick="pagingList(0, 'viewCount')">조회순</a></li>
 				<li class="starSort"><a href="#" onclick="pagingList(0, 'rating')">별점순</a></li>
 				<li class="newSort"><a href="#" onclick="pagingList(0, 'regdate')">최신순</a></li>
 			</ul>
 		</div>
-		<div class="row">
+		<div>
+		
+		</div>
+		<div class="row-box">
 			<div class="row row-cols-4" id="reviewList">
 			<!--  
 				<a href="${pageContext.request.contextPath }/review/reviewDetail.do?num=${t.id }" class="cardLink">
@@ -160,23 +160,23 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				var rating = $('#star-rating[i]').text();	
+				var rating = $("#star-rating[i]").text();	
 				
 				//by 준영, rating -> ★ 변환
 				switch(rating){
-				case 1:
+				case (rating == 1):
 					rating.text('★☆☆☆☆');
 					break;
-				case 2:
+				case (rating == 2):
 					rating.text('★★☆☆☆');
 					break;
-				case 3:
+				case (rating == 3):
 					rating.text('★★★☆☆');
 					break;
-				case 4:
+				case (rating == 4):
 					rating.text('★★★★☆');
 					break;
-				case 5:
+				case (rating == 5):
 					rating.text('★★★★★');
 					break;
 				}

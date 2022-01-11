@@ -30,7 +30,7 @@
 							</colgroup>
 							<tr>
 								<td rowspan="3">
-									<button id="bookSearch" class="card"><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
+									<button id="bookSearch" class="card"><span>책 검색</span><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
 								</td>
 								<td class="td-title"> > 제목</td>
 								<td class="td-title" ><input type="text" name="bookTitle" id="bookTitle" value="" disabled/></td>
@@ -86,7 +86,7 @@
 			<input type="hidden" name="imagePath" id="imagePath" value="" />
 			<input type="hidden" name="rating" id="rating"/>
 		</div>
-		<button id="insertBtn" type="submit" onclick="postAjax();">저장</button>
+		<button id="insertBtn" type="button" onclick="postAjax();">저장</button>
 	</form>
 	</div>
 </div>
@@ -135,10 +135,10 @@
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(data),
 			success:function(data) {
-				console.log("성공");
+				location.href="${pageContext.request.contextPath }/review";
 			},
 			error : function(data) {
-				console.log("오류");
+				alert('저장 실패');
 			}
 		});
 	} 
