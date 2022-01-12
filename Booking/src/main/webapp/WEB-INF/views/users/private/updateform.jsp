@@ -280,7 +280,7 @@
 	//이미지를 선택했을때 실행할 함수 등록
 	$("#image").on("change", function(){
 		//폼을 강제 제출해서 선택된 이미지가 업로드 되도록 한다.
-		$("#profileForm").submit();
+		//$("#profileForm").submit();
 	});
 
 	

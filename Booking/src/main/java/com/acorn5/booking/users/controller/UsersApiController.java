@@ -76,5 +76,10 @@ public class UsersApiController {
 	public Page<Search> mySearch(@PathVariable Long id, Pageable pageable) {
 		return usersService.getMySearch(id, pageable);
 	}
+
+	@RequestMapping(value = "/users/pwd/{id}", method = RequestMethod.GET)
+	public String getPwd(@PathVariable Long id) {
+		return usersService.getPwd(id);
+	}
 	
 }

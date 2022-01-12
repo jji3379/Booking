@@ -13,7 +13,7 @@
 		<c:when test="${isSuccess }">
 			<script>
 				alert("수정 했습니다.");
-				location.href="${pageContext.request.contextPath }/users/login_form.do";
+				location.href="${pageContext.request.contextPath }";
 			</script>
 		</c:when>
 		<c:otherwise>
