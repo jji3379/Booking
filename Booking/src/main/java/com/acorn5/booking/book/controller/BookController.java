@@ -105,19 +105,19 @@ public class BookController {
 				if (nansu == 0) { // 난수가 0이면 관심사 기반
 					dto = usersRepository.findById(id); // 로그인된 회원의 정보 얻어오기
 					String query = dto.getCare(); // 회원의 관심사를 query로 설정
-					mView.addObject("reviewBookList", service.recommendBook(8, 1, "count", query, mView));
+					mView.addObject("reviewBookList", service.careRecommendBook(query, 1, 8, "count", mView));
 				} else { // 난수가 1이면 최근검색어 기반_210310
 					dto = usersRepository.findById(id);
 					String query = dto.getRecentSearch();
 					System.out.println(query);
-					mView.addObject("reviewBookList", service.recommendBook(8, 1, "count", query, mView));
+					mView.addObject("reviewBookList", service.searchRecommendBook(8, 1, "count", query, mView));
 				}
 			} else if (id == null) { // 로그인을 안한경우
-				mView.addObject("reviewBookList", service.recommendBook("1", 8, 1, "count", mView));
+				mView.addObject("reviewBookList", service.careRecommendBook("1", 1, 8, "count", mView));
 			} else if (id != null && usersRepository.findById(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
 				dto = usersRepository.findById(id);
 				String query = dto.getCare();
-				mView.addObject("reviewBookList", service.recommendBook(8, 1, "count", query, mView));
+				mView.addObject("reviewBookList", service.careRecommendBook("1", 1, 8, "count", mView));
 			}
 		}
 		// by 우석, view page 에서 cartitem 불러오기_210315
