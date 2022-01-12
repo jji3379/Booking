@@ -28,12 +28,14 @@ public class CartServiceImpl implements CartService {
 	CartRepository cartRepository;
 	
 	@Override
-	public void insertCart(Cart dto,HttpServletRequest request) {
-		Long id=(Long)request.getSession().getAttribute("id");
-		Users userId = new Users();
-		userId.setId(id);
-		dto.setUserId(userId);
-		cartRepository.save(dto);
+	public void insertCart(Cart dto, HttpServletRequest request) {
+		Long id = (Long) request.getSession().getAttribute("id");
+		if (id != null) {
+			Users userId = new Users();
+			userId.setId(id);
+			dto.setUserId(userId);
+			cartRepository.save(dto);
+		}
 		//cartDao.insert(dto);	
 	}
 	//by준영, 북카트 리스트_210308
@@ -43,16 +45,12 @@ public class CartServiceImpl implements CartService {
 		Users userId = new Users();
 		userId.setId(id);
 		List<Cart> list = cartRepository.findByUserId(userId);
-				//cartDao.getlist(id);
-		//장바구니에 담긴 배열의 size를 담을 basketCount
-		int basketCount=list.size();
-		//id 값이 null이 아니고 리스트의 사이즈가 0이 아니면 count 객체에 담기 
-		//navbar에 담기 위한 작업
-		if(id != null && basketCount!=0) {
-			mView.addObject("count",basketCount);
+		int basketCount = list.size();
+		if (id != null && basketCount != 0) {
+			mView.addObject("count", basketCount);
 		}
-		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
+		
 	}
 	//by, 카트 개별 삭제 요청처리_210310
 	@Override
@@ -72,11 +70,12 @@ public class CartServiceImpl implements CartService {
 	@Transactional
 	public void update(Cart dto) {
 		Long id = dto.getId();
-		Cart cart = cartRepository.findById(id);
-		cart.setCount(dto.getCount());
-		cart.setIndate(dto.getIndate());
-		cartRepository.save(cart);
-		//cartDao.update(dto);
+		if (id != null) {
+			Cart cart = cartRepository.findById(id);
+			cart.setCount(dto.getCount());
+			cart.setIndate(dto.getIndate());
+			cartRepository.save(cart);
+		}
 	}
 	
 	

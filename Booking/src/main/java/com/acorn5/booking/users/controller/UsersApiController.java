@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
@@ -34,12 +35,11 @@ public class UsersApiController {
 	
 	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 	public Users login(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestBody Users users) {
+			HttpServletResponse response, @RequestBody LoginDto loginDto) {
 		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
-		usersService.loginLogic(request, response, users);
+		//usersService.loginLogic(request, response, loginDto);
 		//view page  로 forward  이동해서 응답
-		return usersService.loginLogic(request, response, users);
+		return usersService.loginLogic(request, response, loginDto);
 	}
 	
 	@RequestMapping(value = "/users/signup", method = RequestMethod.GET)

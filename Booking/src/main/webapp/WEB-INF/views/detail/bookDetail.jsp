@@ -164,6 +164,16 @@
       </div>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
+	
+
+	$("#insertBtn, #directBtn, #reviewBtn").click(function(){
+		if("${sessionScope.id}" == '') {
+			alert("로그인이 필요합니다.");
+			document.getElementById('modal-open').click();
+			return false;
+		}		
+	});
+	
 	// by 준익, 페이징 처리된 책에 대한 리뷰 리스트
 	function pagingList(page, sort) {
 		var isbn = $("#isbnP").val();

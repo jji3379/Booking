@@ -3,6 +3,8 @@ package com.acorn5.booking.filter;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -64,7 +66,7 @@ public class LoginFilter implements Filter{
          // ServletResponse type 을 HttpServletResponse type 으로 casting
          HttpServletResponse res=(HttpServletResponse)response;
          //리다일렉트 시킬때 원래 목적지 정보를 url 라는 파라미터 명으로 같이 보낸다.
-         res.sendRedirect(cPath+"/users/login_form.do?url="+encodedUrl);
+         res.sendRedirect(cPath);
       }   
    }
 

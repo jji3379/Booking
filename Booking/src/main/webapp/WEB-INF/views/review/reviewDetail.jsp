@@ -368,9 +368,12 @@
 		//로그인 여부
 		var isLogin=${not empty sessionScope.id};
 		if(isLogin == false){
-			alert("로그인 페이지로 이동합니다.")
+			alert("로그인이 필요합니다.");
+			document.getElementById('modal-open').click();
+			/*
 			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
 					"url=${pageContext.request.contextPath }/review/${dto.id}";
+			*/
 			return false; //폼 전송 막기 		
 		}
 	});

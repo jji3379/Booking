@@ -84,11 +84,11 @@
 					 			</td>
 					 			<td class="td-info" >
 					 				<div class="buttonWrap">
-					 					<div >
-					 						<button class="cart btn">장바구니</button>
+					 					<div>
+					 						<button class="cart btn" id="insertBtn">장바구니</button>
 					 					</div>
-					 					<div >
-					 						<button class="buy btn">바로구매</button>
+					 					<div>
+					 						<button class="buy btn" id="directBtn">바로구매</button>
 					 					</div>
 				 					</div>
 					 			</td>
@@ -135,6 +135,15 @@
 		</svg>
 	</div>
 <script>
+
+	$("#insertBtn, #directBtn, #reviewBtn").click(function(){
+		if("${sessionScope.id}" == '') {
+			alert("로그인이 필요합니다.");
+			document.getElementById('modal-open').click();
+			return false;
+		}		
+	});
+	
 	//by준영, 현재시간 출력
 	let today = new Date();
 	

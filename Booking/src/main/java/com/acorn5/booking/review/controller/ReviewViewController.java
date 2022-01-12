@@ -63,12 +63,11 @@ public class ReviewViewController {
 	
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review")
-	public String list(Model model ,HttpServletRequest request) {
+	public String list(ModelAndView mView ,HttpServletRequest request) {
 		
-		Long id=(Long)request.getSession().getAttribute("id");
-		if(id!=null) {
-		//by 우석, view page 에서 cartitem 불러오기_210315 
-		//cartservice.listCart(request); 
+		Long id = (Long) request.getSession().getAttribute("id");
+		if (id != null) {
+			cartservice.listCart(mView, request);
 		}
 		
 		//Page<Review> review = service.getList(request);
@@ -100,9 +99,9 @@ public class ReviewViewController {
 				.orderBy(qReviewDtl.commentGroup.asc())
 				.fetch();
 				//reviewCommentRepository.findByRefGroup(id);
-		
-		if(loginId!=null) { //by 우석, view page 에서 cartitem 불러오기_210315
-			//cartservice.listCart(mView, request); 
+		ModelAndView mView = new ModelAndView();
+		if (loginId != null) { // by 우석, view page 에서 cartitem 불러오기_210315
+			cartservice.listCart(mView, request);
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
 		model.addAttribute("reviewId", id);
@@ -140,8 +139,11 @@ public class ReviewViewController {
 	public ModelAndView updateform(@PathVariable Long id,
 			ModelAndView mView, HttpServletRequest request) {
 		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
-		service.getDetail(id);
-		cartservice.listCart(mView, request);
+		//service.getDetail(num);
+		Long id = (Long) request.getSession().getAttribute("id");
+		if (id != null) {
+			cartservice.listCart(mView, request);
+		}
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.addObject("dto", service.getDetail(id));
 		mView.setViewName("review/private/reviewUpdateform.page");
@@ -168,8 +170,7 @@ public class ReviewViewController {
 	}
 
 	// by남기, 댓글 수정 ajax 요청에 대한 요청 처리_210303
-	@RequestMapping(value = "/review/private/reviewComment_update", 
-			method=RequestMethod.POST)
+	@RequestMapping(value = "/review/private/reviewComment_update", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
 		// by남기, 댓글을 수정 반영하고_210303
@@ -180,6 +181,7 @@ public class ReviewViewController {
 		map.put("content", dto.getContent());
 		return map;
 	}
+	
 	// by남기, 리뷰의 댓글 삭제 요청 처리_210303
 	@RequestMapping("/review/private/reviewComment_delete")
 	public ModelAndView reviewCommentDelete(HttpServletRequest request,
@@ -191,10 +193,8 @@ public class ReviewViewController {
 		return mView;
 	}
 	// by남기, 새 댓글 저장 요청 처리_210303
-	@RequestMapping(value = "/review/private/reviewComment_insert", 
-			method = RequestMethod.POST)
-	public String reviewCommentInsert(HttpServletRequest request,
-			@RequestParam int refGroup) {
+	@RequestMapping(value = "/review/private/reviewComment_insert", method = RequestMethod.POST)
+	public String reviewCommentInsert(HttpServletRequest request, @RequestParam int refGroup) {
 		// by남기, 새 댓글을 저장하고_210303
 		service.saveComment(request);
 		// by남기, 글 자세히 보기로 다시 리다일렉트 이동 시킨다_210303

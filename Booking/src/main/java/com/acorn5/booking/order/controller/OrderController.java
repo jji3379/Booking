@@ -21,6 +21,7 @@ import com.acorn5.booking.order.dto.OrderSum;
 import com.acorn5.booking.order.entity.Order;
 import com.acorn5.booking.order.repository.OrderRepository;
 import com.acorn5.booking.order.service.OrderService;
+import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
@@ -40,6 +41,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CartService cartservice;
 	
 	//by욱현. 결제한 책들을 my_order 테이블에 저장하기_2021317
 	@RequestMapping(value = "/pay/orderInsert", method = RequestMethod.POST)
@@ -72,6 +76,10 @@ public class OrderController {
 				HttpServletRequest request) {
 			//뷰페이지에서 프로필이미지 로드를 위한 로직 
 			Long id = (Long) session.getAttribute("id");
+			if (id != null) {
+				// by 우석, view page 에서 cartitem 불러오기_210315
+				cartservice.listCart(mView, request);
+			}
 			Users dto = usersRepository.findById(id);  
 					//dao.getData(id);
 			mView.addObject("dto", dto);
@@ -86,11 +94,13 @@ public class OrderController {
 			HttpServletRequest request) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
 		Long id = (Long) session.getAttribute("id");
+		if (id != null) {
+			// by 우석, view page 에서 cartitem 불러오기_210315
+			cartservice.listCart(mView, request);
+		}
 		Users dto = usersRepository.findById(id);  
 				//dao.getData(id);
 		mView.addObject("dto", dto);
-		
-		
 		mView.setViewName("users/private/order_detail.page");
 		return mView;
 	}

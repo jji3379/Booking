@@ -12,54 +12,175 @@
 
 </head>
 <body>
-<div class="layout">
-	<div class="breadcrumb">
-		<ul class="steps">
-	  		<li class="location">
- 		 		<span>주문완료</span> 주문이 성공적으로 완료되었습니다.
-	  		</li>
-			<li class="step">
-			  	<a >북카트</a>
-			</li>
-			<li class="step">
-			  	<a>주문 / 결제</a>
-			</li>
-			<li class="active">
-			  	<a>주문 완료</a>
-			</li>
-		</ul>
-	</div>
-	<div class="orderWrap">
-		<div class="order-box">
-			<div class="order-header">
-	  			<svg id="headset" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
-					<path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/>
-				</svg>
+<div class="popup-wrap" id="popup">
+	<div class="popup">		
+		<a id="close"><img src="${pageContext.request.contextPath }/resources/images/x.svg"/></a>
+		<div class="login-wrap">
+			<div class="popup-head">	
+				<div class="head-logo"><img src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/></div>
+				<h2 class="title">북킹 로그인</h2>
 			</div>
-			<div class="order-body">
-	 			<h5 class="order-msg">
-	 				<strong>${id }</strong> 님의 주문이 정상적으로 완료되었습니다.
-	 			</h5>
-		  		<p>
-			  	자세한 구매내역 확인은 <strong>마이페이지 > 주문내역</strong> 에서 확인 하실수 있습니다.
-		  		</p>
-		  		<div class="order-info">
-		  			<div class="order-num">
-		  				<p>주문번호</p>
-		  				<p class="order-text">1234567890</p>
-		  			</div>
-		  			<div class="order-date">
-		  				<p>주문일자</p>
-		  				<p class="order-text">2021-12-31</p>
-		  			</div>
-		  		</div>
+			<div class="popup-body">	
+				<form id="loginForm" class="loginForm" novalidate="" action="${pageContext.request.contextPath }/users/login" method="post">
+					<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
+					<input type="hidden" id="url" name="url" value="${url }"/>
+					<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
+					<div class="idBox">
+						<label for="id" hidden>아이디</label>
+						<input type="text" class="loginId" id="loginId" name="loginId" placeholder="아이디"  value="${savedId }">
+						<span class="errorId-off">필수 입력 항목입니다.</span>
+					</div>
+					<div class="pwdBox">
+						<label for="pwd" hidden>비밀번호</label>
+						<input type="password" class="pwd" id="pwd" name="pwd" placeholder="비밀번호" value="${savedPwd }">
+						<span class="errorPwd-off">필수 입력 항목입니다.</span>
+					</div>
+					<div class="checkId">
+						<label>
+     						<input type="checkbox" id="saveId" name="isSave" value="yes"> 로그인 유지하기
+   						</label>
+					</div>
+				<button class="submitBtn" type="button" onclick="login()">로그인</button>
+				</form>
 			</div>
-			<div class="order-footer">
-				<a class="btn home" href="${pageContext.request.contextPath }/home.do" >계속 쇼핑하기</a> 
-				<a class="btn order" href="../users/private/my_order.do" >구매내역 확인</a>
-			</div>
-		</div>
+			<div class="popup-foot"> 
+				<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup_form.do">회원가입</a></span>
+			</div>	
+		</div>		
 	</div>
 </div>
 </body>
 </html>
+<script>	
+var loginId = $("#loginId").val();
+var loginPwd = $("#pwd").val();
+if(loginId && loginPwd != null){
+	$("input:checkbox[id='saveId']").prop("checked", true);
+}
+
+$(document).ready(function() {
+    $('#searchForm').submit(function() {
+        if ($('#searchBook').val() == '') {
+            return false;
+        }
+    }); 
+}); 
+
+function modalClose(){
+    $("#popup").fadeOut(); //페이드아웃 효과
+    $('.loginForm')[0].reset();
+	$('.errorId-on').attr('class','errorId-off');
+	$('.loginId-error').attr('class','loginId');
+	$('.errorPwd-on').attr('class','errorPwd-off');
+	$('.pwd-error').attr('class','pwd');
+} 
+//by준영. 로그인 시 모달창 기능
+
+$(function(){
+	$("#modal-open").click(function(){        
+    	$("#popup").css('display','flex').hide().fadeIn();
+    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+	});
+	$("#close").click(function(){
+	    modalClose(); //모달 닫기 함수 호출
+	});
+	//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
+	$(document).mouseup(function (e){
+		var popup = $('#popup');
+		if( popup.has(e.target).length === 0){
+			modalClose();
+		}
+	});
+});
+
+
+//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
+$('#loginForm').keypress(function(event){
+     if ( event.which == 13 ) {
+    	 login();
+         return false;
+     }
+});
+
+//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
+var loginClickCheck = 0;
+
+function login(){
+	loginClickCheck = 1;
+	var loginId = $("#loginId").val();
+	var loginPwd = $("#pwd").val();
+	var saveIdCheck = $('#saveId:checked').val();
+	var error = ((loginId === '' || loginPwd === '') ? 1 : 0 );
+ 	
+	var loginData = {loginId : loginId, pwd : loginPwd};
+	
+	switch(error){
+		case 0:
+			$.ajax({
+				type : 'POST',
+				url:"${pageContext.request.contextPath}/v1/users/login",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				data : JSON.stringify(loginData),
+				success : function(result){
+					$("#url").val(window.location.href);
+					$("#loginForm").submit()
+					$("#popup").fadeOut();
+				},
+				error : function(result) {
+					// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우)
+					alert("아이디 또는 비밀번호를 확인해주세요.");
+				}
+			});
+			break;
+		case 1:
+			if(loginId == '' && loginPwd == ''){
+				$('.errorId-off').attr('class','errorId-on');
+				$('.loginId').attr('class','loginId-error');
+				$('.errorPwd-off').attr('class','errorPwd-on');
+				$('.pwd').attr('class', 'pwd-error');
+				$('#loginId').focus();
+				return;
+			}else if(loginId == ''){
+				$('.errorId-off').attr('class','errorId-on');
+				$('.loginId').attr('class','loginId-error');
+				$('#loginId').focus();
+				return;
+			}else if(loginPwd == ''){
+				$('.errorPwd-off').attr('class','errorPwd-on');
+				$('.pwd').attr('class','pwd-error');
+				$('#pwd').focus();
+				return;
+			}
+	 	}	
+	}  
+	
+	//by 준영, 유효성검사 -실시간체크
+	$("#loginId").keyup(function(){
+		if(loginClickCheck == 0){
+			return;
+		}
+		if($('#loginId').val().length > 0){
+			$('.errorId-on').attr('class','errorId-off');
+			$('.loginId-error').attr('class','loginId');
+		}else{
+			$('.errorId-off').attr('class','errorId-on');
+			$('.loginId').attr('class','loginId-error');
+			$('#loginId').focus();
+		}
+	})
+	$("#pwd").keyup(function(){
+		if(loginClickCheck == 0){
+			return;
+		}
+		if($('#pwd').val().length > 0){
+			$('.errorPwd-on').attr('class','errorPwd-off');
+			$('.pwd-error').attr('class','pwd');
+		}else{
+			$('.errorPwd-off').attr('class','errorPwd-on');
+			$('.pwd').attr('class','pwd-error');
+			$('#pwd').focus();
+		}
+	})
+	
+</script>
