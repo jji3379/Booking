@@ -138,47 +138,47 @@
 									<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
 								</tr>
 								<tr class="interestChk" >
-									<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="novel"/> 소설</label></td>
-									<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="care" id="humanities" value="humanities"/> 인문</label></td>
-									<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="poetry"/> 시 / 에세이</label></td>
+									<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="100"/> 소설</label></td>
+									<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="110"/> 시 / 에세이</label></td>
+									<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="care" id="humanities" value="120"/> 인문</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="care" id="hobby" value="hobby"/> 취미/레저</label></td>
-									<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="care" id="health" value="health"/> 건강</label></td>
-									<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="care" id="home" value="home"/> 가정/생활/요리</label></td>
+									<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="care" id="home" value="130"/> 가정/생활/요리</label></td>
+									<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="care" id="health" value="140"/> 건강</label></td>
+									<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="care" id="hobby" value="150"/> 취미/레저</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="care" id="economy" value="economy"/> 경제/경영</label></td>
-									<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="care" id="self" value="self"/> 자기계발</label></td>
-									<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="care" id="society" value="society"/> 사회</label></td>
+									<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="care" id="economy" value="160"/> 경제/경영</label></td>
+									<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="care" id="self" value="170"/> 자기계발</label></td>
+									<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="care" id="society" value="180"/> 사회</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="care" id="history" value="history"/> 역사/문화</label></td>
-									<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="care" id="religion" value="religion"/> 종교</label></td>
-									<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="care" id="art" value="art"/> 예술/대중문화</label></td>
+									<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="care" id="history" value="190"/> 역사/문화</label></td>
+									<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="care" id="religion" value="200"/> 종교</label></td>
+									<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="care" id="art" value="210"/> 예술/대중문화</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="care" id="dictionary" value="dictionary"/> 사전</label></td>
-									<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="care" id="magazine" value="magazine"/> 잡지</label></td>
-									<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="care" id="language" value="language"/> 국어/외국어</label></td>
+									<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="care" id="reference" value="220"/> 학습/참고서</label></td>
+									<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="care" id="language" value="230"/> 국어/외국어</label></td>
+									<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="care" id="dictionary" value="240"/> 사전</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="care" id="science" value="science"/> 과학/공학</label></td>
-									<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="care" id="trip" value="trip"/> 여행/지도</label></td>
-									<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="care" id="employment" value="employment"/> 취업/수험서</label></td>
+									<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="care" id="science" value="250"/> 과학/공학</label></td>
+									<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="care" id="employment" value="260"/> 취업/수험서</label></td>
+									<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="care" id="trip" value="270"/> 여행/지도</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="care" id="IT" value="IT"/> 컴퓨터/IT</label></td>
-									<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="care" id="teenager" value="teenager"/> 청소년</label></td>
-									<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="care" id="reference" value="reference"/> 학습/참고서</label></td>
+									<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="care" id="IT" value="280"/> 컴퓨터/IT</label></td>
+									<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="care" id="magazine" value="290"/> 잡지</label></td>
+									<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="care" id="teenager" value="300"/> 청소년</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="care" id="infant" value="infant"/> 유아</label></td>
-									<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="care" id="child" value="child"/> 어린이</label></td>
-									<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="care" id="comic" value="comic" /> 만화</label></td>
+									<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="care" id="infant" value="310"/> 유아</label></td>
+									<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="care" id="child" value="320"/> 어린이</label></td>
+									<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="care" id="comic" value="330" /> 만화</label></td>
 								</tr>
 								<tr class="interestChk">
-									<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="care" id="overseas" value="overseas"/>해외도서</label></td>
+									<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="care" id="overseas" value="340"/>해외도서</label></td>
 									<td></td>
 									<td></td>
 								</tr>
@@ -199,7 +199,8 @@
 	var myCare = "${care}"; 
 	var careList = myCare.split(',');
 	for (var i = 0; i < careList.length; i++) {
-		$('input:checkbox[id=' + careList[i] + ']').attr("checked", true);
+		$('input:checkbox[value=' + careList[i] + ']').attr("checked", true);
+		
 	}
 
 	//by준영, 현재시간 출력
