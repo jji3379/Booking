@@ -1,6 +1,10 @@
 package com.acorn5.booking.book.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.service.BookService;
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
+import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.SearchRepository;
 import com.acorn5.booking.users.repository.UsersRepository;
  
 @Controller
@@ -31,6 +38,9 @@ public class BookController {
 
     @Autowired
     private UsersRepository usersRepository;
+    
+	@Autowired
+	private SearchRepository searchRepository; 
     
     //by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
     @RequestMapping("/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
@@ -95,32 +105,50 @@ public class BookController {
     public ModelAndView reviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request,HttpSession session){    
 		ModelAndView mView = new ModelAndView();
 		Long id = (Long) session.getAttribute("id");
-		Users dto = null;
 		if (keyword != null) {
 			mView.addObject("reviewBookList", service.searchBookList(keyword, 8, 1, request, mView));
 		} else {
-			if (id != null && usersRepository.findById(id).getRecentSearch() != null) { // 세션에 로그인된 아이디가 저장되어 있으면
-				int nansu = new Random().nextInt(2); // 0 or 1 난수 얻기
-				// by 우석, view page 에서 cartitem 불러오기_210315
-				if (nansu == 0) { // 난수가 0이면 관심사 기반
-					dto = usersRepository.findById(id); // 로그인된 회원의 정보 얻어오기
-					String query = dto.getCare(); // 회원의 관심사를 query로 설정
-					mView.addObject("reviewBookList", service.careRecommendBook(query, 1, 8, "count", mView));
-				} else { // 난수가 1이면 최근검색어 기반_210310
-					dto = usersRepository.findById(id);
-					String query = dto.getRecentSearch();
-					System.out.println(query);
-					mView.addObject("reviewBookList", service.searchRecommendBook(8, 1, "count", query, mView));
+			Users userId = new Users();
+			List<BookDto> searchRecommendList = new ArrayList<BookDto>();
+			if (id != null) { // 로그인을 한 경우
+				userId.setId(id);
+				
+				// 중복을 제거한 리스트
+				List<Search> searchList = searchRepository.findByUserId(userId).stream().distinct().collect(Collectors.toList());
+				Users users = usersRepository.findById(id);
+				String careList[] = users.getCare().split(",");
+				
+				// 2. 로그인 해서 최근 검색어 기반으로 추천
+				cartservice.listCart(mView, request);
+
+				if (searchList.size() > 5) { // 최근 검색어가 5개 이상 있을 경우
+					System.out.println("검색어 5개 이상");
+					for (int i = 0; i < 5; i++) {
+						if (searchList.get(i).getKeyword() != null) {
+							searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+						} 
+					}
+				} else if(searchList.size() > 0 && searchList.size() < 5) { // 최근 검색 기록이 0보다 크고 5보다 작을 때
+					System.out.println("검색어 5개 이하");
+					for (int i = 0; i < searchList.size(); i++) {
+						if (searchList.get(i).getKeyword() != null) {
+							searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+						}
+					}
+					// 나머지는 관심사로 채우기
+					for (int i = 0; i < careList.length; i++) {
+						searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));		
+					}
+				} else if(searchList.isEmpty()){ // 최근 검색어가 없을 경우
+					System.out.println("검색어 없는 경우");
+					for (int i = 0; i < careList.length; i++) {
+						searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));
+					}
 				}
-			} else if (id == null) { // 로그인을 안한경우
-				mView.addObject("reviewBookList", service.careRecommendBook("1", 1, 8, "count", mView));
-			} else if (id != null && usersRepository.findById(id).getRecentSearch() == null) {// 로그인된 아이디의 최근검색어가 없는경우
-				dto = usersRepository.findById(id);
-				String query = dto.getCare();
-				mView.addObject("reviewBookList", service.careRecommendBook("1", 1, 8, "count", mView));
 			}
+			Collections.shuffle(searchRecommendList);
+			mView.addObject("reviewBookList", searchRecommendList);
 		}
-		// by 우석, view page 에서 cartitem 불러오기_210315
 		if (id != null) {
 			cartservice.listCart(mView, request);
 		}
