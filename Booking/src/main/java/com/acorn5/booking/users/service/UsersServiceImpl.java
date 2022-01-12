@@ -314,8 +314,8 @@ public class UsersServiceImpl implements UsersService{
 		Long id=(Long)request.getSession().getAttribute("id");
 		//수정할 정보를 dto 에 담기
 		Users dto = usersRepository.findById(id);
-		dto.setId(id);
 		dto.setProfile(profile);
+		usersRepository.save(dto);
 		//dao 를 이용해서 수정 반영하기
 		//dao.updateProfile(dto);
 	}

@@ -109,13 +109,15 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 			
 			List<Search> searchList = searchRepository.findByUserId(userId);
 			
-			String recentKeyword = searchList.get(0).getKeyword();
 			
+			String recentKeyword = null; 
+					//searchList.get(0).getKeyword();
+			/*
 			for (int i = 0; i < searchList.size(); i++) {
 				recentKeyword = searchList.get(i).getKeyword();
 				System.out.println("recentKeyword : "+recentKeyword);
 			}
-
+		 	*/
 			if (recentKeyword == null) { // 최근 검색어가 없을 경우 관심사로 추천
 				String query = usersRepository.findById(id).getCare();// 회원의 관심사를 query로 설정
 				service.recommendBook(10, 1, "count", query, mView);

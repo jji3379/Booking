@@ -85,10 +85,10 @@
 			<div class="account-form">
 				<h2>기본 정보</h2>
 				<div class="profile-box">
-					<img id="preImg" src="" alt="" />
+					<img id="preImg" src="${dto.profile }" alt="" />
 					<c:choose>
 						<c:when test="${empty dto.profile }">
-							<form name="profile" action="profile_upload.do" method="post" 
+							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
 								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
@@ -99,7 +99,7 @@
 							</form>
 						</c:when>
 						<c:otherwise>
-							<form name="profile" action="profile_upload.do" method="post" 
+							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
 								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
