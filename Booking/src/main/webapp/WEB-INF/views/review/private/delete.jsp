@@ -8,10 +8,10 @@
 </head>
 <body>
 <div class="container">
-   <script>
-      alert('회원 탈퇴 처리 되었습니다.');
-      location.href='${pageContext.request.contextPath }/';
-   </script>
+	<script>
+		alert('회원 탈퇴 처리 되었습니다.');
+		location.href='${pageContext.request.contextPath }/';
+	</script>
 </div>
 </body>
 </html>

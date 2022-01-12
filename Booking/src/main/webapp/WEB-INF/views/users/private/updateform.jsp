@@ -91,8 +91,8 @@
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
-								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
-								<input type="hidden" name = "target_url">
+								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" style="display:none;"/>
+								<input type="hidden" id="profileImg" name = "target_url">
 								<div class="profile-buttons" style="padding-top:40px;">
 									<button type="submit">업로드</button>
 								</div>
@@ -102,8 +102,9 @@
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
-								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG" style="display:none;"/>
+								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" style="display:none;"/>
 								<input type="hidden" name = "target_url">
+								<input type="hidden" id="profileImg" value="${dto.profile}" />
 								<div class="profile-buttons">
 									<button type="submit">업로드</button>
 									<a href="javascript:deleteProfile();">삭제</a>
@@ -231,7 +232,22 @@
 	}
 </script>
 <script>
-	$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
+
+	var profileImg = $('#profileImg').val();
+	if( profileImg != null ){
+		$('#preImg').attr('src', profileImg );
+	}else{
+		$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
+	}
+	
+	/*
+	var request = new XMLHttpRequest();
+	request.open("POST", "${pageContext.request.contextPath }", true);
+	var data = new FormData();
+	data.append("image", dataURL, profileImg);
+	request.send(data);
+	*/
+	
 	$('#preImg').click(function (e) {
 	    document.profile.target_url.value = document.getElementById( 'preImg' ).src;
 	    e.preventDefault();

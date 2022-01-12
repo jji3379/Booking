@@ -61,7 +61,7 @@
                    <input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
                      <button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
                   <button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
-                     <a href="${pageContext.request.contextPath }/review/private/reviewInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
+                     <a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
                   </td>
             </tr>
          </table>

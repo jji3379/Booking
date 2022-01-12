@@ -15,6 +15,6 @@
 	var url=$("#url").val();	
 
 	alert("${loginId}님 반갑습니다!");
-	location.href=url;
+	
 </script>
 </html>

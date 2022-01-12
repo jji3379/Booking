@@ -161,27 +161,6 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				var rating = $("#star-rating[i]").text();	
-				
-				//by 준영, rating -> ★ 변환
-				switch(rating){
-				case (rating == 1):
-					rating.text('★☆☆☆☆');
-					break;
-				case (rating == 2):
-					rating.text('★★☆☆☆');
-					break;
-				case (rating == 3):
-					rating.text('★★★☆☆');
-					break;
-				case (rating == 4):
-					rating.text('★★★★☆');
-					break;
-				case (rating == 5):
-					rating.text('★★★★★');
-					break;
-				}
-				
 				reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 					reviewList += '<div class="card col">'
 					reviewList += '<div class="card-header" style="background-image:url('+data.content[i].imagePath+')">'
@@ -194,7 +173,27 @@
 					reviewList += '<div class="card-body-header">'
 	
 					reviewList += '<h1>'+data.content[i].reviewTitle+'</h1>'
-					reviewList += '<div class="star-value" id="star-rating'+[i]+'">'+data.content[i].rating+'</div>'
+					reviewList += '<div class="star-value" id="star-rating'+[i]+'">'
+
+					switch(data.content[i].rating) {
+						case 1 :
+							reviewList += ('★☆☆☆☆')
+							break;
+						case 2 :
+							reviewList += ('★★☆☆☆')
+							break;
+						case 3 :
+							reviewList += ('★★★☆☆')
+							break;
+						case 4 :
+							reviewList += ('★★★★☆')
+							break;
+						case 5 :
+							reviewList += ('★★★★★')
+							break;
+					}
+					
+					reviewList += '</div>'
 					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
 					reviewList += '</div>'
 	
@@ -204,7 +203,8 @@
 					reviewList += '<hr class="underline">'
 					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
 					reviewList += '<div class="comment">'
-						$.ajax({
+					/*	
+					$.ajax({
 							url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
 							method:"GET",
 							dataType : "json",
@@ -216,6 +216,7 @@
 								console.log("오류");
 							}
 						});
+					*/
 					reviewList += '</div>'
 					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
 					reviewList += '</div>'

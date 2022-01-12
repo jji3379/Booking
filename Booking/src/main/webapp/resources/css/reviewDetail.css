@@ -342,19 +342,14 @@ body{
 	    background-color: #f9f9f9;
 	    font-family: "dotum";
 	}
-	.reply-form {
+	.commentUpdate-form {
 	    display: block;
-	    border-bottom: 1px solid;
-	    margin: 13px 0;
-	}
-	.reviewUpdate-form {
-	    display: block;
-	    padding-bottom: 15px;
+        padding: 10px 0;
     	border-bottom: 1px solid #eee; 
 	}
 	.reply-form {
 		display: block;
-		padding-bottom: 15px;
+	    padding: 10px 0;
     	border-bottom: 1px solid #eee; 
 	}
 	.textarea-box{
@@ -380,6 +375,7 @@ body{
 	}
 	.commentBtn {
 		font-family: '777Balsamtint';
+		cursor:pointer;
 		font-size: 17px;
 	    margin-left: 5px;
 	    width: 160px;
@@ -410,6 +406,7 @@ body{
 	}
 	.replyBtn {
 		font-family: '777Balsamtint';
+		cursor:pointer;
 		font-size: 17px;
 	    margin-left: 5px;
 	    width: 175px;
@@ -421,7 +418,7 @@ body{
 	    background-color: #fff;
 	    color: #333;
 	}
-	.reviewUpdate-form > textarea {
+	.commentUpdate-form > textarea {
 		font-family: '777Balsamtint';
 		font-size: 17px;
 		float:left;
@@ -440,6 +437,7 @@ body{
 	}
 	.updateBtn {
 		font-family: '777Balsamtint';
+		cursor:pointer;
 		font-size: 17px;
 		margin-left: 5px;
 	    width: 175px;

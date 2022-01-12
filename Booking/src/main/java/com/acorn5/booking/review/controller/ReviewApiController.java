@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.Review;
@@ -60,20 +61,20 @@ public class ReviewApiController {
 		
 		// by남기, 글 삭제 요청처리_210303
 		@RequestMapping(value = "/review/{id}", method = RequestMethod.DELETE)
-		public void delete(@PathVariable Long id) {
+		public String delete(@PathVariable Long id) {
 			// by남기, 삭제할 글 번호가 파라미터로 넘어온다_210303
 			service.deleteContent(id);
 			// by남기, view page 로 forward 이동해서 응답_210303
-			//return "review/private/reviewDelete";
+			return "redirect:${pageContext.request.contextPath}/review";
 		}
 		
 		// by남기, 리뷰 수정 요청 처리_210303
 		@RequestMapping(value = "/review/{id}", method = RequestMethod.PUT)
-		public String update(@PathVariable("id") Long id, @RequestBody Review review) {
+		public void update(@PathVariable("id") Long id, @RequestBody Review review) {
 			// by남기, 수정할 리뷰의 정보를 dto에서 가져온다_210303
 			service.updateContent(id, review);
 			// by남기, view page 로 forward 이동해서 응답_210303
-			return "review/private/reviewUpdate";
+			//return service.updateContent(id, review);
 		}
 		
 		// by남기, 새 리뷰 작성 요청 처리_210303

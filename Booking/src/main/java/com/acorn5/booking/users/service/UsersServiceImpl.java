@@ -110,7 +110,7 @@ public class UsersServiceImpl implements UsersService{
 		if (url == null) {
 			// 로그인 후에 home.do 요청이 되도록 절대 경로를 구성한다.
 			String cPath = request.getContextPath();
-			url = cPath + "/home.do";
+			url = cPath;
 		}
 		//쿠키에 저장된 아이디와 비밀번호를 담을 변수
 		String savedId = "";

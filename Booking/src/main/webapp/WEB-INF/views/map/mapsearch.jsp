@@ -115,7 +115,7 @@
 	    font-size: 13px;
 	    font-family:'Nanumgothic';
 	}﻿
-
+	
 	
 </style>
 <jsp:include page="../include/resource.jsp"></jsp:include>
@@ -127,13 +127,14 @@
 	<div class="partners">
 		<ul>
 			<li><img src="${pageContext.request.contextPath }/resources/images/ypbooks.png" alt="" /></li>
-			<li><img src="${pageContext.request.contextPath }/resources/images/yes24.png" alt="" /></li>
-			<li><img src="${pageContext.request.contextPath }/resources/images/kyobo.png" alt="" /></li>
+			<li><img src="${pageContext.request.contextPath }/resources/images/yes24.PNG" alt="" /></li>
+			<li><img src="${pageContext.request.contextPath }/resources/images/kyobo.PNG" alt="" /></li>
 			<li><img src="${pageContext.request.contextPath }/resources/images/aladin.png" alt="" /></li>
 		</ul>
 	</div>
     <div id="map"></div>
     <div id="menu_wrap" class="bg_white">
+    	<h3 class="search-top" style="padding: 5px 0;font-size: 20px;font-family: '777Balsamtint';border-bottom: 2px solid #41495c; border-top: 2px solid #41495c;margin-bottom: 4px;text-align: center;color: #212529;background: #fafafaeb;">Partners</h3>
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.book.service.BookService;
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 
@@ -44,6 +45,9 @@ public class ReviewViewController {
 	EntityManager em;
 	
 	// by남기, 의존객체 DI 을 필드에 선언해둔다_210303
+	@Autowired
+    private BookService bookService;
+	
 	@Autowired
 	private ReviewService service;
 
@@ -117,10 +121,22 @@ public class ReviewViewController {
 		return "review/private/reviewInsertform.page";
 
 	}
-
+	//by준영, 다이렉트 리뷰작성
+    @RequestMapping("/review_directInsertform.do")
+    public ModelAndView directReview(@RequestParam(required=false)String d_isbn){
+    	ModelAndView mView = new ModelAndView();
+        
+        if(d_isbn !=null)
+        {
+            mView.addObject("reviewDirect",bookService.bookDetail(d_isbn,1));
+        }
+        mView.setViewName("detail/review_directInsertform.page");
+        return mView;
+    
+    }
 	// by남기, 리뷰 수정 폼 요청 처리_210303
-	@RequestMapping("/private/reviewUpdateform")
-	public ModelAndView updateform(@RequestParam Long num,
+	@RequestMapping("/private/review/update/{id}")
+	public ModelAndView updateform(@PathVariable Long id,
 			ModelAndView mView, HttpServletRequest request) {
 		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
 		//service.getDetail(num);
@@ -129,7 +145,8 @@ public class ReviewViewController {
 			cartservice.listCart(mView, request);
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
-		mView.setViewName("review/private/reviewUpdateform");
+		mView.addObject("dto", service.getDetail(id));
+		mView.setViewName("review/private/reviewUpdateform.page");
 		return mView;
 	}
 	
