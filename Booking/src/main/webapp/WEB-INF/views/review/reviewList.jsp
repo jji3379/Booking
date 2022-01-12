@@ -160,10 +160,10 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				var rating = $("#star-rating[i]").text();	
+				var rating = data.content[i].rating;	
 				
-				//by 준영, rating -> ★ 변환
-				switch(rating){
+				
+				switch(rating){//by 준영, rating -> ★ 변환
 				case (rating == 1):
 					rating.text('★☆☆☆☆');
 					break;
