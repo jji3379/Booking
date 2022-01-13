@@ -219,15 +219,13 @@
 	});
 	}
 
-	pagingList(0, 'regdate');
-	// 페이징 처리
-	/*
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review",
 		method:"GET",
 		dataType : "json",
 		async: false,
 		success:function(data) {
+			pagingList(0, 'regdate');		
 			window.pagObj = $('#paging').twbsPagination({ 
 				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
 				startPage: data.number+1, 
@@ -247,7 +245,7 @@
 			console.log("오류");
 		}
 	});
-*/
+
 	//by 준영, 리뷰검색폼 빈값 제출 막기
 	$('#search').submit(function() {
 	    if ($('#reviewInput').val() == '') {
