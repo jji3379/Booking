@@ -93,6 +93,25 @@ body{
       padding: 0;
       padding-left: 9px;
    }
+   	.star-fill {
+		color: #fff58c;
+		width: 100%;
+		padding: 0;
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		top: 0;
+		left: 5px;
+		font-family: emoji;
+		-webkit-text-fill-color: #ffc80b;
+	}
+ 	
+	.star-base {
+		display:inline-block;
+		z-index: 0;
+		padding: 0;
+		-webkit-text-fill-color: #d3cfcf; /* 덜 채워진 색상 */
+	}
    .star-value {
       font-family: emoji;
       display: inline;
@@ -236,11 +255,11 @@ body{
       color: #333333;
    }
    .total-star{
-      padding-left: 5px;
-      font-family: emoji;
-      display: inline;
-      vertical-align: baseline;
-      color: #ffc80b;
+		padding-left: 5px;
+		font-family: emoji;
+		display: inline;
+		position: relative;
+		-webkit-text-fill-color: #e5e5e5; /* 덜 채워진 색상 */
    }
    .review-box{
       position: relative;

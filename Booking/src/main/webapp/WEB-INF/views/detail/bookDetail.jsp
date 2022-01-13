@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bookDetail.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-   
+ 
+
 </style>
 </head>
 <body>
@@ -18,11 +19,17 @@
       <div class="hori">
          <table class="tb">
             <div class="tb-head">
-               <h2 class="head-title"> > ${b.title }</h2>
-               <div class="head-star">
-                  <p>별점</p>
-                  <div class="total-star" id="starValue">★★★★★</div>
-               </div>
+            	<h2 class="head-title"> > ${b.title }</h2>
+            	<div class="head-star">
+                	<p>별점</p>
+                	<div class="total-star">
+						<div class="starValue star-fill" ></div>
+						<div class="star-base">
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+					</div>
+					<span class="total-value"></span>
+            	</div>
             </div>
                <tr>
                   <td class="tdImg" rowspan='6'><a id="image" href="${b.link }"><img src="${b.image}"/></a></td>
@@ -102,16 +109,21 @@
             </div>
          </div>
          <div class="reviewWrap">
-            <div class="review-L">
+       	 	<div class="review-L">
                마이 리뷰
             </div>
             <div class="review-R">
                <div class="review-box">
                   <div class="head-star review-top">
                      <p>별점</p>
-                     <div class="total-star">★★★★★</div>
-                     <span class="total-value" id="total-value">3.5</span>
-                     <p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
+                     <div class="total-star">
+						<div class="starValue star-fill"></div>
+						<div class="star-base">
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+					</div>
+		     		<span class="total-value" ></span>
+		          	<p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
                   </div>
                   <ul class="sortWrap">
                      <li class="review-sort">
@@ -126,7 +138,7 @@
                      </li>
                   </ul>
                   <ul class="reviewList">
-                     <!-- 더미 2 -->
+                     <!-- 더미  -->
                      <li>    
                         <div class="title-box">        
                            <div class="star-box">            
@@ -144,9 +156,8 @@
                         <div class="content-box">        
                            <div id="content${tmp.id }" class="spoAlert">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
                            <div class="replyCount">        
-                              댓글<span>(0)</span>  
+                              댓글 <span>(0)</span>  
                               <a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
-                              
                            </div>
                         </div>    
                      </li>
@@ -164,7 +175,6 @@
       </div>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
-	
 
 	$("#insertBtn, #directBtn, #reviewBtn").click(function(){
 		if("${sessionScope.id}" == '') {
@@ -209,20 +219,19 @@
 									dataType : "json",
 									async: false,
 									success:function(data) {
-							reviewList += '<div class="replyCount">댓글<span>('+data+')</span>'
+							reviewList += '<div class="replyCount">댓글<span>('+data+')</span><a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a>'
 									},
 									error : function(data) {
 										console.log("오류");
 									}
 								});
 							
-							reviewList += '<a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 					reviewList += '</li>'
 					
-				}
-				$(".reviewList").html(reviewList);
+				} /* 
+				$(".reviewList").html(reviewList);  */
 			},
 			error : function(data) {
 				console.log("오류");
@@ -265,14 +274,75 @@
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			$("#total-value").html(data);
-			$("#starValue").html(data);
+			var dataText = "("+data+")";
+			var int_part = Math.trunc(data);
+			var float_part = Number(Number((data-int_part).toFixed(2)));
+			var intValue = "";
+			//숫자형 평점을 total-value 에 출력
+			$('.total-value').html(dataText);
+			
+			//평점의 인수부분 +1개 만큼 별 생성하고
+			switch(int_part) {
+			case 0 :
+				intValue += ('<span>★</span>')
+				break;
+			case 1 :
+				intValue += ('<span>★</span><span>★</span>')
+				break;
+			case 2 :
+				intValue += ('<span>★</span><span>★</span><span>★</span>')
+				break;
+			case 3 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			case 4 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			case 5 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			}
+			$('.starValue').html(intValue);
+			//평점의 소수부분 만큼 마지막 별점을 커스텀한다
+			switch(float_part) {
+			case 0.0 :
+				$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
+				break;
+			case 0.1 :
+				$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
+				break;
+			case 0.2 :
+				$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
+				break;
+			case 0.3 :
+				$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
+				break;
+			case 0.4 :
+				$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
+				break;
+			case 0.5 :
+				$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
+				break;
+			case 0.6 :
+				$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
+				break;
+			case 0.7 :
+				$('.star-fill').children().last().css({'width':'10.25%','overflow':'hidden'});
+				break;
+			case 0.8 :
+				$('.star-fill').children().last().css({'width':'11.5%','overflow':'hidden'});
+				break;
+			case 0.9 :
+				$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
+				break;
+			}
+			
 		},
 		error : function(data) {
-			console.log("오류");
 		}
 	});
-
+	
+	
     //by 준영, 이 저자의 책들을 불러오는 ajax 호출 함수_210222
     var inputAuth=$("#auth").text();
     function bookAuthor(){
