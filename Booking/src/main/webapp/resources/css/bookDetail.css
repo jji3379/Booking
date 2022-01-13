@@ -105,6 +105,18 @@ body{
 		font-family: emoji;
 		-webkit-text-fill-color: #ffc80b;
 	}
+	.star-fill2 {
+		color: #fff58c;
+		width: 100%;
+		padding: 0;
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		top: 0;
+		left: 5px;
+		font-family: emoji;
+		-webkit-text-fill-color: #ffc80b;
+	}
  	
 	.star-base {
 		display:inline-block;
