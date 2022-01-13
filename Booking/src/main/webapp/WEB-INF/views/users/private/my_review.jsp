@@ -26,7 +26,7 @@
 							<span>작성글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="reviewCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -37,7 +37,7 @@
 							<span>작성 댓글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="replyCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -48,7 +48,7 @@
 							<span>북카트 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">0</span>
+							<span class="count" id="cartCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -88,8 +88,8 @@
 					<caption>Total : 3</caption>
 					<colgroup>						
 						<col style="width:8%"/>
-						<col style="width:62%"/>
-						<col style="width:10%"/>
+						<col style="width:42%"/>
+						<col style="width:20%"/>
 						<col style="width:10%"/>
 						<col style="width:10%"/>
 					</colgroup>
@@ -102,7 +102,7 @@
 							<th>댓글 수</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="reviewList">
 						<tr class="myPost-tr">
 							<td>3</td>
 							<td class="myPost-tdTitle">달러구트를 읽고..</td>
@@ -178,20 +178,57 @@
 	
 	$('#date').html(today.toLocaleString());
 	
-
-	$('#top-post').on('click',function(){
-		function myPost(){
-		    $.ajax({ 
-		       	url:"my_review.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			$("#reviewCount").html(data.review.length);
+			$("#replyCount").html(data.reviewDtl.length);
+			$("#cartCount").html(data.cart.length);
+			
+			reviewList = "";
+				reviewList += '<div class="myPost">'
+					reviewList += '<h1>작성 글 보기</h1>'
+					reviewList += '<table class="myPost-tb">'
+						reviewList += '<caption>Total : '+data.review.length+'</caption>'
+						reviewList += '<colgroup>'
+							reviewList += '<col style="width:8%"/>'
+							reviewList += '<col style="width:42%"/>'
+							reviewList += '<col style="width:20%"/>'
+							reviewList += '<col style="width:10%"/>'
+							reviewList += '<col style="width:10%"/>'						
+						reviewList += '</colgroup>'
+						reviewList += '<thead>'
+							reviewList += '<tr class="myPost-tr">'
+								reviewList += '<th>번호</th>'
+								reviewList += '<th>제목</th>'
+								reviewList += '<th>날짜</th>'
+								reviewList += '<th>조회 수</th>'
+								reviewList += '<th>댓글 수</th>'
+							reviewList += '</tr>'
+						reviewList += '</thead>'
+						reviewList += '<tbody>'
+				
+						for(var i=0; i<data.review.length; i++){				
+							reviewList += '<tr class="myPost-tr">'
+								reviewList += '<td>'+(i+1)+'</td>'
+								reviewList += '<td class="myPost-tdTitle">'+data.review[i].reviewTitle+'</td>'
+								reviewList += '<td>'+data.review[i].regdate+'</td>'
+								reviewList += '<td>'+data.review[i].viewCount+'</td>'
+								reviewList += '<td>'+data.review[i].replyCount+'</td>'
+							reviewList += '</tr>'				
+						}
+						reviewList += '</tbody>'
+					reviewList += '</table>'
+				reviewList += '</div>'
+			$(".content").html(reviewList);
+		},
+		error : function(data) {
+			console.log("오류");
 		}
-	})
-	
+	});
 	
 	//회원탈퇴묻기
 	function deleteConfirm(){

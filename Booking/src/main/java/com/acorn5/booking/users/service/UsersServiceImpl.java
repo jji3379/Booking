@@ -39,6 +39,7 @@ import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
+import com.acorn5.booking.users.dto.UserInfoDto;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.QSearch;
 import com.acorn5.booking.users.entity.QUsers;
@@ -221,16 +222,24 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
-	public Users getInfo(HttpSession session) {
+	public UserInfoDto getInfo(Long id) {
 		//로그인된 아이디를 읽어와서
-		Long id=(Long)session.getAttribute("id");
 		//개인정보를 읽어온다.
 		//Users dto= dao.getData(id);
+		UserInfoDto userinfo = new UserInfoDto();
 		Users dto = new Users();
 		if (id != null) {
 			dto = usersRepository.findById(id);
 		}
-		return dto;
+		List<Review> review = reviewRepository.findByWriter(dto);
+		List<ReviewDtl> reviewDtl = reviewCommentRepository.findByWriter(dto);
+		List<Cart> cart = cartRepository.findByUserId(dto);
+		
+		userinfo.setUser(dto);
+		userinfo.setReview(review);
+		userinfo.setReviewDtl(reviewDtl);
+		userinfo.setCart(cart);
+		return userinfo;
 	}
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222

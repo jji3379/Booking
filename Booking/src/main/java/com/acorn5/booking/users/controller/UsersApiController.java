@@ -22,6 +22,7 @@ import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.dto.UserInfoDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.service.UsersService;
@@ -53,6 +54,12 @@ public class UsersApiController {
 		return usersService.addUser(dto);
 	}
 
+	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	public UserInfoDto myinfo(@PathVariable Long id) {
+		return usersService.getInfo(id);
+	}
+	
 	// 나의 리뷰 조회
 	@RequestMapping(value = "/users/review/{id}", method = RequestMethod.GET)
 	public Page<Review> myReview(@PathVariable Long id, Pageable pageable) {
