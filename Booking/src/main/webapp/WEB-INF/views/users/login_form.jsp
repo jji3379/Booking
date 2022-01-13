@@ -1,16 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-</style>
-<meta charset="UTF-8">
-<title>책과의 즉석만남 Booking</title>
-<jsp:include page="../include/resource.jsp"></jsp:include>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/paid.css">
-
-</head>
 <body>
 <div class="popup-wrap" id="popup">
 	<div class="popup">		
@@ -49,112 +38,110 @@
 		</div>		
 	</div>
 </div>
-</body>
-</html>
 <script>	
-var loginId = $("#loginId").val();
-var loginPwd = $("#pwd").val();
-if(loginId && loginPwd != null){
-	$("input:checkbox[id='saveId']").prop("checked", true);
-}
-
-$(document).ready(function() {
-    $('#searchForm').submit(function() {
-        if ($('#searchBook').val() == '') {
-            return false;
-        }
-    }); 
-}); 
-
-function modalClose(){
-    $("#popup").fadeOut(); //페이드아웃 효과
-    $('.loginForm')[0].reset();
-	$('.errorId-on').attr('class','errorId-off');
-	$('.loginId-error').attr('class','loginId');
-	$('.errorPwd-on').attr('class','errorPwd-off');
-	$('.pwd-error').attr('class','pwd');
-} 
-//by준영. 로그인 시 모달창 기능
-
-$(function(){
-	$("#modal-open").click(function(){        
-    	$("#popup").css('display','flex').hide().fadeIn();
-    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
-	});
-	$("#close").click(function(){
-	    modalClose(); //모달 닫기 함수 호출
-	});
-	//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
-	$(document).mouseup(function (e){
-		var popup = $('#popup');
-		if( popup.has(e.target).length === 0){
-			modalClose();
-		}
-	});
-});
-
-
-//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
-$('#loginForm').keypress(function(event){
-     if ( event.which == 13 ) {
-    	 login();
-         return false;
-     }
-});
-
-//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
-var loginClickCheck = 0;
-
-function login(){
-	loginClickCheck = 1;
 	var loginId = $("#loginId").val();
 	var loginPwd = $("#pwd").val();
-	var saveIdCheck = $('#saveId:checked').val();
-	var error = ((loginId === '' || loginPwd === '') ? 1 : 0 );
- 	
-	var loginData = {loginId : loginId, pwd : loginPwd};
+	if(loginId && loginPwd != null){
+		$("input:checkbox[id='saveId']").prop("checked", true);
+	}
 	
-	switch(error){
-		case 0:
-			$.ajax({
-				type : 'POST',
-				url:"${pageContext.request.contextPath}/v1/users/login",
-				dataType : "json",
-				contentType : "application/json; charset=utf-8",
-				data : JSON.stringify(loginData),
-				success : function(result){
-					$("#url").val(window.location.href);
-					$("#loginForm").submit()
-					$("#popup").fadeOut();
-				},
-				error : function(result) {
-					// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우)
-					alert("아이디 또는 비밀번호를 확인해주세요.");
-				}
-			});
-			break;
-		case 1:
-			if(loginId == '' && loginPwd == ''){
-				$('.errorId-off').attr('class','errorId-on');
-				$('.loginId').attr('class','loginId-error');
-				$('.errorPwd-off').attr('class','errorPwd-on');
-				$('.pwd').attr('class', 'pwd-error');
-				$('#loginId').focus();
-				return;
-			}else if(loginId == ''){
-				$('.errorId-off').attr('class','errorId-on');
-				$('.loginId').attr('class','loginId-error');
-				$('#loginId').focus();
-				return;
-			}else if(loginPwd == ''){
-				$('.errorPwd-off').attr('class','errorPwd-on');
-				$('.pwd').attr('class','pwd-error');
-				$('#pwd').focus();
-				return;
+	$(document).ready(function() {
+	    $('#searchForm').submit(function() {
+	        if ($('#searchBook').val() == '') {
+	            return false;
+	        }
+	    }); 
+	}); 
+	
+	function modalClose(){
+	    $("#popup").fadeOut(); //페이드아웃 효과
+	    $('.loginForm')[0].reset();
+		$('.errorId-on').attr('class','errorId-off');
+		$('.loginId-error').attr('class','loginId');
+		$('.errorPwd-on').attr('class','errorPwd-off');
+		$('.pwd-error').attr('class','pwd');
+	} 
+	//by준영. 로그인 시 모달창 기능
+	
+	$(function(){
+		$("#modal-open").click(function(){        
+	    	$("#popup").css('display','flex').hide().fadeIn();
+	    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+		});
+		$("#close").click(function(){
+		    modalClose(); //모달 닫기 함수 호출
+		});
+		//by준영 모달영역 밖 클릭시 나가지는 기능(폼 초기화)
+		$(document).mouseup(function (e){
+			var popup = $('#popup');
+			if( popup.has(e.target).length === 0){
+				modalClose();
 			}
-	 	}	
-	}  
+		});
+	});
 	
+	
+	//by 준영 로그인폼 제출 엔터키로 가능하게끔 하는 기능
+	$('#loginForm').keypress(function(event){
+	     if ( event.which == 13 ) {
+	    	 login();
+	         return false;
+	     }
+	});
+	
+	//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
+	var loginClickCheck = 0;
+	
+	function login(){
+		loginClickCheck = 1;
+		var loginId = $("#loginId").val();
+		var loginPwd = $("#pwd").val();
+		var saveIdCheck = $('#saveId:checked').val();
+		var error = ((loginId === '' || loginPwd === '') ? 1 : 0 );
+	 	
+		var loginData = {loginId : loginId, pwd : loginPwd};
+		
+		switch(error){
+			case 0:
+				$.ajax({
+					type : 'POST',
+					url:"${pageContext.request.contextPath}/v1/users/login",
+					dataType : "json",
+					contentType : "application/json; charset=utf-8",
+					data : JSON.stringify(loginData),
+					success : function(result){
+						$("#url").val(window.location.href);
+						$("#loginForm").submit()
+						$("#popup").fadeOut();
+					},
+					error : function(result) {
+						// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우) 
+						$('.errorValid-off').attr('class','errorValid-on');
+					}
+				});
+				break;
+			case 1:
+				if(loginId == '' && loginPwd == ''){
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class', 'pwd-error');
+					$('#loginId').focus();
+					return;
+				}else if(loginId == ''){
+					$('.errorId-off').attr('class','errorId-on');
+					$('.loginId').attr('class','loginId-error');
+					$('#loginId').focus();
+					return;
+				}else if(loginPwd == ''){
+					$('.errorPwd-off').attr('class','errorPwd-on');
+					$('.pwd').attr('class','pwd-error');
+					$('#pwd').focus();
+					return;
+				}
+		 	}	
+		}  
+		
 	//by 준영, 유효성검사 -실시간체크
 	$("#loginId").keyup(function(){
 		if(loginClickCheck == 0){
@@ -184,3 +171,5 @@ function login(){
 	})
 	
 </script>
+</body>
+</html>

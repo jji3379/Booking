@@ -163,7 +163,7 @@
 				※ 이용약관 및 개인정보 수집.이용 내용에 대해 동의 거부가 가능하며, <br />
 				이 경우 회원가입 및 관련 서비스는 이용이 불가합니다.
 		 	</div>
-		 	<button onclick="min()" type="button" class="signupBtn" >회원가입하기</button>
+		 	<button onclick="min()" type="submit" class="signupBtn" >회원가입하기</button>
 		 </form>
 	 	 </div>
 	 </div>
