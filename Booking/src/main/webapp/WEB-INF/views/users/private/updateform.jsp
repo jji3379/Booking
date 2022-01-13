@@ -233,12 +233,13 @@
 	}
 </script>
 <script>
-
 	var profileImg = $('#profileImg').val();
+	
+
 	if( profileImg != null ){
 		$('#preImg').attr('src', profileImg );
 	}else{
-		$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
+		$('#preImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
 	}
 	
 	/*
@@ -252,7 +253,7 @@
 	$('#preImg').click(function (e) {
 	    document.profile.target_url.value = document.getElementById( 'preImg' ).src;
 	    e.preventDefault();
-	    $('#image').click();
+	    $('#image').click();//파일 첨부버튼 
 	}); 
 	
 	
