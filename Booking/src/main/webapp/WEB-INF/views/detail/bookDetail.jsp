@@ -110,14 +110,14 @@
          </div>
          <div class="reviewWrap">
        	 	<div class="review-L">
-               마이 리뷰
+               이 책의 리뷰
             </div>
             <div class="review-R">
                <div class="review-box">
                   <div class="head-star review-top">
                      <p>별점</p>
                      <div class="total-star">
-						<div class="starValue star-fill"></div>
+						<div class="starValue star-fill" style="top: -1.5px;"></div>
 						<div class="star-base">
 							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 						</div>
@@ -281,7 +281,7 @@
 			//숫자형 평점을 total-value 에 출력
 			$('.total-value').html(dataText);
 			
-			//평점의 인수부분 +1개 만큼 별 생성하고
+			//평점의 정수부분 +1개 만큼 별 생성하고
 			switch(int_part) {
 			case 0 :
 				intValue += ('<span>★</span>')
