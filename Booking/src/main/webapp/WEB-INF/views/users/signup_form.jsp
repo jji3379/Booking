@@ -163,7 +163,7 @@
 				※ 이용약관 및 개인정보 수집.이용 내용에 대해 동의 거부가 가능하며, <br />
 				이 경우 회원가입 및 관련 서비스는 이용이 불가합니다.
 		 	</div>
-		 	<button onclick="min()" type="button" class="signupBtn" >회원가입하기</button>
+		 	<button onclick="min()" type="submit" class="signupBtn" >회원가입하기</button>
 		 </form>
 	 	 </div>
 	 </div>
@@ -184,47 +184,7 @@ function CountChecked(obj){
 		return false;
 	}
 }
-//by 준영, 관심사 최소 개수 알림
-function min() {
-	var care = $('input:checkbox[name="care"]:checked');
-	if (!care) {
-		alert("관심사를 한가지 이상 선택해 주세요.");
-		return;
-	}
-	
-	var careList = '';
-	
-	for(var i=0; i<care.length; i++) {
-		if(i == care.length-1) {
-			careList += care[i].value;
-		} else {
-			careList += care[i].value + ",";
-		}
-	}
-	
-	var data = {
-		loginId : $("#signupId").val(),
-		pwd : $("#signupPwd").val(),
-		email : $("#email").val(),
-		care : careList 
-	};
-		
-	$.ajax({
-		url:"${pageContext.request.contextPath }/v1/users/signup",
-		method:"post",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8",
-		data : JSON.stringify(data),
-		success:function(data) {
-			alert("회원가입이 완료 되었습니다.");
-			location.href = "http:/booking/";
-		},
-		error : function(data) {
-			
-		}
-	});
-	
-}
+
 //by 준영, Validate.js 라이브러리 
 $(document).ready(function () { 
     // validate signup form on keyup and submit
@@ -271,7 +231,44 @@ $(document).ready(function () {
 ,
 		
         submitHandler: function (frm){
-            frm.submit();   //유효성 검사를 통과시 전송
+           	var care = $('input:checkbox[name="care"]:checked');
+           	if (!care) {
+           		alert("관심사를 한가지 이상 선택해 주세요.");
+           		return;
+           	}
+           	
+           	var careList = '';
+           	
+           	for(var i=0; i<care.length; i++) {
+           		if(i == care.length-1) {
+           			careList += care[i].value;
+           		} else {
+           			careList += care[i].value + ",";
+           		}
+           	}
+           	
+           	var data = {
+           		loginId : $("#signupId").val(),
+           		pwd : $("#signupPwd").val(),
+           		email : $("#email").val(),
+           		care : careList 
+           	};
+           		
+           	$.ajax({
+           		url:"${pageContext.request.contextPath }/v1/users/signup",
+           		method:"post",
+           		dataType : "json",
+           		contentType : "application/json; charset=utf-8",
+           		data : JSON.stringify(data),
+           		success:function(data) {
+	            	frm.submit();
+           			alert("회원가입이 완료 되었습니다.");
+           			location.href = "http:/booking/";
+           		},
+           		error : function(data) {
+           			
+           		}
+           	});
         },
         success: function(e){
             //
