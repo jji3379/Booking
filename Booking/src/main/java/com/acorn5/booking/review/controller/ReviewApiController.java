@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -42,8 +44,20 @@ public class ReviewApiController {
 
 		// by남기, 글 목록 요청처리_210303
 		@RequestMapping("/review")
+		@Transactional
 		public Page<Review> list(HttpServletRequest request, Pageable pageable) {
+			/*
+			Page<Review> list = service.getList(request, pageable);
+			List<Review> list2 = list.getContent();
+			//Review review2 = new Review();
+			for (int i = 0; i < list2.size(); i++) {
+				list2.get(i).setReplyCount(service.reviewTotalReply(list2.get(i).getId()));
+				list2.get(i).setRatingAvg(service.reviewAvgRating(list2.get(i).getIsbn()));
+			}
 			
+			//list2.add(e);
+			 
+			 */
 			return service.getList(request, pageable);
 		}
 		

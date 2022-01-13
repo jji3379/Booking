@@ -112,12 +112,12 @@
 			content : $("#content").val(),
 			spoCheck : spoCheckData,
 			bookTitle : $("#bookTitle").val(),
-			imagePath : $("#imagePath").val(),
+			imagePath : $("#imagePath").val()
 		};
 		
 		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/review",
-			method:"post",
+			url:"${pageContext.request.contextPath}/v1/review/${dto.id}",
+			method:"put",
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(data),

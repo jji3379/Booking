@@ -203,7 +203,8 @@
 					reviewList += '<hr class="underline">'
 					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
 					reviewList += '<div class="comment">'
-					/*	
+					reviewList += '댓글 '+data.content[i].replyCount+'개'
+/*
 					$.ajax({
 							url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
 							method:"GET",
@@ -216,7 +217,7 @@
 								console.log("오류");
 							}
 						});
-					*/
+	*/				
 					reviewList += '</div>'
 					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
 					reviewList += '</div>'
@@ -234,6 +235,7 @@
 
 	pagingList(0, 'regdate');
 	// 페이징 처리
+	/*
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review",
 		method:"GET",
@@ -259,7 +261,7 @@
 			console.log("오류");
 		}
 	});
-
+*/
 	//by 준영, 리뷰검색폼 빈값 제출 막기
 	$('#search').submit(function() {
 	    if ($('#reviewInput').val() == '') {

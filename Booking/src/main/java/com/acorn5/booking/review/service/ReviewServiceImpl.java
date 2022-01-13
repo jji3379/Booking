@@ -30,7 +30,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,9 +61,11 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -113,6 +117,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	@Override
+	@Transactional
 	public Page<Review> getList(HttpServletRequest request, Pageable pageable) {
 		// by남기, 한 페이지에 몇개씩 표시할 것인지_210303
 		final int PAGE_ROW_COUNT=5;
@@ -241,7 +246,29 @@ public class ReviewServiceImpl implements ReviewService{
 		model.addAttribute("totalRow", totalRow);
 		*/
 			
-		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+			List<Review> list2 = list.getResults();
+			//Review review2 = new Review();
+			QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+			Review review = new Review();
+			
+			for (int i = 0; i < list2.size(); i++) {
+				review.setId(list2.get(i).getId());
+				/*
+				Double avgRating = queryFactory.select(qReview.rating.avg())
+						.from(qReview)
+						.where(qReview.isbn.eq(list2.get(i).getIsbn()))
+						.fetchOne();
+				list2.get(i).setRatingAvg(avgRating);
+				*/
+				Long totalReply = queryFactory.select(qReviewDtl.count())
+						.from(qReviewDtl)
+						.where(qReviewDtl.refGroup.eq(review))
+						.fetchOne();
+				list2.get(i).setReplyCount(totalReply);
+			}
+			
+			
+		return new PageImpl<Review>(list2, pageable, list.getTotal());
 	}
 	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
 	@Override
@@ -272,12 +299,30 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰를 수정하는 메소드_210303
 	@Override
+	@Transactional
 	public void updateContent(Long id, Review dto) {
 		Review review = reviewRepository.findById(id);
+		
 		review.setReviewTitle(dto.getReviewTitle());
 		review.setContent(dto.getContent());
 		review.setRating(dto.getRating());
+
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		QReview qReview = QReview.review;
+		
+		Double avgRating = queryFactory.select(qReview.rating.avg())
+				.from(qReview)
+				.where(qReview.isbn.eq(dto.getIsbn()))
+				.fetchOne();
+		
+		review.setRatingAvg(avgRating);
 		reviewRepository.save(review);
+		
+		JPAUpdateClause update = new JPAUpdateClause(em, qReview);
+		update.set(qReview.ratingAvg, avgRating)
+			.where(qReview.isbn.eq(dto.getIsbn()))
+			.execute();
+
 		//reviewDao.update(dto);
 	}
 	// by남기, 리뷰를 삭제하는 메소드_210303
