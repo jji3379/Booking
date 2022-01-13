@@ -127,7 +127,7 @@
 			content : $("#content").val(),
 			spoCheck : spoCheckData,
 			bookTitle : $("#bookTitle").val(),
-			imagePath : $("#imagePath").val(),
+			imagePath : $("#selected").attr('src')
 		};
 		
 		$.ajax({

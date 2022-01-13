@@ -28,7 +28,7 @@ public class ReviewDtl {
 	@Column(name = "REVIEW_COMMENT_ID")
 	private Long id; // 댓글 번호
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "writer")
 	private Users writer; // 댓글 작성자
 	private String content; // 댓글 내용
@@ -38,7 +38,7 @@ public class ReviewDtl {
 	private Users target_id; // 댓글 대상자
 	
 	//@Column(name = "ref_group")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ref_Group")
 	private Review refGroup; // 원글의 글번호
 	

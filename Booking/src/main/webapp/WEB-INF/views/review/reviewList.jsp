@@ -204,20 +204,6 @@
 					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
 					reviewList += '<div class="comment">'
 					reviewList += '댓글 '+data.content[i].replyCount+'개'
-/*
-					$.ajax({
-							url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
-							method:"GET",
-							dataType : "json",
-							async: false,
-							success:function(data) {
-					reviewList += '댓글 '+data+'개'
-							},
-							error : function(data) {
-								console.log("오류");
-							}
-						});
-	*/				
 					reviewList += '</div>'
 					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
 					reviewList += '</div>'
