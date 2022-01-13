@@ -1,5 +1,6 @@
 	.layout{
 		width: 1300px;
+		min-height: 590px;
 		margin: 0 auto;
 		padding: 0;
 		font-family: '777Balsamtint';
