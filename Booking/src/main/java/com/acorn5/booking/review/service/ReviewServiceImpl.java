@@ -111,8 +111,20 @@ public class ReviewServiceImpl implements ReviewService{
 	      dto.setImagePath(imagePath);
 	      */
 	      // by남기, ReviewDao 를 이용해서 DB 에 저장하기_210303
+		dto.setReplyCount((long) 0);
+		Review newReview = reviewRepository.save(dto);
 		
-	    return reviewRepository.save(dto);
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		QReview qReview = QReview.review;
+		
+		Double ratingAvg = queryFactory.select(qReview.rating.avg())
+				.from(qReview)
+				.where(qReview.isbn.eq(dto.getIsbn()))
+				.fetchOne();
+		
+		reviewRepository.updateRatingAvg(ratingAvg, dto.getIsbn());
+		
+	    return newReview;
 	    //reviewDao.insert(dto);  
 	}
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
@@ -246,29 +258,7 @@ public class ReviewServiceImpl implements ReviewService{
 		model.addAttribute("totalRow", totalRow);
 		*/
 			
-			List<Review> list2 = list.getResults();
-			//Review review2 = new Review();
-			QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
-			Review review = new Review();
-			
-			for (int i = 0; i < list2.size(); i++) {
-				review.setId(list2.get(i).getId());
-				/*
-				Double avgRating = queryFactory.select(qReview.rating.avg())
-						.from(qReview)
-						.where(qReview.isbn.eq(list2.get(i).getIsbn()))
-						.fetchOne();
-				list2.get(i).setRatingAvg(avgRating);
-				*/
-				Long totalReply = queryFactory.select(qReviewDtl.count())
-						.from(qReviewDtl)
-						.where(qReviewDtl.refGroup.eq(review))
-						.fetchOne();
-				list2.get(i).setReplyCount(totalReply);
-			}
-			
-			
-		return new PageImpl<Review>(list2, pageable, list.getTotal());
+		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
 	}
 	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
 	@Override
@@ -310,19 +300,24 @@ public class ReviewServiceImpl implements ReviewService{
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		QReview qReview = QReview.review;
 		
-		Double avgRating = queryFactory.select(qReview.rating.avg())
+		Double ratingAvg = queryFactory.select(qReview.rating.avg())
 				.from(qReview)
 				.where(qReview.isbn.eq(dto.getIsbn()))
 				.fetchOne();
 		
-		review.setRatingAvg(avgRating);
+		reviewRepository.updateRatingAvg(ratingAvg, dto.getIsbn());
+		
+		review.setRatingAvg(ratingAvg);
 		reviewRepository.save(review);
 		
+		/*
 		JPAUpdateClause update = new JPAUpdateClause(em, qReview);
 		update.set(qReview.ratingAvg, avgRating)
 			.where(qReview.isbn.eq(dto.getIsbn()))
 			.execute();
-
+		*/
+		
+		
 		//reviewDao.update(dto);
 	}
 	// by남기, 리뷰를 삭제하는 메소드_210303
@@ -379,6 +374,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰의 댓글을 저장하는 메소드 _210303
 	@Override
+	@Transactional
 	public void saveComment(HttpServletRequest request) {
 		// by남기, 댓글 작성자(로그인된 아이디) _210303
 		Long writer = (Long) request.getSession().getAttribute("id");
@@ -419,13 +415,25 @@ public class ReviewServiceImpl implements ReviewService{
 			// by남기, 폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다 _210303
 			dto.setCommentGroup(Long.parseLong(comment_group));
 		}
-		// by남기, 댓글 정보를 DB 에 저장한다 _210303
 		reviewCommentRepository.save(dto);
+		
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		
+		Long totalReply = queryFactory.select(qReviewDtl.count())
+				.from(qReviewDtl)
+				.where(qReviewDtl.refGroup.eq(review))
+				.fetchOne();
+		
+		reviewCommentRepository.updateReplyCount(totalReply, ref_group);
+		
+		// by남기, 댓글 정보를 DB 에 저장한다 _210303
 		//reviewCommentDao.insert(dto);
 	}
 
 	// by남기, 리뷰의 댓글을 삭제하는 메소드 _210303
 	@Override
+	@Transactional
 	public void deleteComment(HttpServletRequest request) {
 		// by남기, GET 방식 파라미터로 전달되는 삭제할 댓글 번호  _210303
 		Long num = Long.parseLong(request.getParameter("num"));
@@ -438,7 +446,19 @@ public class ReviewServiceImpl implements ReviewService{
 		if (!writerId.equals(id)) {
 			throw new DBFailException("남의 댓글을 삭제 할수 없습니다.");
 		}
+		
 		reviewCommentRepository.delete(num);
+
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		
+		Long totalReply = queryFactory.select(qReviewDtl.count())
+				.from(qReviewDtl)
+				.where(qReviewDtl.refGroup.eq(writer.getRefGroup()))
+				.fetchOne();
+		
+		reviewCommentRepository.updateReplyCount(totalReply, writer.getRefGroup().getId());
+
 		//reviewCommentDao.delete(num);
 	}
 	// by남기, 리뷰의 댓글을 수정하는 메소드 _210303
@@ -447,6 +467,7 @@ public class ReviewServiceImpl implements ReviewService{
 		//reviewCommentDao.update(dto);
 		ReviewDtl comment = reviewCommentRepository.findById(dto.getId());
 		comment.setContent(dto.getContent());
+		
 		reviewCommentRepository.save(comment);
 	}
 	// by남기, 리뷰의 댓글들을 추가로 응답하는 메소드 _210303

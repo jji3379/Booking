@@ -2,8 +2,11 @@ package com.acorn5.booking.review.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +24,9 @@ public interface ReviewCommentRepository extends JpaRepository<ReviewDtl, Long>{
 	ReviewDtl findById(Long id);
 
 	List<ReviewDtl> findByWriter(Users id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update Review r set r.replyCount = ?1 where r.id = ?2")
+	void updateReplyCount(Long replyCount, Long id);
 }

@@ -31,4 +31,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	@Modifying
 	@Query(value = "update Review r set r.viewCount = r.viewCount + 1 where r.id = ?1")
 	void addViewCount(Long id);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update Review r set r.ratingAvg = ?1 where r.isbn = ?2")
+	void updateRatingAvg(Double ratingAvg, String isbn);
 }

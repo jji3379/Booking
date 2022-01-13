@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -170,6 +171,7 @@ public class ReviewViewController {
 	}
 
 	// by남기, 댓글 수정 ajax 요청에 대한 요청 처리_210303
+	@Transactional
 	@RequestMapping(value = "/review/private/reviewComment_update", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
@@ -183,6 +185,7 @@ public class ReviewViewController {
 	}
 	
 	// by남기, 리뷰의 댓글 삭제 요청 처리_210303
+	@Transactional
 	@RequestMapping("/review/private/reviewComment_delete")
 	public ModelAndView reviewCommentDelete(HttpServletRequest request,
 			ModelAndView mView, @RequestParam int refGroup) {
