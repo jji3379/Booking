@@ -22,9 +22,9 @@
 				<h2>다양한 도서와 후기를 만나보세요</h2>
 			</div>
 			<ul class="sortBar">
-				<li class="viewSort"><a href="#" onclick="pagingList(0, 'viewCount')">조회순</a></li>
-				<li class="starSort"><a href="#" onclick="pagingList(0, 'rating')">별점순</a></li>
-				<li class="newSort"><a href="#" onclick="pagingList(0, 'regdate')">최신순</a></li>
+				<li class="viewSort"><a href="#" id="viewCount" onclick="pagingList(0, 'viewCount')">조회순</a></li>
+				<li class="starSort"><a href="#" id="rating" onclick="pagingList(0, 'rating')">별점순</a></li>
+				<li class="newSort"><a href="#" id="regdate" onclick="pagingList(0, 'regdate')">최신순</a></li>
 			</ul>
 		</div>
 		<div>
@@ -137,6 +137,12 @@
 	</div>	<!-- layout end  -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
+	
+	$(".sortBar").children().children().on("click", (event) => {
+		$(".sortBar").children().children().removeClass('active');
+		event.target.className += "active";
+	});
+
 	//by 남기, 리뷰작성폼 로그인 해야 넘어가게끔함
 	var isLogin=${not empty id};
 	
@@ -235,10 +241,13 @@
 				first: '«', 
 				last: '»', 
 				onPageClick: function (event, page) { 
-					console.info("current page : " + page); 
 				} 
 			}).on('page', function (event, page) { 
-				pagingList(page-1);
+				var sortValue = $(".sortBar").find(".active").attr('id');
+				if(sortValue == null){
+					sortValue = "regdate";
+				}
+				pagingList(page-1, sortValue);
 			});
 		},
 		error : function(data) {
@@ -272,8 +281,6 @@
 			$('.card-header-is_closed').css('display', 'none');
 		}
 	}
-
-
 	
 </script>
 </body>
