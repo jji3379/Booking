@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +51,13 @@ public class Review {
 	private String isbn; // 책 고유번호
 	//private MultipartFile image; // 이미지 파일
 	private String spoCheck; //by채영_스포일러 포함 여부
+	
+	@Transient
+	private List<ReviewDtl> reviewDtl;
+	
+	private Long replyCount;
+	
+	private Double ratingAvg;
 	
 	public Users getWriter() {
 		return writer;
@@ -131,5 +139,24 @@ public class Review {
 	public void setSpoCheck(String spoCheck) {
 		this.spoCheck = spoCheck;
 	}
+	public List<ReviewDtl> getReviewDtl() {
+		return reviewDtl;
+	}
+	public void setReviewDtl(List<ReviewDtl> reviewDtl) {
+		this.reviewDtl = reviewDtl;
+	}
+	public Long getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(Long replyCount) {
+		this.replyCount = replyCount;
+	}
+	public Double getRatingAvg() {
+		return ratingAvg;
+	}
+	public void setRatingAvg(Double ratingAvg) {
+		this.ratingAvg = ratingAvg;
+	}
+	
 	
 }

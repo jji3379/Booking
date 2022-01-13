@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,17 +28,17 @@ public class ReviewDtl {
 	@Column(name = "REVIEW_COMMENT_ID")
 	private Long id; // 댓글 번호
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "writer")
 	private Users writer; // 댓글 작성자
 	private String content; // 댓글 내용
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "target_id")
 	private Users target_id; // 댓글 대상자
 	
 	//@Column(name = "ref_group")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ref_Group")
 	private Review refGroup; // 원글의 글번호
 	

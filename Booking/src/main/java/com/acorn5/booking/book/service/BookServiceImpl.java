@@ -915,7 +915,7 @@ public class BookServiceImpl implements BookService {
     }
 
 	@Override
-	public List<BookDto> recommendBook(String d_cont, int display, int start, String sort, ModelAndView mView) {
+	public List<BookDto> careRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 		String clientSecret = "zSBrAXrY3q";
 		   
@@ -923,11 +923,12 @@ public class BookServiceImpl implements BookService {
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
-                    + "Book_adv.xml?d_cont="
-                    + URLEncoder.encode(d_cont, "UTF-8") //d_cont는 지정변수가 아니여서 인코딩을 해준다.
-                    + (sort !=null ? "&sort=" +sort :"") 
-                    + (display !=0 ? "&display=" +display :"")
-                    + (start !=0 ? "&start=" +start :""));
+            		+ "book_adv.xml?d_cont="  
+                    + URLEncoder.encode("1", "UTF-8") 
+                    + (d_catg !=null ? "&d_catg=" +d_catg :"")
+                    + (sort !=null ? "&sort=" + sort : "")
+					+ (display != 0 ? "&display=" + display : "") 
+					+ (start != 0 ? "&start=" + start : ""));
 
             URLConnection urlConn = url.openConnection(); //요청할 url을 URLConnection 객체에 담는다.
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID); //아이디, 비번인증
@@ -1016,14 +1017,14 @@ public class BookServiceImpl implements BookService {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        mView.addObject("list", list);
+        //mView.addObject("list", list);
         
         return list;
     }
 	
 
 	@Override
-	public List<BookDto> recommendBook(int display, int start, String sort, String query, ModelAndView mView) {
+	public List<BookDto> searchRecommendBook(int display, int start, String sort, String query, ModelAndView mView) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 		String clientSecret = "zSBrAXrY3q";
 		
@@ -1122,14 +1123,14 @@ public class BookServiceImpl implements BookService {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        mView.addObject("list", list);
+        //mView.addObject("list", list);
         
         return list;
     }
 	
 
 	@Override
-	public Map<String, Object> recommendBook(String sort, int display, int start) {
+	public Map<String, Object> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 		String clientSecret = "zSBrAXrY3q";
 		
@@ -1139,10 +1140,12 @@ public class BookServiceImpl implements BookService {
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
-                    + "Book_adv.xml?d_cont="
-                    + URLEncoder.encode(sort, "UTF-8") //d_cont는 지정변수가 아니여서 인코딩을 해준다.
-                    + (display !=0 ? "&display=" +display :"")
-                    + (start !=0 ? "&start=" +start :""));
+            		+ "book_adv.xml?d_cont="  
+                    + URLEncoder.encode("1", "UTF-8") 
+                    + (d_catg !=null ? "&d_catg=" +d_catg :"")
+                    + (sort !=null ? "&sort=" + sort : "")
+					+ (display != 0 ? "&display=" + display : "") 
+					+ (start != 0 ? "&start=" + start : ""));
   
 
  
@@ -1189,7 +1192,6 @@ public class BookServiceImpl implements BookService {
         } 
         data.put("image", image);
         data.put("isbn", isbn);  //해쉬맵객체에 put해주고
-         
         return data; //해쉬맵객체를 리턴
     }
 	

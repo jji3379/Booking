@@ -135,8 +135,8 @@ public class ReviewViewController {
     
     }
 	// by남기, 리뷰 수정 폼 요청 처리_210303
-	@RequestMapping("/private/review/update/{id}")
-	public ModelAndView updateform(@PathVariable Long id,
+	@RequestMapping("/private/review/update/{reviewId}")
+	public ModelAndView updateform(@PathVariable Long reviewId,
 			ModelAndView mView, HttpServletRequest request) {
 		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
 		//service.getDetail(num);
@@ -145,7 +145,7 @@ public class ReviewViewController {
 			cartservice.listCart(mView, request);
 		}
 		// by남기, view page 로 forward 이동해서 응답_210303
-		mView.addObject("dto", service.getDetail(id));
+		mView.addObject("dto", service.getDetail(reviewId));
 		mView.setViewName("review/private/reviewUpdateform.page");
 		return mView;
 	}

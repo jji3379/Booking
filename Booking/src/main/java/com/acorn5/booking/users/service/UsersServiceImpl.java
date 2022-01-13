@@ -429,5 +429,10 @@ public class UsersServiceImpl implements UsersService{
 		
 		return new PageImpl<Search>(list.getResults(), pageable, list.getTotal());
 	}
+	@Override
+	public String getPwd(Long id) {
+		Users users = usersRepository.findById(id);
+		return users.getPwd();
+	}
 
 }

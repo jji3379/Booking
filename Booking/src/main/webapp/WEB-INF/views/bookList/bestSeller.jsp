@@ -50,7 +50,7 @@
 					 			</td>
 					 			<td >
 					 				<div>
-					 					<a href=""><img src="${b.image}" class="book-img"></a>
+					 					<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}"><img src="${b.image}" class="book-img"></a>
 					 				</div>
 					 			</td>
 					 			<td class="td-info" >

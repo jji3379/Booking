@@ -1,12 +1,18 @@
 package com.acorn5.booking;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.service.BookService;
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.QReview;
@@ -102,33 +109,53 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 		ModelAndView mView = new ModelAndView();
 		Long id = (Long) session.getAttribute("id");
 		//by 우석, view page 에서 cartitem 불러오기_210315
-		if (id != null) {
-			cartservice.listCart(mView, request);
-			Users userId = new Users();
+		
+			
+		Users userId = new Users();
+		List<BookDto> searchRecommendList = new ArrayList<BookDto>();
+		if (id != null) { // 로그인을 한 경우
 			userId.setId(id);
 			
-			List<Search> searchList = searchRepository.findByUserId(userId);
+			// 중복을 제거한 리스트
+			List<Search> searchList = searchRepository.findByUserId(userId).stream().distinct().collect(Collectors.toList());
+			Users users = usersRepository.findById(id);
+			String careList[] = users.getCare().split(",");
 			
-			
-			String recentKeyword = null; 
-					//searchList.get(0).getKeyword();
+			// 2. 로그인 해서 최근 검색어 기반으로 추천
+			cartservice.listCart(mView, request);
 
-			/*
-			for (int i = 0; i < searchList.size(); i++) {
-				recentKeyword = searchList.get(i).getKeyword();
-				System.out.println("recentKeyword : "+recentKeyword);
+			if (searchList.size() > 5) { // 최근 검색어가 5개 이상 있을 경우
+				System.out.println("검색어 5개 이상");
+				for (int i = 0; i < 5; i++) {
+					if (searchList.get(i).getKeyword() != null) {
+						searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+					} 
+				}
+			} else if(searchList.size() > 0 && searchList.size() < 5) { // 최근 검색 기록이 0보다 크고 5보다 작을 때
+				System.out.println("검색어 5개 이하");
+				for (int i = 0; i < searchList.size(); i++) {
+					if (searchList.get(i).getKeyword() != null) {
+						searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+					}
+				}
+				// 나머지는 관심사로 채우기
+				for (int i = 0; i < careList.length; i++) {
+					searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));		
+				}
+			} else if(searchList.isEmpty()){ // 최근 검색어가 없을 경우
+				System.out.println("검색어 없는 경우");
+				for (int i = 0; i < careList.length; i++) {
+					searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));
+				}
 			}
-			*/
-			if (recentKeyword == null) { // 최근 검색어가 없을 경우 관심사로 추천
-				String query = usersRepository.findById(id).getCare();// 회원의 관심사를 query로 설정
-				service.recommendBook(10, 1, "count", query, mView);
-			} else { // 최근 검색어가 있을 경우 최근 검색어 기준 추천
-				service.recommendBook(10, 1, "count", recentKeyword, mView);
-			}
-		} else if (id == null) { // 로그인을 안한경우
-			service.recommendBook("1", 10, 1, "count", mView);
+
+		} else { // 로그인 안한 경우 그냥 추천
+			System.out.println("로그인 안한 경우");
+			searchRecommendList.addAll(service.bestSeller("1", 10, 1, "count"));
 		}
-		
+		Collections.shuffle(searchRecommendList);
+		mView.addObject("list", searchRecommendList);
+			
 		//mView.addObject("dto", dto);//by욱현. 뷰페이지로 로그인된 회원의 회원정보 전달_2021225
 		mView.setViewName("home.page");
 		
@@ -137,11 +164,26 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	
 	@RequestMapping("/booking.do")
 	@ResponseBody
-	public Map<String, Object> booking() {
-		// 책을 랜덤으로 추천해야 하니까
-		int ran = (int) (Math.random() * 300);
-		// 부킹버튼을 눌러 요청하는순간 올랜덤 검색 로직 실행 및 이미지경로와 isbn만 맵객체에 넣어서 받기
-		Map<String, Object> data = service.recommendBook("sim", 1, ran);
+	public Map<String, Object> booking(HttpServletRequest request) {
+		ModelAndView mView = new ModelAndView();
+		Long id = (Long) request.getSession().getAttribute("id");
+
+		String[] categoryNum = {
+				"100","110","120","130","140","150","160","170","180","190",
+				"200","210","220","230","240","250","260","270","280","290",
+				"300","310","320","330","340"
+		};
+		Collections.shuffle(Arrays.asList(categoryNum));
+		Map<String, Object> data = new HashMap<String, Object>();
+		if (id != null) { // 로그인 했을 경우 관심사로 추천
+			Users users = usersRepository.findById(id);
+			String careList[] = users.getCare().split(",");
+			for (int i = 0; i < careList.length; i++) {
+				data = service.bookingRecommendBook(careList[i], 100, 1, "count", mView);
+			}
+		} else { // 로그인 안했을 경우 종류 별로 랜덤으로 추천
+		}		
+		data = service.bookingRecommendBook(categoryNum[0].toString(), 100, 1, "count", mView);
 		// 뷰페이지로 이동 후 자바스크립트로 추출 (ajax로 그부분만 뿌려주기)
 
 		return data;

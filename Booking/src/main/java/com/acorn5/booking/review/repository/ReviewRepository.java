@@ -17,6 +17,7 @@ import com.acorn5.booking.users.entity.Users;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	Review findById(Long id);
+	List<Review> findByIsbn(String isbn);
 
 	List<Review> findByWriter(Users id);
 	

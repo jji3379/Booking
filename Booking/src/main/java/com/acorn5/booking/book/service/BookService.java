@@ -27,11 +27,11 @@ public interface BookService {
 	//by 남기, 네이버 도서 api 해당 d_isbn 값 도서 정보 가져오는 메소드_210303
 	public List<BookDto> bookReview(String d_isbn, int display);
 	//by 욱현, 메인화면 도서추천 메소드_2021324 
-	public List<BookDto> recommendBook(String d_cont, int display, int start, String sort, ModelAndView mView);
+	public List<BookDto> careRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView);
 	//by 욱현, 로그인된 아이디의 최근검색어가 없는경우 도서 추천_2021308
-	public List<BookDto> recommendBook(int display,int start,String sort, String query, ModelAndView mView);
+	public List<BookDto> searchRecommendBook(int display,int start,String sort, String query, ModelAndView mView);
 	//부킹서비스용
-	public Map<String, Object> recommendBook(String sort,int display, int start);
+	public Map<String, Object> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView);
 	//by준익, 검색어 페이징_2021.03.09 
 	public List<BookDto> conditionSearch(String keyword,int display, int start, HttpServletRequest request, ModelAndView mView);
 	//by욱현.최근검색키워드를 recentsearch 칼럼에 담기위한 비즈니스로직_2021308

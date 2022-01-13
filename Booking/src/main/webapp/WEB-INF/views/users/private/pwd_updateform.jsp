@@ -92,7 +92,7 @@
 					</div>	
 					<div class="pwdform-group" >
 						<label for="pwd">현재 비밀번호</label>
-						<input class="pwdform-control" type="password" name="pwd"/>
+						<input class="pwdform-control" type="password" name="pwd" id="currentPwd"/>
 					</div>
 					<div class="pwdform-group" >
 						<label for="newPwd">새 비밀번호</label>
@@ -145,6 +145,22 @@
 	.addEventListener("submit", function(event){
 		let pwd1=document.querySelector("#pwd").value;
 		let pwd2=document.querySelector("#pwd2").value;
+		let currentPwd=document.querySelector("#currentPwd").value;
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/users/pwd/${id}",
+			method:"GET",
+			dataType : "text",
+			success:function(data) {
+				if(currentPwd != data){
+					alert("현재 비밀번호가 다릅니다.");
+				}
+				console.log(data);
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
 		//새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
 		if(pwd1 != pwd2){
 			alert("비밀번호를 확인 하세요!");
