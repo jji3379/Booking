@@ -8,6 +8,8 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/info.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.date.css">
 <style>
 
 </style>
@@ -123,7 +125,11 @@
 		</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/picker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/picker.date.js"></script>
 <script>
+	$('.datepicker').pickadate();
+
 	//by준영, 현재시간 출력
 	let today = new Date();
 	
