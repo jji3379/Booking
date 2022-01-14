@@ -13,6 +13,7 @@ a {
 		min-height: 446px;
 	}	
 	.header{
+		margin-top: 20px;
 		width: 100%;
 	    display: flex;
 	    flex-flow: row nowrap;
@@ -351,8 +352,7 @@ a {
 	}
 	<!-- my_order -->
 	.order-info{
-	    align-items: flex-start;
-    	padding: 28px 0px 12px;
+	    padding-left: 7px;
 	}
 	.orderDetail-num{
 		font-size: 23px;
@@ -366,20 +366,22 @@ a {
     	letter-spacing: .2px;
 	}
 	.orderDetail-tb{
-		margin-top:30px;
+		margin-top:23px;
 	}
 	.orderDetail-tb > h3 {
 		font-size: 21px;
-		margin: 0;
-		padding: 12px 0px;
-    	border-bottom: 1px solid #333;		
+	    margin: 0;
+	    padding: 12px 0 12px 7px;
+	    border-top: 1px solid #8d8d8d;
+	    border-bottom: 1px solid #e5e5e5;
+	    background: #f9f9f9;
     }
     .orderDetail-tbody{
     	padding:12px 0;
     	margin-bottom: 32px;
     }
     .orderDetail-tr{
-   	    border-bottom: 1px dashed #e5e5e5;
+   	    border-bottom: 1px dashed rgb(211 211 211);
     	padding-bottom: 5px;
     }
     .orderDetail-tr > a {
@@ -433,7 +435,7 @@ a {
     	
     }
     .orderDetail-payment > h3 {
-   		padding: 12px 0px;
+   		padding-bottom: 12px;
     	border-bottom: 1px solid rgb(10, 10, 10);
     }
     .orderDetail-rows{
@@ -557,7 +559,7 @@ a {
     .scroll-box{
     	overflow-y: scroll;
 	    height: 335px;
-	    width: 390px;
+	    width: 450px;
 	    border: 1px solid #d1d1d1;
 	    font-size: 12px;
 	    margin-bottom: 20px;
@@ -568,6 +570,7 @@ a {
 	    font-weight: 600;
 	    color: #757575;
     }
+    
     .interestChk > td{
     	font-size: 15px;
     	padding: 5px 0;
@@ -614,6 +617,19 @@ a {
 	    border: 1px solid #dadada;
 	    background: #fff;
     }
+    #myPwd-form > .error {
+    	float: right;
+    	letter-spacing: 0.6px;
+    	padding: 3px 0;
+   	    width: 200px;
+	    font-size: 14px;
+	    color: #fe0000;
+    }
+    input.error {
+	    border: 1px solid #fe0000;
+    	border-radius: 1px;
+    }
+    input:focus { outline: none; }
     .myForm-header > p{
     	margin-top: 8px;
     	padding-left: 5px;
@@ -621,6 +637,7 @@ a {
     	background: url(https://static.nid.naver.com/images/web/user/bg_contxt_list.gif) no-repeat 0 7px;
     }
     .pwdform-group{
+    	clear:both;
    	    display: flex;
 	    justify-content: space-between;
     	margin-bottom: 3px;
