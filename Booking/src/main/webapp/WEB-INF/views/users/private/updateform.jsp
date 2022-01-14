@@ -130,9 +130,9 @@
 				 			<table>
 								<colgroup>
 									<col style="width:20%">
-									<col style="width:25%">
-									<col style="width:25%">
-									<col style="width:30%">
+									<col style="width:27%">
+									<col style="width:26%">
+									<col style="width:27%">
 								</colgroup>
 								<tr >
 									<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
