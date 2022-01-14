@@ -130,7 +130,7 @@
 	            	minlength:5, 
 	            	maxlength:10, 
 		            remote : {            	
-					    url : '${pageContext.request.contextPath }/v1/users/signup',
+		            	url:"${pageContext.request.contextPath}/v1/users/pwdCheck/${id}",
 					    type : "get",
 					    data : {
 					    	pwd : function() {
@@ -148,7 +148,7 @@
 	                 required:"필수 입력 항목입니다.",
 	                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
 	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
-	                 remote : "이미 존재하는 아이디 입니다."
+	                 remote : "비밀번호가 일치하지 않습니다."
                 	},
 	            newPwd:{
 	            	 required: "필수 입력 항목입니다.",
@@ -164,19 +164,7 @@
 	//여기부터
 	,
 	        submitHandler: function (frm){
-	        	$.ajax({
-	    			url:"${pageContext.request.contextPath}/v1/users/pwd/${id}",
-	    			method:"GET",
-	    			dataType : "text",
-	    			success:function(data) {
-	    				if(currentPwd == data){
-	    					alert("현재 비밀번호와 다르게 변경해 주세요.");
-	    				}
-	    			},
-	    			error : function(data) {
-	    				console.log("오류");
-	    			}
-	    		});
+
 	        },
 	        success: function(e){
 	            //

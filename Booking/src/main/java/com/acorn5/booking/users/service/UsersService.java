@@ -41,7 +41,7 @@ public interface UsersService {
 	//비밀번호를 수정하는 처리를 하고 성공 여부를 ModelAndView 객체에 담는 메소드
 	public void updateUserPwd(ModelAndView mView, Users dto, HttpServletRequest request,
 			HttpSession session);
-	public String getPwd(Long id);
+	public boolean getPwd(Long id, String pwd);
 	//프로필 이미지를 upload 폴더에 저장하고 저장된 파일명을 DB 에 저장하는 메소드
 	public void saveProfileImage(MultipartFile image, 
 			HttpServletRequest request);

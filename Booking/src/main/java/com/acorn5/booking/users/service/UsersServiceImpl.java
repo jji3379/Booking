@@ -432,9 +432,12 @@ public class UsersServiceImpl implements UsersService{
 		return new PageImpl<Search>(list.getResults(), pageable, list.getTotal());
 	}
 	@Override
-	public String getPwd(Long id) {
-		Users users = usersRepository.findById(id);
-		return users.getPwd();
+	public boolean getPwd(Long id, String pwd) {
+		Users userInfo = usersRepository.findById(id);
+		String encoderPwd = userInfo.getPwd();
+		
+		boolean checkPwd = encoder.matches(pwd, encoderPwd);
+		return checkPwd;
 	}
 
 }

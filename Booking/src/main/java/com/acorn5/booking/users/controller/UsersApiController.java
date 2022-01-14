@@ -96,9 +96,9 @@ public class UsersApiController {
 		return usersService.getMySearch(id, pageable);
 	}
 
-	@RequestMapping(value = "/users/pwd/{id}", method = RequestMethod.GET)
-	public String getPwd(@PathVariable Long id) {
-		return usersService.getPwd(id);
+	@RequestMapping(value = "/users/pwdCheck/{id}", method = RequestMethod.GET)
+	public boolean getPwd(@PathVariable Long id, String pwd) {
+		return usersService.getPwd(id, pwd);
 	}
 	
 }
