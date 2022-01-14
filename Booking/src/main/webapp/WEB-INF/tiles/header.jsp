@@ -11,7 +11,7 @@
 		<div class="center">
 			<div class="logo">
 				<a href="${pageContext.request.contextPath }">
-					<img id="nav-logo" src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/>
+					<img id="nav-logo" src=""/>
 				</a>
 			</div>
 			<div class="search">
@@ -22,9 +22,17 @@
 			        <input name="start" value="1" hidden/>
 			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
-			    <a class="cartImg" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
-		    		<img  src="${pageContext.request.contextPath }/resources/images/cart.svg"/>	
-			    	<span class="cartBadge">${count}</span>
+			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
+		    		<img id="cartImg" src=""/>
+		    		<c:choose>
+		    			<c:when test="${empty count}">
+		    			
+		    			</c:when>
+		    			<c:otherwise>
+		    				<span class="cartBadge">${count}</span>
+		    			</c:otherwise>
+		    		</c:choose>	
+			    	
 			   	</a>
 			</div>
 			<c:choose>
@@ -65,6 +73,10 @@
 		
 	</div>
 <script>
+$('#main').ready(function(){
+	$('#nav-logo').attr('src','${pageContext.request.contextPath }/resources/images/bookinglogo.svg');
+	$('#cartImg').attr('src','${pageContext.request.contextPath }/resources/images/cart.svg');	
+})
 $(document).ready(function() {
     $('#searchForm').submit(function() {
         if ($('#searchBook').val() == '') {
