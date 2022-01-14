@@ -200,9 +200,9 @@
 				$('input:checkbox[value=' + careList[i] + ']').attr("checked", true);
 				$('input:checkbox[value=' + careList[i] + ']').attr("disabled", false);
 			}
-			$("#reviewCount").html(data.review.length);
-			$("#replyCount").html(data.reviewDtl.length);
-			$("#cartCount").html(data.cart.length);
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
 			
 		},
 		error : function(data) {

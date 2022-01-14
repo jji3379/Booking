@@ -122,56 +122,85 @@
 					</tbody>
 				</table>
 				<nav id = "paging">
-					<ul class="pagination justify-content-center">
-						<c:choose>
-							<c:when test="">
-								<li class="page-item">
-									<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled">
-									<a class="page-link" href="javascript:">&lt;</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach var="i" begin="" end="">
-							<c:choose>
-								<c:when test="">
-									<li class="page-item active">
-										<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-									</li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item">
-										<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-									</li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="">
-								<li class="page-item">
-									<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
-								</li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item disabled">
-									<a class="page-link" href="javascript:">&gt;</a>
-								</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
 				</nav>
 			</div>
 		</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
 	//by준영, 현재시간 출력
 	let today = new Date();
 	
 	$('#date').html(today.toLocaleString());
+	
+	function pagingList(page) {
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/users/${id}?page="+page,
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				$("#reviewCount").html(data.review.totalElements);
+				$("#replyCount").html(data.reviewDtl.totalElements);
+				$("#cartCount").html(data.cart.totalElements);
+				
+				reviewList = "";
+					reviewList += '<div class="myPost">'
+						reviewList += '<h1>작성 글 보기</h1>'
+						reviewList += '<table class="myPost-tb">'
+							reviewList += '<caption>Total : '+data.reviewDtl.totalElements+'</caption>'
+							reviewList += '<colgroup>'
+								reviewList += '<col style="width:8%"/>'
+								reviewList += '<col style="width:52%"/>'
+								reviewList += '<col style="width:20%"/>'
+								reviewList += '<col style="width:20%"/>'
+							reviewList += '</colgroup>'
+							reviewList += '<thead>'
+								reviewList += '<tr class="myPost-tr">'
+									reviewList += '<th>번호</th>'
+									reviewList += '<th>댓글</th>'
+									reviewList += '<th>날짜</th>'
+									reviewList += '<th>원문</th>'
+								reviewList += '</tr>'
+							reviewList += '</thead>'
+							reviewList += '<tbody>'
+					
+							for(var i=0; i<data.reviewDtl.content.length; i++){				
+								reviewList += '<tr class="myPost-tr">'
+									reviewList += '<td>'+((data.reviewDtl.number*5)+i+1)+'</td>'
+									reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
+									reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
+									reviewList += '<td>'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
+								reviewList += '</tr>'				
+							}
+							reviewList += '</tbody>'
+						reviewList += '</table>'
+						reviewList += '<nav id = "paging">'
+						reviewList += '</nav>'
+					reviewList += '</div>'
+				$(".content").html(reviewList);
+					
+				window.pagObj = $('#paging').twbsPagination({ 
+					totalPages: data.reviewDtl.totalPages, // 호출한 api의 전체 페이지 수 
+					startPage: data.reviewDtl.number+1, 
+					visiblePages: 5, 
+					prev: "‹", 
+					next: "›", 
+					first: '«', 
+					last: '»', 
+					onPageClick: function (event, page) { 
+					} 
+				}).on('page', function (event, page) { 
+					pagingList(page-1);
+				});
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+	
 	
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
@@ -179,15 +208,15 @@
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			$("#reviewCount").html(data.review.length);
-			$("#replyCount").html(data.reviewDtl.length);
-			$("#cartCount").html(data.cart.length);
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
 			
 			reviewList = "";
 				reviewList += '<div class="myPost">'
 					reviewList += '<h1>작성 글 보기</h1>'
 					reviewList += '<table class="myPost-tb">'
-						reviewList += '<caption>Total : '+data.reviewDtl.length+'</caption>'
+						reviewList += '<caption>Total : '+data.reviewDtl.totalElements+'</caption>'
 						reviewList += '<colgroup>'
 							reviewList += '<col style="width:8%"/>'
 							reviewList += '<col style="width:52%"/>'
@@ -204,24 +233,39 @@
 						reviewList += '</thead>'
 						reviewList += '<tbody>'
 				
-						for(var i=0; i<data.reviewDtl.length; i++){				
+						for(var i=0; i<data.reviewDtl.content.length; i++){				
 							reviewList += '<tr class="myPost-tr">'
 								reviewList += '<td>'+(i+1)+'</td>'
-								reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl[i].content+'</td>'
-								reviewList += '<td>'+data.reviewDtl[i].regdate+'</td>'
-								reviewList += '<td>'+data.reviewDtl[i].refGroup.reviewTitle+'</td>'
+								reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
+								reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
+								reviewList += '<td>'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
 							reviewList += '</tr>'				
 						}
 						reviewList += '</tbody>'
 					reviewList += '</table>'
+					reviewList += '<nav id = "paging">'
+					reviewList += '</nav>'
 				reviewList += '</div>'
 			$(".content").html(reviewList);
+				
+			window.pagObj = $('#paging').twbsPagination({ 
+				totalPages: data.reviewDtl.totalPages, // 호출한 api의 전체 페이지 수 
+				startPage: data.reviewDtl.number+1, 
+				visiblePages: 5, 
+				prev: "‹", 
+				next: "›", 
+				first: '«', 
+				last: '»', 
+				onPageClick: function (event, page) { 
+				} 
+			}).on('page', function (event, page) { 
+				pagingList(page-1);
+			});
 		},
 		error : function(data) {
 			console.log("오류");
 		}
 	});
-
 	
 	//회원탈퇴묻기
 	function deleteConfirm(){

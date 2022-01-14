@@ -222,7 +222,7 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
-	public UserInfoDto getInfo(Long id) {
+	public Users getInfo(Long id) {
 		//로그인된 아이디를 읽어와서
 		//개인정보를 읽어온다.
 		//Users dto= dao.getData(id);
@@ -231,15 +231,8 @@ public class UsersServiceImpl implements UsersService{
 		if (id != null) {
 			dto = usersRepository.findById(id);
 		}
-		List<Review> review = reviewRepository.findByWriter(dto);
-		List<ReviewDtl> reviewDtl = reviewCommentRepository.findByWriter(dto);
-		List<Cart> cart = cartRepository.findByUserId(dto);
 		
-		userinfo.setUser(dto);
-		userinfo.setReview(review);
-		userinfo.setReviewDtl(reviewDtl);
-		userinfo.setCart(cart);
-		return userinfo;
+		return dto;
 	}
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222

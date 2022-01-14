@@ -56,8 +56,20 @@ public class UsersApiController {
 
 	// 나의 리뷰 조회
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	public UserInfoDto myinfo(@PathVariable Long id) {
-		return usersService.getInfo(id);
+	public UserInfoDto myinfo(@PathVariable Long id, Pageable pageable) {
+		UserInfoDto userinfo = new UserInfoDto();
+		usersService.getInfo(id);
+		usersService.getMyReview(id, pageable);
+		usersService.getMyCart(id, pageable);
+		usersService.getMyReply(id, pageable);
+		
+		
+		userinfo.setUser(usersService.getInfo(id));
+		userinfo.setReview(usersService.getMyReview(id, pageable));
+		userinfo.setReviewDtl(usersService.getMyReply(id, pageable));
+		userinfo.setCart(usersService.getMyCart(id, pageable));
+		
+		return userinfo;
 	}
 	
 	// 나의 리뷰 조회
