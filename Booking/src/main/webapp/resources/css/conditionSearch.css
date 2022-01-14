@@ -115,8 +115,7 @@
 	    display: -webkit-box;
 	    -webkit-line-clamp: 1;
 	    -webkit-box-orient: vertical;
-		font-size: 21px;
-    	font-family: "맑은 고딕", "Malgun Gothic", "나눔고딕", "NanumGothic", "Dotum", sans-serif;
+		font-size: 23px;
 	}
 	
 	.book-info {

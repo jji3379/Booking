@@ -64,6 +64,7 @@
 													<span class="book-info">${b.author}</span>
 													<span class="book-info">${b.publisher}</span>
 													<span class="book-info">${b.pubdate}</span>
+													<span id="bookIsbn" hidden>${b.isbn }</span>
 												</div>
 												<span class="bestSeller">베스트셀러</span>
 											</li>
@@ -75,9 +76,15 @@
 											<li class="grid-li bd-review">
 												 <div class="book-review">
 												 	<div class="star-box">
-														<span class="total-star">★★★★★</span>
-														<span>5.0</span>
+														<div class="total-star">
+															<div class="starValue star-fill" ></div>
+															<div class="star-base">
+																<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+															</div>
+														</div>
+														<span class="total-value"></span>
 													</div>
+										
 													<div class="total-comment">(<a href="">163</a>)</div>
 												 </div>
 											</li> 
@@ -86,11 +93,17 @@
 					 			</td>
 					 			<td class="td-info" >
 					 				<div class="buttonWrap">
+					 					<input id="idP" type="hidden" name="id" value="${id }"/>
+										<input id="imageP" type="hidden" name="image" value="${b.image }"/>
+										<input id="titleP" type="hidden" name="title" value="${b.title }" />
+										<input id="priceP" type="hidden" name="price" value="${b.price }"/>
+										<input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+										<input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
 					 					<div >
-					 						<button class="cart btn" id="insertBtn">장바구니</button>
+					 						<button class="cart btn" id="insertBtn" onclick="insert()">장바구니</button>
 					 					</div>
 					 					<div >
-					 						<button class="buy btn" id="directBtn">바로구매</button>
+					 						<button class="buy btn" id="directBtn" onclick="direct()">바로구매</button>
 					 					</div>
 				 					</div>
 					 			</td>
@@ -144,7 +157,7 @@
 			alert("로그인이 필요합니다.");
 			document.getElementById('modal-open').click();
 			return false;
-		}		
+		}	
 	});
 
 	//by준영, 현재시간 출력
@@ -166,6 +179,150 @@
 		$("#topButtonImg").click(function(){
 			$('html, body').animate({scrollTop:0}, '300');
 		});
+	});
+	
+	 //by준영, 장바구니 로그인 필터 기능_210311
+    //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
+    var id=$("#idP").val();
+    
+    function insert(){
+       var image = $("#imageP").val();
+       var title = $("#titleP").val();
+       var price = $("#priceP").val();
+       var d_price = $("#d_priceP").val();
+       var count = $("#countP").val();
+       var isbn=$("#isbnP").val();
+       
+       var url ="${pageContext.request.contextPath }/pay/insert.do";
+       var data = null;
+       if(d_price == ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+       }else if(d_price != ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+       }
+       console.log(data);
+       if(id == ""){
+          $('#modal-open').trigger('click');
+       }else{
+          $.ajax({
+             url:url,
+             method:'post',
+             data: data,
+             success:function(data){
+                var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
+                if(chk){
+                   location.replace("${pageContext.request.contextPath }/pay/cart.do");
+                }else{
+                   return false;
+                }
+             }
+          })
+       }   
+    }
+    
+    function direct(){
+       var image = $("#imageP").val();
+       var title = $("#titleP").val();
+       var price = $("#priceP").val();
+       var d_price = $("#d_priceP").val();
+       var count = $("#countP").val();
+       var isbn=$("#isbnP").val();
+       
+       var url ="${pageContext.request.contextPath }/pay/insert.do";
+       var data = null;
+       if(d_price == ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+       }else if(d_price != ""){
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+       }
+       console.log(data);
+       if(id == ""){
+          $('#modal-open').trigger('click');
+       }else{
+          $.ajax({
+             url:url,
+             method:'post',
+             data: data,
+             success:function(data){
+                location.replace("${pageContext.request.contextPath }/pay/pay.do");
+             }
+          })
+       }   
+    }
+	
+	var isbn = $('#bookIsbn').text();
+	// by 준익, 리뷰 평균 평점 호출 api
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			var dataText = "("+data+")";
+			var int_part = Math.trunc(data);
+			var float_part = Number(Number((data-int_part).toFixed(2)));
+			var intValue = "";
+			//숫자형 평점을 total-value 에 출력
+			$('.total-value').html(dataText);
+			
+			//평점의 정수부분 +1개 만큼 별 생성하고
+			switch(int_part) {
+			case 0 :
+				intValue += ('<span>★</span>')
+				break;
+			case 1 :
+				intValue += ('<span>★</span><span>★</span>')
+				break;
+			case 2 :
+				intValue += ('<span>★</span><span>★</span><span>★</span>')
+				break;
+			case 3 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			case 4 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			case 5 :
+				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+				break;
+			}
+			$('.starValue').html(intValue);
+			//평점의 소수부분 만큼 마지막 별점을 커스텀한다
+			switch(float_part) {
+			case 0.0 :
+				$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
+				break;
+			case 0.1 :
+				$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
+				break;
+			case 0.2 :
+				$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
+				break;
+			case 0.3 :
+				$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
+				break;
+			case 0.4 :
+				$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
+				break;
+			case 0.5 :
+				$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
+				break;
+			case 0.6 :
+				$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
+				break;
+			case 0.7 :
+				$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
+				break;
+			case 0.8 :
+				$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
+				break;
+			case 0.9 :
+				$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
+				break;
+			}
+		},
+		error : function(data) {
+		}
 	});
 	
 	

@@ -57,59 +57,65 @@
 		 			<table>
 						<colgroup>
 							<col style="width:20%">
-							<col style="width:25%">
-							<col style="width:25%">
-							<col style="width:30%">
+							<col style="width:27%">
+							<col style="width:26%">
+							<col style="width:27%">
 						</colgroup>
 						<tr >
-							<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
+							<td rowspan="10">
+								<div id="maxlength_chk">
+									<h6 id="interest">> 관심사</label></h6>
+									<div class="hidden-box">
+										<input type="checkbox" name="chk_care" id="chk_care"/>
+									</div>
+								</div>
+							</td>
 						</tr>
-								<tr class="interestChk" >
-									<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="100"/> 소설</label></td>
-									<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="110"/> 시 / 에세이</label></td>
-									<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="care" id="humanities" value="120"/> 인문</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="care" id="home" value="130"/> 가정/생활/요리</label></td>
-									<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="care" id="health" value="140"/> 건강</label></td>
-									<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="care" id="hobby" value="150"/> 취미/레저</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="care" id="economy" value="160"/> 경제/경영</label></td>
-									<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="care" id="self" value="170"/> 자기계발</label></td>
-									<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="care" id="society" value="180"/> 사회</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="care" id="history" value="190"/> 역사/문화</label></td>
-									<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="care" id="religion" value="200"/> 종교</label></td>
-									<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="care" id="art" value="210"/> 예술/대중문화</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="care" id="reference" value="220"/> 학습/참고서</label></td>
-									<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="care" id="language" value="230"/> 국어/외국어</label></td>
-									<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="care" id="dictionary" value="240"/> 사전</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="care" id="science" value="250"/> 과학/공학</label></td>
-									<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="care" id="employment" value="260"/> 취업/수험서</label></td>
-									<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="care" id="trip" value="270"/> 여행/지도</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="care" id="IT" value="280"/> 컴퓨터/IT</label></td>
-									<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="care" id="magazine" value="290"/> 잡지</label></td>
-									<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="care" id="teenager" value="300"/> 청소년</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="care" id="infant" value="310"/> 유아</label></td>
-									<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="care" id="child" value="320"/> 어린이</label></td>
-									<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="care" id="comic" value="330" /> 만화</label></td>
-								</tr>
-								<tr class="interestChk">
-									<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="care" id="overseas" value="340"/>해외도서</label></td>
-									<td></td>
-									<td></td>
-								</tr>
-						
+						<tr class="interestChk" >
+							<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="100"/> 소설</label></td>
+							<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="110"/> 시 / 에세이</label></td>
+							<td><label for="humanities"><input onclick="CountChecked(this)" type="checkbox" name="care" id="humanities" value="120"/> 인문</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="home"><input onclick="CountChecked(this)" type="checkbox" name="care" id="home" value="130"/> 가정/생활/요리</label></td>
+							<td><label for="health"><input onclick="CountChecked(this)" type="checkbox" name="care" id="health" value="140"/> 건강</label></td>
+							<td><label for="hobby"><input onclick="CountChecked(this)" type="checkbox" name="care" id="hobby" value="150"/> 취미/레저</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="economy"><input onclick="CountChecked(this)" type="checkbox" name="care" id="economy" value="160"/> 경제/경영</label></td>
+							<td><label for="self"><input onclick="CountChecked(this)" type="checkbox" name="care" id="self" value="170"/> 자기계발</label></td>
+							<td><label for="society"><input onclick="CountChecked(this)" type="checkbox" name="care" id="society" value="180"/> 사회</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="history"><input onclick="CountChecked(this)" type="checkbox" name="care" id="history" value="190"/> 역사/문화</label></td>
+							<td><label for="religion"><input onclick="CountChecked(this)" type="checkbox" name="care" id="religion" value="200"/> 종교</label></td>
+							<td><label for="art"><input onclick="CountChecked(this)" type="checkbox" name="care" id="art" value="210"/> 예술/대중문화</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="reference"><input onclick="CountChecked(this)" type="checkbox" name="care" id="reference" value="220"/> 학습/참고서</label></td>
+							<td><label for="language"><input onclick="CountChecked(this)" type="checkbox" name="care" id="language" value="230"/> 국어/외국어</label></td>
+							<td><label for="dictionary"><input onclick="CountChecked(this)" type="checkbox" name="care" id="dictionary" value="240"/> 사전</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="science"><input onclick="CountChecked(this)" type="checkbox" name="care" id="science" value="250"/> 과학/공학</label></td>
+							<td><label for="employment"><input onclick="CountChecked(this)" type="checkbox" name="care" id="employment" value="260"/> 취업/수험서</label></td>
+							<td><label for="trip"><input onclick="CountChecked(this)" type="checkbox" name="care" id="trip" value="270"/> 여행/지도</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="IT"><input onclick="CountChecked(this)" type="checkbox" name="care" id="IT" value="280"/> 컴퓨터/IT</label></td>
+							<td><label for="magazine"><input onclick="CountChecked(this)" type="checkbox" name="care" id="magazine" value="290"/> 잡지</label></td>
+							<td><label for="teenager"><input onclick="CountChecked(this)" type="checkbox" name="care" id="teenager" value="300"/> 청소년</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="infant"><input onclick="CountChecked(this)" type="checkbox" name="care" id="infant" value="310"/> 유아</label></td>
+							<td><label for="child"><input onclick="CountChecked(this)" type="checkbox" name="care" id="child" value="320"/> 어린이</label></td>
+							<td><label for="comic"><input onclick="CountChecked(this)" type="checkbox" name="care" id="comic" value="330" /> 만화</label></td>
+						</tr>
+						<tr class="interestChk">
+							<td><label for="overseas"><input onclick="CountChecked(this)" type="checkbox" name="care" id="overseas" value="340"/>해외도서</label></td>
+							<td></td>
+							<td></td>
+						</tr>
 					</table>
 				</div>							
 		 	</div>
@@ -154,8 +160,10 @@
 						</tbody>
 					</table>
 		 		</div>
-		 		<input type="checkbox" id="terms" name="terms" >
-		 		<label id="labelTerms" for="terms">[필수] 개인정보 수집.이용동의</label>
+		 		<div class="term-box">
+		 			<input type="checkbox" id="terms" name="terms" >
+		 			<label id="labelTerms" for="terms">[필수] 개인정보 수집.이용동의</label>
+		 		</div>
 		 		
 		 	</div>
 		 	<div class="agree-warn">
@@ -163,7 +171,7 @@
 				※ 이용약관 및 개인정보 수집.이용 내용에 대해 동의 거부가 가능하며, <br />
 				이 경우 회원가입 및 관련 서비스는 이용이 불가합니다.
 		 	</div>
-		 	<button onclick="min()" type="submit" class="signupBtn" >회원가입하기</button>
+		 	<button type="submit" class="signupBtn" >회원가입하기</button>
 		 </form>
 	 	 </div>
 	 </div>
@@ -172,15 +180,26 @@
 //by 준영, 관심사 최대 갯수 이상 체크 막음
 function CountChecked(obj){
 	var count = 0;
-	var care = document.getElementsByName("care");
-	
+	var care = $('input[name=care]');
+	var chk_care = $('input[id=chk_care]');
+	let care_validate = document.querySelector('label[for="chk_care"]');
 	for(var i = 0; i < care.length; i++){
 		if(care[i].checked){
 			count++;
 		}
 	}
-	if(count > 3){
-		obj.checked = false;
+	//by 준영, 관심사 한가지 이상 선택하게하는 validation
+	if(count == 0){
+		chk_care.click();
+	}else if(count >= 1 && count <= 3){
+		if(chk_care.is(":checked") == false){
+			chk_care.click();
+		}
+	}else if(count >= 3 ){
+		if(chk_care.is(":checked") == true){
+			chk_care.click();
+			document.querySelector('label[for="chk_care"]').textContent='최대 3가지만 선택하세요';
+		}
 		return false;
 	}
 }
@@ -189,7 +208,14 @@ function CountChecked(obj){
 $(document).ready(function () { 
     // validate signup form on keyup and submit
     $('#signupForm').validate({
-        rules: {
+        errorPlacement: function(error, element) {
+        	if(element.is(":checkbox")){
+        		element.parent().after(error);
+        	}else{
+        		element.after(error);
+        	}
+        },
+    	rules: {
             loginId:{
             	required:true, 
             	minlength:5, 
@@ -208,24 +234,29 @@ $(document).ready(function () {
             pwd: {required:true, minlength:5, maxlength:10},
             pwd2: {required:true, equalTo:'#signupPwd'},               
             email: {required:true, email:true},
+            chk_care: 'required',
             terms: 'required'
         },
         messages: {
             loginId: {
                  required:"필수 입력 항목입니다.",
                  minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
+                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
                  remote : "이미 존재하는 아이디 입니다."
                  },
             pwd:"필수 입력 항목입니다.",
             pwd2: {
                 required: "필수 입력 항목입니다.",
+                minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
+                maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
                 equalTo: "암호를 다시 확인하세요" 
                 },
             email: {
                 required:"필수 입력 항목입니다.",
                 email: "이메일 형식으로 입력해 주세요."
                 },
-            terms: "!"
+            chk_care: "필수 입력 항목",
+            terms: "※&nbsp;이용약관에 동의해 주세요."
         }
 //여기부터
 ,

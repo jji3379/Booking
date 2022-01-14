@@ -85,7 +85,6 @@
 				</table>
 			</div>
 			<input type="hidden" name="writer" id="writer" value="${sessionScope.id}" />
-			<input type="hidden" name="imagePath" id="imagePath" value="" />
 			<input type="hidden" name="rating" id="rating"/>
 		</div>
 		<button id="insertBtn" type="button" onclick="postAjax();">저장</button>

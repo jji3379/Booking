@@ -130,9 +130,9 @@
 				 			<table>
 								<colgroup>
 									<col style="width:20%">
-									<col style="width:25%">
-									<col style="width:25%">
-									<col style="width:30%">
+									<col style="width:27%">
+									<col style="width:26%">
+									<col style="width:27%">
 								</colgroup>
 								<tr >
 									<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
@@ -233,12 +233,13 @@
 	}
 </script>
 <script>
-
 	var profileImg = $('#profileImg').val();
+	
+
 	if( profileImg != null ){
 		$('#preImg').attr('src', profileImg );
 	}else{
-		$('#preImg').attr('src', '${pageContext.request.contextPath }/resources/images/home.png');
+		$('#preImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
 	}
 	
 	/*
@@ -252,7 +253,7 @@
 	$('#preImg').click(function (e) {
 	    document.profile.target_url.value = document.getElementById( 'preImg' ).src;
 	    e.preventDefault();
-	    $('#image').click();
+	    $('#image').click();//파일 첨부버튼 
 	}); 
 	
 	

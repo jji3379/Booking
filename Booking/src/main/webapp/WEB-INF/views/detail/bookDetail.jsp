@@ -15,164 +15,153 @@
 </head>
 <body>
 <div class="container">
-   <c:forEach var="b" items="${bookDetail }">
-      <div class="hori">
-         <table class="tb">
-            <div class="tb-head">
-            	<h2 class="head-title"> > ${b.title }</h2>
-            	<div class="head-star">
-                	<p>별점</p>
-                	<div class="total-star">
+	<c:forEach var="b" items="${bookDetail }">
+	<div class="hori">
+        <table class="tb">
+			<div class="tb-head">
+	     		<h2 class="head-title"> > ${b.title }</h2>
+		       	<div class="head-star">
+		           	<p>별점</p>
+		           	<div class="total-star">
 						<div class="starValue star-fill" ></div>
 						<div class="star-base">
 							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 						</div>
 					</div>
 					<span class="total-value"></span>
-            	</div>
-            </div>
-               <tr>
-                  <td class="tdImg" rowspan='6'><a id="image" href="${b.link }"><img src="${b.image}"/></a></td>
-               </tr>
-               <tr class="book-info">
-                  <td colspan="2" class="tdInfo">
-                     <ul class="info-list">
-                        <li>저자 : <span id="auth">${b.author }</span></li>
-                        <li>출판사 : ${b.publisher }</li>
-                        <li id="pubdate">발행 : ${b.pubdate }</li>
-                        <li>ISBN : ${b.isbn }</li>
-                     </ul>
-                  </td>
-               </tr>
-               <tr>
-                  <th >정가 </th>
-                  <td class="tdPrice">${b.price} 원</td>
-               </tr>
-               <tr>
-                  <th >판매가 </th>
-                  <td class="tdDisc"><span>${b.discount } </span>원</td>
-               </tr>
-               <tr class="trCount">
-                  <th>수량</th>
-                    <td class="quantity">
-                  <input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" />
-               </td>
-               </tr>
-               <tr>
-                    <td class="trButton" colspan="2">
-                       <input id="idP" type="hidden" name="id" value="${id }"/>
-                   <input id="imageP" type="hidden" name="image" value="${b.image }"/>
-                   <input id="titleP" type="hidden" name="title" value="${b.title }" />
-                   <input id="priceP" type="hidden" name="price" value="${b.price }"/>
-                   <input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-                   <input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
-                     <button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
-                  <button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
-                     <a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
-                  </td>
-            </tr>
-         </table>
-         <div class="divR">
-            <div class="Rtop">
-               작가의 다른책
-            </div>
+				</div>
+			</div>
+	   	    <tr>
+	        	<td class="tdImg" rowspan='6'><a id="image" href="${b.link }"><img src="${b.image}"/></a></td>
+	        </tr>
+	        <tr class="book-info">
+	           	<td colspan="2" class="tdInfo">
+	          		<ul class="info-list">
+	               		<li>저자 : <span id="auth">${b.author }</span></li>
+	                 	<li>출판사 : ${b.publisher }</li>
+	                 	<li id="pubdate">발행 : ${b.pubdate }</li>
+	                 	<li>ISBN : ${b.isbn }</li>
+	           		</ul>
+	        	</td>
+	        </tr>
+	        <tr>
+	           <th >정가 </th>
+	           <td class="tdPrice">${b.price} 원</td>
+	        </tr>
+			<tr>
+			   <th >판매가 </th>
+			   <td class="tdDisc"><span>${b.discount } </span>원</td>
+			</tr>
+	        <tr class="trCount">
+	           	<th>수량</th>
+	           	<td class="quantity">
+	       			<input id="countP" type="number" name="count" class="numBox" min="1" max="100" value="1" />
+	      		</td>
+	        </tr>
+	        <tr>
+	   	   		<td class="trButton" colspan="2">
+					<input id="idP" type="hidden" name="id" value="${id }"/>
+					<input id="imageP" type="hidden" name="image" value="${b.image }"/>
+					<input id="titleP" type="hidden" name="title" value="${b.title }" />
+					<input id="priceP" type="hidden" name="price" value="${b.price }"/>
+					<input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
+					<input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
+					<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
+					<button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
+					<a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
+	        	</td>
+	       	</tr>
+        </table>
+        <div class="divR">
+            <div class="Rtop">작가의 다른책</div>
             <div id="simList"></div>
             <div class="Rbot">
-               <a id="plus" href="javascript:">
-                  <img src="http://img.echosting.cafe24.com/skin/base_ko_KR/layout/btn_recent_next.gif" alt="다음 제품" class="next" />
-                  </a>
+            	<a id="plus" href="javascript:">
+               		<img src="http://img.echosting.cafe24.com/skin/base_ko_KR/layout/btn_recent_next.gif" alt="다음 제품" class="next" />
+               	</a>
             </div>
-         </div>
-      </div>
-      <div class="bottomWrap">
-         <div class="bookIntro">
-            <div class="Intro-L">책 소개</div>
-            <div class="Intro-R">
-               <div class="description">
-                  ${b.description}
-               </div>
-               <div class="finishLine"></div>
-            </div>
-         </div>
-         <div class="shipping">
-            <div class="ship-L">배송안내</div>
-            <div class="ship-R">
-               <ul class="ship-guide">
-                      <li><p>북킹 상품은 택배로 배송되며, 출고완료 1~2일내 상품을 받아 보실 수 있습니다.</p></li>
-                      <li><p>출고가능 시간이 서로 다른 상품을 함께 주문할 경우 출고가능 시간이 가장 긴 상품을 기준으로 배송됩니다.</p></li>
-                      <li><p>군부대, 교도소 등 특정기관은 우체국 택배만 배송가능합니다.</p></li>
-                      <li><p>배송비는 업체 배송비 정책에 따릅니다.</p></li>
-                      <li><p>도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</p></li> 
-                      <li><p>상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</p></li> 
-                  </ul>
-                  <div class="finishLine"></div>
-            </div>
-         </div>
-         <div class="reviewWrap">
-       	 	<div class="review-L">
-               이 책의 리뷰
-            </div>
-            <div class="review-R">
-               <div class="review-box">
-                  <div class="head-star review-top">
-                     <p>별점</p>
-                     <div class="total-star">
-						<div class="starValue star-fill" style="top: -1.5px;"></div>
-						<div class="star-base">
-							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+       	</div>
+   	</div>
+    <div class="bottomWrap">
+	    <div class="bookIntro">
+	    	<div class="Intro-L">책 소개</div>
+	       	<div class="Intro-R">
+	          	<div class="description">${b.description}</div>
+	          	<div class="finishLine"></div>
+	       	</div>
+	    </div>
+	    <div class="shipping">
+	    	<div class="ship-L">배송안내</div>
+	        <div class="ship-R">
+	        	<ul class="ship-guide">
+		            <li><p>북킹 상품은 택배로 배송되며, 출고완료 1~2일내 상품을 받아 보실 수 있습니다.</p></li>
+		            <li><p>출고가능 시간이 서로 다른 상품을 함께 주문할 경우 출고가능 시간이 가장 긴 상품을 기준으로 배송됩니다.</p></li>
+		            <li><p>군부대, 교도소 등 특정기관은 우체국 택배만 배송가능합니다.</p></li>
+		            <li><p>배송비는 업체 배송비 정책에 따릅니다.</p></li>
+		            <li><p>도서 구매 시, 1만 원 이상 무료, 1만원 미만 2천 원</p></li> 
+		            <li><p>상품별 배송비가 있는 경우, 상품별 배송비 정책 적용</p></li> 
+	            </ul>
+	            <div class="finishLine"></div>
+	         </div>
+	    </div>
+	    <div class="reviewWrap">
+	    	<div class="review-L">이 책의 리뷰</div>
+	        <div class="review-R">
+	        	<div class="review-box">
+	            	<div class="head-star review-top">
+	               		<p>별점</p>
+	               		<div class="total-star">
+							<div class="starValue star-fill2" style="top: -1.5px;"></div>
+							<div class="star-base">
+								<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							</div>
 						</div>
-					</div>
-		     		<span class="total-value" ></span>
-		          	<p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
-                  </div>
-                  <ul class="sortWrap">
-                     <li class="review-sort">
-                        <a href="#" onclick="pagingList(0, 'regdate')">
-                           최근순
-                        </a>
-                     </li>
-                     <li class="review-sort">
-                        <a href="#" onclick="pagingList(0, 'rating')">
-                           별점순
-                        </a>
-                     </li>
-                  </ul>
-                  <ul class="reviewList">
-                     <!-- 더미  -->
-                     <li>    
-                        <div class="title-box">        
-                           <div class="star-box">            
-                              <div class="star_off">
-                                 <span class="star-value">★★★★☆</span>
-                              </div>       
-                           </div>           
-                           <span class="reviewTitle-box">reviewTitle</span> 
-                           <span class="spoCheck-box">스포일러</span>          
-                           <div class="idDate-box">            
-                              <span class="review-writer">catcat3</span>            
-                              <span class="review_date">2021/12/25</span>        
-                           </div>    
-                        </div>    
-                        <div class="content-box">        
-                           <div id="content${tmp.id }" class="spoAlert">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
-                           <div class="replyCount">        
-                              댓글 <span>(0)</span>  
-                              <a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
-                           </div>
-                        </div>    
-                     </li>
-                  </ul>
-                  <div class="review-paging">
-                    <nav id = "paging">
-                  	</nav>
-                  </div>   
-               </div>
-            </div>
-         </div>
-      </div>
-       </c:forEach>
-       <!-- <div id="reviewList"></div>-->
-      </div>
+		  				<span class="total-value" ></span>
+		       			<p class="total-count"> ( 총 <span id="total-count">2</span> 건 )</p>
+	             	</div>
+	                <ul class="sortWrap">
+	                	<li class="review-sort">
+	                    	<a href="#" onclick="pagingList(0, 'regdate')">최근순</a>
+	                    </li>
+	                    <li class="review-sort">
+	                    	<a href="#" onclick="pagingList(0, 'rating')">별점순</a>
+	                	</li>
+	                </ul>
+	                <ul class="reviewList">
+	                    <!-- 더미  -->
+	                    <%-- <li>    
+	                       <div class="title-box">        
+	                          <div class="star-box">            
+	                             <div class="star_off">
+	                                <span class="star-value">★★★★☆</span>
+	                             </div>       
+	                          </div>           
+	                          <span class="reviewTitle-box">reviewTitle</span> 
+	                          <span class="spoCheck-box">스포일러</span>          
+	                          <div class="idDate-box">            
+	                             <span class="review-writer">catcat3</span>            
+	                             <span class="review_date">2021/12/25</span>        
+	                          </div>    
+	                       </div>    
+	                       <div class="content-box">        
+	                          <div id="content${tmp.id }" class="spoAlert">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas officiis quisquam corporis cupiditate dolore beatae unde vitae tempore dolores velit. Perferendis itaque debitis delectus asperiores expedita labore ea minus necessitatibus. </div>            
+	                          <div class="replyCount">        
+	                             댓글 <span>(0)</span>  
+	                             <a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a> 
+	                          </div>
+	                       </div>    
+	                    </li> --%>
+	               	</ul>
+                	<div class="review-paging">
+                		<nav id = "paging"></nav>
+                	</div>   
+        		</div>
+			</div>
+		</div>
+	</div>
+	</c:forEach>
+    <!-- <div id="reviewList"></div>-->
+</div>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>
 <script>
 
@@ -307,33 +296,43 @@
 			switch(float_part) {
 			case 0.0 :
 				$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'0%','overflow':'hidden'});
 				break;
 			case 0.1 :
 				$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'4%','overflow':'hidden'});
 				break;
 			case 0.2 :
 				$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'6%','overflow':'hidden'});
 				break;
 			case 0.3 :
 				$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'7.2%','overflow':'hidden'});
 				break;
 			case 0.4 :
 				$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'8.1%','overflow':'hidden'});
 				break;
 			case 0.5 :
 				$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'8.9%','overflow':'hidden'});
 				break;
 			case 0.6 :
 				$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'9.9%','overflow':'hidden'});
 				break;
 			case 0.7 :
-				$('.star-fill').children().last().css({'width':'10.25%','overflow':'hidden'});
+				$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'11.25%','overflow':'hidden'});
 				break;
 			case 0.8 :
-				$('.star-fill').children().last().css({'width':'11.5%','overflow':'hidden'});
+				$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'12.5%','overflow':'hidden'});
 				break;
 			case 0.9 :
 				$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
+				$('.star-fill2').children().last().css({'width':'13.8%','overflow':'hidden'});
 				break;
 			}
 			

@@ -115,8 +115,7 @@
 	    display: -webkit-box;
 	    -webkit-line-clamp: 1;
 	    -webkit-box-orient: vertical;
-		font-size: 21px;
-    	font-family: "맑은 고딕", "Malgun Gothic", "나눔고딕", "NanumGothic", "Dotum", sans-serif;
+		font-size: 23px;
 	}
 	.bestSeller {
 		border: 1px solid #e5e5e5;
@@ -158,6 +157,37 @@
 		display: inline;
 		vertical-align: baseline;
 		color: #ffc80b;
+	}
+	.star-fill {
+		color: #fff58c;
+		width: 100%;
+		padding: 0;
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		top: 0;
+		left: 5px;
+		font-family: emoji;
+		-webkit-text-fill-color: #ffc80b;
+	}
+	.star-fill2 {
+		color: #fff58c;
+		width: 100%;
+		padding: 0;
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		top: 0;
+		left: 5px;
+		font-family: emoji;
+		-webkit-text-fill-color: #ffc80b;
+	}
+ 	
+	.star-base {
+		display:inline-block;
+		z-index: 0;
+		padding: 0;
+		-webkit-text-fill-color: #d3cfcf; /* 덜 채워진 색상 */
 	}
 	.buttonWrap{
 		position: absolute;

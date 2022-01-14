@@ -8,6 +8,9 @@
 <title>책과의 즉석만남 Booking</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/info.css">
+<script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
 <style>
 
 </style>
@@ -84,7 +87,7 @@
 		<div class="content">
 			<div class="pwd-updateform">
 				<h2>비밀번호 변경</h2>
-				<form action="pwd_update.do" method="post" id="myPwd-form">
+				<form  id="myPwd-form">
 					<div class="myForm-header">
 						<p class="contxt">안전한 비밀번호로 내정보를 보호하세요</p>
 						<p class="contxt contxt_list"><em>다른 아이디/사이트에서 사용한 적 없는 비밀번호</em></p>
@@ -94,14 +97,17 @@
 						<label for="pwd">현재 비밀번호</label>
 						<input class="pwdform-control" type="password" name="pwd" id="currentPwd"/>
 					</div>
+					<div class="error-msg"></div>
 					<div class="pwdform-group" >
 						<label for="newPwd">새 비밀번호</label>
-						<input class="pwdform-control" type="password" name="newPwd" id="pwd"/>
+						<input class="pwdform-control" type="password" name="newPwd" id="newPwd"/>
 					</div>
+					<div class="error-msg"></div>
 					<div class="pwdform-group" >
 						<label for="newPwd2">새 비밀번호 확인</label>
-						<input class="pwdform-control" type="password" id="pwd2"/>
+						<input class="pwdform-control" type="password" name="pwd2" id="pwd2"/>
 					</div>
+					<div class="error-msg"></div>
 					<button type="submit" class="pwd-updateformBtn" >저장</button>
 					<button type="reset" class="pwd-resetBtn" >초기화</button>
 				</form>
@@ -110,99 +116,74 @@
 	</div>
 </div>
 <script>
-	//by준영, 현재시간 출력
-	let today = new Date();
 	
-	$('#date').html(today.toLocaleString());
-	
-	$('#side-pwd').on('click',function(){
-		function updatePwd(){
-		    $.ajax({ 
-		       	url:"pwd_updateform.do",
-		        method:"GET",
-		        success:function(data){
-		           $(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-		        },
-		        
-		    })
-		}
-	})
-	
-	//회원탈퇴묻기
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/private/delete.do";
-		} else {
-			location.reload();
-		}
-	}
-	
-</script>
-<script>
-	//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
-	document.querySelector("#myForm")
-	.addEventListener("submit", function(event){
-		let pwd1=document.querySelector("#pwd").value;
-		let pwd2=document.querySelector("#pwd2").value;
-		let currentPwd=document.querySelector("#currentPwd").value;
-		
-		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/users/pwd/${id}",
-			method:"GET",
-			dataType : "text",
-			success:function(data) {
-				if(currentPwd != data){
-					alert("현재 비밀번호가 다릅니다.");
-				}
-				console.log(data);
-			},
-			error : function(data) {
-				console.log("오류");
-			}
-		});
-		//새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-		if(pwd1 != pwd2){
-			alert("비밀번호를 확인 하세요!");
-			event.preventDefault();//폼 전송 막기 
-		}
-	});
-	
-	//[비밀번호를 검증할 정규 표현식]
-	//5~10글자 이내인지 검증
-	let reg_pwd=/^.{5,10}$/;
-	
-	//id가 pwd와 pwd2인 요소에 input 이벤트가 일어났을 때 실행할 함수 등록
-	$("#pwd, #pwd2").on("input", function(){
-		// input 이벤트가 언제 일어나는지 확인 요망!
-		console.log("input!!");
-		
-		//입력한 두 비밀번호를 읽어온다.
-		let pwd=$("#pwd").val();
-		let pwd2 =$("#pwd2").val();
-		
-		//일단 모든 검증 클래스를 제거하고
-		$("#pwd").removeClass("is-valid is-invalid");
-		
-		//비밀번호가 정규표현식에 매칭되지 않으면
-		if(!reg_pwd.test(pwd)){
-			//비밀번호가 유효하지 않는다고 표시하고
-			$("#pwd").addClass("is-invalid");
-			isPwdValid = false;
-			//함수를 여기서 종료
-			return;
-		}
-		
-		//두 비밀번호가 같은지 확인
-		if(pwd == pwd2) {
-			//같으면 유효하다는 클래스를 추가
-			$("#pwd").addClass("is-valid");
-			isPwdValid = true;
-		} else {
-			//다르면 유효하지 않다는 클래스 추가
-			$("#pwd").addClass("is-invalid");
-			isPwdValid = false;
-		}
+	//by 준영, Validate.js 라이브러리 
+	$(document).ready(function () { 
+	    // validate signup form on keyup and submit
+	    $('#myPwd-form').validate({
+	    	errorPlacement:function(error,element){ 
+	            $(element).parent().after(error)
+	    	},
+	        rules: {
+	            pwd:{
+	            	required:true, 
+	            	minlength:5, 
+	            	maxlength:10, 
+		            remote : {            	
+					    url : '${pageContext.request.contextPath }/v1/users/signup',
+					    type : "get",
+					    data : {
+					    	pwd : function() {
+					    		return $("#currentPwd").val();
+					    	}
+					    }
+					    
+		            }
+	            },
+	            newPwd: {required:true, minlength:5, maxlength:10},
+	            pwd2: {required:true, equalTo:'#newPwd'},               
+	        },
+	        messages: {
+	            pwd: {
+	                 required:"필수 입력 항목입니다.",
+	                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
+	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
+	                 remote : "이미 존재하는 아이디 입니다."
+                	},
+	            newPwd:{
+	            	 required: "필수 입력 항목입니다.",
+	            	 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
+	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요."
+	            	},
+	          	  
+	            pwd2: {
+	                required: "필수 입력 항목입니다.",
+	                equalTo: "비밀번호를 다시 확인하세요" 
+	                }
+	        }
+	//여기부터
+	,
+	        submitHandler: function (frm){
+	        	$.ajax({
+	    			url:"${pageContext.request.contextPath}/v1/users/pwd/${id}",
+	    			method:"GET",
+	    			dataType : "text",
+	    			success:function(data) {
+	    				if(currentPwd == data){
+	    					alert("현재 비밀번호와 다르게 변경해 주세요.");
+	    				}
+	    			},
+	    			error : function(data) {
+	    				console.log("오류");
+	    			}
+	    		});
+	        },
+	        success: function(e){
+	            //
+	        }
+	//여기까지는 생략 가능           
+	    });
+	    
 	});
 	
 	//회원탈퇴묻기
