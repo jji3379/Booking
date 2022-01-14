@@ -8,7 +8,7 @@
 		width: 100%;
 	}
 	.signup-wrap{
-		max-width: 420px;
+		max-width: 432px;
 		margin-top: 50px !important;
 		margin: 0 auto;
 	    width: 100%;
@@ -43,17 +43,24 @@
 		font-weight: 600;
 		color: #757575;
 	}
+	#chk_care {
+    	opacity:0;
+    }
 	.form-group > h6 {
 		margin-bottom: 7px;
+	}
+	.hidden-box{
+		height: 3px;
+    	overflow: hidden;
 	}
 	.scroll-box{
 		overflow-y: scroll;
 	    height: 220px;
 	    border: 1px solid #d1d1d1;
-	    font-size: 12px;
+	    font-size: 11px;
 	}
 	.scroll-box > table {
-		padding
+	
 	}
 	.interestChk > td {
 		padding: 5px 0;
@@ -86,7 +93,7 @@
 	}
 	.register-terms > h6 {
 		font-size: 11px;
-	    margin-top: 30px;
+	    margin-top: 20px;
 	    margin-bottom: 0px;
 	    padding-bottom: 8px;
 	    font-weight: bold;
@@ -105,12 +112,15 @@
 	.agree > td {
 		padding: 10px;
 	    border-top: 1px solid #dedfda;
-	    line-height: 1.6em;
+	    line-height: 1.45em;
 	    vertical-align: baseline;
 	}
 	.agree > td > strong {
-		font-size: 13px;
+		font-size: 12px;
 		
+	}
+	.term-box{
+		display: inline-block;
 	}
 	#labelTerms {
 		font-size: 13px;
@@ -162,8 +172,9 @@
 	    box-sizing: border-box;
 	}
 	.register-terms label.error {
+		margin-left: 5px;
 		font-weight: bold;
-	    font-size: 14px;
+	    font-size: 10px;
 	    color: #fe0000; 
 	}
 	
