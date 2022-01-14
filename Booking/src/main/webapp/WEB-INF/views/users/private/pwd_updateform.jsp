@@ -103,7 +103,7 @@
 						<input class="pwdform-control" type="password" name="newPwd" id="newPwd"/>
 					</div>
 					<div class="error-msg"></div>
-					<div class="pwdform-group" >
+					<div class="pwdform-group">
 						<label for="newPwd2">새 비밀번호 확인</label>
 						<input class="pwdform-control" type="password" name="pwd2" id="pwd2"/>
 					</div>
@@ -137,7 +137,6 @@
 					    		return $("#currentPwd").val();
 					    	}
 					    }
-					    
 		            }
 	            },
 	            newPwd: {required:true, minlength:5, maxlength:10},
@@ -148,7 +147,7 @@
 	                 required:"필수 입력 항목입니다.",
 	                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
 	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
-	                 remote : "이미 존재하는 아이디 입니다."
+	                 remote : "현재 비밀번호와 다른 비밀번호를 입력해 주세요."
                 	},
 	            newPwd:{
 	            	 required: "필수 입력 항목입니다.",
