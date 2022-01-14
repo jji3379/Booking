@@ -129,24 +129,22 @@
 	
 	$('#date').html(today.toLocaleString());
 	
-
-	
 	$(document).ready(function(){
 	    $.ajax({ 
 	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
 	        method:"GET",
 	        success:function(data){
 	        	var orderList = "";
-	        	for (var i=0; i<data.length; i++) {
+	        	for (var i=0; i<data.content.length; i++) {
 		        	orderList += '<li class="order">'
-			        	orderList += '<a id="orderDetail'+[i]+'" href="javascript:">'
+			        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
 				        	orderList += '<div class="order-td-L">'
-					        	orderList += '<div class="myOrder-num">'+data[i].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
-					        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'	
+					        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
+					        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
 					        orderList += '</div>'
 					        orderList += '<div class="order-td-R">'
-					        	orderList += '<div class="myOrder-price">'+data[i].o_price+'</div>'
-					        	orderList += '<div class="myOrder-count">'+data[i].o_count+'</div>'				
+					        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+					        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
 					        orderList += '</div>'
 				        	orderList += '<span class="detailBtn">></span>'
 			        	orderList += '</a>'

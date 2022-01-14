@@ -19,16 +19,13 @@ import com.acorn5.booking.users.entity.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "MY_ORDER_MST")
-public class Order {
+@Table(name = "MY_ORDER_DTL")
+public class OrderDtl {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ORDER_ID")
 	private Long id; //오더넘버
-	
-	@ManyToOne
-	@JoinColumn(name = "BUYER_ID")
-	private Users buyer;//구매자
+
 	private String image;//이미지
 	private String title;//제목
 	private int price; //정가
@@ -37,21 +34,18 @@ public class Order {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@CreationTimestamp
-	private Date o_date;//주문일
-	private int totalPrice; //총 주문금액
+	private Date regdate;//주문일
 	private String isbn;
+	
+	@ManyToOne
+	@JoinColumn(name = "orderNum")
+	private Order orderNum;
 	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Users getBuyer() {
-		return buyer;
-	}
-	public void setBuyer(Users buyer) {
-		this.buyer = buyer;
 	}
 	public String getImage() {
 		return image;
@@ -83,11 +77,11 @@ public class Order {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public Date getO_date() {
-		return o_date;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setO_date(Date o_date) {
-		this.o_date = o_date;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public String getIsbn() {
 		return isbn;
@@ -95,12 +89,10 @@ public class Order {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	public int getTotalPrice() {
-		return totalPrice;
+	public Order getOrderNum() {
+		return orderNum;
 	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setOrderNum(Order orderNum) {
+		this.orderNum = orderNum;
 	}
-	
-	
 }

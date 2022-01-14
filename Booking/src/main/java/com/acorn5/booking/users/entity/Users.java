@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.acorn5.booking.order.entity.Order;
+import com.acorn5.booking.order.entity.OrderDtl;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.fasterxml.jackson.annotation.JsonFormat;
