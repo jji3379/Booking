@@ -298,7 +298,7 @@
 	$("#week").on("click", function(){
 		var today = new Date();
 		$("#endDate").val(today.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.',''));
-		today.setDate(today.getDate() - 7)
+		today.setDate(today.getDate() - 7);
 		$("#startDate").val(today.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.',''));
 		termOrder(0);
 	});

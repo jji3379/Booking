@@ -90,6 +90,8 @@
 						<span>최근 주문내역</span>
 						<a href="my_order.do">주문전체보기 ></a>
 					</div>
+						<input type="hidden" id="startDate" name="startDate" value=""/>
+						<input type="hidden" id="endDate" name="endDate" value=""/>
 					<div id="myOrder" class="part-body">
 						<table>
 							<colgroup>
@@ -194,36 +196,41 @@
 	</div>
 </div>
 <script>
-	/*
-	$.ajax({
-		
-		//var todayDate = new Date();
+	var todayDate = new Date();
+
+	var endDate = todayDate.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
+	todayDate.setDate(todayDate.getDate() - 7);
+	var startDate = todayDate.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
 	
-		//var startDate = new Date().toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
-		//var endDate = new Date().toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
-		
-	   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
+	$("#startDate").val(startDate);
+	$("#endDate").val(endDate);
+
+	var data = {
+			startDate:$("#startDate").val(),
+			endDate:$("#endDate").val()
+		};
+	
+	// 최근 주문내역 호출
+	$.ajax({
+	   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
 	    method:"post",
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
 		data : JSON.stringify(data),
 	    success:function(data){
-	    	var orderList = "";
-	        	
+	    	var orderList = "";		        	
         	for (var i=0; i<data.content.length; i++) {
-	        	orderList += '<li class="order">'
-		        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
-			        	orderList += '<div class="order-td-L">'
-				        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
-				        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
-				        orderList += '</div>'
-				        orderList += '<div class="order-td-R">'
-				        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
-				        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
-				        orderList += '</div>'
-			        	orderList += '<span class="detailBtn">></span>'
-		        	orderList += '</a>'
-	        	orderList += '</li>'
+	        	orderList += '<tr>'
+		        	orderList += '<td>'
+			        	orderList += '<div>총 '+data.content[i].orderCount+'개 상품</div>'
+		        	orderList += '</td>'
+		        	orderList += '<td>'
+			        	orderList += '<div>'+data.content[i].regdate+'</div>'
+		        	orderList += '</td>'
+		        	orderList += '<td>'
+			        	orderList += '<div class="order-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
+		        	orderList += '</td>'
+	        	orderList += '</tr>'
         	}
 				
 			$("#recentOrderList").html(orderList);
@@ -232,7 +239,8 @@
 			console.log("오류");
 		}
 	})
-*/
+	
+	// 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
 		method:"GET",
