@@ -213,11 +213,11 @@ a {
 	}
 	.scroll-box4 {
 		overflow-y: scroll;
-	    height: 130px;
+	    height: 275px;
 	    width: 417px;
 	    border: 1px solid #d1d1d1;
 	    font-size: 12px;
-	    flex:1;
+	    margin-bottom: 20px;
 	}
 	<!--my info -->
 	.order-box{
@@ -228,17 +228,16 @@ a {
 	    padding: 7px 0;
 	    border-bottom: 1px solid #333;
 	}
-	.myOrder-dateSearch{
-		display: inline-flex;
+	.myOrder-dateSort{
+		display: flex;
 		margin: 50px 0 16px 0;
 		line-height: 2;
 	}
-	.myOrder-dateSort{
+	.myOrder-dateSort-main{
 		margin-right: 10px;
 		width:322px;
-		display: inline-block;
 	}
-	.myOrder-dateSort > a{
+	.myOrder-dateSort-main > a{
 		text-decoration: none;
 	    color: #333;
 	    display: inline-block;
@@ -254,7 +253,7 @@ a {
 		margin-right:10px;
     	position: relative;
 	}
-	.datepicker{
+	.input-date{
 		width: 100%;
 		height: 32px;
 	    padding: 5px 6px;

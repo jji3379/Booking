@@ -16,7 +16,7 @@
    <div class="header">
       <div class="primary">
          <h4>안녕하세요 ,</h4>
-         <span>catacat3 </span>님!
+         <span>${loginId}</span>님!
       </div>
       <div class="secondary">
          <div class="top3">
@@ -83,8 +83,8 @@
       </div>
       <div class="content">
          <div class="order-info">
-            <div class="orderDetail-num">주문번호 <span>1234567890</span></div>
-            <div class="orderDetail-date">주문일자 <span>2022/01/02</span></div>
+            <div class="orderDetail-num">주문번호 <span id="orderDetailNum">1234567890</span></div>
+            <div class="orderDetail-date">주문일자 <span id="orderDate">2022/01/02</span></div>
          </div>
          <div class="orderDetail-tb">
             <h3>booking</h3>
@@ -126,20 +126,20 @@
                <div class="orderDetail-rows">
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">상품가</div>
-                     <div class="orderDetail-price">13800 원</div>
+                     <div class="orderDetail-price" id="originalTotalPrice">13800 원</div>
                   </div>
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">할인</div>
-                     <div class="discount orderDetail-price">-1380 원</div>
+                     <div class="discount orderDetail-price" id="discountPrice">-1380 원</div>
                   </div>
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">배송비</div>
-                     <div class="orderDetail-price">2500 원</div>
+                     <div class="orderDetail-price" id="deliveryFee">2500 원</div>
                   </div>
                   <hr style="margin: 15px 0;"/>
                   <div class="final-price orderDetail-row">
                      <div class="orderDetail-label">최종결제 금액</div>
-                     <div class="orderDetail-price">14920 원</div>
+                     <div class="orderDetail-price" id="totalPrice">14920 원</div>
                   </div>
                </div>
             </div>
@@ -155,15 +155,23 @@ $.ajax({
 	dataType : "json",
 	async: false,
 	success:function(data) {
+		$("#orderDetailNum").html(data[0].orderNum.regdate.replace('-','').replace('-','').slice(0,8)+(data[0].orderNum.id+"").padStart(8,'0'));
+		$("#orderDate").html(data[0].orderNum.regdate);
 		var orderDetail = "";				
+		var originalTotalPrice = 0;
+		var discountPrice = 0;
+		
 		for(var i=0; i<data.length; i++){
+			originalTotalPrice += data[i].price;
+			discountPrice += data[i].d_price;
+			
 			orderDetail += '<div class="orderDetail-tr">'
-				orderDetail += '<a href="">'
+				orderDetail += '<a href="${pageContext.request.contextPath}/review_directInsertform.do?d_isbn='+data[i].isbn+'">'
 					orderDetail += '<img class="left" src="'+data[i].image+'" alt="" />'
 					orderDetail += '<div class="right">'
-						orderDetail += '<div>팩토리나인</div>'
+						orderDetail += '<div>'+data[i].publisher+'</div>'
 						orderDetail += '<div>'+data[i].title+'</div>'
-						orderDetail += '<div>'+data[i].title+'</div>'
+						orderDetail += '<div>'+data[i].author+'</div>'
 						orderDetail += '<div>'+data[i].count+'</div>'
 						orderDetail += '<span>'+data[i].price+'</span>>'
 						orderDetail += '<span>'+data[i].d_price+'</span> 원'
@@ -175,6 +183,15 @@ $.ajax({
 			orderDetail += '</div>'
 		}
 		$("#orderDetailList").html(orderDetail);
+		
+		$("#originalTotalPrice").html(originalTotalPrice+" 원");
+		if(data[0].orderNum.totalPrice >= 20000) {
+			$("#deliveryFee").html(0+" 원");
+		}else{
+			$("#deliveryFee").html(2500+" 원");
+		}
+		$("#discountPrice").html(discountPrice-originalTotalPrice+" 원");
+		$("#totalPrice").html(data[0].orderNum.totalPrice+" 원");
 			
 	},
 	error : function(data) {

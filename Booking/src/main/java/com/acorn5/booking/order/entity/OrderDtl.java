@@ -37,6 +37,9 @@ public class OrderDtl {
 	private Date regdate;//주문일
 	private String isbn;
 	
+	private String publisher;
+	private String author;
+	
 	@ManyToOne
 	@JoinColumn(name = "orderNum")
 	private Order orderNum;
@@ -94,5 +97,17 @@ public class OrderDtl {
 	}
 	public void setOrderNum(Order orderNum) {
 		this.orderNum = orderNum;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 }
