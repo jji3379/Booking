@@ -87,7 +87,7 @@
 		<div class="content">
 			<div class="pwd-updateform">
 				<h2>비밀번호 변경</h2>
-				<form  id="myPwd-form">
+				<form  id="myPwd-form" action="pwd_update.do">
 					<div class="myForm-header">
 						<p class="contxt">안전한 비밀번호로 내정보를 보호하세요</p>
 						<p class="contxt contxt_list"><em>다른 아이디/사이트에서 사용한 적 없는 비밀번호</em></p>
@@ -130,7 +130,7 @@
 	            	minlength:5, 
 	            	maxlength:10, 
 		            remote : {            	
-					    url : '${pageContext.request.contextPath }/v1/users/signup',
+		            	url:"${pageContext.request.contextPath}/v1/users/pwdCheck/${id}",
 					    type : "get",
 					    data : {
 					    	pwd : function() {
@@ -163,19 +163,7 @@
 	//여기부터
 	,
 	        submitHandler: function (frm){
-	        	$.ajax({
-	    			url:"${pageContext.request.contextPath}/v1/users/pwd/${id}",
-	    			method:"GET",
-	    			dataType : "text",
-	    			success:function(data) {
-	    				if(currentPwd == data){
-	    					alert("현재 비밀번호와 다르게 변경해 주세요.");
-	    				}
-	    			},
-	    			error : function(data) {
-	    				console.log("오류");
-	    			}
-	    		});
+				frm.submit();
 	        },
 	        success: function(e){
 	            //
