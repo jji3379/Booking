@@ -211,13 +211,14 @@ a {
     	font-size: 18px;
 		font-family: '777Balsamtint';
 	}
-	.scroll-box4 {
+	.scroll-box9 {
 		overflow-y: scroll;
-	    height: 275px;
+	    height: 115px;
 	    width: 417px;
 	    border: 1px solid #d1d1d1;
 	    font-size: 12px;
 	    margin-bottom: 20px;
+	    flex:1;
 	}
 	<!--my info -->
 	.order-box{

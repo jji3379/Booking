@@ -135,7 +135,7 @@
 								<input type="text" value="catcat3@naver.com" disabled/>
 							</div>
 							<div style="flex:0.0076;"></div>
-							<div class="scroll-box4">
+							<div class="scroll-box9">
 					 			<table>
 									<colgroup>
 										<col style="width:12.12%">
@@ -148,7 +148,6 @@
 										<col style="width:11.11%">
 										<col style="width:10.5%">
 									</colgroup>
-									
 									<tr class="interestChk" >
 										<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="100"/> 소설</label></td>
 										<td><label for="poetry"><input onclick="CountChecked(this)" type="checkbox" name="care" id="poetry" value="110"/> 시 / 에세이</label></td>
@@ -185,7 +184,6 @@
 										<td></td>
 										<td></td>
 									</tr>
-				
 								</table>
 							</div>
 						</div>
