@@ -43,19 +43,19 @@
     </definition>
     
     <!-- 메뉴 미표시 -->
-    <definition name="baseEmpty" template="/WEB-INF/tiles/templateEmpty.jsp">
+    <definition name="info" template="/WEB-INF/tiles/infoTemplate.jsp">
     </definition>
     
-    <definition name="*.part" extends="baseEmpty">
-        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    <definition name="*.menu" extends="info">
+        <put-attribute name="menu" value="/WEB-INF/views/{1}.jsp" />
     </definition>
  
-     <definition name="*/*.part" extends="baseEmpty">
-         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     <definition name="*/*.menu" extends="info">
+         <put-attribute name="menu" value="/WEB-INF/views/{1}/{2}.jsp" />
      </definition>
     
-    <definition name="*/*/*.part" extends="baseEmpty">
-        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    <definition name="*/*/*.menu" extends="info">
+        <put-attribute name="menu" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>        
     
 </tiles-definitions>
