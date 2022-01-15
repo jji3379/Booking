@@ -1,5 +1,7 @@
 package com.acorn5.booking.book.dto;
 
+import com.acorn5.booking.review.entity.Review;
+
 public class BookDto {
 	private String title;
     private String link;
@@ -12,6 +14,9 @@ public class BookDto {
     private String isbn;
     private String description;
     private String total;
+    
+    private Double reviewRating;
+    private Long reviewCount;
     
     public String getTotal() {
 		return total;
@@ -79,7 +84,20 @@ public class BookDto {
     public void setDescription(String description) {
         this.description = description;
     }
-    @Override
+	
+	public Double getReviewRating() {
+		return reviewRating;
+	}
+	public void setReviewRating(Double reviewRating) {
+		this.reviewRating = reviewRating;
+	}
+	public Long getReviewCount() {
+		return reviewCount;
+	}
+	public void setReviewCount(Long reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+	@Override
     public String toString() {
         return "Book [title=" + title + ", link=" + link + ", image=" + image + ", author=" + author + ", price=" + price
                 + ", discount=" + discount + ", publisher=" + publisher + ", pubdate=" + pubdate + ", isbn=" + isbn +", total=" + total

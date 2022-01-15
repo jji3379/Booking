@@ -36,13 +36,15 @@
 			</div>
 			<form action="">
 				 <div class="book-box">
-				 	<table>
+				 	<table id="bestSellerList">
+				 		<!-- 
 				 		<colgroup>
 				 			<col style="width:90px;">
 				 			<col style="width:150px;">
 				 			<col style="width:570px;">
 				 			<col style="width:105px;">
 				 		</colgroup>
+
 				 		<c:forEach var="b" items="${bestSeller}" varStatus="status">
 				 			<tr>
 					 			<td class="td-info">
@@ -111,6 +113,7 @@
 					 		<tr></tr>
 				 		</c:forEach>
 				 		<tr id="tr-load"></tr>
+				 		 -->
 				 	</table>
 				 	<div class="bottom-bar">
 				 		바닥
@@ -151,6 +154,176 @@
 		</svg>
 	</div>
 <script>
+
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/bestSeller",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			var bestSellerList = "";
+				bestSellerList += '<colgroup>'
+					bestSellerList += '<col style="width:90px;">'
+					bestSellerList += '<col style="width:150px;">'
+					bestSellerList += '<col style="width:570px;">'
+					bestSellerList += '<col style="width:105px;">'
+				bestSellerList += '</colgroup>'
+
+			for (var i = 0; i < data.content.length; i++) {
+				bestSellerList += '<tr>'
+					bestSellerList += '<td class="td-info">'
+						bestSellerList += '<div class="book-rank">'+(i+1)+'.</div>'
+					bestSellerList += '</td>'
+					
+					bestSellerList += '<td>'
+						bestSellerList += '<div>'
+							bestSellerList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
+						bestSellerList += '</div>'
+					bestSellerList += '</td>'
+					
+					bestSellerList += '<td class="td-info" >'
+						bestSellerList += '<div class="infoWrap">'
+							bestSellerList += '<ul>'
+								bestSellerList += '<li class="grid-li bd-title">'
+									bestSellerList += '<span class="book-title">'+data.content[i].title+'</span>'
+								bestSellerList += '</li>'
+								
+								bestSellerList += '<li class="grid-li bd-info">'
+									bestSellerList += '<div>'
+										bestSellerList += '<span class="book-info">'+data.content[i].author+'</span>'
+										bestSellerList += '<span class="book-info">'+data.content[i].publisher+'</span>'
+										bestSellerList += '<span class="book-info">'+data.content[i].pubdate+'</span>'
+										bestSellerList += '<span id="bookIsbn" hidden>'+data.content[i].isbn+'</span>'
+									bestSellerList += '</div>'
+									bestSellerList += '<span class="bestSeller">베스트셀러</span>'
+								bestSellerList += '</li>'
+								
+								bestSellerList += '<li class="grid-li bd-price">'
+									bestSellerList += '<div>'
+										bestSellerList += '<span class="book-price">'+data.content[i].price+' 원</span> → <span class="discount">'+data.content[i].discount+' 원</span>'
+									bestSellerList += '</div>'
+								bestSellerList += '</li>'
+									
+								bestSellerList += '<li class="grid-li bd-review">'
+									bestSellerList += '<div class="book-review">'
+										bestSellerList += '<div class="star-box">'
+											bestSellerList += '<div class="total-star">'
+												bestSellerList += '<div class="starValue star-fill" >'
+												
+													if (data.content[i].reviewRating == null) {
+														var int_part = 0.0;
+													} else {
+														var int_part = Math.trunc(data.content[i].reviewRating);														
+													}
+													var float_part = Number(Number((data.content[i].reviewRating-int_part).toFixed(2)));
+													
+													//평점의 정수부분 +1개 만큼 별 생성하고
+													switch(int_part) {
+													case 0 :
+														bestSellerList += ('<span>★</span>')
+														break;
+													case 1 :
+														bestSellerList += ('<span>★</span><span>★</span>')
+														break;
+													case 2 :
+														bestSellerList += ('<span>★</span><span>★</span><span>★</span>')
+														break;
+													case 3 :
+														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
+														break;
+													case 4 :
+														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+														break;
+													case 5 :
+														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+														break;
+													}
+													
+													switch(float_part) {
+													case 0.0 :
+														$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
+														break;
+													case 0.1 :
+														$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
+														break;
+													case 0.2 :
+														$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
+														break;
+													case 0.3 :
+														$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
+														break;
+													case 0.4 :
+														$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
+														break;
+													case 0.5 :
+														$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
+														break;
+													case 0.6 :
+														$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
+														break;
+													case 0.7 :
+														$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
+														break;
+													case 0.8 :
+														$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
+														break;
+													case 0.9 :
+														$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
+														break;
+													}
+												
+												bestSellerList += '</div>'
+												bestSellerList += '<div class="star-base">'
+													bestSellerList += '<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>'
+												bestSellerList += '</div>'
+											bestSellerList += '</div>'
+											bestSellerList += '<span class="total-value">'
+												bestSellerList += '('+data.content[i].reviewRating+')' 
+											bestSellerList += '</span>'
+										bestSellerList += '</div>'
+										
+										bestSellerList += '<div class="total-comment">(<a href="">'
+										if( data.content[i].reviewCount == null ) {
+											bestSellerList += 0
+										} else {
+											bestSellerList += data.content[i].reviewCount
+										}
+										bestSellerList += '</a>)</div>'
+									bestSellerList += '</div>'
+								bestSellerList += '</li>'
+							bestSellerList += '</ul>'
+						bestSellerList += '</div>'
+					bestSellerList += '</td>'
+					
+					bestSellerList += '<td class="td-info" >'
+						bestSellerList += '<div class="buttonWrap">'
+							bestSellerList += '<input id="idP" type="hidden" name="id" value="${id }"/>'
+							bestSellerList += '<input id="imageP" type="hidden" name="image" value="'+data.content[i].image+'"/>'
+							bestSellerList += '<input id="titleP" type="hidden" name="title" value="'+data.content[i].title+'" />'
+							bestSellerList += '<input id="priceP" type="hidden" name="price" value="'+data.content[i].price+'"/>'
+							bestSellerList += '<input id="d_priceP" type="hidden" name="d_price" value="'+data.content[i].discount+'"/>'
+							bestSellerList += '<input type="text" id="isbnP" name="isbn" value="'+data.content[i].isbn+'" hidden/>'
+
+							bestSellerList += '<div>'
+								bestSellerList += '<button class="cart btn" id="insertBtn" onclick="insert()">장바구니</button>'
+							bestSellerList += '</div>'
+							bestSellerList += '<div>'
+								bestSellerList += '<button class="buy btn" id="directBtn" onclick="direct()">바로구매</button>'
+							bestSellerList += '</div>'
+						bestSellerList += '</div>'
+					bestSellerList += '</td>'
+				bestSellerList += '</tr>'
+				bestSellerList += '<tr></tr>'
+			}
+				bestSellerList += '<tr id="tr-load"></tr>'
+				
+			$("#bestSellerList").html(bestSellerList);
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+
 
 	$("#insertBtn, #directBtn, #reviewBtn").click(function(){
 		if("${sessionScope.id}" == '') {
@@ -252,6 +425,7 @@
 	
 	var isbn = $('#bookIsbn').text();
 	// by 준익, 리뷰 평균 평점 호출 api
+	/*
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
 		method:"GET",
@@ -324,7 +498,7 @@
 		error : function(data) {
 		}
 	});
-	
+	*/
 	
 </script>
 </body>

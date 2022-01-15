@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
@@ -33,6 +38,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.parsing.XmlParsing;
+import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Search;
@@ -48,6 +55,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	private UsersRepository usersRepository;
+
+	@Autowired
+	private ReviewRepository reviewRepository;
 
 	@Autowired
 	private SearchRepository searchRepository;  
@@ -218,7 +228,7 @@ public class BookServiceImpl implements BookService {
 	}
 		
 	@Override
-	public List<BookDto> bestSeller(String d_cont, int display, int start, String sort) {
+	public Page<BookDto> bestSeller(String d_cont, int display, int start, String sort, Pageable pageable) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 	    String clientSecret = "zSBrAXrY3q";
 	   
@@ -243,9 +253,15 @@ public class BookServiceImpl implements BookService {
                     new InputStreamReader(urlConn.getInputStream()));
             //Test에서 했던 방식은 DOM방식이기때문에? 
             //그래서 이렇게 해도 된다?!??!??!? 
+            List<Review> reviewAllList = reviewRepository.findAll();
+            List<String> reviewIsbnList = new ArrayList();
+            for (int i = 0; i < reviewAllList.size(); i++) {
+				reviewIsbnList.add(reviewAllList.get(i).getIsbn());
+			}
            
             int eventType = parser.getEventType();
             BookDto b = null;
+            String isbn = null;
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
                 case XmlPullParser.END_DOCUMENT: // 문서의 끝
@@ -301,7 +317,13 @@ public class BookServiceImpl implements BookService {
                         break;
                     case "isbn":
                         if(b != null)
-                            b.setIsbn(parser.nextText());
+                        	isbn = parser.nextText();
+                            b.setIsbn(isbn);
+                            
+                            if(reviewIsbnList.contains(isbn)) {
+                            	b.setReviewRating(reviewAllList.get(reviewIsbnList.indexOf(isbn)).getRatingAvg());
+                            	b.setReviewCount((long) Collections.frequency(reviewIsbnList, isbn));
+                            }
                         break;
                     case "description":
                         if(b != null)
@@ -329,8 +351,9 @@ public class BookServiceImpl implements BookService {
             e.printStackTrace();
         }
 		
-		
-        return list;
+        pageable = new PageRequest(pageable.getPageNumber(), 10, pageable.getSort());
+        
+        return new PageImpl<BookDto>(list, pageable, list.size());
 	    
 	}
 	//by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222

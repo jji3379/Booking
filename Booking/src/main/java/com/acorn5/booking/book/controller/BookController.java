@@ -66,7 +66,7 @@ public class BookController {
 			// by 우석, view page 에서 cartitem 불러오기_210315
 			cartservice.listCart(mView, request);
 		}
-		mView.addObject("bestSeller", service.bestSeller("1", 10, 1, "count"));
+		//mView.addObject("bestSeller", service.bestSeller("1", 10, 1, "count"));
 		mView.setViewName("bookList/bestSeller.page");
         return mView;
     }

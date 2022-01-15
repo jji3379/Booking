@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +19,7 @@ public interface BookService {
 	//by 준익, 네이버 도서 api 카테고리별 검색 및 페이징 메소드_2021.02.28
 	public List<BookDto> pagingCategory(String d_cont, int display, int start, String d_catg, HttpServletRequest request, ModelAndView mView, String sort);
 	//by 준영, 네이버 도서 api 판매량순 인기도서 검색 메소드_210228
-	public List<BookDto> bestSeller(String d_cont,int display, int start, String sort);
+	public Page<BookDto> bestSeller(String d_cont,int display, int start, String sort, Pageable pageable);
 	//by 준영, 네이버 도서 api 해당 isbn 값 도서 검색 메소드_210228
 	public List<BookDto> bookDetail(String d_isbn,int display);
 	//by 준영, 네이버 도서 api 해당 auth 값 도서 검색 메소드_210228
