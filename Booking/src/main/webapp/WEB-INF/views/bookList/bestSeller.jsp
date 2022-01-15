@@ -24,10 +24,10 @@
 			</h2> -->
 			<div class="ranking">
 				<ul>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/bestSeller.do?sort=count&start=1">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/bestSeller.do?sort=count&start=51">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/bestSeller.do?sort=count&start=101">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="${pageContext.request.contextPath }/bookList/bestSeller.do?sort=count&start=151">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="#" onclick="topBestSeller(151)">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
 					<div class="date-box">
 						<span id="date"></span>
 					</div>
@@ -37,14 +37,15 @@
 			<form action="">
 				 <div class="book-box">
 				 	<table id="bestSellerList">
-				 		<!-- 
 				 		<colgroup>
 				 			<col style="width:90px;">
 				 			<col style="width:150px;">
 				 			<col style="width:570px;">
 				 			<col style="width:105px;">
 				 		</colgroup>
-
+						<tbody id="bestSellerBody">
+						</tbody>
+				 		<!-- 
 				 		<c:forEach var="b" items="${bestSeller}" varStatus="status">
 				 			<tr>
 					 			<td class="td-info">
@@ -154,184 +155,214 @@
 		</svg>
 	</div>
 <script>
+/*
+	$(".item").on("click",function(){
 
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/bestSeller",
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			var bestSellerList = "";
-				bestSellerList += '<colgroup>'
-					bestSellerList += '<col style="width:90px;">'
-					bestSellerList += '<col style="width:150px;">'
-					bestSellerList += '<col style="width:570px;">'
-					bestSellerList += '<col style="width:105px;">'
-				bestSellerList += '</colgroup>'
-
-			for (var i = 0; i < data.content.length; i++) {
-				bestSellerList += '<tr>'
-					bestSellerList += '<td class="td-info">'
-						bestSellerList += '<div class="book-rank">'+(i+1)+'.</div>'
-					bestSellerList += '</td>'
-					
-					bestSellerList += '<td>'
-						bestSellerList += '<div>'
-							bestSellerList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
-						bestSellerList += '</div>'
-					bestSellerList += '</td>'
-					
-					bestSellerList += '<td class="td-info" >'
-						bestSellerList += '<div class="infoWrap">'
-							bestSellerList += '<ul>'
-								bestSellerList += '<li class="grid-li bd-title">'
-									bestSellerList += '<span class="book-title">'+data.content[i].title+'</span>'
-								bestSellerList += '</li>'
-								
-								bestSellerList += '<li class="grid-li bd-info">'
-									bestSellerList += '<div>'
-										bestSellerList += '<span class="book-info">'+data.content[i].author+'</span>'
-										bestSellerList += '<span class="book-info">'+data.content[i].publisher+'</span>'
-										bestSellerList += '<span class="book-info">'+data.content[i].pubdate+'</span>'
-										bestSellerList += '<span id="bookIsbn" hidden>'+data.content[i].isbn+'</span>'
-									bestSellerList += '</div>'
-									bestSellerList += '<span class="bestSeller">베스트셀러</span>'
-								bestSellerList += '</li>'
-								
-								bestSellerList += '<li class="grid-li bd-price">'
-									bestSellerList += '<div>'
-										bestSellerList += '<span class="book-price">'+data.content[i].price+' 원</span> → <span class="discount">'+data.content[i].discount+' 원</span>'
-									bestSellerList += '</div>'
-								bestSellerList += '</li>'
-									
-								bestSellerList += '<li class="grid-li bd-review">'
-									bestSellerList += '<div class="book-review">'
-										bestSellerList += '<div class="star-box">'
-											bestSellerList += '<div class="total-star">'
-												bestSellerList += '<div class="starValue star-fill" >'
-												
-													if (data.content[i].reviewRating == null) {
-														var int_part = 0.0;
-													} else {
-														var int_part = Math.trunc(data.content[i].reviewRating);														
-													}
-													var float_part = Number(Number((data.content[i].reviewRating-int_part).toFixed(2)));
-													
-													//평점의 정수부분 +1개 만큼 별 생성하고
-													switch(int_part) {
-													case 0 :
-														bestSellerList += ('<span>★</span>')
-														break;
-													case 1 :
-														bestSellerList += ('<span>★</span><span>★</span>')
-														break;
-													case 2 :
-														bestSellerList += ('<span>★</span><span>★</span><span>★</span>')
-														break;
-													case 3 :
-														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
-														break;
-													case 4 :
-														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
-														break;
-													case 5 :
-														bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
-														break;
-													}
-													
-													switch(float_part) {
-													case 0.0 :
-														$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
-														break;
-													case 0.1 :
-														$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
-														break;
-													case 0.2 :
-														$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
-														break;
-													case 0.3 :
-														$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
-														break;
-													case 0.4 :
-														$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
-														break;
-													case 0.5 :
-														$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
-														break;
-													case 0.6 :
-														$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
-														break;
-													case 0.7 :
-														$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
-														break;
-													case 0.8 :
-														$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
-														break;
-													case 0.9 :
-														$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
-														break;
-													}
-												
-												bestSellerList += '</div>'
-												bestSellerList += '<div class="star-base">'
-													bestSellerList += '<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>'
-												bestSellerList += '</div>'
-											bestSellerList += '</div>'
-											bestSellerList += '<span class="total-value">'
-												bestSellerList += '('+data.content[i].reviewRating+')' 
-											bestSellerList += '</span>'
-										bestSellerList += '</div>'
-										
-										bestSellerList += '<div class="total-comment">(<a href="">'
-										if( data.content[i].reviewCount == null ) {
-											bestSellerList += 0
-										} else {
-											bestSellerList += data.content[i].reviewCount
-										}
-										bestSellerList += '</a>)</div>'
-									bestSellerList += '</div>'
-								bestSellerList += '</li>'
-							bestSellerList += '</ul>'
-						bestSellerList += '</div>'
-					bestSellerList += '</td>'
-					
-					bestSellerList += '<td class="td-info" >'
-						bestSellerList += '<div class="buttonWrap">'
-							bestSellerList += '<input id="idP" type="hidden" name="id" value="${id }"/>'
-							bestSellerList += '<input id="imageP" type="hidden" name="image" value="'+data.content[i].image+'"/>'
-							bestSellerList += '<input id="titleP" type="hidden" name="title" value="'+data.content[i].title+'" />'
-							bestSellerList += '<input id="priceP" type="hidden" name="price" value="'+data.content[i].price+'"/>'
-							bestSellerList += '<input id="d_priceP" type="hidden" name="d_price" value="'+data.content[i].discount+'"/>'
-							bestSellerList += '<input type="text" id="isbnP" name="isbn" value="'+data.content[i].isbn+'" hidden/>'
-
-							bestSellerList += '<div>'
-								bestSellerList += '<button class="cart btn" id="insertBtn" onclick="insert()">장바구니</button>'
-							bestSellerList += '</div>'
-							bestSellerList += '<div>'
-								bestSellerList += '<button class="buy btn" id="directBtn" onclick="direct()">바로구매</button>'
-							bestSellerList += '</div>'
-						bestSellerList += '</div>'
-					bestSellerList += '</td>'
-				bestSellerList += '</tr>'
-				bestSellerList += '<tr></tr>'
-			}
-				bestSellerList += '<tr id="tr-load"></tr>'
-				
-			$("#bestSellerList").html(bestSellerList);
-		},
-		error : function(data) {
-			console.log("오류");
+			location.reload();
+	})
+*/
+	var scrollCount = 0;
+	// 초기 호출 함수
+	function topBestSeller(start){
+		if(start ==1 || start == 51 || start == 101 || start == 151){
+			$("#bestSellerBody *").remove();			
+			scrollCount = 0;
 		}
-	});
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/bestSeller/"+start,
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				
+					$(window).on("scroll", function(){
+						if (scrollCount < 4) {
+							//위쪽으로 스크롤된 길이 구하기
+							var scrollTop=$(window).scrollTop();
+							//window 의 높이
+							var windowHeight=$(window).height();
+							//document(문서)의 높이
+							var documentHeight=$(document).height();
+							//바닥까지 스크롤 되었는지 여부
+							var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+							if(isBottom){//만일 바닥까지 스크롤 했다면...
+								scrollCount++;
+								topBestSeller(start+(10*scrollCount));
+							}
+						}
+					});	
+				
+				var bestSellerList = "";
+				for (var i = 0; i < data.length; i++) {
+					bestSellerList += '<tr>'
+						bestSellerList += '<td class="td-info">'
+							if(start == 1) {
+								bestSellerList += '<div class="book-rank">'+(i+1)+'.</div>'
+							}else{
+								bestSellerList += '<div class="book-rank">'+(i+start)+'.</div>'
+							}
+						bestSellerList += '</td>'
+						
+						bestSellerList += '<td>'
+							bestSellerList += '<div>'
+								bestSellerList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
+							bestSellerList += '</div>'
+						bestSellerList += '</td>'
+						
+						bestSellerList += '<td class="td-info" >'
+							bestSellerList += '<div class="infoWrap">'
+								bestSellerList += '<ul>'
+									bestSellerList += '<li class="grid-li bd-title">'
+										bestSellerList += '<span class="book-title">'+data[i].title+'</span>'
+									bestSellerList += '</li>'
+									
+									bestSellerList += '<li class="grid-li bd-info">'
+										bestSellerList += '<div>'
+											bestSellerList += '<span class="book-info">'+data[i].author+'</span>'
+											bestSellerList += '<span class="book-info">'+data[i].publisher+'</span>'
+											bestSellerList += '<span class="book-info">'+data[i].pubdate+'</span>'
+											bestSellerList += '<span id="bookIsbn" hidden>'+data[i].isbn+'</span>'
+										bestSellerList += '</div>'
+										bestSellerList += '<span class="bestSeller">베스트셀러</span>'
+									bestSellerList += '</li>'
+									
+									bestSellerList += '<li class="grid-li bd-price">'
+										bestSellerList += '<div>'
+											bestSellerList += '<span class="book-price">'+data[i].price+' 원</span> → <span class="discount">'+data[i].discount+' 원</span>'
+										bestSellerList += '</div>'
+									bestSellerList += '</li>'
+										
+									bestSellerList += '<li class="grid-li bd-review">'
+										bestSellerList += '<div class="book-review">'
+											bestSellerList += '<div class="star-box">'
+												bestSellerList += '<div class="total-star">'
+													bestSellerList += '<div class="starValue star-fill" >'
+													
+														if (data[i].reviewRating == null) {
+															var int_part = 0.0;
+														} else {
+															var int_part = Math.trunc(data[i].reviewRating);														
+														}
+														var float_part = Number(Number((data[i].reviewRating-int_part).toFixed(2)));
+														
+														//평점의 정수부분 +1개 만큼 별 생성하고
+														switch(int_part) {
+														case 0 :
+															bestSellerList += ('<span>★</span>')
+															break;
+														case 1 :
+															bestSellerList += ('<span>★</span><span>★</span>')
+															break;
+														case 2 :
+															bestSellerList += ('<span>★</span><span>★</span><span>★</span>')
+															break;
+														case 3 :
+															bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
+															break;
+														case 4 :
+															bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+															break;
+														case 5 :
+															bestSellerList += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
+															break;
+														}
+														
+														switch(float_part) {
+														case 0.0 :
+															$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
+															break;
+														case 0.1 :
+															$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
+															break;
+														case 0.2 :
+															$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
+															break;
+														case 0.3 :
+															$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
+															break;
+														case 0.4 :
+															$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
+															break;
+														case 0.5 :
+															$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
+															break;
+														case 0.6 :
+															$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
+															break;
+														case 0.7 :
+															$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
+															break;
+														case 0.8 :
+															$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
+															break;
+														case 0.9 :
+															$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
+															break;
+														}
+													
+													bestSellerList += '</div>'
+													bestSellerList += '<div class="star-base">'
+														bestSellerList += '<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>'
+													bestSellerList += '</div>'
+												bestSellerList += '</div>'
+												bestSellerList += '<span class="total-value">'
+													bestSellerList += '('
+															if ( data[i].reviewRating == null ){
+																bestSellerList += 0; 
+															} else {
+																bestSellerList += Math.round(data[i].reviewRating * 10)/10; 
+															}
+													bestSellerList += ')'
+												bestSellerList += '</span>'
+											bestSellerList += '</div>'
+											
+											bestSellerList += '<div class="total-comment">(<a href="">'
+											if( data[i].reviewCount == null ) {
+												bestSellerList += 0
+											} else {
+												bestSellerList += data[i].reviewCount
+											}
+											bestSellerList += '</a>)</div>'
+										bestSellerList += '</div>'
+									bestSellerList += '</li>'
+								bestSellerList += '</ul>'
+							bestSellerList += '</div>'
+						bestSellerList += '</td>'
+						
+						bestSellerList += '<td class="td-info" >'
+							bestSellerList += '<div class="buttonWrap">'
+								bestSellerList += '<input id="idP'+i+'" type="hidden" name="id" value="${id }"/>'
+								bestSellerList += '<input id="imageP'+i+'" type="hidden" name="image" value="'+data[i].image+'"/>'
+								bestSellerList += '<input id="titleP'+i+'" type="hidden" name="title" value="'+data[i].title+'" />'
+								bestSellerList += '<input id="priceP'+i+'" type="hidden" name="price" value="'+data[i].price+'"/>'
+								bestSellerList += '<input id="d_priceP'+i+'" type="hidden" name="d_price" value="'+data[i].discount+'"/>'
+								bestSellerList += '<input type="text'+i+'" id="isbnP" name="isbn" value="'+data[i].isbn+'" hidden/>'
+	
+								bestSellerList += '<div>'
+									bestSellerList += '<button class="cart btn" type="button" id="insertBtn" onclick="insert('+i+')">장바구니</button>'
+								bestSellerList += '</div>'
+								bestSellerList += '<div>'
+									bestSellerList += '<button class="buy btn" type="button" id="directBtn" onclick="direct('+i+')">바로구매</button>'
+								bestSellerList += '</div>'
+							bestSellerList += '</div>'
+						bestSellerList += '</td>'
+					bestSellerList += '</tr>'
+					bestSellerList += '<tr></tr>'
+				}
+					
+					bestSellerList += '<tr id="tr-load"></tr>'
 
-
-	$("#insertBtn, #directBtn, #reviewBtn").click(function(){
-		if("${sessionScope.id}" == '') {
-			alert("로그인이 필요합니다.");
-			document.getElementById('modal-open').click();
-			return false;
-		}	
-	});
+				$("#bestSellerBody").append(bestSellerList);
+					
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+	
+	topBestSeller(1);
 
 	//by준영, 현재시간 출력
 	let today = new Date();
@@ -358,13 +389,13 @@
     //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
     var id=$("#idP").val();
     
-    function insert(){
-       var image = $("#imageP").val();
-       var title = $("#titleP").val();
-       var price = $("#priceP").val();
-       var d_price = $("#d_priceP").val();
-       var count = $("#countP").val();
-       var isbn=$("#isbnP").val();
+    function insert(i){
+       var image = $('#'+'imageP'+i).val();
+       var title = $('#'+'titleP'+i).val();
+       var price = $('#'+'priceP'+i).val();
+       var d_price = $('#'+'d_priceP'+i).val();
+       var count = $('#'+'countP'+i).val();
+       var isbn=$('#'+'isbnP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
@@ -393,13 +424,13 @@
        }   
     }
     
-    function direct(){
-       var image = $("#imageP").val();
-       var title = $("#titleP").val();
-       var price = $("#priceP").val();
-       var d_price = $("#d_priceP").val();
-       var count = $("#countP").val();
-       var isbn=$("#isbnP").val();
+    function direct(i){
+       var image = $('#'+'imageP'+i).val();
+       var title = $('#'+'titleP'+i).val();
+       var price = $('#'+'priceP'+i).val();
+       var d_price = $('#'+'d_priceP'+i).val();
+       var count = $('#'+'countP'+i).val();
+       var isbn=$('#'+'isbnP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
@@ -499,7 +530,7 @@
 		}
 	});
 	*/
-	
+
 </script>
 </body>
 </html>

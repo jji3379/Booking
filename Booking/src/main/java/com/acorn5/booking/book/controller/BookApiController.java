@@ -31,8 +31,8 @@ public class BookApiController {
 	private CartService cartservice;
 	
     //by준영, bookList.jsp 에 cont, sort 를 인자로 리스트 검색하는 서비스_210222
-    @RequestMapping("/bestSeller")
-    public Page<BookDto> bestSeller(HttpServletRequest request, Pageable pageable){
+    @RequestMapping("/bestSeller/{start}")
+    public List<BookDto> bestSeller(@PathVariable int start, HttpServletRequest request){
     	Long id=(Long)request.getSession().getAttribute("id");
     	ModelAndView mView = new ModelAndView();
 		if (id != null) {
@@ -40,7 +40,7 @@ public class BookApiController {
 			cartservice.listCart(mView, request);
 		}
 		// service.bestSeller("1", 10, 1, "count");
-        return bookService.bestSeller("1", 50, 1, "count", pageable);
+        return bookService.bestSeller("1", 10, start, "count");
     }
 
     @RequestMapping("/bookReview/{isbn}")

@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,6 +54,9 @@ public class BookServiceImpl implements BookService {
 	//의존 객체 DI
 	//@Autowired
 	//private UsersDao dao; //recentsearch 저장 로직을위한 di준비
+	
+	@PersistenceContext
+	EntityManager em;
 	
 	@Autowired
 	private UsersRepository usersRepository;
@@ -228,7 +233,7 @@ public class BookServiceImpl implements BookService {
 	}
 		
 	@Override
-	public Page<BookDto> bestSeller(String d_cont, int display, int start, String sort, Pageable pageable) {
+	public List<BookDto> bestSeller(String d_cont, int display, int start, String sort) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 	    String clientSecret = "zSBrAXrY3q";
 	   
@@ -350,10 +355,9 @@ public class BookServiceImpl implements BookService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-		
-        pageable = new PageRequest(pageable.getPageNumber(), 10, pageable.getSort());
+
         
-        return new PageImpl<BookDto>(list, pageable, list.size());
+        return list;
 	    
 	}
 	//by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222
