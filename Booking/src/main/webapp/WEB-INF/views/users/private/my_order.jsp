@@ -85,12 +85,12 @@
 			<div class="order-box">
 				<h2>주문 내역</h2>
 				<div class="myOrder-dateSort">
-					<div class="myOrder-dateSort-main">
-						<a href="javascript:">1주일</a>
-						<a href="javascript:">1개월</a>
-						<a href="javascript:">3개월</a>
-						<a href="javascript:">전체기간</a>
-					</div>
+					<a href="javascript:">1주일</a>
+					<a href="javascript:">1개월</a>
+					<a href="javascript:">3개월</a>
+					<a href="javascript:">전체기간</a>
+				</div>
+				<div class="myOrder-dateSearch">
 					<div class="datepicker-div">
 						<input type="text" class="datepicker" id="datepicker1" placeholder="-" />
 						<img class="datepickerBtn" src="${pageContext.request.contextPath}/resources/images/calendar.svg" alt="날짜 선택" title="날짜 선택" />
@@ -129,24 +129,22 @@
 	
 	$('#date').html(today.toLocaleString());
 	
-
-	
 	$(document).ready(function(){
 	    $.ajax({ 
 	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
 	        method:"GET",
 	        success:function(data){
 	        	var orderList = "";
-	        	for (var i=0; i<data.length; i++) {
+	        	for (var i=0; i<data.content.length; i++) {
 		        	orderList += '<li class="order">'
-			        	orderList += '<a id="orderDetail'+[i]+'" href="javascript:">'
+			        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
 				        	orderList += '<div class="order-td-L">'
-					        	orderList += '<div class="myOrder-num">'+data[i].o_date.replace('-','').replace('-','').slice(0,8)+(data[i].id+"").padStart(8,'0')+'</div>'
-					        	orderList += '<div class="myOrder-date">'+data[i].o_date+'</div>'	
+					        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
+					        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
 					        orderList += '</div>'
 					        orderList += '<div class="order-td-R">'
-					        	orderList += '<div class="myOrder-price">'+data[i].o_price+'</div>'
-					        	orderList += '<div class="myOrder-count">'+data[i].o_count+'</div>'				
+					        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+					        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
 					        orderList += '</div>'
 				        	orderList += '<span class="detailBtn">></span>'
 			        	orderList += '</a>'

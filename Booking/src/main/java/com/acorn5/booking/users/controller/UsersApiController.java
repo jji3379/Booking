@@ -22,6 +22,7 @@ import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.dto.UserInfoDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.service.UsersService;
@@ -54,6 +55,24 @@ public class UsersApiController {
 	}
 
 	// 나의 리뷰 조회
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	public UserInfoDto myinfo(@PathVariable Long id, Pageable pageable) {
+		UserInfoDto userinfo = new UserInfoDto();
+		usersService.getInfo(id);
+		usersService.getMyReview(id, pageable);
+		usersService.getMyCart(id, pageable);
+		usersService.getMyReply(id, pageable);
+		
+		
+		userinfo.setUser(usersService.getInfo(id));
+		userinfo.setReview(usersService.getMyReview(id, pageable));
+		userinfo.setReviewDtl(usersService.getMyReply(id, pageable));
+		userinfo.setCart(usersService.getMyCart(id, pageable));
+		
+		return userinfo;
+	}
+	
+	// 나의 리뷰 조회
 	@RequestMapping(value = "/users/review/{id}", method = RequestMethod.GET)
 	public Page<Review> myReview(@PathVariable Long id, Pageable pageable) {
 		return usersService.getMyReview(id, pageable);
@@ -77,9 +96,9 @@ public class UsersApiController {
 		return usersService.getMySearch(id, pageable);
 	}
 
-	@RequestMapping(value = "/users/pwd/{id}", method = RequestMethod.GET)
-	public String getPwd(@PathVariable Long id) {
-		return usersService.getPwd(id);
+	@RequestMapping(value = "/users/pwdCheck/{id}", method = RequestMethod.GET)
+	public boolean getPwd(@PathVariable Long id, String pwd) {
+		return usersService.getPwd(id, pwd);
 	}
 	
 }

@@ -39,6 +39,7 @@ import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.users.dao.UsersDao;
+import com.acorn5.booking.users.dto.UserInfoDto;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.QSearch;
 import com.acorn5.booking.users.entity.QUsers;
@@ -221,15 +222,16 @@ public class UsersServiceImpl implements UsersService{
 
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
-	public Users getInfo(HttpSession session) {
+	public Users getInfo(Long id) {
 		//로그인된 아이디를 읽어와서
-		Long id=(Long)session.getAttribute("id");
 		//개인정보를 읽어온다.
 		//Users dto= dao.getData(id);
+		UserInfoDto userinfo = new UserInfoDto();
 		Users dto = new Users();
 		if (id != null) {
 			dto = usersRepository.findById(id);
 		}
+		
 		return dto;
 	}
 	
@@ -430,9 +432,12 @@ public class UsersServiceImpl implements UsersService{
 		return new PageImpl<Search>(list.getResults(), pageable, list.getTotal());
 	}
 	@Override
-	public String getPwd(Long id) {
-		Users users = usersRepository.findById(id);
-		return users.getPwd();
+	public boolean getPwd(Long id, String pwd) {
+		Users userInfo = usersRepository.findById(id);
+		String encoderPwd = userInfo.getPwd();
+		
+		boolean checkPwd = encoder.matches(pwd, encoderPwd);
+		return checkPwd;
 	}
 
 }

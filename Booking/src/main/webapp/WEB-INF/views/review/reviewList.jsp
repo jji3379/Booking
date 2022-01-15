@@ -218,6 +218,24 @@
 				reviewList += '</a>'
 			}
 			$("#reviewList").html(reviewList);
+			
+			window.pagObj = $('#paging').twbsPagination({ 
+				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
+				startPage: data.number+1, 
+				visiblePages: 5, 
+				prev: "‹", 
+				next: "›", 
+				first: '«', 
+				last: '»', 
+				onPageClick: function (event, page) { 
+				} 
+			}).on('page', function (event, page) { 
+				var sortValue = $(".sortBar").find(".active").attr('id');
+				if(sortValue == null){
+					sortValue = "regdate";
+				}
+				pagingList(page-1, sortValue);
+			});
 		},
 		error : function(data) {
 			console.log("오류");
@@ -231,7 +249,64 @@
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			pagingList(0, 'regdate');		
+			//pagingList(0, 'regdate');
+			// item list
+			var dataSize = data.content.length;
+			var reviewList = "";
+			var star = '';
+			for(var i=0; i<data.content.length; i++) {
+				reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<div class="card col">'
+					reviewList += '<div class="card-header" style="background-image:url('+data.content[i].imagePath+')">'
+					reviewList += '<div class = "card-spoCheck" >'
+					reviewList += '<div class = "card-header-text" > 스포 포함 </div >'
+					reviewList += '</div >'
+					reviewList += '</div >'
+	
+					reviewList += '<div class="card-body">'
+					reviewList += '<div class="card-body-header">'
+	
+					reviewList += '<h1>'+data.content[i].reviewTitle+'</h1>'
+					reviewList += '<div class="star-value" id="star-rating'+[i]+'">'
+
+					switch(data.content[i].rating) {
+						case 1 :
+							reviewList += ('★☆☆☆☆')
+							break;
+						case 2 :
+							reviewList += ('★★☆☆☆')
+							break;
+						case 3 :
+							reviewList += ('★★★☆☆')
+							break;
+						case 4 :
+							reviewList += ('★★★★☆')
+							break;
+						case 5 :
+							reviewList += ('★★★★★')
+							break;
+					}
+					
+					reviewList += '</div>'
+					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
+					reviewList += '</div>'
+	
+					reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
+					
+					reviewList += '<div class="card-body-footer">'
+					reviewList += '<hr class="underline">'
+					reviewList += '<div class="viewCount">조회 '+data.content[i].viewCount+'회 </div>'
+					reviewList += '<div class="comment">'
+					reviewList += '댓글 '+data.content[i].replyCount+'개'
+					reviewList += '</div>'
+					reviewList += '<div class="regdate">'+new Date(data.content[i].regdate).toLocaleDateString()+'</div>'
+					reviewList += '</div>'
+					reviewList += '</div>'
+					reviewList += '</div>'
+				reviewList += '</a>'
+			}
+			$("#reviewList").html(reviewList);
+			
 			window.pagObj = $('#paging').twbsPagination({ 
 				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
 				startPage: data.number+1, 

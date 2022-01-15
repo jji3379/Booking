@@ -18,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.order.dto.OrderDto;
 import com.acorn5.booking.order.dto.OrderSum;
-import com.acorn5.booking.order.entity.Order;
-import com.acorn5.booking.order.repository.OrderRepository;
+import com.acorn5.booking.order.entity.OrderDtl;
+import com.acorn5.booking.order.repository.OrderDtlRepository;
 import com.acorn5.booking.order.service.OrderService;
 import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.Review;
@@ -40,23 +40,20 @@ public class OrderController {
 	private UsersRepository usersRepository;
 	
 	@Autowired
-	private OrderRepository orderRepository;
-	
-	@Autowired
 	private CartService cartservice;
 	
 	//by욱현. 결제한 책들을 my_order 테이블에 저장하기_2021317
 	@RequestMapping(value = "/pay/orderInsert", method = RequestMethod.POST)
-	public ResponseEntity<Order> orderInsert(@RequestBody Order dto, HttpServletRequest request) {
+	public ResponseEntity<OrderDtl> orderInsert(@RequestBody OrderDtl dto, HttpServletRequest request) {
 		//dto객체 전달해서 db수정
 		//orderRepository.save(dto);
-		Order order = orderService.orderInsert(dto, request);
+		OrderDtl order = orderService.orderInsert(dto, request);
 		return ResponseEntity.ok(order);
 	}
 	
 	//by욱현.내 주문 내역 조회_2021316
 	@RequestMapping("/users/myOrder/{id}")
-	public List<Order> myOrder(@PathVariable Long id,
+	public List<OrderDtl> myOrder(@PathVariable Long id,
 		HttpServletRequest request) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
 		//id = (Long) session.getAttribute("id");
@@ -89,8 +86,8 @@ public class OrderController {
 			return mView;
 		}
 	//by욱현. 주문조회 디테일 페이지
-	@RequestMapping("/users/private/order_detail.do")
-	public ModelAndView orderDetail(HttpSession session, ModelAndView mView,
+	@RequestMapping("/users/private/myOrder/detail/{orderId}")
+	public ModelAndView orderDetail(@PathVariable Long orderId ,HttpSession session, ModelAndView mView,
 			HttpServletRequest request) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
 		Long id = (Long) session.getAttribute("id");
@@ -98,9 +95,9 @@ public class OrderController {
 			// by 우석, view page 에서 cartitem 불러오기_210315
 			cartservice.listCart(mView, request);
 		}
-		Users dto = usersRepository.findById(id);  
+		//Users dto = usersRepository.findById(id);  
 				//dao.getData(id);
-		mView.addObject("dto", dto);
+		mView.addObject("orderId", orderId);
 		mView.setViewName("users/private/order_detail.page");
 		return mView;
 	}

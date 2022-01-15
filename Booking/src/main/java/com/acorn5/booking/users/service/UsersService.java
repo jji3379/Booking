@@ -16,6 +16,7 @@ import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
+import com.acorn5.booking.users.dto.UserInfoDto;
 import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
@@ -34,13 +35,13 @@ public interface UsersService {
 	public Users loginLogic(HttpServletRequest request,
 			HttpServletResponse response, LoginDto loginDto);
 	//개인정보를 ModelAndView  객체에 담아주는 메소드
-	public Users getInfo(HttpSession session);
+	public Users getInfo(Long id);
 	//개인정보를 삭제하는 처리를 하는 메소드
 	public void deleteUser(HttpSession session);
 	//비밀번호를 수정하는 처리를 하고 성공 여부를 ModelAndView 객체에 담는 메소드
 	public void updateUserPwd(ModelAndView mView, Users dto, HttpServletRequest request,
 			HttpSession session);
-	public String getPwd(Long id);
+	public boolean getPwd(Long id, String pwd);
 	//프로필 이미지를 upload 폴더에 저장하고 저장된 파일명을 DB 에 저장하는 메소드
 	public void saveProfileImage(MultipartFile image, 
 			HttpServletRequest request);

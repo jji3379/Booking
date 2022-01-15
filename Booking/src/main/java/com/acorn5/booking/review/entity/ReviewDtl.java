@@ -33,7 +33,7 @@ public class ReviewDtl {
 	private Users writer; // 댓글 작성자
 	private String content; // 댓글 내용
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "target_id")
 	private Users target_id; // 댓글 대상자
 	

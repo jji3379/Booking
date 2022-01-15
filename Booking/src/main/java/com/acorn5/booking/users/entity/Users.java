@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.acorn5.booking.order.entity.Order;
+import com.acorn5.booking.order.entity.OrderDtl;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.review.entity.Review;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,19 +41,19 @@ public class Users {
 	private Date regdate;
 	private String care;
 	private String recentSearch;
-	
+	/*
 	@OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
-	List<Review> review = new ArrayList<Review>();
+	private List<Review> review = new ArrayList<Review>();
 
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
-	List<Cart> cart = new ArrayList<Cart>();
+	private List<Cart> cart = new ArrayList<Cart>();
 	
 	@OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
-	List<Order> order = new ArrayList<Order>();
+	private List<Order> order = new ArrayList<Order>();
 
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
-	List<Search> search = new ArrayList<Search>();
-	
+	private List<Search> search = new ArrayList<Search>();
+	*/
 	public Long getId() {
 		return id;
 	}

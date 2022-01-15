@@ -5,13 +5,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.acorn5.booking.order.dto.OrderSum;
 import com.acorn5.booking.order.entity.Order;
-import com.acorn5.booking.order.repository.OrderRepository;
+import com.acorn5.booking.order.entity.OrderDtl;
+import com.acorn5.booking.order.repository.OrderDtlRepository;
 import com.acorn5.booking.order.service.OrderService;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.UsersRepository;
@@ -22,14 +25,8 @@ public class OrderApiController {
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private UsersRepository usersRepository;
-	
-	@Autowired
-	private OrderRepository orderRepository;
-	
 	@RequestMapping("/users/myOrder/{id}")
-	public List<Order> myOrder(@PathVariable Long id, HttpServletRequest request) {
+	public Page<Order> myOrder(@PathVariable Long id, HttpServletRequest request, Pageable pageable) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
 		//id = (Long) session.getAttribute("id");
 		//Users dto = usersRepository.findById(id); 
@@ -40,12 +37,12 @@ public class OrderApiController {
 		
 		//orderService.getMyOrder(session, mView, orderDto, request);
 		//mView.setViewName("users/private/my_order");
-		return orderService.getMyOrder(id, request);
+		return orderService.getMyOrder(id, request, pageable);
 	}
 	
 	@RequestMapping("/users/myOrder/detail/{id}")
-	public List<Order> myOrderDetail(@PathVariable Long id, HttpServletRequest request) {
+	public List<OrderDtl> myOrderDetail(@PathVariable Long id) {
 
-		return orderService.getOrderDetail(id, request);
+		return orderService.getOrderDetail(id);
 	}
 }
