@@ -29,7 +29,11 @@ a {
     	margin-right: 65px;
 		font-size: 27px;
 	}
-	.primary > h4 {
+	.primary > a{
+		text-decoration: none;
+		color: #333;
+	}
+	.primary > a > h4 {
 		width: 155px;
 		font-size: 30px;
 		font-weight: 500;
@@ -37,7 +41,7 @@ a {
     	letter-spacing: .2px;
     	margin:0;
 	}
-	.primary > span {
+	.primary > a > span {
 		font-size: 30px;
 		font-weight: bold;
     	line-height: 40px;
@@ -195,16 +199,25 @@ a {
 		padding-top: 10px;
 		font-size: 18px;
 		line-height: 1.5;
+		display:flex;
 	}
-	.info-account > span {
+	.info-account > div > span {
 		margin-right: 10px;
 	}
-	.info-account > input {
+	.info-account > div > input {
 		width: 120px;
 		margin-bottom: 4px;
 		padding: 6px 7px;
     	font-size: 18px;
 		font-family: '777Balsamtint';
+	}
+	.scroll-box4 {
+		overflow-y: scroll;
+	    height: 130px;
+	    width: 417px;
+	    border: 1px solid #d1d1d1;
+	    font-size: 12px;
+	    flex:1;
 	}
 	<!--my info -->
 	.order-box{
@@ -215,16 +228,17 @@ a {
 	    padding: 7px 0;
 	    border-bottom: 1px solid #333;
 	}
-	.myOrder-dateSort{
-		display: flex;
+	.myOrder-dateSearch{
+		display: inline-flex;
 		margin: 50px 0 16px 0;
 		line-height: 2;
 	}
-	.myOrder-dateSort-main{
+	.myOrder-dateSort{
 		margin-right: 10px;
 		width:322px;
+		display: inline-block;
 	}
-	.myOrder-dateSort-main > a{
+	.myOrder-dateSort > a{
 		text-decoration: none;
 	    color: #333;
 	    display: inline-block;
