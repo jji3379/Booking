@@ -102,7 +102,7 @@
 									<td></td>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="recentOrderList">
 								<tr>
 									<td>
 										<div>총 1개 상품</div>
@@ -184,7 +184,42 @@
 	</div>
 </div>
 <script>
+	var data = {
+			startDate:$("#startDate").val(),
+			endDate:$("#endDate").val()
+		};
 	
+	$.ajax({ 
+	   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
+	    method:"post",
+		dataType : "json",
+		contentType : "application/json; charset=utf-8",
+		data : JSON.stringify(data),
+	    success:function(data){
+	    	var orderList = "";
+	        	
+        	for (var i=0; i<data.content.length; i++) {
+	        	orderList += '<li class="order">'
+		        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+			        	orderList += '<div class="order-td-L">'
+				        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
+				        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
+				        orderList += '</div>'
+				        orderList += '<div class="order-td-R">'
+				        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+				        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
+				        orderList += '</div>'
+			        	orderList += '<span class="detailBtn">></span>'
+		        	orderList += '</a>'
+	        	orderList += '</li>'
+        	}
+				
+			$("#recentOrderList").html(orderList);
+	    },
+		error : function(data) {
+			console.log("오류");
+		}
+	})
 
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",

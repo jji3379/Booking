@@ -1,6 +1,7 @@
 package com.acorn5.booking.order.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -93,7 +94,17 @@ public class OrderServiceImpl implements OrderService {
 		//dao.insertOrder(dto);
 	}
 
-	//by욱현, my_order에서 구매자 주문내역 불러오기 로직 _2021317
+	//by욱현, order_detail에서 주문내역 디테일 불러오는 로직_2021320
+	@Override
+	public List<OrderDtl> getOrderDetail(Long orderId) {
+		
+		Order order = new Order();
+		order.setId(orderId);
+		// 이거 수정해야됨
+		List<OrderDtl> list = orderDtlRepository.findByOrderNum(order);
+		return list;
+	}
+
 	@Override
 	public Page<Order> getMyOrder(Long id, HttpServletRequest request, Pageable pageable) {
 		
@@ -123,15 +134,36 @@ public class OrderServiceImpl implements OrderService {
 
 		return new PageImpl<Order>(orderList.getResults(), pageable, orderList.getTotal());
 	}
-	
-	//by욱현, order_detail에서 주문내역 디테일 불러오는 로직_2021320
+
 	@Override
-	public List<OrderDtl> getOrderDetail(Long orderId) {
+	public Page<Order> getMyTermOrder(Long id, HttpServletRequest request, Pageable pageable, Date startDate,
+			Date endDate) {
 		
-		Order order = new Order();
-		order.setId(orderId);
-		// 이거 수정해야됨
-		List<OrderDtl> list = orderDtlRepository.findByOrderNum(order);
-		return list;
+		//Long id = (Long) session.getAttribute("id");
+		//회원의 주문내역 전체 얻기 
+		Users buyerId = new Users();
+		buyerId.setId(id);
+		//List<Order> list = orderDtlRepository.findByBuyer(buyerId); 
+				//dao.getMyOrder((String)session.getAttribute("id"));
+		//주문번호 끼리 묶기
+		//List<OrderSum> orderList = new ArrayList<OrderSum>();
+		//orderRepository.findByBuyer(buyerId);
+
+		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());		
+		JPAQueryFactory query = new JPAQueryFactory(em);
+		//QOrderDtl qOrderDtl = QOrderDtl.orderDtl;
+		QOrder qOrder = QOrder.order;
+		QUsers qUsers = QUsers.users;
+		
+		QueryResults<Order> orderList = query.selectFrom(qOrder)
+				.join(qOrder.buyer, qUsers)
+				.fetchJoin()
+				.where(qOrder.buyer.eq(buyerId)
+						.and(qOrder.regdate.between(startDate, endDate)))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+
+		return new PageImpl<Order>(orderList.getResults(), pageable, orderList.getTotal());
 	}
 }
