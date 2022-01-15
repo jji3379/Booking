@@ -64,8 +64,8 @@
 				</tr>
 				<tr class="tr-review">
 					<th>리뷰내용</th>
-					<td rowspan="2">
-						<div id="content"><input class="input-content" type="text" value="${dto.content }" readonly/></div>
+					<td rowspan="2" >
+						<div id="review-content">${dto.content}</div>
 					</td>
 				</tr>
 			</table>
@@ -124,6 +124,7 @@
 												<a data-num="${tmp.id }" href="javascript:" class="reply-link">
 													<b>${tmp.writer.loginId }</b>
 													<div class="comment-reply">
+														<span>
 														<svg class="reply-icon" width="1em" height="1em"
 															viewBox="0 0 16 16" class="bi bi-arrow-return-right"
 															fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -132,15 +133,15 @@
 								  						<path fill-rule="evenodd"
 																d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z" /></svg>
 													
-														<span><i>@<b>${tmp.target_id.loginId }</b></i></span>
-														<span id="content">&nbsp;${tmp.content }</span>
+														<i>@<b>${tmp.target_id.loginId }</b></i></span>
+														<span id="reply-content">${tmp.content }</span>
 														<div class="content-regdate">
-															<span>${tmp.regdate }1234</span> 
+															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-												    			<a data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</a>
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</a>
+												    			<button data-num="${tmp.id }" href="javascript:"
+																	class="update-link">수정</button>
+																<button data-num="${tmp.id }" href="javascript:"
+																	class="delete-link">삭제</button>
 															</c:if>
 														</div>
 													</div>
@@ -177,14 +178,14 @@
 											<td class="td-content tr-comment">
 												<a data-num="${tmp.id }" href="javascript:" class="reply-link">
 													<div class="comment-full">
-														<span id="content">${tmp.content }</span>
+														<span id="comment-content">${tmp.content }</span>
 														<div class="content-regdate">
 															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</a>
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</a>
+																<button data-num="${tmp.id }" href="javascript:"
+																	class="update-link">수정</button>
+																<button data-num="${tmp.id }" href="javascript:"
+																	class="delete-link">삭제</button>
 															</c:if>
 														</div>
 													</div>
@@ -283,12 +284,11 @@
 		}
 	});
 
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		var review = $('.input-content').val();
-		
 		var content = review.replace(/(<([^>]+)>)/ig,"");
 		$(document).find('.input-content').val(content);
-	})
+	}) */
 	
 	$(document).ready(function(){
 		$.ajax({
@@ -452,7 +452,6 @@
 		}
 	});
 	
-		
 </script>
 </body>
 </html>
