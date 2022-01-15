@@ -105,20 +105,23 @@
 					<div class="order-th-L">주문번호 / 일자</div>
 					<div class="order-th-R">주문금액(수량)</div>
 				</div>
-				<ul class="order-list"></ul>
-				<nav id="paging">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a class="page-link"  href="javascript:">&lt;</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link"  href="href="reviewList.do?pageNum=0&amp;condition=&amp;keyword=">0</a>
-						</li>
-						<li class="page-item disabled">
-							<a class="page-link"  href="javascript:">&gt;</a>
-						</li>
-					</ul>	
-				</nav>
+				<div class="order-tbody">
+					<ul class="order-list"></ul>
+					<nav id="paging">
+						<ul class="pagination justify-content-center">
+							<li class="page-item disabled">
+								<a class="page-link"  href="javascript:">&lt;</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link"  href="href="reviewList.do?pageNum=0&amp;condition=&amp;keyword=">0</a>
+							</li>
+							<li class="page-item disabled">
+								<a class="page-link"  href="javascript:">&gt;</a>
+							</li>
+						</ul>	
+					</nav>
+				</div>
+				
 			</div>
 		</div>
 	</div>
