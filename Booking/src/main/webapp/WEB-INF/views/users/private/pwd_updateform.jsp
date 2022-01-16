@@ -117,6 +117,10 @@
 	</div>
 </div>
 <script>
+	function onsubmit(e){
+		e.preventDefault();/* 
+		return false; */
+	}
 	//by 준영, 새 패스워드는 현재패스워드 그대로 안되게 하는 코드
 	$("#newPwd").keyup(function(){
 		var pwd_validate = document.querySelector('label[for=currentPwd]').textContent;
@@ -127,9 +131,13 @@
 			if( (currentPwd == newPwd) == true ){
 				newPwd_validate.style.display='block';		
 				$('.input-newPwd').addClass('input-newPwd-error');
+				document.querySelector('.pwd-updateformBtn').setAttribute('type','button');
+				document.querySelector('#myPwd-form').setAttribute('onsubmit','onsubmit(e)');
 			}else if((currentPwd == newPwd) == false){
 				newPwd_validate.style.display='none';
 				$('.input-newPwd').removeClass('input-newPwd-error');
+				document.querySelector('.pwd-updateformBtn').setAttribute('type','submit');
+				document.querySelector('#myPwd-form').removeAttribute('onsubmit');
 
 			}
 		}
