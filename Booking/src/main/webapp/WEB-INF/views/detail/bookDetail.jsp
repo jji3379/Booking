@@ -194,33 +194,43 @@
 								reviewList += '</div>'
 							reviewList += '</div>'
 							reviewList += '<span class="reviewTitle-box">'+data.content[i].reviewTitle+'</span>'
+							reviewList += '<span class="spoCheck-box">스포일러</span>'
 							reviewList += '<div class="idDate-box">'
 								reviewList += '<span class="review-writer">'+data.content[i].writer.loginId+'</span>'
 								reviewList += '<span class="review_date">'+data.content[i].regdate+'</span>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 						reviewList += '<div class="content-box">'
-							reviewList += '<div id="content${tmp.id }" class="moreTxt-off">'+data.content[i].content+'</div>'
-								// 댓글 총 개수
-								$.ajax({
-									url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
-									method:"GET",
-									dataType : "json",
-									async: false,
-									success:function(data) {
-							reviewList += '<div class="replyCount">댓글<span>('+data+')</span><a data-num="${tmp.id }" href="javascript:" id="more">> 펼쳐보기</a>'
-									},
-									error : function(data) {
-										console.log("오류");
-									}
-								});
-							
+							reviewList += '<div id="content'+i+'" class="moreTxt-off">'+data.content[i].content+'</div>'
+							reviewList += '<div class="replyCount">댓글<span>('+data.content[i].replyCount+')</span><a data-num="'+i+'" href="javascript:" id="more">> 펼쳐보기</a>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 					reviewList += '</li>'
 					
-				} /* 
-				$(".reviewList").html(reviewList);  */
+				}  
+				$(".reviewList").html(reviewList);  
+				
+				var pagingWrap = "";
+
+				pagingWrap += '<nav id = "paging">'					
+				pagingWrap += '</nav>'					
+				
+				$(".review-paging").html(pagingWrap);
+				
+				window.pagObj = $('#paging').twbsPagination({ 
+					totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
+					startPage: data.number+1, 
+					visiblePages: 5, 
+					prev: "‹", 
+					next: "›", 
+					first: '«', 
+					last: '»', 
+					onPageClick: function (event, page) { 
+						console.info("current page : " + page); 
+					} 
+				}).on('page', function (event, page) { 
+					pagingList(page-1);
+				});
 			},
 			error : function(data) {
 				console.log("오류");
@@ -230,32 +240,7 @@
 	// by 준익, 초기 리뷰 리스트 호출
 	pagingList(0, 'regdate');
 	var isbn = $("#isbnP").val();
-	// by 준익, 페이징 스크립트 적용
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/bookReview/"+isbn,
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			window.pagObj = $('#paging').twbsPagination({ 
-				totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
-				startPage: data.number+1, 
-				visiblePages: 5, 
-				prev: "‹", 
-				next: "›", 
-				first: '«', 
-				last: '»', 
-				onPageClick: function (event, page) { 
-					console.info("current page : " + page); 
-				} 
-			}).on('page', function (event, page) { 
-				pagingList(page-1);
-			});
-		},
-		error : function(data) {
-			console.log("오류");
-		}
-	});
+	
 	// by 준익, 리뷰 평균 평점 호출 api
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
