@@ -151,3 +151,15 @@
    	.td-bg{
    		background-color: #fbf9fa;
    	}
+   	
+   	label.error{
+	    letter-spacing: 0.3px;
+	    padding: 2px 0 5px;
+	    font-family: 'Malgun Gothic';
+	    font-size: 12px;
+	    color: #fe0000;
+   	}
+   	input.error{
+   		border: #fe0000;
+   		border-radius: 3px;
+   	}

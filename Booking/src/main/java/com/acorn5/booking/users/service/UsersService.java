@@ -60,4 +60,5 @@ public interface UsersService {
 	public Page<Cart> getMyCart(Long id, Pageable pageable);
 
 	public Page<Search> getMySearch(Long id, Pageable pageable);
+	
 }

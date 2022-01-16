@@ -138,10 +138,10 @@
 														<div class="content-regdate">
 															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-												    			<button data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</button>
-																<button data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</button>
+												    			<a data-num="${tmp.id }" href="javascript:"
+																	class="update-link">수정</a>
+																<a data-num="${tmp.id }" href="javascript:"
+																	class="delete-link">삭제</a>
 															</c:if>
 														</div>
 													</div>
@@ -182,10 +182,10 @@
 														<div class="content-regdate">
 															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-																<button data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</button>
-																<button data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</button>
+																<a data-num="${tmp.id }" href="javascript:"
+																	class="update-link">수정</a>
+																<a data-num="${tmp.id }" href="javascript:"
+																	class="delete-link">삭제</a>
 															</c:if>
 														</div>
 													</div>

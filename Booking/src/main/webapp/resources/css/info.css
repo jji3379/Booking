@@ -632,11 +632,12 @@ a {
 	    background: #fff;
     }
     #myPwd-form > .error {
-    	float: right;
-    	letter-spacing: 0.6px;
-    	padding: 3px 0;
-   	    width: 200px;
-	    font-size: 14px;
+   	    float: right;
+	    letter-spacing: 0.3px;
+	    padding: 2px 0 5px;
+	    width: 200px;
+	    font-family: 'Malgun Gothic';
+	    font-size: 10px;
 	    color: #fe0000;
     }
     input.error {
@@ -656,7 +657,7 @@ a {
 	    justify-content: space-between;
     	margin-bottom: 3px;
     }
-    .pwdform-group > label {
+    .pwdform-group > span {
     	padding-top: 9px;
     	font-size: 17px;
     }
@@ -667,6 +668,19 @@ a {
     	height: 35px;
     	padding: 0 10px;
     	border: 1px solid #ccc;
+    }
+    .input-newPwd-error{
+    	border: 1px solid #fe0000;
+    }
+    .prevPwd{
+    	display: none;
+    	float: right;
+	    letter-spacing: 0.3px;
+	    padding: 0px 0 6px;
+	    width: 200px;
+	    font-family: 'Malgun Gothic';
+	    font-size: 10px;
+	    color: #fe0000;
     }
     .pwd-updateformBtn{
     	margin: 30px 0 3px 0;

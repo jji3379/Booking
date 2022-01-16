@@ -10,7 +10,7 @@
 <body>
 <c:if test="${isSuccess }">
 	<script>
-		alert("수정 했습니다.");
+		alert("비밀번호가 변경되었습니다. 다시 로그인 해주세요.");
 		location.href="${pageContext.request.contextPath }";
 	</script>
 </c:if>

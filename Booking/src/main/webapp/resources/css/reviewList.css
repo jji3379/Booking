@@ -50,7 +50,7 @@ p, h1, ul {
 	height: 135px;
 }
 
-.card-spoCheck {
+.card-spoCheck-off {
     background-color: #EF5A31;
     color: #FFF;
     font-weight: bold;
@@ -62,6 +62,19 @@ p, h1, ul {
     padding: 10px 10px;
     line-height: 20px;
     display:none;
+}
+.card-spoCheck-on {
+    background-color: #EF5A31;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin: 15px 15px 0 0;
+    border-radius: 50%;
+    font-weight: bold;
+    padding: 10px 10px;
+    line-height: 20px;
+    display:block;
 }
 
 h1 {
@@ -77,7 +90,11 @@ h1 {
 	line-height: 25px;
 	margin: 10px 20px 0px 20px;
 }
-
+.spoAlert {
+    -webkit-filter: blur(2px);
+     backdrop-filter: blur(20px) saturate(120%) contrast(200%);
+     background: #fafafa;
+}
 .card-body-description  {
     opacity: 0;
     color: #757B82;
