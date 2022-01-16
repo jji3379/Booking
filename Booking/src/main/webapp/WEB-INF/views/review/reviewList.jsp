@@ -79,50 +79,53 @@
 				</select>
 				<input type="search" id="reviewInput" name="keyword" class="searchBar" placeholder="검색어..." value="${keyword }"/>
 			</form>
-			<nav id = "paging">
+			<div id="page">
+				<nav id = "paging">
 				<!-- 
-				<ul class="pagination justify-content-center">
-					<c:choose>
-						<c:when test="${!list.first}">
-							<li class="page-item">
-								<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled">
-								<a class="page-link" href="javascript:">&lt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
+					<ul class="pagination justify-content-center">
 						<c:choose>
-							<c:when test="${i eq list.number }">
-								<li class="page-item active">
-									<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+							<c:when test="${!list.first}">
+								<li class="page-item">
+									<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item">
-									<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+								<li class="page-item disabled">
+									<a class="page-link" href="javascript:">&lt;</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${endPageNum lt totalPageCount }">
-							<li class="page-item">
-								<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled">
-								<a class="page-link" href="javascript:">&gt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-				 -->
-			</nav>
+						<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
+							<c:choose>
+								<c:when test="${i eq list.number }">
+									<li class="page-item active">
+										<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item">
+										<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${endPageNum lt totalPageCount }">
+								<li class="page-item">
+									<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="javascript:">&gt;</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+					 -->
+				</nav>
+			
+			</div>
 			<button id="writeR" type="button" >리뷰 작성</button>
 		</div>
 		
@@ -168,7 +171,7 @@
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -273,7 +276,7 @@
 			for(var i=0; i<data.content.length; i++) {
 
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -371,7 +374,7 @@
 	    }
 	});
 	
-	$('.cardLink').click(function(){
+	$('.warning').click(function(){
 		var spoCheck = confirm("스포일러가 포함된 리뷰입니다. 그래도 읽으시겠습니까?");
 		if(spoCheck == "Y"){
 			if(spoCheck == true){

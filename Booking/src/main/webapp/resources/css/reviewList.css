@@ -261,7 +261,9 @@ h1 {
 	align-items: center;
 }
 #search{
-	flex: 1;
+}
+#page{
+	flex: 0.45;
 }
 .searchBar{
 	width: 165px;
