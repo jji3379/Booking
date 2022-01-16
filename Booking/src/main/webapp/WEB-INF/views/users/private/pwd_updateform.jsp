@@ -87,24 +87,25 @@
 		<div class="content">
 			<div class="pwd-updateform">
 				<h2>비밀번호 변경</h2>
-				<form  id="myPwd-form" action="pwd_update.do">
+				<form  id="myPwd-form" method="post" action="pwd_update.do">
 					<div class="myForm-header">
 						<p class="contxt">안전한 비밀번호로 내정보를 보호하세요</p>
 						<p class="contxt contxt_list"><em>다른 아이디/사이트에서 사용한 적 없는 비밀번호</em></p>
 						<p class="contxt contxt_list"><em>이전에 사용한 적 없는 비밀번호</em>가 안전합니다.</p>			
 					</div>	
 					<div class="pwdform-group" >
-						<label for="pwd">현재 비밀번호</label>
+						<span for="pwd">현재 비밀번호</span>
 						<input class="pwdform-control" type="password" name="pwd" id="currentPwd"/>
 					</div>
 					<div class="error-msg"></div>
 					<div class="pwdform-group" >
-						<label for="newPwd">새 비밀번호</label>
-						<input class="pwdform-control" type="password" name="newPwd" id="newPwd"/>
+						<span for="newPwd">새 비밀번호</span>
+						<input class="pwdform-control input-newPwd" type="password" name="newPwd" id="newPwd"/>
 					</div>
+					<label for="newPwd" class="prevPwd">기존 비밀번호와 다르게 입력해 주세요.</label>
 					<div class="error-msg"></div>
 					<div class="pwdform-group">
-						<label for="newPwd2">새 비밀번호 확인</label>
+						<span for="newPwd2">새 비밀번호 확인</span>
 						<input class="pwdform-control" type="password" name="pwd2" id="pwd2"/>
 					</div>
 					<div class="error-msg"></div>
@@ -116,9 +117,27 @@
 	</div>
 </div>
 <script>
-	
+	//by 준영, 새 패스워드는 현재패스워드 그대로 안되게 하는 코드
+	$("#newPwd").keyup(function(){
+		var pwd_validate = document.querySelector('label[for=currentPwd]').textContent;
+		var newPwd_validate = document.querySelector('.prevPwd');
+		var currentPwd = $('#currentPwd').val();
+		var newPwd = $('#newPwd').val();
+		if( pwd_validate == ''){
+			if( (currentPwd == newPwd) == true ){
+				newPwd_validate.style.display='block';		
+				$('.input-newPwd').addClass('input-newPwd-error');
+			}else if((currentPwd == newPwd) == false){
+				newPwd_validate.style.display='none';
+				$('.input-newPwd').removeClass('input-newPwd-error');
+
+			}
+		}
+		
+	})
 	//by 준영, Validate.js 라이브러리 
 	$(document).ready(function () { 
+		
 	    // validate signup form on keyup and submit
 	    $('#myPwd-form').validate({
 	    	errorPlacement:function(error,element){ 
@@ -127,8 +146,6 @@
 	        rules: {
 	            pwd:{
 	            	required:true, 
-	            	minlength:5, 
-	            	maxlength:10, 
 		            remote : {            	
 		            	url:"${pageContext.request.contextPath}/v1/users/pwdCheck/${id}",
 					    type : "get",
@@ -139,31 +156,36 @@
 					    }
 		            }
 	            },
-	            newPwd: {required:true, minlength:5, maxlength:10},
-	            pwd2: {required:true, equalTo:'#newPwd'},               
+	            newPwd: {
+	            	required:true, 
+	            	minlength:5, 
+	            	maxlength:10 
+            	},
+	            pwd2: {
+	            	required:true, 
+	            	equalTo:'#newPwd'
+            	},               
 	        },
 	        messages: {
 	            pwd: {
 	                 required:"필수 입력 항목입니다.",
-	                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
-	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
-	                 remote : "현재 비밀번호와 다른 비밀번호를 입력해 주세요."
+	                 remote : "비밀번호가 틀립니다."
                 	},
 	            newPwd:{
 	            	 required: "필수 입력 항목입니다.",
-	            	 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
-	                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요."
-	            	},
+	            	 minlength: "비밀번호를 최소 5자 이상 입력해 주세요.",
+	                 maxlength: "비밀번호를 최대 10자 내로 입력해 주세요."
+	            },
 	          	  
 	            pwd2: {
 	                required: "필수 입력 항목입니다.",
-	                equalTo: "비밀번호를 다시 확인하세요" 
+	                equalTo: "비밀번호를 다시 확인해 주세요." 
 	                }
 	        }
 	//여기부터
 	,
 	        submitHandler: function (frm){
-				frm.submit();
+	        	frm.submit();
 	        },
 	        success: function(e){
 	            //
@@ -172,7 +194,7 @@
 	    });
 	    
 	});
-	
+
 	//회원탈퇴묻기
 	function deleteConfirm(){
 			let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
