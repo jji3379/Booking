@@ -47,6 +47,7 @@ import com.acorn5.booking.review.dao.ReviewCommentDao;
 import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.dto.ReviewSearchDto;
 import com.acorn5.booking.review.entity.QReview;
 import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
@@ -158,8 +159,11 @@ public class ReviewServiceImpl implements ReviewService{
 			[ 검색 키워드에 관련된 처리 ]
 			-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다 _210303	
 		*/
-		String keyword = request.getParameter("keyword");
-		String condition = request.getParameter("condition");
+		/*
+		String keyword = searchDto.getKeyword(); 
+				//request.getParameter("keyword");
+		String condition = searchDto.getCondition();
+		//request.getParameter("condition");
 		System.out.println("keyword : "+keyword);
 		System.out.println("condition : "+condition);
 		// by남기, 만일 키워드가 넘어오지 않는다면 _210303
@@ -172,6 +176,7 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		// by남기, 특수기호를 인코딩한 키워드를 미리 준비한다 _210303
 		String encodedK = URLEncoder.encode(keyword);
+		 */
 		
 		// by남기, startRowNum 과 endRowNum  을 ReviewDto 객체에 담는다 _210303
 
@@ -182,7 +187,7 @@ public class ReviewServiceImpl implements ReviewService{
 		*/
 		
 		// by남기, 전체 row 의 갯수를 담을 지역변수를 미리 만든다 _210303
-		int totalRow=0;
+		//int totalRow=0;
 		// by남기, 만일 검색 키워드가 넘어온다면 _210303
 		/*
 		if(!keyword.equals("")){
@@ -219,7 +224,95 @@ public class ReviewServiceImpl implements ReviewService{
 		QueryResults<Review> list = queryFactory.selectFrom(qReview)
 				.join(qReview.writer, qUsers)
 				.fetchJoin()
-				.where(qReview.reviewTitle.contains(keyword))
+				.orderBy(orderCondition, qReview.regdate.desc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+			
+				//reviewRepository.findAllReivew();
+		// by남기, 글의 갯수_210303
+		//totalRow=reviewDao.getCount(dto);
+		
+		// by남기, 하단 시작 페이지 번호_210303
+		/*
+		int startPageNum = 1 + ((pageNum-1)/pageable.getPageSize())*pageable.getPageSize();
+		// by남기, 하단 끝 페이지 번호_210303
+		long endPageNum=startPageNum+pageable.getPageSize()-1;
+		
+		// by남기, 전체 페이지의 갯수 구하기_210303
+		long totalPageCount= pageable.getPageSize();
+		System.out.println("totalPageCount : " +totalPageCount);
+				//(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		// by남기, 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다_210303
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; // by남기, 만약 끝 번호가 전체보다 크다면 보정해준다_210303
+		}		
+		*/
+		// by남기, view page 에서 필요한 내용을 ModelAndView 객체에 담아준다_210303
+		/*
+		model.addAttribute("list", list.getResults());
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
+		model.addAttribute("totalPageCount", totalPageCount);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("encodedK", encodedK);
+		model.addAttribute("totalRow", totalRow);
+		*/
+			
+		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+	}
+	
+	@Override
+	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, ReviewSearchDto searchDto) {
+		String keyword = searchDto.getKeyword(); 
+		String condition = searchDto.getCondition();
+		System.out.println("keyword : "+keyword);
+		System.out.println("condition : "+condition);
+
+		// by남기, 만일 키워드가 넘어오지 않는다면 _210303
+		if(keyword==null){
+			// by남기, 키워드와 검색 조건에 빈 문자열을 넣어준다 _210303
+			// by남기, 클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  _210303
+			keyword="";
+			condition=""; 
+		}
+		
+		// by남기, 특수기호를 인코딩한 키워드를 미리 준비한다 _210303
+		//String encodedK = URLEncoder.encode(keyword);
+		
+		QReview qReview = QReview.review;
+		QUsers qUsers = QUsers.users;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		pageable = new PageRequest(pageable.getPageNumber(), 8, pageable.getSort());
+		OrderSpecifier<?> orderCondition = null;
+		if (pageable.getSort() != null && pageable.getSort().toString().contains("viewCount")) {
+			orderCondition = qReview.viewCount.desc(); // 조회순 정렬
+		} else if (pageable.getSort() != null && pageable.getSort().toString().contains("rating")) {
+			orderCondition = qReview.rating.desc(); // 별점순 정렬
+		} else if (pageable.getSort() == null || pageable.getSort().toString().contains("regdate")
+				|| orderCondition == null) {
+			orderCondition = qReview.regdate.desc(); // 최신순 정렬
+		}
+		
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		if (condition.equals("bookTitle_content")) { // 제목, 내용 검색
+			builder.and(qReview.bookTitle.contains(keyword))
+					.or(qReview.content.contains(keyword));
+		} else if (condition.equals("bookTitle")) { // 제목 검색
+			builder.and(qReview.bookTitle.contains(keyword));
+		} else if (condition.equals("writer")) { // 작성자 검색
+			builder.and(qReview.writer.loginId.contains(keyword));
+		} else if (condition.equals("isbn")) { // isbn 검색
+			builder.and(qReview.isbn.contains(keyword));
+		}
+		
+		QueryResults<Review> list = queryFactory.selectFrom(qReview)
+				.join(qReview.writer, qUsers)
+				.fetchJoin()
+				.where(builder)
 				.orderBy(orderCondition, qReview.regdate.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
@@ -260,6 +353,8 @@ public class ReviewServiceImpl implements ReviewService{
 			
 		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
 	}
+	
+	
 	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
 	@Override
 	public String saveImage(MultipartFile image, HttpServletRequest request) {

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.review.dto.ReviewCommentDto;
 import com.acorn5.booking.review.dto.ReviewDto;
+import com.acorn5.booking.review.dto.ReviewSearchDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.querydsl.core.Tuple;
@@ -22,6 +23,8 @@ public interface ReviewService {
 	public Review saveContent(Review dto);
 	// by남기, 글목록을 얻어오고 페이징 처리에 필요한 값들을 ModelAndView 객체에 담아주는 메소드 _210303
 	public Page<Review> getList(HttpServletRequest request, Pageable pageable);
+
+	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, ReviewSearchDto searchDto);
 	// by남기, 이미지를 저장하는 메소드_210303
 	public String saveImage(MultipartFile image, HttpServletRequest request);
 	// by남기, 리뷰를 수정하는 메소드_210303

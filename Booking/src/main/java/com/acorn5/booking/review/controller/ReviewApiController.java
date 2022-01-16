@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn5.booking.pay.service.CartService;
+import com.acorn5.booking.review.dto.ReviewSearchDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.repository.ReviewRepository;
 import com.acorn5.booking.review.service.ReviewService;
@@ -43,10 +44,16 @@ public class ReviewApiController {
 		private CartService cartservice;
 
 		// by남기, 글 목록 요청처리_210303
-		@RequestMapping("/review")
+		@RequestMapping(value = "/review", method = RequestMethod.GET)
 		@Transactional
-		public Page<Review> list(HttpServletRequest request, Pageable pageable) {
+		public Page<Review> getReviewList(HttpServletRequest request, Pageable pageable) {
 			return service.getList(request, pageable);
+		}
+
+		@Transactional
+		@RequestMapping(value = "/review/search", method = RequestMethod.POST)
+		public Page<Review> getSearchReview(HttpServletRequest request, Pageable pageable, @RequestBody ReviewSearchDto searchDto) {
+			return service.getConditionSearchList(request, pageable, searchDto);
 		}
 		
 		// by남기, 글 상세정보 요청처리_210303  
