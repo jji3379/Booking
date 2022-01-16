@@ -9,6 +9,10 @@
 <title>책과의 즉석만남 Booking</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/reviewInsertform.css">
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
+
 <style>
 	
 </style>
@@ -40,6 +44,7 @@
 								<td class="td-isbn" ><input type="text" name="isbn" id="isbn"  value="" disabled/></td>
 							</tr>
 						</table>
+						<input type="checkbox" name="bookSelect" id="bookSelect" value=""    />
 					</div>
 				</div>
 			</div>
@@ -63,6 +68,7 @@
 								<a href="#" value="3">★</a> 
 								<a href="#" value="4">★</a> 
 								<a href="#" value="5">★</a>
+								<input type="checkbox" name="star_Chk" id="star-chk"/>
 							<p>
 						</td>
 					</tr>
@@ -83,18 +89,14 @@
 				</table>
 			</div>
 			<input type="hidden" name="writer" id="writer" value="${sessionScope.id}" />
-			<input type="hidden" name="imagePath" id="imagePath" value="" />
 			<input type="hidden" name="rating" id="rating"/>
 		</div>
-		<button id="insertBtn" type="button" onclick="postAjax();">저장</button>
+		<button id="insertBtn" type="submit">저장</button>
 	</form>
 	</div>
 </div>
 
-<script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 <script>
-	
-	
 	//by 준영, 책선택 팝업창 띄우기
 	$('#bookSearch').click(function(){ 
 		var popUrl = "${pageContext.request.contextPath }/review/reviewBookList.do?";
@@ -113,121 +115,101 @@
 		"width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
                    
 	});
-	
-	function postAjax(){
-		var spoCheckYn = $('input:checkbox[id="spoCheck"]').is(":checked");
-		var spoCheckData = (spoCheckYn ? "Y" : "N");
-		
-		var data = {
-			isbn : $("#isbn").val(),
-			reviewTitle : $("#reviewTitle").val(),
-			rating : $("#rating").val(),
-			content : $("#content").val(),
-			spoCheck : spoCheckData,
-			bookTitle : $("#bookTitle").val(),
-			imagePath : $("#imagePath").val(),
-		};
-		
-		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/review",
-			method:"post",
-			dataType : "json",
-			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
-			success:function(data) {
-				location.href="${pageContext.request.contextPath }/review";
-			},
-			error : function(data) {
-				alert('저장 실패');
+	$("#isbn").change(function(){
+		alert('ㅇㅇ');
+		//by 준영, 책 선택하게하는 validation
+		var info = $('#isbn').val();
+		var bookChk = $('input[id=bookSelect]');
+		if(info != ''){
+			bookChk.click();
+		}else{
+			if(bookChk.is(":checked") == true){
+				bookChk.click();	
 			}
-		});
-	} 
-
+		}
+	});
+	
+	
+	
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 
-	      $(this).parent().children("a").removeClass("on");
-	      $(this).addClass("on").prevAll("a").addClass("on");
-	      let starval=$(this).attr("value");
-	      $("#rating").val(starval);
+    	$(this).parent().children("a").removeClass("on");
+	    $(this).addClass("on").prevAll("a").addClass("on");
+	    let starval=$(this).attr("value");
+	    $("#rating").val(starval);
+	});
+	//by 준영, Validate.js 라이브러리 
+	$(document).ready(function () { 
+		
+	    // validate signup form on keyup and submit
+	    $('#insertForm').validate({
+	        errorPlacement: function(error, element) {
+	        	if(element.is("#star_Chk")){
+	        		element.parent().after(error);
+	        	}else{
+	        		element.after(error);
+	        	}
+	        },
+	    	rules: {
+	    		bookSelect:{
+	    			required: true
+	    		},
+	            reviewTitle: {
+	                required: true
+	            },
+				star_Chk: {
+	                required: true
+	            },               
+	            content: {
+	                required: true
+	            }
+	        },
+	        messages: {
+	        	bookTitle: "gg",
+	            isbn: "gg",
+	            reviewTitle: "gg",
+	            star_Chk: "gg",
+	            content: "gg"
+	        }
+	//여기부터
+	,
+			
+	        submitHandler: function (frm){
+	        	var spoCheckYn = $('input:checkbox[id="spoCheck"]').is(":checked");
+	    		var spoCheckData = (spoCheckYn ? "Y" : "N");
+	    		
+	    		var data = {
+	    			isbn : $("#isbn").val(),
+	    			reviewTitle : $("#reviewTitle").val(),
+	    			rating : $("#rating").val(),
+	    			content : $("#content").val(),
+	    			spoCheck : spoCheckData,
+	    			bookTitle : $("#bookTitle").val(),
+	    			imagePath : $("#imagePath").val(),
+	    		};
+	    		
+	    		$.ajax({
+	    			url:"${pageContext.request.contextPath}/v1/review",
+	    			method:"post",
+	    			dataType : "json",
+	    			contentType : "application/json; charset=utf-8",
+	    			data : JSON.stringify(data),
+	    			success:function(data) {
+	    				location.href="${pageContext.request.contextPath }/review";
+	    			},
+	    			error : function(data) {
+	    				alert('저장 실패');
+	    			}
+	           	});
+	        },
+	        success: function(e){
+	            //
+	        }
+	//여기까지는 생략 가능           
+	    });
+	    
 	});
 	
-	var oEditors = [];
-	
-	//추가 글꼴 목록
-	//var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];
-	
-	nhn.husky.EZCreator.createInIFrame({
-		oAppRef: oEditors,
-		elPlaceHolder: "content",
-		sSkinURI: "${pageContext.request.contextPath}/SmartEditor/SmartEditor2Skin.html",	
-		htParams : {
-			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseVerticalResizer : false,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseModeChanger : false,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
-			fOnBeforeUnload : function(){
-				//alert("완료!");
-			}
-		}, //boolean
-		fOnAppLoad : function(){
-			//예제 코드
-			//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-		},
-		fCreator: "createSEditor2"
-	});
-	
-	function pasteHTML() {
-		var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-		oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
-	}
-	
-	function showHTML() {
-		var sHTML = oEditors.getById["content"].getIR();
-		alert(sHTML);
-	}
-
-	function submitContents(elClickedObj) {
-		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
-		
-		// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
-		
-		//by준영, 빈값을 제출 못하게 하는 기능_210305
-		var isbn=$("#isbn").val();
-		var reviewTitle=$("#reviewTitle").val();
-		var rating=$("#rating").val();
-		var content=$("#content").val();
-		
-		if(selectBook == null){
-			alert("책 선택은 필수기입항목 입니다");
-			return;
-		}else if(reviewTitle == ""){
-			alert("리뷰 제목은 필수기입항목 입니다");
-			$("#reviewTitle").focus();
-			return;
-		}else if(rating == ""){
-			alert("별점은 필수기입항목 입니다");
-			return;
-		}else if( content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>'){
-			alert("리뷰 내용은 필수기입항목 입니다");
-			return;
-		}
-		
-		try {
-			elClickedObj.form.submit();
-		} catch(e) {}
-	}
-	
-	/*
-	$("#insertBtn").on("click",function(){
-		return false;
-	})
-	*/
-	
-	function setDefaultFont() {
-		var sDefaultFont = '궁서';
-		var nFontSize = 24;
-		oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
-	}
 	//by채영_스포일러 체크 여부 
 	var spoCheck = null;
 	var spo = $("input:checkbox[name='spoCheck']").is(':checked');
