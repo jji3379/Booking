@@ -51,7 +51,7 @@ body{
 		color: #477160;
 	}
 	.comment-full{
-		width: 1089px;
+		width: 1086px;
 	    display: inline-flex;
 	    padding: 7.5px;
 	    margin: 0;
@@ -477,6 +477,10 @@ body{
 		margin-left: 15px;
 		margin-right: 7px;
 	}
+	.reply-link{
+		display: inline-flex;
+		flex:4;
+	}
 	.reply-link > b {
 		margin-right: 7px;
 	}
@@ -495,7 +499,7 @@ body{
 	}
 	#comment-content{
 		background: #f9f9f9;
-		border: 1px solid #e5e5e5;
+		border: 1px solid #ccc;
 		white-space: pre-line;
 		flex: 1;
 		opacity: 0.8;
@@ -506,13 +510,12 @@ body{
 	}
 	#reply-content{
 		background: #f9f9f9;
-		border: 1px solid #e5e5e5;
-		white-space: pre-line;
-		flex: 1;
-		opacity: 0.8;
-	    height: 200px;
+	    border: 1px solid #e5e5e5;
+	    white-space: pre-line;
+	    flex: 1;
+	    opacity: 0.8;
 	    border-radius: 5px;
-	    margin: 0 10px;
+	    margin:0px 4px 0 8px;
 	    padding: 5px 8px;
 	    box-sizing: border-box;
 	}
@@ -520,12 +523,11 @@ body{
 		display: inline-block;
 		float: right;
 		font-size: 16px;
-		flex: 
 	}
-	.content-regdate > span, .content-regdate > button  {
+	.content-regdate > span, .content-regdate > a  {
 		vertical-align: -webkit-baseline-middle;
 	}
-	.content-regdate > button{
+	.content-regdate > a{
 	    border: 0;
     	background: transparent;
     	font-family: '777Balsamtint';
@@ -533,18 +535,18 @@ body{
     	padding: 3px;
     	cursor: pointer;
 	}
-	/* .content-regdate > button::before{
+	.content-regdate > a::before{
 	    content: "|";
-	    padding-left: 3px;
-	    padding-right: 3px;
+	    padding-left: 0px;
+    	padding-right: 6px;
 	    vertical-align: middle;
 	    opacity: 0.4;
 	    font-size: 16px;
 	}
-	.content-regdate > button:first-child::before {
+	.content-regdate > a:first-child::before {
 		content: "";
 	    vertical-align: middle;
-	} */
+	}
 	#paging > ul {
 		margin:0;
 		padding: 0;
