@@ -24,10 +24,10 @@
 			</h2> -->
 			<div class="ranking">
 				<ul>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="#" onclick="topBestSeller(151)">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking1" class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking51" class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking101" class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking151" class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="#" onclick="topBestSeller(151)">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
 					<div class="date-box">
 						<span id="date"></span>
 					</div>
@@ -156,13 +156,44 @@
 	</div>
 <script>
 /*
-	$(".item").on("click",function(){
-
-			location.reload();
+	$(".item").on("click",function(event){
+		var qwer = event.
+			
 	})
 */
 	var scrollCount = 0;
 	// 초기 호출 함수
+	var start = 1;			
+	$("#ranking1").on("click",function(){
+		start = 1;
+	})
+	$("#ranking51").on("click",function(){
+		start = 51;
+	})
+	$("#ranking101").on("click",function(){
+		start = 101;
+	})
+	$("#ranking151").on("click",function(){
+		start = 151;
+	})
+	
+	$(window).on("scroll", function(){
+		if (scrollCount < 4) {
+			//위쪽으로 스크롤된 길이 구하기
+			var scrollTop=$(window).scrollTop();
+			//window 의 높이
+			var windowHeight=$(window).height();
+			//document(문서)의 높이
+			var documentHeight=$(document).height();
+			//바닥까지 스크롤 되었는지 여부
+			var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+			if(isBottom){//만일 바닥까지 스크롤 했다면...
+				scrollCount++;
+				topBestSeller(start+(10*scrollCount));
+			}
+		}
+	});	
+	
 	function topBestSeller(start){
 		if(start ==1 || start == 51 || start == 101 || start == 151){
 			$("#bestSellerBody *").remove();			
@@ -175,23 +206,6 @@
 			dataType : "json",
 			async: false,
 			success:function(data) {
-				
-					$(window).on("scroll", function(){
-						if (scrollCount < 4) {
-							//위쪽으로 스크롤된 길이 구하기
-							var scrollTop=$(window).scrollTop();
-							//window 의 높이
-							var windowHeight=$(window).height();
-							//document(문서)의 높이
-							var documentHeight=$(document).height();
-							//바닥까지 스크롤 되었는지 여부
-							var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
-							if(isBottom){//만일 바닥까지 스크롤 했다면...
-								scrollCount++;
-								topBestSeller(start+(10*scrollCount));
-							}
-						}
-					});	
 				
 				var bestSellerList = "";
 				for (var i = 0; i < data.length; i++) {
