@@ -167,11 +167,22 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+				if(data.content[i].spoCheck == 'Y'){
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+				}else{
+					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+				}
+				
 					reviewList += '<div class="card col">'
 					reviewList += '<div class="card-header" style="background-image:url('+data.content[i].imagePath+')">'
-					reviewList += '<div class = "card-spoCheck" >'
-					reviewList += '<div class = "card-header-text" > 스포 포함 </div >'
+					
+					if(data.content[i].spoCheck == 'Y'){
+						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-on" >'
+					}else{
+						reviewList += '<div	id="spoCheck-badge class="card-spoCheck-off">'
+					}
+					
+					reviewList += '<div class = "card-header-text" > 스포일러 </div >'
 					reviewList += '</div >'
 					reviewList += '</div >'
 	
@@ -202,8 +213,13 @@
 					reviewList += '</div>'
 					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
 					reviewList += '</div>'
-	
-					reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
+					
+					if(data.content[i].spoCheck == 'Y'){
+						reviewList += '<p class="card-body-description spoAlert">'+data.content[i].content+'</p>'
+					}else{
+						reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
+					}
+					
 					
 					reviewList += '<div class="card-body-footer">'
 					reviewList += '<hr class="underline">'
@@ -255,10 +271,21 @@
 			var reviewList = "";
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
-				reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+
+				if(data.content[i].spoCheck == 'Y'){
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+				}else{
+					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+				}
+				
 					reviewList += '<div class="card col">'
 					reviewList += '<div class="card-header" style="background-image:url('+data.content[i].imagePath+')">'
-					reviewList += '<div class = "card-spoCheck" >'
+					
+					if(data.content[i].spoCheck == 'Y'){
+						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-on" >'
+					}else{
+						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-off" >'
+					}
 					reviewList += '<div class = "card-header-text" > 스포 포함 </div >'
 					reviewList += '</div >'
 					reviewList += '</div >'
@@ -291,7 +318,11 @@
 					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
 					reviewList += '</div>'
 	
-					reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
+					if(data.content[i].spoCheck == 'Y'){
+						reviewList += '<p class="card-body-description spoAlert">'+data.content[i].content+'</p>'
+					}else{
+						reviewList += '<p class="card-body-description">'+data.content[i].content+'</p>'
+					}
 					
 					reviewList += '<div class="card-body-footer">'
 					reviewList += '<hr class="underline">'
@@ -329,14 +360,10 @@
 			console.log("오류");
 		}
 	});
-
-	//by 준영, 리뷰검색폼 빈값 제출 막기
-	$('#search').submit(function() {
-	    if ($('#reviewInput').val() == '') {
-	        return false;
-	    }
-	});
-
+	
+	
+	
+	
 	//by 준영, 리뷰검색폼 빈값 제출 막기
 	$('#search').submit(function() {
 	    if ($('#reviewInput').val() == '') {
@@ -344,18 +371,16 @@
 	    }
 	});
 	
-	function spoAlert(spoCheck){
-		console.log(spoCheck);
-		if(spoCheck == "yes"){
-			var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-			if(alert == true){
+	$('.cardLink').click(function(){
+		var spoCheck = confirm("스포일러가 포함된 리뷰입니다. 그래도 읽으시겠습니까?");
+		if(spoCheck == "Y"){
+			if(spoCheck == true){
+				return true;
 			}else{
 				event.preventDefault();
 			}
-		}else if(spoCheck == "no"){
-			$('.card-header-is_closed').css('display', 'none');
 		}
-	}
+	})
 	
 </script>
 </body>
