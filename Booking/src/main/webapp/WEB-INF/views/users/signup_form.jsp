@@ -203,9 +203,12 @@ function CountChecked(obj){
 		return false;
 	}
 }
-
 //by 준영, Validate.js 라이브러리 
 $(document).ready(function () { 
+	//영문숫자만
+    jQuery.validator.addMethod("alphanumeric", function (value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+    });
     // validate signup form on keyup and submit
     $('#signupForm').validate({
         errorPlacement: function(error, element) {
@@ -220,6 +223,7 @@ $(document).ready(function () {
             	required:true, 
             	minlength:5, 
             	maxlength:10, 
+            	alphanumeric: true,
 	            remote : {            	
 				    url : '${pageContext.request.contextPath }/v1/users/signup',
 				    type : "get",
@@ -242,6 +246,7 @@ $(document).ready(function () {
                  required:"필수 입력 항목입니다.",
                  minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
                  maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
+                 alphanumeric: "영문이나 숫자로만 입력해 주세요.",
                  remote : "이미 존재하는 아이디 입니다."
                  },
             pwd:"필수 입력 항목입니다.",
@@ -308,7 +313,6 @@ $(document).ready(function () {
     });
     
 });
-	
 </script>
 </body>
 </html>
