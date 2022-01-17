@@ -194,13 +194,22 @@
 								reviewList += '</div>'
 							reviewList += '</div>'
 							reviewList += '<span class="reviewTitle-box">'+data.content[i].reviewTitle+'</span>'
+							if(data.content[i].spoCheck == 'Y'){
+								reviewList += '<span class="spoCheck-box">스포일러</div>'
+							}else{
+								reviewList += ''								
+							}  
 							reviewList += '<div class="idDate-box">'
 								reviewList += '<span class="review-writer">'+data.content[i].writer.loginId+'</span>'
 								reviewList += '<span class="review_date">'+data.content[i].regdate+'</span>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 						reviewList += '<div class="content-box">'
-							reviewList += '<div id="content${tmp.id }" class="moreTxt-off">'+data.content[i].content+'</div>'
+							if(data.content[i].spoCheck == 'Y'){
+								reviewList += '<div id="content${tmp.id }" class="spoAlert">'+data.content[i].content+'</div>'
+							}else{
+								reviewList += '<div id="content${tmp.id }" class="non-spo moreTxt-off">'+data.content[i].content+'</div>'								
+							}
 								// 댓글 총 개수
 								$.ajax({
 									url:"${pageContext.request.contextPath}/v1/review/reply/"+data.content[i].id,
@@ -219,8 +228,8 @@
 						reviewList += '</div>'
 					reviewList += '</li>'
 					
-				} /* 
-				$(".reviewList").html(reviewList);  */
+				} 
+				$(".reviewList").html(reviewList); 
 			},
 			error : function(data) {
 				console.log("오류");

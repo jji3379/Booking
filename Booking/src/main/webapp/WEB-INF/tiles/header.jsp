@@ -11,7 +11,7 @@
 		<div class="center">
 			<div class="logo">
 				<a href="${pageContext.request.contextPath }">
-					<img id="nav-logo" src=""/>
+					<img id="nav-logo" src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/>
 				</a>
 			</div>
 			<div class="search">
@@ -23,7 +23,7 @@
 			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
 			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
-		    		<img id="cartImg" src=""/>
+		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
 		    		<c:choose>
 		    			<c:when test="${empty count}">
 		    			
@@ -73,41 +73,43 @@
 		
 	</div>
 <script>
-$('#main').ready(function(){
-	$('#nav-logo').attr('src','${pageContext.request.contextPath }/resources/images/bookinglogo.svg');
-	$('#cartImg').attr('src','${pageContext.request.contextPath }/resources/images/cart.svg');	
-})
-$(document).ready(function() {
-    $('#searchForm').submit(function() {
-        if ($('#searchBook').val() == '') {
-            return false;
-        }
-    }); 
-}); 
-
-//by준영. 로그인 시 모달창 기능
-$(function(){
-	$("#modal-open").click(function(){   
-		//$("#container").css('display','flex').hide().fadeIn();
-		function modal(){
-            $.ajax({ 
-                url:"${pageContext.request.contextPath}/users/login_form.do",
-                method:"GET",
-                success:function(data){
-                   $("#container").html(data); 
-                },
-            })
-        }
-        modal();
+	//by 준영 리뷰리스트 로딩끝나고 헤더호출
+	$('#header').hide();
+	$('#main').ready(function(){
+		$('#header').show();
+	})
+	//by 준영 검색창 빈값 제출 막기
+	$(document).ready(function() {
+	    $('#searchForm').submit(function() {
+	        if ($('#searchBook').val() == '') {
+	            return false;
+	        }
+	    }); 
+	}); 
+	
+	//by준영. 로그인 시 모달창 기능
+	$(function(){
+		$("#modal-open").click(function(){   
+			//$("#container").css('display','flex').hide().fadeIn();
+			function modal(){
+	            $.ajax({ 
+	                url:"${pageContext.request.contextPath}/users/login_form.do",
+	                method:"GET",
+	                success:function(data){
+	                   $("#container").html(data); 
+	                },
+	            })
+	        }
+	        modal();
+		});
 	});
-});
-
-$("#cartBtn").click(function(){
-	if("${sessionScope.id}" == '') {
-		alert("로그인이 필요합니다.");
-		document.getElementById('modal-open').click();
-		return false;
-	}		
-});
+	
+	$("#cartBtn").click(function(){
+		if("${sessionScope.id}" == '') {
+			alert("로그인이 필요합니다.");
+			document.getElementById('modal-open').click();
+			return false;
+		}		
+	});
 </script>
 

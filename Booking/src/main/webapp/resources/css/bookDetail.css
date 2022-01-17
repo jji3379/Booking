@@ -324,10 +324,14 @@ body{
        background: #5db794;
        
    }
+   .non-spo{
+   	  	width: 934px;
+   }
    .spoAlert {
-      -webkit-filter: blur(2px);
-       backdrop-filter: blur(20px) saturate(120%) contrast(200%);
-       background: #fafafa;
+   	  	width: 934px;
+		-webkit-filter: blur(2px);
+		backdrop-filter: blur(20px) saturate(120%) contrast(200%);
+		background: #fafafa;
    }
    .idDate-box {
       position: absolute;
