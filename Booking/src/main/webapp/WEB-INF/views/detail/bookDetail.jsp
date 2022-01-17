@@ -194,19 +194,26 @@
 								reviewList += '</div>'
 							reviewList += '</div>'
 							reviewList += '<span class="reviewTitle-box">'+data.content[i].reviewTitle+'</span>'
-							reviewList += '<span class="spoCheck-box">스포일러</span>'
+							if(data.content[i].spoCheck == 'Y'){
+								reviewList += '<span class="spoCheck-box">스포일러</div>'
+							}else{
+								reviewList += ''								
+							}  
 							reviewList += '<div class="idDate-box">'
 								reviewList += '<span class="review-writer">'+data.content[i].writer.loginId+'</span>'
 								reviewList += '<span class="review_date">'+data.content[i].regdate+'</span>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 						reviewList += '<div class="content-box">'
-							reviewList += '<div id="content'+i+'" class="moreTxt-off">'+data.content[i].content+'</div>'
+							if(data.content[i].spoCheck == 'Y'){
+								reviewList += '<div id="content${tmp.id }" class="spoAlert">'+data.content[i].content+'</div>'
+							}else{
+								reviewList += '<div id="content${tmp.id }" class="non-spo moreTxt-off">'+data.content[i].content+'</div>'								
+							}
 							reviewList += '<div class="replyCount">댓글<span>('+data.content[i].replyCount+')</span><a data-num="'+i+'" href="javascript:" id="more">> 펼쳐보기</a>'
 							reviewList += '</div>'
 						reviewList += '</div>'
 					reviewList += '</li>'
-					
 				}  
 				$(".reviewList").html(reviewList);  
 				

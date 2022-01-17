@@ -79,9 +79,7 @@
 				</select>
 				<input type="search" id="reviewInput" name="keyword" class="searchBar" placeholder="검색어..." onkeyup="if(window.event.keyCode==13){conditionSearchList(0,'regdate')}" value="${keyword }"/>
 			</form>
-			
 			<div id="page"></div>
-			
 			<button id="writeR" type="button" >리뷰 작성</button>
 		</div>
 		
@@ -136,7 +134,7 @@
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -366,7 +364,7 @@
 			for(var i=0; i<data.content.length; i++) {
 
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -471,7 +469,7 @@
 	    }
 	});
 	
-	$('.cardLink').click(function(){
+	$('.warning').click(function(){
 		var spoCheck = confirm("스포일러가 포함된 리뷰입니다. 그래도 읽으시겠습니까?");
 		if(spoCheck == "Y"){
 			if(spoCheck == true){

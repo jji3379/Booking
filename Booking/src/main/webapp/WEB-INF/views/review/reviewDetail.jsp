@@ -151,9 +151,9 @@
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
 												<form class="comment-form reply-form" action="private/reviewComment_insert.do" method="post">
-													<input type="hidden" name="refGroup" value="${dto.id }" /> <input
-														type="hidden" name="target_id" value="${tmp.writer.id }" /> <input
-														type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
+													<input type="hidden" name="refGroup" value="${dto.id }" /> 
+													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
+													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
 													<textarea name="content"></textarea>
 													<button class="replyBtn" type="submit">등록</button>
 												</form> 
@@ -194,9 +194,9 @@
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
 												<form class="comment-form reply-form" action="private/reviewComment_insert.do" method="post">
-													<input type="hidden" name="refGroup" value="${dto.id }" /> <input
-														type="hidden" name="target_id" value="${tmp.writer.id }" /> <input
-														type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
+													<input type="hidden" name="refGroup" value="${dto.id }" /> 
+													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
+													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" /> 
 													<textarea name="content"></textarea>
 													<button class="replyBtn" type="button">등록</button>
 												</form> 
