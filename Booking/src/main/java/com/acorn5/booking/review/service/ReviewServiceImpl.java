@@ -529,38 +529,25 @@ public class ReviewServiceImpl implements ReviewService{
 	// by남기, 리뷰의 댓글을 삭제하는 메소드 _210303
 	@Override
 	@Transactional
-	public void deleteComment(HttpServletRequest request) {
-		// by남기, GET 방식 파라미터로 전달되는 삭제할 댓글 번호  _210303
-		Long num = Long.parseLong(request.getParameter("num"));
-		// by남기, 세션에 저장된 로그인된 아이디 _210303
-		Long id = (Long) request.getSession().getAttribute("id");
-		// by남기, 댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다 _210303
-		ReviewDtl writer = reviewCommentRepository.findById(num);
-		Long writerId = writer.getWriter().getId();
-		// reviewCommentDao.getData(num).getWriter();
-		if (!writerId.equals(id)) {
-			throw new DBFailException("남의 댓글을 삭제 할수 없습니다.");
-		}
-		
-		reviewCommentRepository.delete(num);
-
+	public void deleteComment(Long replyId) {
+		ReviewDtl comment = reviewCommentRepository.findById(replyId);
+		Users writer = comment.getWriter();
 		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		
+		reviewCommentRepository.delete(replyId);
 		Long totalReply = queryFactory.select(qReviewDtl.count())
 				.from(qReviewDtl)
-				.where(qReviewDtl.refGroup.eq(writer.getRefGroup()))
+				.where(qReviewDtl.refGroup.eq(comment.getRefGroup()))
 				.fetchOne();
 		
-		reviewCommentRepository.updateReplyCount(totalReply, writer.getRefGroup().getId());
-
-		//reviewCommentDao.delete(num);
+		reviewCommentRepository.updateReplyCount(totalReply, comment.getRefGroup().getId());
 	}
 	// by남기, 리뷰의 댓글을 수정하는 메소드 _210303
 	@Override
-	public void updateComment(ReviewDtl dto) {
+	public void updateComment(Long replyId, ReviewDtl dto) {
 		//reviewCommentDao.update(dto);
-		ReviewDtl comment = reviewCommentRepository.findById(dto.getId());
+		ReviewDtl comment = reviewCommentRepository.findById(replyId);
 		comment.setContent(dto.getContent());
 		
 		reviewCommentRepository.save(comment);

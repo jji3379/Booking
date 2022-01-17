@@ -37,9 +37,9 @@ public interface ReviewService {
 	// by남기, 댓글을 저장하는 메소드_210303
 	public void saveComment(HttpServletRequest request);
 	// by남기, 댓글 삭제_210303
-	public void deleteComment(HttpServletRequest request);
+	public void deleteComment(Long replyId);
 	// by남기, 댓글 수정_210303
-	public void updateComment(ReviewDtl dto);
+	public void updateComment(Long replyId, ReviewDtl dto);
 	// by남기, 댓글 추가 응답_210303
 	public void moreCommentList(HttpServletRequest request);
 	

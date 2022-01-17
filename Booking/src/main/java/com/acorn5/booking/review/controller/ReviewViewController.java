@@ -176,7 +176,7 @@ public class ReviewViewController {
 	@ResponseBody
 	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
 		// by남기, 댓글을 수정 반영하고_210303
-		service.updateComment(dto);
+		//service.updateComment(dto);
 		// by남기, JSON 문자열을 클라이언트에게 응답한다_210303
 		Map<String, Object> map=new HashMap<>();
 		map.put("num", dto.getId());
@@ -190,7 +190,7 @@ public class ReviewViewController {
 	public ModelAndView reviewCommentDelete(HttpServletRequest request,
 			ModelAndView mView, @RequestParam int refGroup) {
 		// by남기, 삭제할 댓글의 정보를 request 영역에서 가져온다_210303
-		service.deleteComment(request);
+		//service.deleteComment(request);
 		// by남기, reviewDetail page 로 리다일렉트 이동시킨다_210303
 		mView.setViewName("redirect:/review/"+refGroup);
 		return mView;

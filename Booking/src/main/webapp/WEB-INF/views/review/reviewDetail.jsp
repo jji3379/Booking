@@ -75,7 +75,7 @@
 				<li><a class="listBtn" href="${pageContext.request.contextPath }/review">목록보기</a></li>
 				<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
 					<li><a class="listBtn" href="${pageContext.request.contextPath }/private/review/update/${dto.id }">수정</a></li>
-					<li><a class="listBtn" href="#" onclick="deletea();">삭제</a></li>
+					<li><a class="listBtn" href="#" onclick="deleteReview();">삭제</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -159,11 +159,10 @@
 												</form> 
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
-													<form class="comment-form commentUpdate-form"
-														action="private/reviewComment_update.do" method="post">
+													<form class="comment-form commentUpdate-form">
 														<input type="hidden" name="id" value="${tmp.id }" />
 														<textarea name="content">${tmp.content }</textarea>
-														<button class="updateBtn" type="submit">수정</button>
+														<button class="updateBtn" type="button">수정</button>
 													</form>
 												</c:if>
 											</td>
@@ -199,12 +198,11 @@
 														type="hidden" name="target_id" value="${tmp.writer.id }" /> <input
 														type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
 													<textarea name="content"></textarea>
-													<button class="replyBtn" type="submit">등록</button>
+													<button class="replyBtn" type="button">등록</button>
 												</form> 
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
-													<form class="comment-form commentUpdate-form"
-														action="private/reviewComment_update.do" method="post">
+													<form class="comment-form commentUpdate-form">
 														<input type="hidden" name="id" value="${tmp.id }" />
 														<textarea name="content">${tmp.content }</textarea>
 														<button class="updateBtn" type="submit">수정</button>
@@ -271,6 +269,7 @@
 	</div>
 <script>
 
+	// 해당 리뷰에 해당하는 댓글들 조회
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/review/reply/${reviewId}",
 		method:"GET",
@@ -290,6 +289,7 @@
 		$(document).find('.input-content').val(content);
 	}) */
 	
+	// 리뷰 내용 조회
 	$(document).ready(function(){
 		$.ajax({
 			url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
@@ -389,10 +389,30 @@
 		}
 	});
 	//by준영, 댓글 수정 폼 제출 시 함수
-	$(document).on("submit", ".commentUpdate-form", function(){
+	$(document).on("click", ".commentUpdate-form", function(){
+		/*
+		console.log("일단 1단계");
+		var data = {
+				
+		}
+		$.ajax({
+			url:"${pageContext.request.contextPath }v1/review/reply/+,
+			method:"put",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				console.log(data);
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+		*/
 		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
+		
 		$(this).ajaxSubmit(function(data){
 			//console.log(data);
+			//${pageContext.request.contextPath }v1/review/reply
 			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
 			var selector="#comment"+data.id; //"#comment6" 형식의 선택자 구성
 			
@@ -401,8 +421,10 @@
 			//pre 요소에 출력된 내용 수정하기
 			$(selector).find(".commentUpdate-form").text(data.content);
 		});
+		
 		//폼 전송을 막아준다.
 		return false;
+		
 	});
 	
 
@@ -427,16 +449,15 @@
 		}
 	}
 	//by준영, 게시글 삭제 함수
-	function deletea() {
-		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
+	function deleteReview() {
+		var isDelete=confirm("리뷰를 삭제 하시겠습니까?");
 		if(isDelete){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
 				method:"DELETE",
-				dataType : "json",
-				success:function(data){
-					window.location = '${pageContext.request.contextPath}/review'; 
-				}
+			}).done(function(response){
+				alert("리뷰가 삭제 되었습니다.");
+				window.location = '${pageContext.request.contextPath}/review'; 
 			});
 		}
 		
@@ -445,11 +466,17 @@
 	$(document).on("click",".delete-link", function(){
 		//삭제할 글번호 
 		var num=$(this).attr("data-num");
+
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
 		if(isDelete){
-			location.href="${pageContext.request.contextPath }"+
-			"/review/private/reviewComment_delete.do?num="+num+"&refGroup=${dto.id}";
+			$.ajax({
+				url:"${pageContext.request.contextPath}/v1/review/reply/"+num,
+				method:"DELETE",
+			}).done(function(response){
+				location.reload();
+			});
 		}
+
 	});
 	
 </script>
