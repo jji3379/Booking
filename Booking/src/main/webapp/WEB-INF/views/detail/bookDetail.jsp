@@ -121,10 +121,10 @@
 	             	</div>
 	                <ul class="sortWrap">
 	                	<li class="review-sort">
-	                    	<a href="#" onclick="pagingList(0, 'regdate')">최근순</a>
+	                    	<a href="#" id="regdate" onclick="pagingList(0, 'regdate')">최근순</a>
 	                    </li>
 	                    <li class="review-sort">
-	                    	<a href="#" onclick="pagingList(0, 'rating')">별점순</a>
+	                    	<a href="#" id="rating" onclick="pagingList(0, 'rating')">별점순</a>
 	                	</li>
 	                </ul>
 	                <ul class="reviewList">
@@ -153,7 +153,6 @@
 	                    </li> --%>
 	               	</ul>
                 	<div class="review-paging">
-                		<nav id = "paging"></nav>
                 	</div>   
         		</div>
 			</div>
@@ -171,6 +170,12 @@
 			document.getElementById('modal-open').click();
 			return false;
 		}		
+	});
+	
+	// 선택한 정렬에 active 추가
+	$(".sortWrap").children().children().on("click", (event) => {
+		$(".sortWrap").children().children().removeClass('active');
+		event.target.className += "active";
 	});
 	
 	// by 준익, 페이징 처리된 책에 대한 리뷰 리스트
@@ -236,7 +241,12 @@
 						console.info("current page : " + page); 
 					} 
 				}).on('page', function (event, page) { 
-					pagingList(page-1);
+					var sortValue = $(".sortWrap").find(".active").attr('id');
+					if(sortValue == null){
+						sortValue = "regdate";
+					}
+					pagingList(page-1, sortValue);
+					//pagingList(page-1);
 				});
 			},
 			error : function(data) {
