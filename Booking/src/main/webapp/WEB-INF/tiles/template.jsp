@@ -17,10 +17,6 @@
         }
         #footer{
         	clear: both;
-        	height: 200px;
-        	background-color: #e2e6eb;
-		    width: 100%;
-	    	
         }
     </style>
     

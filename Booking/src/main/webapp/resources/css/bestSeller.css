@@ -5,9 +5,10 @@
 	    width: 960px;
 	}
 	.page-title{
-	    border-bottom: 2px solid #e5e5e5;
-    	padding-bottom: 5px;
-    	margin-bottom: 0;
+	    font-size: 27px;
+	    padding-bottom: 5px;
+	    margin-bottom: 0;
+	    color: #333333e8;
 	}
 	.notice-box{
 		font-weight: 500;
@@ -20,6 +21,8 @@
 		font-size: 27px;
 	}
 	.ranking {
+	    border-top-left-radius: 10px;
+  		border-top-right-radius: 10px;
 		background: url(//bimage.interpark.com/renewPark/reBookpark/rankChart2016/common/img_rankContentsHeader.png) no-repeat;
     	background-size: 100%;
 	}
@@ -69,7 +72,7 @@
 		padding-top: 10px;
 	    border-right: 1px solid #e5e5e5;
 	    border-left: 1px solid #e5e5e5;
-	    background: #f0f8ff61;
+	    background: #fafafa;
 		width: 100%;
 		border-collapse: separate;
     	border-spacing: 0 10px;
@@ -79,6 +82,7 @@
 		padding:0 10px;
 	}
 	.book-rank{
+		opacity: 0.9;
 		position: absolute;
 		top:0;
 		font-size: 33px;
@@ -105,6 +109,12 @@
 		border: 1px solid #e5e5e5;
 		width: 150px;
 		height: 175px;
+		border-radius: 2px;
+    	box-shadow: rgb(60 64 67 / 30%) 3px 3px 6px 0px, rgb(60 64 67 / 15%) 2px 2px 6px 0px;
+		transition: transform 0.3s ease-out;
+	}
+	.book-img:hover{
+		transform: scale(1.025);
 	}
 	.grid-li {
 		width: 577px;
@@ -152,6 +162,9 @@
 		display: inline-block;
 		font-size: 16px;
 	}
+	.total-comment > a {
+		text-decoration: none;
+	}
 	.total-star{
 		font-family: emoji;
 		display: inline;
@@ -160,15 +173,15 @@
 	}
 	.star-fill {
 		color: #fff58c;
-		width: 100%;
-		padding: 0;
-		position: absolute;
-		z-index: 1;
-		display: flex;
-		top: 0;
-		left: 5px;
-		font-family: emoji;
-		-webkit-text-fill-color: #ffc80b;
+    width: 100%;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    top: 21.3px;
+    left: 0px;
+    font-family: emoji;
+    -webkit-text-fill-color: #ffc80b;
 	}
 	.star-fill2 {
 		color: #fff58c;
@@ -241,16 +254,29 @@
 	}
 	.bottom-bar{
 		border-top: 1px solid #e5e5e5;
-	    border-bottom: 1px solid #e5e5e5;
-	    background: #eee;
-	    padding: 10px 0;
-	    margin-bottom: 105px;
+		border-left: 1px solid #e5e5e5;
+		border-right: 1px solid #e5e5e5;
+	    border-bottom: 1px solid #f0f8ffbd;
+	    background: #f8f9fa;
+	    padding: 22px;
+	    text-align: center;	
+	}
+	.load-more {
+		letter-spacing: 0.3px;
+	    padding: 13px;
+	    border-radius: 30px;
+	    background: #5394cbad;
+	    color: #fff;
 	}
 	#topButton {
-		position: fixed; 
-		bottom: 10px; 
-		right: 10px; 
-		z-index: 100;
+		float: right;
+	    margin-right: -30px;
+	}
+	#topButtonImg{
+		cursor: pointer;
+		bottom: 30px;
+	    position: fixed;
+		
 	}
 	#loader{
 		display:none;
