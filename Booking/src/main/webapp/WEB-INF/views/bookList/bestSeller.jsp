@@ -16,7 +16,7 @@
 	<div class="layout">
 		<div class="listWrap">
 			<h1 class="page-title">
-				> Booking 종합 베스트셀러 TOP 200
+				Booking 종합 베스트셀러
 			</h1>
 			<!-- <h2 class="notice-box">
 				"<b id="keyword">keyword</b>" 에 대한 검색결과는 
@@ -117,16 +117,16 @@
 				 		 -->
 				 	</table>
 				 	<div class="bottom-bar">
-				 		바닥
+				 		<span class="load-more">LOAD MORE</span>
 				 	</div>
+	 				<div id="topButton"><img id="topButtonImg" src="https://image.aladin.co.kr/img/bu/btn_top2.png" alt="맨위로"></div>
 				 </div>
 			</form>
 		</div>
-		<div id="topButton"><img id="topButtonImg" src="https://image.aladin.co.kr/img/bu/btn_top2.png" alt="맨위로"></div>
 		<svg id="loader" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 		  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
 		  <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
-		    <animateTransform 
+		   	<animateTransform 
 		       attributeName="transform" 
 		       dur="1s" 
 		       type="translate" 
@@ -188,9 +188,12 @@
 			//바닥까지 스크롤 되었는지 여부
 			var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
 			if(isBottom){//만일 바닥까지 스크롤 했다면...
+				
 				scrollCount++;
-				topBestSeller(start+(10*scrollCount));
+				topBestSeller(start+(10*scrollCount));				
 			}
+		}else{
+			/* $('.load-more').hide(); */
 		}
 	});	
 	
@@ -257,6 +260,7 @@
 															var int_part = 0.0;
 														} else {
 															var int_part = Math.trunc(data[i].reviewRating);														
+															
 														}
 														var float_part = Number(Number((data[i].reviewRating-int_part).toFixed(2)));
 														
@@ -283,7 +287,8 @@
 														}
 														
 														switch(float_part) {
-														case 0.0 :
+														case 0 :
+															console.log(float_part);
 															$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
 															break;
 														case 0.1 :
@@ -352,7 +357,8 @@
 								bestSellerList += '<input id="priceP'+i+'" type="hidden" name="price" value="'+data[i].price+'"/>'
 								bestSellerList += '<input id="d_priceP'+i+'" type="hidden" name="d_price" value="'+data[i].discount+'"/>'
 								bestSellerList += '<input type="text'+i+'" id="isbnP" name="isbn" value="'+data[i].isbn+'" hidden/>'
-	
+								bestSellerList += '<input type="text'+i+'" id="countP" name="count" value="1" hidden/>'
+
 								bestSellerList += '<div>'
 									bestSellerList += '<button class="cart btn" type="button" id="insertBtn" onclick="insert('+i+')">장바구니</button>'
 								bestSellerList += '</div>'
@@ -408,7 +414,7 @@
        var title = $('#'+'titleP'+i).val();
        var price = $('#'+'priceP'+i).val();
        var d_price = $('#'+'d_priceP'+i).val();
-       var count = $('#'+'countP'+i).val();
+       var count = $('#'+'countP').val();
        var isbn=$('#'+'isbnP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
@@ -443,7 +449,7 @@
        var title = $('#'+'titleP'+i).val();
        var price = $('#'+'priceP'+i).val();
        var d_price = $('#'+'d_priceP'+i).val();
-       var count = $('#'+'countP'+i).val();
+       var count = $('#'+'countP').val();
        var isbn=$('#'+'isbnP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
