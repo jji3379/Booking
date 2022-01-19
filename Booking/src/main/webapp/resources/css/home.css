@@ -66,7 +66,7 @@
 	}
 	.booking {
 		width: 80%;
-		height: 400px;
+		height: 460px;
 		border: 2px solid #989c9b;
 		margin: 75px auto;
 	}
@@ -151,7 +151,7 @@
    /* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
    .img-wrapper:hover{
       /* 원본 크기의 1.1 배로 확대 시키기*/
-      transform: scale(1.05);
+      transform: scale(1.02);
    }
    
 	.card .card-text{
