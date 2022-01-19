@@ -263,11 +263,13 @@
 					
 					if(data.content[i].spoCheck == 'Y'){
 						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-on" >'
+							reviewList += '<div class = "card-header-text" > 스포일러 </div >'
 					}else{
 						reviewList += '<div	id="spoCheck-badge class="card-spoCheck-off">'
+							reviewList += '<div class = "card-header-text" ></div >'
 					}
 					
-					reviewList += '<div class = "card-header-text" > 스포일러 </div >'
+					
 					reviewList += '</div >'
 					reviewList += '</div >'
 	
