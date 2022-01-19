@@ -292,7 +292,7 @@ body{
    .reviewList > li {
       background: #fafafa;
       position: relative;
-       padding: 20px;
+       padding: 16px 20px 13px 20px;
        border-bottom: 1px solid #ddd;
    } 
    .title-box {
@@ -307,7 +307,7 @@ body{
    .reviewTitle-box {
       max-width: 600px;
        padding: 0 5px 0 10px;
-       font-size: 16px;
+       font-size: 17px;
        font-weight: bold;
        color: #333;
        line-height: 1.2;
@@ -315,6 +315,8 @@ body{
        overflow: hidden;
        text-overflow: ellipsis;
        text-decoration: none;
+   }
+   #spoTag{
    }
    .spoCheck-box{
       color: #fff;
@@ -324,11 +326,21 @@ body{
        background: #5db794;
        
    }
+   .content-box{
+       width:934px;
+   }
+   .content-box > div {
+    	float: right;
+    	width: 846px;
+    	margin-top: 7px;
+   }
+   .non-review{
+   }
    .non-spo{
-   	  	width: 934px;
+   	  	
    }
    .spoAlert {
-   	  	width: 934px;
+   	  	
 		-webkit-filter: blur(2px);
 		backdrop-filter: blur(20px) saturate(120%) contrast(200%);
 		background: #fafafa;
@@ -339,6 +351,9 @@ body{
        top: 20px;
        font-size: 14px;
        color: #777;
+   }
+   .review-writer{
+   		margin-right:5px;
    }
    #more {
       cursor: pointer;
@@ -356,6 +371,15 @@ body{
    }
    .moreTxt-on{
    
+   }
+   .non-review{
+   		padding: 10px;
+   		text-align: center;
+   		font-size: 19px;
+    	letter-spacing: 6px;
+   }
+   .replyCount {
+   		font-size: 16px;
    }
    .replyCount > a {
       float: right;

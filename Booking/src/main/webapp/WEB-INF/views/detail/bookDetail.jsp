@@ -185,17 +185,69 @@
 				$("#total-count").html(data.totalElements);
 				// item list
 				var reviewList = "";
-				for(var i=0; i<data.content.length; i++) {
+				if(data.content.length == 0){
+					reviewList += '<li>'
+						reviewList += '<div class="content-box">'	
+							reviewList += '<div id="content" class="non-review">등록된 리뷰가 없습니다.</div>'
+						reviewList += '</div>'
+					reviewList += '</li>'
+				}
+				
+				var pagingWrap = "";
+				
+				if(data.content.length != 0){
+					pagingWrap += '</nav>'					
+					pagingWrap += '<nav id = "paging">'					
+					
+					$(".review-paging").html(pagingWrap);
+					window.pagObj = $('#paging').twbsPagination({ 
+						totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
+						startPage: data.number+1, 
+						visiblePages: 5, 
+						prev: "‹", 
+						next: "›", 
+						first: '«', 
+						last: '»', 
+						onPageClick: function (event, page) { 
+							console.info("current page : " + page); 
+						} 
+					}).on('page', function (event, page) { 
+						pagingList(page-1);
+					});
+				}
+				
+				
+				for(var i=0; i<data.content.length; i++) { 
 					reviewList += '<li>'
 						reviewList += '<div class="title-box">'
 							reviewList += '<div class="star-box">'
 								reviewList += '<div class="star_off">'
-									reviewList += '<span class="star-value">'+data.content[i].rating+'</span>'
+									reviewList += '<span class="star-value">'
+									
+									switch(data.content[i].rating) {
+									case 1 :
+										reviewList += ('★☆☆☆☆')
+										break;
+									case 2 :
+										reviewList += ('★★☆☆☆')
+										break;
+									case 3 :
+										reviewList += ('★★★☆☆')
+										break;
+									case 4 :
+										reviewList += ('★★★★☆')
+										break;
+									case 5 :
+										reviewList += ('★★★★★')
+										break;
+								}
+									
+									reviewList += '</span>'
 								reviewList += '</div>'
 							reviewList += '</div>'
 							reviewList += '<span class="reviewTitle-box">'+data.content[i].reviewTitle+'</span>'
 							if(data.content[i].spoCheck == 'Y'){
-								reviewList += '<span class="spoCheck-box">스포일러</div>'
+								reviewList += '<span id="spoTag'+[i]+'" class="spoCheck-box">스포일러</div>'
 							}else{
 								reviewList += ''								
 							}  
@@ -205,39 +257,20 @@
 							reviewList += '</div>'
 						reviewList += '</div>'
 						reviewList += '<div class="content-box">'
-							if(data.content[i].spoCheck == 'Y'){
-								reviewList += '<div id="content${tmp.id }" class="spoAlert">'+data.content[i].content+'</div>'
-							}else{
-								reviewList += '<div id="content${tmp.id }" class="non-spo moreTxt-off">'+data.content[i].content+'</div>'								
-							}
-							reviewList += '<div class="replyCount">댓글<span>('+data.content[i].replyCount+')</span><a data-num="'+i+'" href="javascript:" id="more">> 펼쳐보기</a>'
+							reviewList += '<div>'
+								if(data.content[i].spoCheck == 'Y'){
+									reviewList += '<div id="content'+[i]+'" class="spoAlert moreTxt-off">'+data.content[i].content+'</div>'
+								}else{
+									reviewList += '<div id="content'+[i]+'" class="non-spo moreTxt-off">'+data.content[i].content+'</div>'								
+								}
+								reviewList += '<div class="replyCount">댓글<span>('+data.content[i].replyCount+')</span><a data-num="'+[i]+'" href="javascript:" class="more">> 펼쳐보기</a></div>'										
 							reviewList += '</div>'
 						reviewList += '</div>'
 					reviewList += '</li>'
+
 				}  
 				$(".reviewList").html(reviewList);  
 				
-				var pagingWrap = "";
-
-				pagingWrap += '<nav id = "paging">'					
-				pagingWrap += '</nav>'					
-				
-				$(".review-paging").html(pagingWrap);
-				
-				window.pagObj = $('#paging').twbsPagination({ 
-					totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
-					startPage: data.number+1, 
-					visiblePages: 5, 
-					prev: "‹", 
-					next: "›", 
-					first: '«', 
-					last: '»', 
-					onPageClick: function (event, page) { 
-						console.info("current page : " + page); 
-					} 
-				}).on('page', function (event, page) { 
-					pagingList(page-1);
-				});
 			},
 			error : function(data) {
 				console.log("오류");
@@ -246,6 +279,7 @@
 	}
 	// by 준익, 초기 리뷰 리스트 호출
 	pagingList(0, 'regdate');
+	
 	var isbn = $("#isbnP").val();
 	
 	// by 준익, 리뷰 평균 평점 호출 api
@@ -341,8 +375,17 @@
            url:"detailAjax.do?sort=sim",
             method:"GET",
             data:"d_auth="+inputAuth,
-            success:function(data){
-               $("#simList").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+            success:function(auth){
+            	console.log(auth.length + '개 있다');
+            	console.log(auth.length);
+            	if(auth.length == 0){
+            		var simList = '';
+            		simList += '<div></div>'
+            		
+					$('#simList').html(simList);
+            	}else{
+	               	$("#simList").html(auth); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222            		            		
+            	}
             },
             
         })
@@ -350,28 +393,34 @@
     bookAuthor();
     
     //by준영, 리뷰 폴드 기능
-    /* $(document).on('click','#more', function(){
-       var contents = '#content'+$(this).attr('data-num');
-
-       if($(contents).hasClass('moreTxt-off') == true) {
-          $(contents).attr('class','moreTxt-on');
-       }else if($(contents).hasClass('moreTxt-off') == false){
-          $(contents).removeClass('moreTxt-on');
-          $(contents).attr('class', 'moreTxt-off');
-       }
-       if($(this).text("> 펼쳐보기")){
-          if($(contents).hasClass('spoAlert') == true){
-             var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
-             if(alert == true){
-             }else{
-                event.preventDefault();
-             }
-          $(this).text("> 접기");
-       }else if($(this).text("> 접기")){
-          $(this).text("> 펼쳐보기"); 
-       })   
-    })
-     */
+    $(document).on('click','.more', function(){
+		var contents = '#content'+$(this).attr('data-num');
+		var spoTag = '#spoTag'+$(this).attr('data-num');
+		if($(this).text() == '> 펼쳐보기'){
+			if($(contents).hasClass('spoAlert') == true){
+	           	var alert = confirm("스포가 포함된 리뷰입니다. 읽으시겠습니까?");
+	           	if(alert == true){
+	           		document.querySelector(contents).classList.remove('moreTxt-off');
+	           		document.querySelector(contents).classList.remove('spoAlert');
+	        		$(this).text("> 접기");
+	           	}else{
+	               	event.preventDefault();
+	            } 
+		    }else{
+		    	document.querySelector(contents).classList.remove('moreTxt-off');
+		    	$(this).text("> 접기");
+		    }
+		}else if($(this).text() == '> 접기'){
+			if($(spoTag).text() == '스포일러'){
+				document.querySelector(contents).classList.add('spoAlert');
+				document.querySelector(contents).classList.add('moreTxt-off');
+				$(this).text("> 펼쳐보기")
+		    }else{
+		    	document.querySelector(contents).classList.add('moreTxt-off');
+		    	$(this).text("> 펼쳐보기");
+		    }
+	    }
+	})
  
     //by준영, 장바구니 로그인 필터 기능_210311
     //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
