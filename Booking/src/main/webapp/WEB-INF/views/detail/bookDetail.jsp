@@ -121,10 +121,10 @@
 	             	</div>
 	                <ul class="sortWrap">
 	                	<li class="review-sort">
-	                    	<a href="#" onclick="pagingList(0, 'regdate')">최근순</a>
+	                    	<a href="#" id="regdate" onclick="pagingList(0, 'regdate')">최근순</a>
 	                    </li>
 	                    <li class="review-sort">
-	                    	<a href="#" onclick="pagingList(0, 'rating')">별점순</a>
+	                    	<a href="#" id="rating" onclick="pagingList(0, 'rating')">별점순</a>
 	                	</li>
 	                </ul>
 	                <ul class="reviewList">
@@ -153,7 +153,6 @@
 	                    </li> --%>
 	               	</ul>
                 	<div class="review-paging">
-                		<nav id = "paging"></nav>
                 	</div>   
         		</div>
 			</div>
@@ -171,6 +170,12 @@
 			document.getElementById('modal-open').click();
 			return false;
 		}		
+	});
+	
+	// 선택한 정렬에 active 추가
+	$(".sortWrap").children().children().on("click", (event) => {
+		$(".sortWrap").children().children().removeClass('active');
+		event.target.className += "active";
 	});
 	
 	// by 준익, 페이징 처리된 책에 대한 리뷰 리스트
@@ -271,6 +276,32 @@
 				}  
 				$(".reviewList").html(reviewList);  
 				
+				var pagingWrap = "";
+
+				pagingWrap += '<nav id = "paging">'					
+				pagingWrap += '</nav>'					
+				
+				$(".review-paging").html(pagingWrap);
+				
+				window.pagObj = $('#paging').twbsPagination({ 
+					totalPages: data.totalPages, // 호출한 api의 전체 페이지 수 
+					startPage: data.number+1, 
+					visiblePages: 5, 
+					prev: "‹", 
+					next: "›", 
+					first: '«', 
+					last: '»', 
+					onPageClick: function (event, page) { 
+						console.info("current page : " + page); 
+					} 
+				}).on('page', function (event, page) { 
+					var sortValue = $(".sortWrap").find(".active").attr('id');
+					if(sortValue == null){
+						sortValue = "regdate";
+					}
+					pagingList(page-1, sortValue);
+					//pagingList(page-1);
+				});
 			},
 			error : function(data) {
 				console.log("오류");
@@ -452,7 +483,7 @@
              success:function(data){
                 var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
                 if(chk){
-                   location.href("${pageContext.request.contextPath }/pay/cart.do");
+                   location.href = "${pageContext.request.contextPath }/pay/cart.do";
                 }else{
                    return false;
                 }
@@ -485,7 +516,7 @@
              method:'post',
              data: data,
              success:function(data){
-                location.href("${pageContext.request.contextPath }/pay/pay.do");
+                location.href = "${pageContext.request.contextPath }/pay/pay.do";
              }
           })
        }   

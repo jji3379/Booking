@@ -174,14 +174,16 @@ public class ReviewViewController {
 	@Transactional
 	@RequestMapping(value = "/review/private/reviewComment_update", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> reviewCommentUpdate(ReviewDtl dto){
+	public String reviewCommentUpdate(ReviewDtl dto){
 		// by남기, 댓글을 수정 반영하고_210303
-		//service.updateComment(dto);
+		service.updateComment(dto);
 		// by남기, JSON 문자열을 클라이언트에게 응답한다_210303
+		/*
 		Map<String, Object> map=new HashMap<>();
 		map.put("num", dto.getId());
 		map.put("content", dto.getContent());
-		return map;
+		*/
+		return "redirect:/review/"+dto.getId();
 	}
 	
 	// by남기, 리뷰의 댓글 삭제 요청 처리_210303

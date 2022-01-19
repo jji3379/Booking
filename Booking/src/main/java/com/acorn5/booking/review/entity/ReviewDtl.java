@@ -3,6 +3,7 @@ package com.acorn5.booking.review.entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,13 +39,12 @@ public class ReviewDtl {
 	private Users target_id; // 댓글 대상자
 	
 	//@Column(name = "ref_group")
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "ref_Group")
 	private Review refGroup; // 원글의 글번호
 	
 	@Column(name = "comment_group")
 	private Long commentGroup; // 댓글 내에서의 그룹번호
-	private String deleted; // 삭제된 댓글인지 여부 "yes" or "no"
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -82,12 +82,6 @@ public class ReviewDtl {
 	}
 	public void setCommentGroup(Long commentGroup) {
 		this.commentGroup = commentGroup;
-	}
-	public String getDeleted() {
-		return deleted;
-	}
-	public void setDeleted(String deleted) {
-		this.deleted = deleted;
 	}
 	public Date getRegdate() {
 		return regdate;

@@ -107,11 +107,6 @@
 							</colgroup>
 							<c:forEach var="tmp" items="${reviewCommentList }">
 							<!-- 기본 tr, 삭제표시 tr 분기 start -->
-							<c:choose>
-							<c:when test="${tmp.deleted eq 'yes' }">
-								<tr>삭제된 댓글 입니다.</tr>
-							</c:when>
-							<c:otherwise>
 								<!-- 원댓글, 대댓글 tr 분기 start -->
 								<c:choose>
 									<c:when test="${tmp.id ne tmp.commentGroup }">
@@ -160,9 +155,8 @@
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
 													<form class="comment-form commentUpdate-form">
-														<input type="hidden" name="id" value="${tmp.id }" />
-														<textarea name="content">${tmp.content }</textarea>
-														<button class="updateBtn" type="button">수정</button>
+														<textarea name="content" id="content${tmp.id }">${tmp.content }</textarea>
+														<button data-num="${tmp.id }" class="updateBtn" type="button">수정</button>
 													</form>
 												</c:if>
 											</td>
@@ -203,9 +197,8 @@
 												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
 													<form class="comment-form commentUpdate-form">
-														<input type="hidden" name="id" value="${tmp.id }" />
-														<textarea name="content">${tmp.content }</textarea>
-														<button class="updateBtn" type="submit">수정</button>
+														<textarea name="content" id="content${tmp.id }">${tmp.content }</textarea>
+														<button data-num="${tmp.id }" class="updateBtn" type="button">수정</button>
 													</form>
 												</c:if>
 											</td>
@@ -213,8 +206,6 @@
 									</c:otherwise>
 								</c:choose>
 								<!-- 원댓글, 대댓글 tr 분기 end -->
-							</c:otherwise>
-							</c:choose>
 							<!-- 기본 tr, 삭제표시 tr 분기 end -->
 							</c:forEach>
 						</table>
@@ -351,6 +342,7 @@
 			읽어와서 id 선택자를 구성한다.
 		*/
 		var selector="#comment"+$(this).attr("data-num");
+
 		//구성된 id  선택자를 이용해서 원하는 li 요소에서 .update-form 을 찾아서 동작하기
 		$(selector)
 		.find(".commentUpdate-form")
@@ -389,42 +381,28 @@
 		}
 	});
 	//by준영, 댓글 수정 폼 제출 시 함수
-	$(document).on("click", ".commentUpdate-form", function(){
-		/*
-		console.log("일단 1단계");
+	
+	$(document).on("click", ".updateBtn", function(){
+		var replyId=$(this).attr("data-num");
+		var content = $("#content"+replyId).val();
 		var data = {
-				
+				id : replyId,
+				content : content
 		}
+
 		$.ajax({
-			url:"${pageContext.request.contextPath }v1/review/reply/+,
-			method:"put",
+			url:"${pageContext.request.contextPath }/v1/review/reply",
+			method:"post",
 			dataType : "json",
-			async: false,
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(data),
 			success:function(data) {
-				console.log(data);
+				location.reload();
 			},
 			error : function(data) {
-				console.log("오류");
+				location.reload();
 			}
 		});
-		*/
-		//이벤트가 일어난 폼을 ajax로 전송되도록 하고 
-		
-		$(this).ajaxSubmit(function(data){
-			//console.log(data);
-			//${pageContext.request.contextPath }v1/review/reply
-			//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
-			var selector="#comment"+data.id; //"#comment6" 형식의 선택자 구성
-			
-			//댓글 수정 폼을 안보이게 한다. 
-			$(selector).find(".commentUpdate-form").slideUp();
-			//pre 요소에 출력된 내용 수정하기
-			$(selector).find(".commentUpdate-form").text(data.content);
-		});
-		
-		//폼 전송을 막아준다.
-		return false;
-		
 	});
 	
 

@@ -39,7 +39,7 @@ public interface ReviewService {
 	// by남기, 댓글 삭제_210303
 	public void deleteComment(Long replyId);
 	// by남기, 댓글 수정_210303
-	public void updateComment(Long replyId, ReviewDtl dto);
+	public void updateComment(ReviewDtl dto);
 	// by남기, 댓글 추가 응답_210303
 	public void moreCommentList(HttpServletRequest request);
 	

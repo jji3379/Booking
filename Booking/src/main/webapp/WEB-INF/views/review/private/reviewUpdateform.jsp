@@ -125,7 +125,7 @@
 				location.href="${pageContext.request.contextPath }/review";
 			},
 			error : function(data) {
-				alert('저장 실패');
+				console.log('저장 실패');
 			}
 		});
 	} 

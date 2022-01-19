@@ -418,7 +418,12 @@ public class ReviewServiceImpl implements ReviewService{
 	// by남기, 리뷰를 삭제하는 메소드_210303
 	@Override
 	public void deleteContent(Long num) {
-		reviewRepository.delete(num);
+		Review reviewId = new Review();
+		reviewId.setId(num);
+		List<ReviewDtl> reviewReply = reviewCommentRepository.findByRefGroup(reviewId);
+		for (int i = 0; i < reviewReply.size(); i++) {
+			reviewCommentRepository.delete(reviewReply.get(i).getId());
+		}
 		//reviewDao.delete(num);
 	}
 	// by남기, 리뷰 하나의 정보를 ModelAndView 객체에 담아주는 메소드_210303
@@ -545,9 +550,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	// by남기, 리뷰의 댓글을 수정하는 메소드 _210303
 	@Override
-	public void updateComment(Long replyId, ReviewDtl dto) {
+	public void updateComment(ReviewDtl dto) {
 		//reviewCommentDao.update(dto);
-		ReviewDtl comment = reviewCommentRepository.findById(replyId);
+		ReviewDtl comment = reviewCommentRepository.findById(dto.getId());
 		comment.setContent(dto.getContent());
 		
 		reviewCommentRepository.save(comment);
