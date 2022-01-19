@@ -452,7 +452,7 @@
              success:function(data){
                 var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
                 if(chk){
-                   location.replace("${pageContext.request.contextPath }/pay/cart.do");
+                   location.href("${pageContext.request.contextPath }/pay/cart.do");
                 }else{
                    return false;
                 }
@@ -485,7 +485,7 @@
              method:'post',
              data: data,
              success:function(data){
-                location.replace("${pageContext.request.contextPath }/pay/pay.do");
+                location.href("${pageContext.request.contextPath }/pay/pay.do");
              }
           })
        }   
