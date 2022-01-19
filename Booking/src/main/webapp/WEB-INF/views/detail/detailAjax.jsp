@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 	
     <c:forEach var="b" items="${detailAjax }">
     <ul class="simAjax">
@@ -8,7 +10,7 @@
             <a href="bookDetail.do?d_isbn=${b.isbn }">
             	<img src="${b.image}" alt="" />
             	<p class="bookT">${b.title }</p>
-            </a>
+            </a>        	
         </li>
     </ul>
     </c:forEach>
