@@ -114,6 +114,7 @@ html, body {
   	 box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
   .card-body {
+  	font-family: '777Balsamtint';
   	padding: 10px;
  	text-align: center;
 	text-overflow: elipsis;
@@ -121,10 +122,11 @@ html, body {
   }
   .card-title {
   		font-weight: bold;
-		font-size: 15px;
+		font-size: 16px;
  }
  .cart-text {
  	text-align: center;
+ 	font-size: 14px;
  }
 .g-i {
 	background-color: #5db794f7;
@@ -178,6 +180,8 @@ a {
   max-width: 83.333333%;
 }
 .nav {
+  font-family: '777Balsamtint';
+  font-size: 20px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
