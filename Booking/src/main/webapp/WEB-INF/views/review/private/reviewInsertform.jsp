@@ -12,7 +12,6 @@
 <script src="http://code.jquery.com/jquery-1.3.2.min.js" ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js" ></script>
-
 <style>
 	
 </style>
@@ -23,7 +22,7 @@
 	<form id="insertForm">
 		<div class="form-group">
 			<div class="selectBook">
-				<h2>● 리뷰 작성</h2>
+				<h2>> 리뷰 작성</h2>
 				<div class="form-header">
 					<div class="bookDesc">
 						<table>
@@ -34,14 +33,14 @@
 							</colgroup>
 							<tr>
 								<td rowspan="3">
-									<button id="bookSearch" class="card"><span>책 검색</span><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
+									<button id="bookSearch" class="card"><div><span id="searchBtn">책 검색</span></div><img id="selected" src="${pageContext.request.contextPath }/resources/images/searchBook.svg" alt=""/></button>
 								</td>
-								<td class="td-title"> > 제목</td>
-								<td class="td-title" ><input type="text" name="bookTitle" id="bookTitle" value="" disabled/></td>
+								<td class="td-title"><span id="title-L"> > 제목</span></td>
+								<td class="td-title" ><input type="text" class="bookInfo" name="bookTitle" id="bookTitle" value="" disabled/></td>
 							</tr>
 							<tr>
-								<td class="td-isbn">> isbn</td>
-								<td class="td-isbn" ><input type="text" name="isbn" id="isbn"  value="" disabled/></td>
+								<td class="td-isbn"><span id="isbn-L"> > isbn</span></td>
+								<td class="td-isbn" ><input type="text" class="bookInfo" name="isbn" id="isbn"  value="" disabled/></td>
 							</tr>
 						</table>
 						<input type="checkbox" name="bookSelect" id="bookSelect" value=""    />
@@ -56,11 +55,11 @@
 						<col style="width:80%">
 					</colgroup>
 					<tr>
-						<td class="td-Rtitle td-bg"><label for="reviewTitle"> >  리뷰 제목</label></td>
+						<td class="td-Rtitle td-bg"><label id="reviewTitle-L" for="reviewTitle"> >  리뷰 제목</label></td>
 						<td class="td-Rtitle"><input class="form-control" type="text" name="reviewTitle" id="reviewTitle"/></td>
 					</tr>
 					<tr>
-						<td class="td-star td-bg"> > 별점</td>
+						<td class="td-star td-bg"><label id="star-L" for="star"> >  별점</label></td>
 						<td class="td-star">
 							<p id="star">
 								<a href="#" value="1">★</a>
@@ -68,12 +67,12 @@
 								<a href="#" value="3">★</a> 
 								<a href="#" value="4">★</a> 
 								<a href="#" value="5">★</a>
-								<input type="checkbox" name="star_Chk" id="star-chk"/>
+								<input type="checkbox" name="star_Chk" id="star_Chk"/>
 							<p>
 						</td>
 					</tr>
 					<tr>
-						<td class="td-content td-bg"><label for="content"> >  리뷰 내용</label></td>
+						<td class="td-content td-bg"><label id="content-L" for="content"> >  리뷰 내용</label></td>
 						<td class="td-content"><textarea class="form-control" name="content" id="content"></textarea></td>
 					</tr>
 					<tr>
@@ -115,39 +114,34 @@
 		"width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
                    
 	});
-	$("#isbn").change(function(){
-		alert('ㅇㅇ');
-		//by 준영, 책 선택하게하는 validation
-		var info = $('#isbn').val();
-		var bookChk = $('input[id=bookSelect]');
-		if(info != ''){
-			bookChk.click();
-		}else{
-			if(bookChk.is(":checked") == true){
-				bookChk.click();	
-			}
-		}
-	});
-	
-	
 	
 	// by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 	$('#star a').click(function(){ 
+		var starChk = $('input[id=star_Chk]');
+		if(starChk.is(":checked") == false){
+			starChk.click();
+		}
+		
     	$(this).parent().children("a").removeClass("on");
 	    $(this).addClass("on").prevAll("a").addClass("on");
 	    let starval=$(this).attr("value");
 	    $("#rating").val(starval);
 	});
+	
 	//by 준영, Validate.js 라이브러리 
 	$(document).ready(function () { 
 		
 	    // validate signup form on keyup and submit
 	    $('#insertForm').validate({
 	        errorPlacement: function(error, element) {
-	        	if(element.is("#star_Chk")){
-	        		element.parent().after(error);
-	        	}else{
-	        		element.after(error);
+	        	if(element.is("#bookSelect")){
+	        		$('#searchBtn, #title-L, #isbn-L').after(error);
+	        	}else if(element.is("#reviewTitle")){
+	        		$('#reviewTitle-L').after(error);
+	        	}else if(element.is("#star_Chk")){
+	        		$('#star-L').after(error);
+	        	}else if(element.is("#content")){
+	        		$('#content-L').after(error);
 	        	}
 	        },
 	    	rules: {
@@ -165,11 +159,11 @@
 	            }
 	        },
 	        messages: {
-	        	bookTitle: "gg",
-	            isbn: "gg",
-	            reviewTitle: "gg",
-	            star_Chk: "gg",
-	            content: "gg"
+	        	bookSelect: "*",
+	        	bookTitle: "*",
+	            reviewTitle: "*",
+	            star_Chk: "*",
+	            content: "*"
 	        }
 	//여기부터
 	,
@@ -185,7 +179,7 @@
 	    			content : $("#content").val(),
 	    			spoCheck : spoCheckData,
 	    			bookTitle : $("#bookTitle").val(),
-	    			imagePath : $("#imagePath").val(),
+	    			imagePath : $("#selected").attr('src')
 	    		};
 	    		
 	    		$.ajax({
@@ -210,14 +204,6 @@
 	    
 	});
 	
-	//by채영_스포일러 체크 여부 
-	var spoCheck = null;
-	var spo = $("input:checkbox[name='spoCheck']").is(':checked');
-	if(spo == true){
-		spoCheck = "yes";
-	}else{
-		spoCheck = "no";
-	}
 	
 	
 </script>

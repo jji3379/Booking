@@ -1,4 +1,4 @@
-#star a{ 
+	#star a{ 
 		text-decoration: none; color: gray; 
 		font-size:20px;
 		font-family: emoji;
@@ -10,6 +10,7 @@
 	
    	#insertBtn{
    		display: block;
+   		letter-spacing: 5px;
 		margin: 40px auto 0;
 	    padding-left: 0px !important;
 	    padding-right: 0px !important;
@@ -36,6 +37,9 @@
 	    top: 75px;
 	    left: 56px;
 	}
+	.bookInfo{
+		border: 1px solid #e5e5e5;
+	}
    	.card{
    		position: relative;
    		background: #e5e5e538;
@@ -50,22 +54,24 @@
 		box-shadow:rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
    	}
    	.card:hover{
-   		background: #fafafa;
+   		background: #e5e5e561;
+		font-weight: bold;
 	}
-   	.card > span{
+   	.card > div{
 	    position: absolute;
 	    top: 25px;
 	    left: 48px;
 	    font-family: '777Balsamtint';
 	    font-size: 21px;
+	    color: #333;
    	}
    	.writeForm{
    		font-family: '777Balsamtint';
 	    width: 950px;
 	    text-align: left;
-	    padding: 45px 28px 50px;
+	    padding: 20px 28px 50px;
 	    border: 1px solid #bbbbbbde;
-	    margin: 50px auto;
+	    margin: 45px auto;
 	    margin-bottom: 80px;
    	}
    	.selectBook{
@@ -100,11 +106,13 @@
     	font-size: 20px;
 	    width: 100%;
 	    height: 40px;
-	    border: 1px solid #e5e5e5;
 	    border-radius: 2px;
 	    padding: 9px 12px;
 	    outline: none;
 	    box-sizing: border-box;
+   	}
+   	.form-control{
+   		border: 1px solid #e5e5e5;
    	}
    	.td-title{
    		border-bottom: 2px solid #e5e5e5;
@@ -116,7 +124,6 @@
    	.td-Rtitle ,.td-star ,.td-content {
    		padding: 12px 15px; 
    		font-size: 20px;
-   		border-bottom: 1px solid #e5e5e5;
    	}
    	.td-spoCheck{
    		padding: 5px 15px; 
@@ -128,7 +135,6 @@
    	#reviewTitle {
    		width: 100%;
 	    height: 40px;
-	    border: 1px solid #e5e5e5;
 	    border-radius: 2px;
 	    padding: 9px 12px;
 	    outline: none;
@@ -137,9 +143,9 @@
     	font-size: 18px;
    	}
    	#content {
+   		resize: none;
    		width: 100%;
 	    height: 400px;
-	    border: 1px solid #e5e5e5;
 	    border-radius: 2px;
 	    padding: 9px 12px;
 	    outline: none;
@@ -151,15 +157,21 @@
    	.td-bg{
    		background-color: #fbf9fa;
    	}
+   	/* validation */
+   	#star_Chk,
+   	#bookSelect{
+   		opacity: 0;
+   	}
+   	
    	
    	label.error{
+	    margin-left: 6px;
 	    letter-spacing: 0.3px;
 	    padding: 2px 0 5px;
 	    font-family: 'Malgun Gothic';
-	    font-size: 12px;
+	    font-size: 16px;
 	    color: #fe0000;
+	    font-weight: bold;
+	    vertical-align: middle;
    	}
-   	input.error{
-   		border: #fe0000;
-   		border-radius: 3px;
-   	}
+   	
