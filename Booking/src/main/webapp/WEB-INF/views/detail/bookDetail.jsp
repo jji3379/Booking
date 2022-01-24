@@ -322,7 +322,10 @@
 		success:function(data) {
 			var dataText = "("+data+")";
 			var int_part = Math.trunc(data);
-			var float_part = Number(Number((data-int_part).toFixed(2)));
+			var float_part = Number((data-int_part).toFixed(2));
+			console.log(data);			
+			console.log(int_part);
+			console.log(float_part);
 			var intValue = "";
 			//숫자형 평점을 total-value 에 출력
 			$('.total-value').html(dataText);

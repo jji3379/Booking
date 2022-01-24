@@ -379,7 +379,7 @@
 					}else{
 						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-off" >'
 					}
-					reviewList += '<div class = "card-header-text" > 스포 포함 </div >'
+					reviewList += '<div class = "card-header-text" > 스포일러 </div >'
 					reviewList += '</div >'
 					reviewList += '</div >'
 	
