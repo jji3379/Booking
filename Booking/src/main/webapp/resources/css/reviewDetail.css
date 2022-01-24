@@ -134,9 +134,14 @@ body{
 		width: 100%;
 	}
 	.head-title {
-		display:inline;
-		font-size: 36px;
+		font-size: 35px;
     	font-weight: 500;
+		margin: 0;
+	    width: 1040px;
+	    overflow: hidden;
+	    white-space: nowrap;
+    	display: inline-block;
+	    text-overflow: ellipsis;
 	}
 	.head-star {
 		display:block;

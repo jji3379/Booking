@@ -20,30 +20,30 @@
 				<div class="tb-head">
 					<h2 class="head-title">> ${dto.bookTitle }</h2>
 					<div class="head-star">
-						<p id="star">별점
-						<div class="star-value">
-							<c:if test="${dto.rating  eq 1}">
-								<a href="#">★☆☆☆☆</a>
-							</c:if>
-							<c:if test="${dto.rating  eq 2}">
-								<a href="#">★★☆☆☆</a>
-							</c:if>
-							<c:if test="${dto.rating  eq 3}">
-								<a href="#">★★★☆☆</a>
-							</c:if>
-							<c:if test="${dto.rating  eq 4}">
-								<a href="#">★★★★☆</a>
-							</c:if>
-							<c:if test="${dto.rating  eq 5}">
-								<a href="#">★★★★★</a>
-							</c:if>
-							<p>
+						<div id="star">별점
+							<div class="star-value">
+								<c:if test="${dto.rating  eq 1}">
+									<a href="#">★☆☆☆☆</a>
+								</c:if>
+								<c:if test="${dto.rating  eq 2}">
+									<a href="#">★★☆☆☆</a>
+								</c:if>
+								<c:if test="${dto.rating  eq 3}">
+									<a href="#">★★★☆☆</a>
+								</c:if>
+								<c:if test="${dto.rating  eq 4}">
+									<a href="#">★★★★☆</a>
+								</c:if>
+								<c:if test="${dto.rating  eq 5}">
+									<a href="#">★★★★★</a>
+								</c:if>
+							</div>
 						</div>
 					</div>
 				</div>
 				<tr>
 					<td class="tdImg" rowspan="4"><a
-						href="${pageContext.request.contextPath }/detail/bookDetail.do?d_isbn=${dto.isbn}">
+						href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${dto.isbn}">
 							<img id="image" src="${dto.imagePath }" />
 					</a></td>
 				</tr>
@@ -59,7 +59,7 @@
 				<tr class="tr-review">
 					<th>리뷰제목</th>
 					<td >
-						<div><input class="input-title" type="text" value="${dto.reviewTitle }"  readonly/></div>
+						<div><input class="input-title" id="reviewTitle" type="text" value="${dto.reviewTitle }"  readonly/></div>
 					</td>
 				</tr>
 				<tr class="tr-review">
@@ -288,8 +288,8 @@
 			dataType : "json",
 			success:function(data) {
 				$("#image")[0].src = data.imagePath;
-				$("#reviewTitle")[0].textContent = data.reviewTitle;
-				$("#bookTitle")[0].textContent = data.bookTitle;
+				$("#reviewTitle")[0].text() = data.reviewTitle;
+				$("#bookTitle")[0].text() = data.bookTitle;
 				$("#writer")[0].textContent = data.writer.loginId;
 				$("#viewCount")[0].textContent = data.viewCount;
 				$("#regdate")[0].textContent = new Date(data.regdate).toLocaleDateString();
@@ -311,7 +311,7 @@
 					break;
 				}
 				$("#star")[0].innerHTML = star;
-				$("#content")[0].innerHTML = data.content;
+				$("#content")[0].text() = data.content;
 			},
 			error : function(data) {
 				console.log("오류");
