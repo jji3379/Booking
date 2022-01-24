@@ -11,9 +11,10 @@
 <body>
     <div>
 	    <div id="header"><tiles:insertAttribute name="header" /></div>
-	    <div id="menu"><tiles:insertAttribute name="menu" /></div>
 	    <div id="main">
-	    	<tiles:insertAttribute name="info" />
+		    <div id="menu">
+		    	<tiles:insertAttribute name="menu" />		
+		    </div>
 	    </div>
 	   	<div id="footer"><tiles:insertAttribute name="footer" /></div>   
     </div>

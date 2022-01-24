@@ -13,7 +13,7 @@
 		<div class="primary">
 			<a href="${pageContext.request.contextPath }/users/private/info.do">
 				<h4>안녕하세요 ,</h4>
-				<span>catacat3 </span>님!
+				<span>${loginId }</span>님!
 			</a>
 		</div>
 		<div class="secondary">
