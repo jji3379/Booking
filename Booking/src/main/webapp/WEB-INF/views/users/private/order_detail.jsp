@@ -16,7 +16,7 @@
    <div class="header">
       <div class="primary">
          <h4>안녕하세요 ,</h4>
-         <span>${loginId}</span>님!
+         <span>${loginId } </span>님!
       </div>
       <div class="secondary">
          <div class="top3">
@@ -26,7 +26,7 @@
                      <span>작성글 ></span>
                   </dt>
                   <dd class="value">
-                     <span class="count">3</span>
+                     <span class="count" id="reviewCount"></span>
                      <span>개</span>
                   </dd>
                </dl>
@@ -37,7 +37,7 @@
                      <span>작성 댓글 ></span>
                   </dt>
                   <dd class="value">
-                     <span class="count">3</span>
+                     <span class="count" id="replyCount"></span>
                      <span>개</span>
                   </dd>
                </dl>
@@ -48,7 +48,7 @@
                      <span>북카트 ></span>
                   </dt>
                   <dd class="value">
-                     <span class="count">0</span>
+                     <span class="count" id="cartCount"></span>
                      <span>개</span>
                   </dd>
                </dl>
@@ -78,7 +78,7 @@
             <div class="section-name">북킹 소개</div>
          </div>
          <button class="logoutBtn">
-            <div>로그아웃</div>
+            <a href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
          </button>
       </div>
       <div class="content">
@@ -148,66 +148,75 @@
    </div>
 </div>  
 <script>
-
-$.ajax({
-	url:"${pageContext.request.contextPath}/v1/users/myOrder/detail/${orderId}",
-	method:"GET",
-	dataType : "json",
-	async: false,
-	success:function(data) {
-		$("#orderDetailNum").html(data[0].orderNum.regdate.replace('-','').replace('-','').slice(0,8)+(data[0].orderNum.id+"").padStart(8,'0'));
-		$("#orderDate").html(data[0].orderNum.regdate);
-		var orderDetail = "";				
-		var originalTotalPrice = 0;
-		var discountPrice = 0;
-		
-		for(var i=0; i<data.length; i++){
-			originalTotalPrice += data[i].price;
-			discountPrice += data[i].d_price;
+	//작성글, 작성 댓글, 북카트, 나의 정보 호출
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
 			
-			orderDetail += '<div class="orderDetail-tr">'
-				orderDetail += '<a href="${pageContext.request.contextPath}/review_directInsertform.do?d_isbn='+data[i].isbn+'">'
-					orderDetail += '<img class="left" src="'+data[i].image+'" alt="" />'
-					orderDetail += '<div class="right">'
-						orderDetail += '<div>'+data[i].publisher+'</div>'
-						orderDetail += '<div>'+data[i].title+'</div>'
-						orderDetail += '<div>'+data[i].author+'</div>'
-						orderDetail += '<div>'+data[i].count+'</div>'
-						orderDetail += '<span>'+data[i].price+'</span>>'
-						orderDetail += '<span>'+data[i].d_price+'</span> 원'
-					orderDetail += '</div>'
-					orderDetail += '<div class="action">'
-						orderDetail += '<button>리뷰 작성하기</button>'
-					orderDetail += '</div>'
-				orderDetail += '</a>'
-			orderDetail += '</div>'
-		}
-		$("#orderDetailList").html(orderDetail);
-		
-		$("#originalTotalPrice").html(originalTotalPrice+" 원");
-		if(data[0].orderNum.totalPrice >= 20000) {
-			$("#deliveryFee").html(0+" 원");
-		}else{
-			$("#deliveryFee").html(2500+" 원");
-		}
-		$("#discountPrice").html(discountPrice-originalTotalPrice+" 원");
-		$("#totalPrice").html(data[0].orderNum.totalPrice+" 원");
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
 			
-	},
-	error : function(data) {
-		console.log("오류");
-	}
-});
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
 
-//회원탈퇴묻기
-function deleteConfirm(){
-      let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
-      if(isDelete){
-         location.href="${pageContext.request.contextPath }/users/private/delete.do";
-      } else {
-         location.reload();
-      }
-}
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/myOrder/detail/${orderId}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			$("#orderDetailNum").html(data[0].orderNum.regdate.replace('-','').replace('-','').slice(0,8)+(data[0].orderNum.id+"").padStart(8,'0'));
+			$("#orderDate").html(data[0].orderNum.regdate);
+			var orderDetail = "";				
+			var originalTotalPrice = 0;
+			var discountPrice = 0;
+			
+			for(var i=0; i<data.length; i++){
+				originalTotalPrice += data[i].price;
+				discountPrice += data[i].d_price;
+				
+				orderDetail += '<div class="orderDetail-tr">'
+					orderDetail += '<a href="${pageContext.request.contextPath}/review_directInsertform.do?d_isbn='+data[i].isbn+'">'
+						orderDetail += '<img class="left" src="'+data[i].image+'" alt="" />'
+						orderDetail += '<div class="right">'
+							orderDetail += '<div>'+data[i].publisher+'</div>'
+							orderDetail += '<div>'+data[i].title+'</div>'
+							orderDetail += '<div>'+data[i].author+'</div>'
+							orderDetail += '<div>'+data[i].count+'</div>'
+							orderDetail += '<span>'+data[i].price+'</span>>'
+							orderDetail += '<span>'+data[i].d_price+'</span> 원'
+						orderDetail += '</div>'
+						orderDetail += '<div class="action">'
+							orderDetail += '<button>리뷰 작성하기</button>'
+						orderDetail += '</div>'
+					orderDetail += '</a>'
+				orderDetail += '</div>'
+			}
+			$("#orderDetailList").html(orderDetail);
+			
+			$("#originalTotalPrice").html(originalTotalPrice+" 원");
+			if(data[0].orderNum.totalPrice >= 20000) {
+				$("#deliveryFee").html(0+" 원");
+			}else{
+				$("#deliveryFee").html(2500+" 원");
+			}
+			$("#discountPrice").html(discountPrice-originalTotalPrice+" 원");
+			$("#totalPrice").html(data[0].orderNum.totalPrice+" 원");
+				
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+
+	
 </script>
 </body>
 </html>

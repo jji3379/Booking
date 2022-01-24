@@ -19,7 +19,7 @@
 	<div class="header">
 		<div class="primary">
 			<h4>안녕하세요 ,</h4>
-			<span>catacat3 </span>님!
+			<span>${loginId } </span>님!
 		</div>
 		<div class="secondary">
 			<div class="top3">
@@ -29,7 +29,7 @@
 							<span>작성글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="reviewCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -40,7 +40,7 @@
 							<span>작성 댓글 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">3</span>
+							<span class="count" id="replyCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -51,7 +51,7 @@
 							<span>북카트 ></span>
 						</dt>
 						<dd class="value">
-							<span class="count">0</span>
+							<span class="count" id="cartCount"></span>
 							<span>개</span>
 						</dd>
 					</dl>
@@ -81,7 +81,7 @@
 				<div class="section-name">북킹 소개</div>
 			</div>
 			<button class="logoutBtn">
-				<div>로그아웃</div>
+				<a href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 			</button>
 		</div>
 		<div class="content">
@@ -117,6 +117,24 @@
 	</div>
 </div>
 <script>
+
+	//작성글, 작성 댓글, 북카트, 나의 정보 호출
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
+			
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
 	function onsubmit(e){
 		e.preventDefault();/* 
 		return false; */
@@ -203,15 +221,6 @@
 	    
 	});
 
-	//회원탈퇴묻기
-	function deleteConfirm(){
-			let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
-			if(isDelete){
-				location.href="${pageContext.request.contextPath }/users/private/delete.do";
-			} else {
-				location.reload();
-			}
-	}
 </script>
 </body>
 </html>

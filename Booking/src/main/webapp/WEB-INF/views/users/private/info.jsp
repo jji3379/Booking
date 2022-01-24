@@ -17,7 +17,7 @@
 		<div class="primary">
 			<a href="${pageContext.request.contextPath }/users/private/info.do">
 				<h4>안녕하세요 ,</h4>
-				<span>catacat3 </span>님!
+				<span>${loginId } </span>님!
 			</a>
 		</div>
 		<div class="secondary">
@@ -269,16 +269,6 @@
 	let today = new Date();
 	
 	$('#date').html(today.toLocaleString());
-	
-	//회원탈퇴묻기
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/private/delete.do";
-		} else {
-			location.reload();
-		}
-	}
 	
 </script>
 </body>

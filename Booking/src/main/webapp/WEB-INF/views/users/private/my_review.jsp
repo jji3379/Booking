@@ -78,7 +78,7 @@
 				<div class="section-name">북킹 소개</div>
 			</div>
 			<button class="logoutBtn">
-				<div>로그아웃</div>
+				<a href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 			</button>
 		</div>
 		<div class="content">
@@ -278,15 +278,6 @@
 		}
 	});
 	
-	//회원탈퇴묻기
-	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath}/users/private/delete.do";
-		} else {
-			location.reload();
-		}
-	}
 	
 </script>
 </body>
