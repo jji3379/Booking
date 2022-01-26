@@ -85,7 +85,7 @@
 			<div class="account-form">
 				<h2>기본 정보</h2>
 				<div class="profile-box">
-					<img id="preImg" src="${dto.profile }" alt="" />
+					<img id="preImg" src="${pageContext.request.contextPath }${dto.profile }" alt="" />
 					<c:choose>
 						<c:when test="${empty dto.profile }">
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
@@ -235,13 +235,13 @@
 <script>
 	var profileImg = $('#profileImg').val();
 	
-
+/*
 	if( profileImg != null ){
 		$('#preImg').attr('src', profileImg );
 	}else{
 		$('#preImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
 	}
-	
+	*/
 	/*
 	var request = new XMLHttpRequest();
 	request.open("POST", "${pageContext.request.contextPath }", true);
