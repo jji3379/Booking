@@ -160,30 +160,31 @@
 				<td id="total"></td>
 			</tbody>
 		</table>
-		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }/home.do">계속 쇼핑하기</a>
+		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }">계속 쇼핑하기</a>
 		<a id="pay" type="button" class="btn payBtn" href="pay.do">주문하기</a>
 	</div>
 </div>
 </body>
 <script>
 	//by준영, 배송비 책정로직_210317
-	var price=$("#price").text();//물품가격
-	var shipFee=null;
-	var total=null;
-	if(price == "원"){
-		$("#shipFee").text("원");
-		$("#total").text("원");
+	var price = $("#price").text();//물품가격
+	var shipFee = null;
+	var total = null;
+	if(price == " 원"){
+		$("#price").text("0 원");
+		$("#shipFee").text("0 원");
+		$("#total").text("0 원");
 		$("a[id='pay']").click(function(){
 			alert("1개 이상의 상품을 담아야 주문이 가능합니다");
 			return false;
 		});
 	}else{
 		if(parseInt(price) >= 20000){
-			shipFee=0;
+			shipFee = 0;
 			$("#shipFee").text(shipFee+" 원");
 		}else{
-			shipFee=2500;
-			$("#shipFee").text(shipFee+" 원");
+			shipFee = 2500;
+			$("#shipFee").text(shipFee+" 원");			
 		}
 		total=parseInt(price)+shipFee;
 		$("#total").text(total+" 원");

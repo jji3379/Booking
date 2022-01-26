@@ -17,8 +17,15 @@
    
 <script>
 	var sim = document.getElementById("simList");
-	$("#plus").on("click", function(){
+	$("#simList").hover(function(){
 		sim.style.overflowY = "scroll";
+	});
+	$('#plus').on('click', function(event){
+		sim.style.overflowY = "scroll";
+		var e = $.Event("keydown");
+		e.which = 13;
+		e.keyCode = 115;
+		$(document).trigger(e); 
 	});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>

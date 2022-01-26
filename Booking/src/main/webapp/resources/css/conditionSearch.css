@@ -4,26 +4,24 @@
 	    font-family: '777Balsamtint';
 	    width: 960px;
 	}
-	.page-title{
-	    border-bottom: 2px solid #e5e5e5;
-    	padding-bottom: 5px;
-    	margin-bottom: 0;
-	}
 	.notice-box{
-		font-weight: 500;
-		border-bottom: 2px solid #e5e5e5;
-		padding: 5px 0 3px 10px;
-		margin-bottom: 0;
-		font-size: 23px;
+		letter-spacing: 2.2px;
+		font-weight: 100;
+	    font-size: 21px;
+	    padding: 15px 0;
+	    margin: 0 0 0 12px;
+	    color: #333333e8;
 	}
 	.notice-box > b {
-		font-size: 27px;
+		font-size: 24px;
 	}
-	.ranking {
+	.search-box {
+	    border-top-left-radius: 10px;
+  		border-top-right-radius: 10px;
 		background: url(//bimage.interpark.com/renewPark/reBookpark/rankChart2016/common/img_rankContentsHeader.png) no-repeat;
     	background-size: 100%;
 	}
-	.ranking > ul {
+	.search-box > ul {
 		margin: 0;
 		height: 42px;
 		border-bottom: 1px solid #e5e5e5;
@@ -38,27 +36,28 @@
 		float: right;
 	}
 	#date{
+		letter-spacing: 1.3px;
 		background: white;
 	    border: 1px solid #fff;
 	    border-radius: 3px;
 	    padding: 2px 5px;
 		vertical-align: -webkit-baseline-middle;
 	}
-	.rank-sort {
+	.search-sort {
 		font-size: 19px;
 		display: block;
 		padding: 10px 7px;
 		cursor: pointer;
-		width: 55px;
+		width: 80px;
 		text-align: center;
 		border-right: 1px solid #d6d6d6;
 		text-decoration: none;
 		color: #666;
 	}
-	.rank-sort > img {
+	.search-sort > img {
 		margin-left: 5px;
 	}
-	.rank-sort.active {
+	.search-sort.active {
 		background: #fff;
 		color: #333;
 	}
@@ -69,7 +68,7 @@
 		padding-top: 10px;
 	    border-right: 1px solid #e5e5e5;
 	    border-left: 1px solid #e5e5e5;
-	    background: #f0f8ff61;
+	    background: #fafafa;
 		width: 100%;
 		border-collapse: separate;
     	border-spacing: 0 10px;
@@ -79,6 +78,7 @@
 		padding:0 10px;
 	}
 	.book-rank{
+		opacity: 0.9;
 		position: absolute;
 		top:0;
 		font-size: 33px;
@@ -105,6 +105,12 @@
 		border: 1px solid #e5e5e5;
 		width: 150px;
 		height: 175px;
+		border-radius: 2px;
+    	box-shadow: rgb(60 64 67 / 30%) 3px 3px 6px 0px, rgb(60 64 67 / 15%) 2px 2px 6px 0px;
+		transition: transform 0.3s ease-out;
+	}
+	.book-img:hover{
+		transform: scale(1.025);
 	}
 	.grid-li {
 		width: 577px;
@@ -117,7 +123,14 @@
 	    -webkit-box-orient: vertical;
 		font-size: 23px;
 	}
-	
+	.bestSeller {
+		border: 1px solid #e5e5e5;
+	    border-radius: 5px;
+	    padding: 1px 7px;
+	    font-size: 15px;
+	    background: #5db794;
+	    color: #fff;
+	}
 	.book-info {
 		font-size: 14px;
 		color: #666;
@@ -145,11 +158,75 @@
 		display: inline-block;
 		font-size: 16px;
 	}
+	.total-comment > a {
+		text-decoration: none;
+	}
 	.total-star{
 		font-family: emoji;
 		display: inline;
 		vertical-align: baseline;
 		color: #ffc80b;
+	}
+	
+	.starValue{
+		color: #fff58c;
+	    width: 100%;
+	    padding: 0;
+	    position: relative;
+	    z-index: 1;
+	    display: flex;
+	    top: 21.3px;
+	    left: 0px;
+	    font-family: emoji;
+	    -webkit-text-fill-color: #ffc80b;
+	}
+	.star-fill0 > span:last-child{
+		width: 0%;
+		overflow: hidden;
+	}
+	.star-fill1 > span:last-child{
+		width: 4%;
+		overflow: hidden;
+	}
+	.star-fill2 > span:last-child{
+		width: 5%;
+		overflow: hidden;
+	}
+	.star-fill3 > span:last-child{
+		width: 6.25%;;
+		overflow: hidden;
+	}
+	.star-fill4 > span:last-child{
+		width: 8.1%;
+		overflow: hidden;
+	}
+	.star-fill5 > span:last-child{
+		width: 8.9%;
+		overflow: hidden;
+	}
+	.star-fill6 > span:last-child{
+		width: 9.9%;
+		overflow: hidden;
+	}
+	.star-fill7 > span:last-child{
+		width: 11.25%;
+		overflow: hidden;
+	}
+	.star-fill8 > span:last-child{
+		width: 12.5%;
+		overflow: hidden;
+	}
+	.star-fill9 > span:last-child{
+		width: 13.8%;
+		overflow: hidden;
+	}
+	
+ 	
+	.star-base {
+		display:inline-block;
+		z-index: 0;
+		padding: 0;
+		-webkit-text-fill-color: #d3cfcf; /* 덜 채워진 색상 */
 	}
 	.buttonWrap{
 		position: absolute;
@@ -186,7 +263,7 @@
     	padding-bottom: 10px;
 	}
 	.bd-info{
-		padding-bottom: 35px;
+		padding-bottom: 20px;
 	}
 	.bd-info > div {
 		padding-bottom: 3px;
@@ -202,15 +279,116 @@
 	    background:#fafafa7a;
 	}
 	.bottom-bar{
-		border-top: 1px solid #e5e5e5;
-	    border-bottom: 1px solid #e5e5e5;
-	    background: #eee;
-	    padding: 10px 0;
-	    margin-bottom: 105px;
+		margin-bottom: 75px;
+	    border: 1px solid #e5e5e5;
+	    background: #f8f9fa;
+	    text-align: center;
+	}
+	.load-more {
+	    width: 50px;
+	    height: 50px;
+	    display: inline-block;
+	    padding: 0px;
+	    line-height: 1.5;
+    	letter-spacing: 1.2px;
+	    border-radius: 100%;
+	    border: 5px solid;
+	    color: #fff;
+	    background: #88b4da;
+	    border-top-color: #88b4da;
+	    border-left-color: #88b4da;
+	    border-right-color: #88b4da;
+	    border-bottom-color: #88b4da;
+	}
+	.load-more-on{
+		width: 50px;
+	    height: 50px;
+	    display: inline-block;
+	    padding: 0px;
+	    color: #fff;
+	    background: #fff;
+	    line-height: 1.5;
+    	letter-spacing: 1.2px;
+	    border-radius: 100%;
+	    border: 5px solid;
+	    border-top-color: #88b4da;
+	    border-left-color: #88b4da;
+	    border-right-color: #5394cbad;
+	    border-bottom-color: rgba(255,255,255, 0.3);
+	    -webkit-animation: load-more-on 1s ease-in-out infinite;
+	    animation: load-more-on 1s ease-in-out infinite;
+	}
+	.load-more:before {
+		content: " ";
+		position: absolute;
+		z-index: -1;
+		top: 5px;
+		left: 5px;
+		right: 5px;
+		bottom: 5px;
+	}
+	.load-more:after {
+		content: " ";
+		position: absolute;
+		z-index: -1;
+		top: 15px;
+		left: 15px;
+		right: 15px;
+		bottom: 15px;
+	}
+	@keyframes load-more-on {
+	   from {transform: rotate(0deg);}
+	   to {transform: rotate(360deg);}
+	}
+	@-webkit-keyframes load-more-on {
+	   from {-webkit-transform: rotate(0deg);}
+	   to {-webkit-transform: rotate(360deg);}
 	}
 	#topButton {
-		position: fixed; 
-		bottom: 10px; 
-		right: 10px; 
-		z-index: 100;
+		float: right;
+	    margin-right: -30px;
 	}
+	#topButtonImg{
+		cursor: pointer;
+		bottom: 30px;
+	    position: fixed;
+		
+	}
+	/* paging */
+	#paging{
+		display: table;
+	    margin: 0 auto;
+	}
+	.pagination{
+		margin: 0;
+	    padding-left: 0;
+	    list-style: none;
+	    border-radius: 0.25rem;
+	}
+	.page-link{
+		position: relative;
+	    display: block;
+	    padding: 0.5rem 0.75rem;
+	    margin-left: -1px;
+	    line-height: 1.25;
+	    color: #5db794;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    font-family: '777Balsamtint';
+	    font-weight: bold;
+	    text-decoration: none;
+	}
+	.page-item.disabled .page-link {
+	  color: #6c757d;
+	  pointer-events: none;
+	  cursor: auto;
+	  background-color: #fff;
+	  border-color: #dee2e6;
+	}
+	.page-item.active .page-link {
+	  z-index: 3;
+	  color: #fff;
+	  background-color: #5db794;
+	  border-color: #5db794;
+	}
+	

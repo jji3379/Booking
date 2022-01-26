@@ -18,16 +18,12 @@
 			<h1 class="page-title">
 				Booking 종합 베스트셀러
 			</h1>
-			<!-- <h2 class="notice-box">
-				"<b id="keyword">keyword</b>" 에 대한 검색결과는 
-				<b id="key-value">n</b>개의 상품이 검색되었습니다.
-			</h2> -->
 			<div class="ranking">
 				<ul>
-					<li class="item"><a id="ranking1" class="rank-sort ${param.sort eq 'count&start=1' ? 'active' : ''}" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a id="ranking51" class="rank-sort ${param.sort eq 'count&start=51' ? 'active' : ''}" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a id="ranking101" class="rank-sort ${param.sort eq 'count&start=101' ? 'active' : ''}" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
-					<li class="item"><a id="ranking151" class="rank-sort ${param.sort eq 'count&start=151' ? 'active' : ''}" href="#" onclick="topBestSeller(151)">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking1" class="rank-sort" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking51" class="rank-sort" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking101" class="rank-sort" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
+					<li class="item"><a id="ranking151" class="rank-sort" href="#" onclick="topBestSeller(151)">151 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
 					<div class="date-box">
 						<span id="date"></span>
 					</div>
@@ -123,62 +119,31 @@
 				 </div>
 			</form>
 		</div>
-		<svg id="loader" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-		  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-		  <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
-		   	<animateTransform 
-		       attributeName="transform" 
-		       dur="1s" 
-		       type="translate" 
-		       values="0 15 ; 0 -15; 0 15" 
-		       repeatCount="indefinite" 
-		       begin="0.1"/>
-		  </circle>
-		  <circle fill="#fff" stroke="none" cx="30" cy="50" r="6">
-		    <animateTransform 
-		       attributeName="transform" 
-		       dur="1s" 
-		       type="translate" 
-		       values="0 10 ; 0 -10; 0 10" 
-		       repeatCount="indefinite" 
-		       begin="0.2"/>
-		  </circle>
-		  <circle fill="#fff" stroke="none" cx="54" cy="50" r="6">
-		    <animateTransform 
-		       attributeName="transform" 
-		       dur="1s" 
-		       type="translate" 
-		       values="0 5 ; 0 -5; 0 5" 
-		       repeatCount="indefinite" 
-		       begin="0.3"/>
-		  </circle>
-		</svg>
 	</div>
 <script>
-/*
-	$(".item").on("click",function(event){
-		var qwer = event.
-			
-	})
-*/
+
 	var scrollCount = 0;
 	// 초기 호출 함수
 	var start = 1;			
 	$("#ranking1").on("click",function(){
-		start = 1;
+		start = 1;		
+		$('.load-more').show();
 	})
 	$("#ranking51").on("click",function(){
 		start = 51;
+		$('.load-more').show();
 	})
 	$("#ranking101").on("click",function(){
 		start = 101;
+		$('.load-more').show();
 	})
 	$("#ranking151").on("click",function(){
 		start = 151;
+		$('.load-more').show();
 	})
 	
 	$(window).on("scroll", function(){
-		if (scrollCount < 4) {
+		if (scrollCount <= 3) {
 			//위쪽으로 스크롤된 길이 구하기
 			var scrollTop=$(window).scrollTop();
 			//window 의 높이
@@ -186,14 +151,17 @@
 			//document(문서)의 높이
 			var documentHeight=$(document).height();
 			//바닥까지 스크롤 되었는지 여부
-			var isBottom = scrollTop+windowHeight + 10 >= documentHeight;
+			var isBottom = scrollTop + windowHeight >= documentHeight;
 			if(isBottom){//만일 바닥까지 스크롤 했다면...
-				
-				scrollCount++;
-				topBestSeller(start+(10*scrollCount));				
+				$('.load-more').attr('class','load-more-on');	
+				setTimeout(() => {
+					scrollCount++;
+					topBestSeller(start+(10*scrollCount));
+					$('.load-more-on').attr('class','load-more');
+				}, 100);
 			}
 		}else{
-			/* $('.load-more').hide(); */
+			$('.load-more').hide();
 		}
 	});	
 	
@@ -254,15 +222,15 @@
 										bestSellerList += '<div class="book-review">'
 											bestSellerList += '<div class="star-box">'
 												bestSellerList += '<div class="total-star">'
-													bestSellerList += '<div class="starValue star-fill" >'
 													
-														if (data[i].reviewRating == null) {
-															var int_part = 0.0;
-														} else {
-															var int_part = Math.trunc(data[i].reviewRating);														
-															
+														if(data[i].reviewRating == null || data[i].reviewRating == 0){
+															var int_part = 0;
+															var float_part = parseFloat(0).toFixed(1);
+														}else{
+															var int_part = Math.trunc(data[i].reviewRating);	
+															var float_part = Number((data[i].reviewRating-int_part).toFixed(1));															
 														}
-														var float_part = Number(Number((data[i].reviewRating-int_part).toFixed(2)));
+													bestSellerList += '<div class="starValue star-fill'+(float_part*10)+'" >'
 														
 														//평점의 정수부분 +1개 만큼 별 생성하고
 														switch(int_part) {
@@ -286,40 +254,6 @@
 															break;
 														}
 														
-														switch(float_part) {
-														case 0 :
-															console.log(float_part);
-															$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
-															break;
-														case 0.1 :
-															$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
-															break;
-														case 0.2 :
-															$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
-															break;
-														case 0.3 :
-															$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
-															break;
-														case 0.4 :
-															$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
-															break;
-														case 0.5 :
-															$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
-															break;
-														case 0.6 :
-															$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
-															break;
-														case 0.7 :
-															$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
-															break;
-														case 0.8 :
-															$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
-															break;
-														case 0.9 :
-															$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
-															break;
-														}
-													
 													bestSellerList += '</div>'
 													bestSellerList += '<div class="star-base">'
 														bestSellerList += '<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>'
@@ -371,8 +305,6 @@
 					bestSellerList += '<tr></tr>'
 				}
 					
-					bestSellerList += '<tr id="tr-load"></tr>'
-
 				$("#bestSellerBody").append(bestSellerList);
 					
 			},

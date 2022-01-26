@@ -22,8 +22,6 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>
     
-    <!-- 사이드메뉴 표시 -->
-    
     <definition name="side" template="/WEB-INF/tiles/sideTemplate.jsp">
         <put-attribute name="left"   value="/WEB-INF/tiles/left.jsp" />
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
@@ -42,20 +40,22 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>
     
-    <!-- 메뉴 미표시 -->
     <definition name="info" template="/WEB-INF/tiles/infoTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+    	<put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
     <definition name="*.menu" extends="info">
-        <put-attribute name="menu" value="/WEB-INF/views/{1}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
     </definition>
  
      <definition name="*/*.menu" extends="info">
-         <put-attribute name="menu" value="/WEB-INF/views/{1}/{2}.jsp" />
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
      </definition>
     
     <definition name="*/*/*.menu" extends="info">
-        <put-attribute name="menu" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>        
     
 </tiles-definitions>

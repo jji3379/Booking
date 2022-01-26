@@ -129,11 +129,17 @@
 			var image = $(this).data('image');
 			//hmtl tag 떼기
 			var title = name.replace(/(<([^>]+)>)/ig,"");
-	
+			var bookChk = $(opener.document).find('input[id=bookSelect]');
+			
 			$(opener.document).find('#bookTitle').val(title);
 			$(opener.document).find('#isbn').val(isbn);
 			$(opener.document).find('#imagePath').val(image);
 			$(opener.document).find('#selected').attr("src" , image );
+			
+			if(bookChk.is(':checked') == false){
+				bookChk.click();
+			}
+			
 			$(opener.document).find('#selected').css({
 				"width":"147px" ,
 				"height":"167px",

@@ -75,14 +75,20 @@ body{
       width: 100%;
    }
    .head-title {
-      display:table-cell;
       font-size: 36px;
-       font-weight: 500;
+      font-weight: 500;
+      margin: 0;
+	  width: 1000px;
+	  overflow: hidden;
+	  white-space: nowrap;
+	  display: inline-block;
+	  text-overflow: ellipsis;
    }
    .head-star {
       display:table-cell;
       float: right;
-       padding-right: 35px;
+      padding-top: 7px;
+      padding-right: 35px;
       font-size: 19px;
       color: #333;
    }
@@ -654,15 +660,15 @@ body{
       padding: 5px; 
    }
    #simList{
-         font-family: '777Balsamtint';
+      font-family: '777Balsamtint';
       width: 140px;
-      height: 282px;
+      height: 279px;
       border: 1.5px solid #33333387;
       border-top: 0;
       border-bottom: 0;
       border-radius: 2px;
       background-color: #a5989824;
-        overflow: hidden;
+      overflow: hidden;
    }
    .simAjax {
       list-style: none; 
