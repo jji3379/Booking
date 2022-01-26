@@ -99,7 +99,7 @@
 							</form>
 						</c:when>
 						<c:otherwise>
-							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
+							<form name="profile"  method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
 								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" style="display:none;"/>
@@ -113,14 +113,14 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<form action="${pageContext.request.contextPath }/users/private/update" method="post" id="myProfile-form">
+				<form id="myProfile-form"  action="${pageContext.request.contextPath }/users/private/update" method="post" >
 					<div class="account-inputBox">
 						<div class="account-formGroup">
 							<div class="account-label"><label for="id">아이디</label></div>
-							<div><input type="text" id="id" class="account-updateform" value="${loginId }" class="form-control" disabled/></div>
+							<div><input type="text" id="id" class="account-updateform updateId" value="${loginId }" class="form-control" disabled/></div>
 						</div>
 						<div class="account-formGroup" >
-							<div class="account-label"><label for="email">이메일</label></div>
+							<div class="account-label"><label for="email">이메일</label><span id="errorMsg">이메일 형식으로 작성해 주세요.</span></div>
 							<div><input type="text" id="email" class="account-updateform" name="email" value="${dto.email }" class="form-control"/></div>
 						</div>
 					</div>
@@ -186,7 +186,7 @@
 						</div>	
 					</div>
 					<div>
-						<button type="submit" class="account-save">저장</button>
+						<button type="javascript:" id="updateBtn" class="account-save">저장</button>
 						<a href="javascript:deleteConfirm();" class="account-delete" >회원탈퇴</a>
 					</div>
 				</form>
@@ -196,7 +196,7 @@
 </div>
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
-	$.ajax({
+	/* $.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
 		method:"GET",
 		dataType : "json",
@@ -217,38 +217,10 @@
 	for (var i = 0; i < careList.length; i++) {
 		$('input:checkbox[value=' + careList[i] + ']').attr("checked", true);
 		
-	}
+	} */
 
-	//by준영, 현재시간 출력
-	let today = new Date();
+	//프로필 미리보기
 
-	$('#date').html(today.toLocaleString());
-
-	//sidebar ajax
-	$('#side-profile').on('click', function() {
-		function updateProfile() {
-			$.ajax({
-				url : "updateform.do",
-				method : "GET",
-				success : function(data) {
-					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
-				},
-
-			})
-		}
-	})
-
-	//회원탈퇴묻기
-	function deleteConfirm() {
-		let isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if (isDelete) {
-			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
-		} else {
-			location.reload();
-		}
-	}
-</script>
-<script>
 	var profileImg = $('#profileImg').val();
 	
 
@@ -300,26 +272,30 @@
 		//폼을 강제 제출해서 선택된 이미지가 업로드 되도록 한다.
 		//$("#profileForm").submit();
 	});
-
-	
-	//[이메일을 검증할 정규 표현식](정확히 검증하려면 javascript 이메일 정규 표현식 검색해서 사용!)
-	//@가 포함되어 있는지 검증
-	let reg_email=/@/;
-	
-	//이메일을 입력했을 때 실행할 함수 등록
-	$("#email").on("input", function(){ 
-		let inputEmail = $("#email").val();
-		//일단 모든 검증 클래스를 제거하고
-		$("#email").removeClass("is-valid is-invalid");
-		//만일 이메일이 정규표현식에 매칭되지 않는다면
-		if(!reg_email.test(inputEmail)) {
-			isEmailValid = false;
-			$("#email").addClass("is-invalid");
-		} else {
-			isEmailValid = true;
-			$("#email").addClass("is-valid");
-		}
-	});
+	//by 준영, 리뷰검색폼 빈값 제출 막기
+	$('#email').keyup(function(){
+		//[이메일을 검증할 정규 표현식](정확히 검증하려면 javascript 이메일 정규 표현식 검색해서 사용!)
+		//@가 포함되어 있는지 검증
+		var reg_email = /@/;
+		//이메일을 입력했을 때 실행할 함수 등록
+		$("#email").on("input", function(){ 
+			var inputEmail = $("#email").val();
+			//만일 이메일이 정규표현식에 매칭되지 않는다면
+			
+			if(!reg_email.test(inputEmail)) { 
+				$("#email").addClass("error");
+				$("#errorMsg").css('display','block');
+				document.querySelector('#updateBtn').setAttribute('type','button');
+				$('#updateBtn').on('click',function(e){
+					e.preventDefault();
+				})
+			} else {/* 
+				$("#email").removeClass("valid"); */
+				$("#errorMsg").css('display','none');
+				document.querySelector('#updateBtn').setAttribute('type','submit');
+			}
+		});
+	})
 	
 	//회원탈퇴묻기
 	function deleteConfirm(){

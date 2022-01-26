@@ -527,7 +527,7 @@ a {
     }
     
     .account-inputBox{
-    	display: flex;
+    	width: 452px;
     	padding:10px 0;
     }
     .account-formGroup{
@@ -569,6 +569,13 @@ a {
 	    box-sizing: border-box;
 	    border: 1px solid rgb(228, 228, 228);
 	    background-color: rgb(255, 255, 255);
+    }
+    .updateId{
+    	background: #fafafa;
+    }
+    #errorMsg{
+    	color: #fe0000;
+    	display: none;
     }
     .scroll-box{
     	overflow-y: scroll;
