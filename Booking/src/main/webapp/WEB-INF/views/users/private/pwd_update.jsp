@@ -11,7 +11,7 @@
 <c:if test="${isSuccess }">
 	<script>
 		alert("비밀번호가 변경되었습니다. 다시 로그인 해주세요.");
-		location.href="${pageContext.request.contextPath }";
+		location.href="${pageContext.request.contextPath }/";
 	</script>
 </c:if>
 </body>

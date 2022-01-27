@@ -15,8 +15,10 @@
 <div class="layout">
    <div class="header">
       <div class="primary">
-         <h4>안녕하세요 ,</h4>
-         <span>${loginId } </span>님!
+		<a href="${pageContext.request.contextPath }/users/private/info.do">
+			<h4>안녕하세요 ,</h4>
+			<span>${loginId } </span>님!
+		</a>
       </div>
       <div class="secondary">
          <div class="top3">
@@ -190,8 +192,8 @@
 							orderDetail += '<div>'+data[i].title+'</div>'
 							orderDetail += '<div>'+data[i].author+'</div>'
 							orderDetail += '<div>'+data[i].count+'</div>'
-							orderDetail += '<span>'+data[i].price+'</span>>'
-							orderDetail += '<span>'+data[i].d_price+'</span> 원'
+							orderDetail += '<span>'+data[i].price.toLocaleString()+'</span>>'
+							orderDetail += '<span>'+data[i].d_price.toLocaleString()+'</span> 원'
 						orderDetail += '</div>'
 						orderDetail += '<div class="action">'
 							orderDetail += '<button>리뷰 작성하기</button>'
@@ -201,14 +203,14 @@
 			}
 			$("#orderDetailList").html(orderDetail);
 			
-			$("#originalTotalPrice").html(originalTotalPrice+" 원");
+			$("#originalTotalPrice").html(originalTotalPrice.toLocaleString()+" 원");
 			if(data[0].orderNum.totalPrice >= 20000) {
 				$("#deliveryFee").html(0+" 원");
 			}else{
 				$("#deliveryFee").html(2500+" 원");
 			}
 			$("#discountPrice").html(discountPrice-originalTotalPrice+" 원");
-			$("#totalPrice").html(data[0].orderNum.totalPrice+" 원");
+			$("#totalPrice").html(data[0].orderNum.totalPrice.toLocaleString()+" 원");
 				
 		},
 		error : function(data) {

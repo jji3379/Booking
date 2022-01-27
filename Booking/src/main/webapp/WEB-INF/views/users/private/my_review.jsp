@@ -15,8 +15,10 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요 ,</h4>
-			<span>catacat3 </span>님!
+			<a href="${pageContext.request.contextPath }/users/private/info.do">
+				<h4>안녕하세요 ,</h4>
+				<span>${loginId } </span>님!
+			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
@@ -208,8 +210,9 @@
 		}
 	});
 	}
+	pagingList(0);
 	
-	
+	/*
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
 		method:"GET",
@@ -277,7 +280,7 @@
 			console.log("오류");
 		}
 	});
-	
+	*/
 	
 </script>
 </body>

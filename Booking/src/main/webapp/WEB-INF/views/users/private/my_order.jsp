@@ -17,8 +17,10 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요 ,</h4>
-			<span>${loginId } </span>님!
+			<a href="${pageContext.request.contextPath }/users/private/info.do">
+				<h4>안녕하세요 ,</h4>
+				<span>${loginId } </span>님!
+			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
@@ -195,7 +197,7 @@
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
 						        orderList += '</div>'
 						        orderList += '<div class="order-td-R">'
-						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice.toLocaleString()+'</div>'
 						        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
 						        orderList += '</div>'
 					        	orderList += '<span class="detailBtn">></span>'
@@ -248,7 +250,7 @@
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
 						        orderList += '</div>'
 						        orderList += '<div class="order-td-R">'
-						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice.toLocaleString()+'</div>'
 						        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
 						        orderList += '</div>'
 					        	orderList += '<span class="detailBtn">></span>'
@@ -297,7 +299,7 @@
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
 						        orderList += '</div>'
 						        orderList += '<div class="order-td-R">'
-						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice+'</div>'
+						        	orderList += '<div class="myOrder-price">'+data.content[i].totalPrice.toLocaleString()+'</div>'
 						        	orderList += '<div class="myOrder-count">'+data.content[i].orderCount+'</div>'				
 						        orderList += '</div>'
 					        	orderList += '<span class="detailBtn">></span>'

@@ -15,8 +15,10 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요 ,</h4>
-			<span>${loginId } </span>님!
+			<a href="${pageContext.request.contextPath }/users/private/info.do">
+				<h4>안녕하세요 ,</h4>
+				<span>${loginId } </span>님!
+			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
