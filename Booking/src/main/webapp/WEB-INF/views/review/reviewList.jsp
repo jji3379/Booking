@@ -134,7 +134,7 @@
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
+					reviewList += '<a onclick="return spoAlert();" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -145,7 +145,7 @@
 					if(data.content[i].spoCheck == 'Y'){
 						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-on" >'
 					}else{
-						reviewList += '<div	id="spoCheck-badge class="card-spoCheck-off">'
+						reviewList += '<div	id="spoCheck-badge" class="card-spoCheck-off">'
 					}
 					
 					reviewList += '<div class = "card-header-text" > 스포일러 </div >'
@@ -253,7 +253,7 @@
 			var star = '';
 			for(var i=0; i<data.content.length; i++) {
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
+					reviewList += '<a onclick="return spoAlert();" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -366,7 +366,7 @@
 			for(var i=0; i<data.content.length; i++) {
 
 				if(data.content[i].spoCheck == 'Y'){
-					reviewList += '<a onclick="javascript:" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
+					reviewList += '<a onclick="return spoAlert();" href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink warning">'
 				}else{
 					reviewList += '<a href="${pageContext.request.contextPath }/review/'+data.content[i].id+'" class="cardLink">'
 				}
@@ -471,16 +471,15 @@
 	    }
 	});
 	
-	$('.warning').click(function(){
+	function spoAlert(){
 		var spoCheck = confirm("스포일러가 포함된 리뷰입니다. 그래도 읽으시겠습니까?");
-		if(spoCheck == "Y"){
-			if(spoCheck == true){
-				return true;
-			}else{
-				event.preventDefault();
-			}
+		if(spoCheck == true){
+			return true;
+		}else{
+			return false;
+			//event.preventDefault();
 		}
-	})
+	}
 	
 </script>
 </body>
