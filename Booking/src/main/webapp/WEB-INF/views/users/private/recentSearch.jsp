@@ -15,8 +15,10 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요 ,</h4>
-			<span>${loginId } </span>님!
+			<a href="${pageContext.request.contextPath }/users/private/info.do">
+				<h4>안녕하세요 ,</h4>
+				<span>${loginId } </span>님!
+			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
@@ -91,51 +93,8 @@
 								<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
 								<span>전체선택</span>
 							</div>
-							<button id="selectDeleteBtn" type="submit" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
-							<script>
-								//by준영, 체크박스 전체선택,전체해제 기능_210307
-								$("#allCheck").click(function(){
-									var chk = $("#allCheck").prop("checked");
-									if(chk) {
-										$(".chBox").prop("checked", true);
-									} else {
-										$(".chBox").prop("checked", false);
-									}
-								});
-							</script>
+							<button id="selectDeleteBtn" type="submit" class="selectDelete_btn" onClick="deleteAllSearch()" >선택 삭제</button> 
 						</div>	
-						<script>
-							//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
-							function deleteChk(){
-								var url ="deleteCart.do";
-								var valueArr = new Array();
-								var list =$("input[name='chBox']");
-								for(var i=0; i< list.length; i++){
-									if(list[i].checked){//선택되어 있으면 배열에 값을 저장
-										valueArr.push(list[i].value);	
-									}
-								}
-								if(valueArr.length == 0){
-									alert("선택된 항목이 없습니다.");
-								}else{
-									var chk = confirm("정말 삭제하시겠습니까");
-									$.ajax({
-										url:url,
-										type:'post',
-										traditional :true,
-										data:{'valueArr' : valueArr},
-										success:function(){
-											if(chk){
-												location.replace("cart.do");	
-											}else{
-												return false;
-											}
-											
-										}
-									})
-								}
-							}
-						</script>
 					</div>
 					<div class="recent-listbody" id="recentSearchList">
 							<!-- 
@@ -159,6 +118,16 @@
 <script src="${pageContext.request.contextPath }/resources/js/info.js"></script>
 
 <script>
+
+	//by준영, 체크박스 전체선택,전체해제 기능_210307
+	$("#allCheck").click(function(){
+		var chk = $("#allCheck").prop("checked");
+		if(chk) {
+			$(".chBox").prop("checked", true);
+		} else {
+			$(".chBox").prop("checked", false);
+		}
+	});
 	//by준영, 현재시간 출력
 	let today = new Date();
 	
@@ -173,12 +142,12 @@
         	for (var i=0; i<data.content.length; i++) {
 	        	searchList += '<div class="recent-li">'
 		        	searchList += '<div class="recent-Chk">'
-			        	searchList += '<input class="chBox" name="chBox" type="checkbox"/>'
+			        	searchList += '<input class="chBox" name="chBox" type="checkbox" value="'+data.content[i].id+'"/>'
 		        	searchList += '</div>'
 		        	searchList += '<div class="recent-date">'+data.content[i].regdate+'</div>'
 		        	searchList += '<div class="recent-word">'+data.content[i].keyword+'</div>'
 		        	searchList += '<div class="recent-delete">'
-			        	searchList += '<button class="recent-btn">삭제</button>'
+			        	searchList += '<button onclick="return deleteSearch('+data.content[i].id+')" class="recent-btn">삭제</button>'
 		        	searchList += '</div>'
 	        	searchList += '</div>'
         	}
@@ -204,6 +173,41 @@
 		}
 	});
 	
+	function deleteSearch(searchId){
+		var deleteConfirm = confirm("최근 검색어를 삭제 하시겠습니까?");
+		if(deleteConfirm == true) {
+			$.ajax({
+				url:"${pageContext.request.contextPath }/v1/users/${id}/search/"+searchId,
+				method:"delete",
+			}).done(function(response){
+				location.reload();
+			});
+		} else {
+			return false;
+		}
+	}
+	
+	function deleteAllSearch() {
+		if ($("input[name='chBox']:checked").length > 0 ) {
+			var deleteConfirm = confirm("최근 검색어를 삭제 하시겠습니까?");
+			
+			$("input[name='chBox']:checked").each(function(){
+				var checkVal = $(this).val();
+				if (deleteConfirm == true) {
+					$.ajax({
+						url:"${pageContext.request.contextPath }/v1/users/${id}/search/"+checkVal,
+						method:"delete",
+					}).done(function(response){
+						location.reload();
+					});
+				} else {
+					return false;
+				}
+			});
+		} else {
+			alert("1개 이상 선택해 주세요.");
+		}
+	}
 </script>
 </body>
 </html>

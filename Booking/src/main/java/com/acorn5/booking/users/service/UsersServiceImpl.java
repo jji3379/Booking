@@ -45,6 +45,7 @@ import com.acorn5.booking.users.entity.QSearch;
 import com.acorn5.booking.users.entity.QUsers;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
+import com.acorn5.booking.users.repository.SearchRepository;
 import com.acorn5.booking.users.repository.UsersRepository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -80,6 +81,9 @@ public class UsersServiceImpl implements UsersService{
 
 	@Autowired
 	private CartRepository cartRepository;
+
+	@Autowired
+	private SearchRepository searchRepository;
 	
 	//by욱현.비밀번호 암호 인코딩위한 객체 필드선언_2021222
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -441,6 +445,10 @@ public class UsersServiceImpl implements UsersService{
 		
 		boolean checkPwd = encoder.matches(pwd, encoderPwd);
 		return checkPwd;
+	}
+	@Override
+	public void deleteRecentSearch(Long id) {
+		searchRepository.delete(id);
 	}
 
 }

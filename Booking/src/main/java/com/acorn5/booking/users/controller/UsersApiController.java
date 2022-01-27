@@ -105,5 +105,10 @@ public class UsersApiController {
 	public void deleteProfile(@PathVariable Long id) {
 		usersService.deleteProfile(id);
 	}
+
+	@RequestMapping(value = "/users/{id}/search/{searchId}", method = RequestMethod.DELETE)
+	public void deleteSearch(@PathVariable Long id, @PathVariable Long searchId) {
+		usersService.deleteRecentSearch(searchId);
+	}
 	
 }
