@@ -39,7 +39,7 @@ public class ReviewDtl {
 	private Users target_id; // 댓글 대상자
 	
 	//@Column(name = "ref_group")
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name = "ref_Group")
 	private Review refGroup; // 원글의 글번호
 	

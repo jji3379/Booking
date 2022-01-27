@@ -52,8 +52,8 @@ public class Review {
 	//private MultipartFile image; // 이미지 파일
 	private String spoCheck; //by채영_스포일러 포함 여부
 	
-	@Transient
-	private List<ReviewDtl> reviewDtl;
+	//@Transient
+	//private List<ReviewDtl> reviewDtl;
 	
 	private Long replyCount;
 	
@@ -139,12 +139,14 @@ public class Review {
 	public void setSpoCheck(String spoCheck) {
 		this.spoCheck = spoCheck;
 	}
+	/*
 	public List<ReviewDtl> getReviewDtl() {
 		return reviewDtl;
 	}
 	public void setReviewDtl(List<ReviewDtl> reviewDtl) {
 		this.reviewDtl = reviewDtl;
 	}
+	*/
 	public Long getReplyCount() {
 		return replyCount;
 	}

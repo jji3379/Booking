@@ -419,13 +419,7 @@
 			return false; //폼 전송 막기 		
 		}
 	});
-	//by준영, 삭제처리 시 컨펌 함수
-	function deleteConfirm(){
-		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
-		if(isDelete){
-			location.href="reviewDelete.do?num=${dto.id}";
-		}
-	}
+	
 	//by준영, 게시글 삭제 함수
 	function deleteReview() {
 		var isDelete=confirm("리뷰를 삭제 하시겠습니까?");

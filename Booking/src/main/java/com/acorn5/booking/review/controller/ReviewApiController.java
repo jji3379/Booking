@@ -70,11 +70,11 @@ public class ReviewApiController {
 		
 		// by남기, 글 삭제 요청처리_210303
 		@RequestMapping(value = "/review/{id}", method = RequestMethod.DELETE)
-		public String delete(@PathVariable Long id) {
+		public void delete(@PathVariable Long id) {
 			// by남기, 삭제할 글 번호가 파라미터로 넘어온다_210303
 			service.deleteContent(id);
 			// by남기, view page 로 forward 이동해서 응답_210303
-			return "redirect:${pageContext.request.contextPath}/review";
+			//return "redirect:${pageContext.request.contextPath}/review";
 		}
 		
 		// by남기, 리뷰 수정 요청 처리_210303

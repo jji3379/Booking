@@ -395,15 +395,16 @@ public class ReviewServiceImpl implements ReviewService{
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		QReview qReview = QReview.review;
 		
+		reviewRepository.save(review);
 		Double ratingAvg = queryFactory.select(qReview.rating.avg())
 				.from(qReview)
 				.where(qReview.isbn.eq(dto.getIsbn()))
 				.fetchOne();
 		
+		//review.setRatingAvg(ratingAvg);
+		
 		reviewRepository.updateRatingAvg(ratingAvg, dto.getIsbn());
 		
-		review.setRatingAvg(ratingAvg);
-		reviewRepository.save(review);
 		
 		/*
 		JPAUpdateClause update = new JPAUpdateClause(em, qReview);
@@ -421,9 +422,13 @@ public class ReviewServiceImpl implements ReviewService{
 		Review reviewId = new Review();
 		reviewId.setId(num);
 		List<ReviewDtl> reviewReply = reviewCommentRepository.findByRefGroup(reviewId);
+		// 리뷰에 속한 댓글들 삭제
 		for (int i = 0; i < reviewReply.size(); i++) {
 			reviewCommentRepository.delete(reviewReply.get(i).getId());
 		}
+		
+		// 리뷰 삭제
+		reviewRepository.delete(num);
 		//reviewDao.delete(num);
 	}
 	// by남기, 리뷰 하나의 정보를 ModelAndView 객체에 담아주는 메소드_210303
@@ -536,14 +541,13 @@ public class ReviewServiceImpl implements ReviewService{
 	@Transactional
 	public void deleteComment(Long replyId) {
 		ReviewDtl comment = reviewCommentRepository.findById(replyId);
-		Users writer = comment.getWriter();
 		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		
 		reviewCommentRepository.delete(replyId);
 		Long totalReply = queryFactory.select(qReviewDtl.count())
 				.from(qReviewDtl)
-				.where(qReviewDtl.refGroup.eq(comment.getRefGroup()))
+				.where((qReviewDtl.refGroup.eq(comment.getRefGroup())))
 				.fetchOne();
 		
 		reviewCommentRepository.updateReplyCount(totalReply, comment.getRefGroup().getId());
