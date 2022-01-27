@@ -164,7 +164,7 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	
 	@RequestMapping("/booking.do")
 	@ResponseBody
-	public Map<String, Object> booking(HttpServletRequest request) {
+	public List<BookDto> booking(HttpServletRequest request) {
 		ModelAndView mView = new ModelAndView();
 		Long id = (Long) request.getSession().getAttribute("id");
 
@@ -174,19 +174,19 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 				"300","310","320","330","340"
 		};
 		Collections.shuffle(Arrays.asList(categoryNum));
-		Map<String, Object> data = new HashMap<String, Object>();
+		List<BookDto> recommendList = new ArrayList<BookDto>();
 		if (id != null) { // 로그인 했을 경우 관심사로 추천
 			Users users = usersRepository.findById(id);
 			String careList[] = users.getCare().split(",");
-			for (int i = 0; i < careList.length; i++) {
-				data = service.bookingRecommendBook(careList[i], 100, 1, "count", mView);
+			for(int i=0; i<careList.length; i++) {
+				recommendList.addAll(service.bookingRecommendBook(careList[i], 100, 1, "count", mView));
 			}
 		} else { // 로그인 안했을 경우 종류 별로 랜덤으로 추천
+			recommendList = service.bookingRecommendBook(categoryNum[0].toString(), 100, 1, "count", mView);
 		}		
-		data = service.bookingRecommendBook(categoryNum[0].toString(), 100, 1, "count", mView);
 		// 뷰페이지로 이동 후 자바스크립트로 추출 (ajax로 그부분만 뿌려주기)
-
-		return data;
+		Collections.shuffle(recommendList);
+		return recommendList;
 	}
 	
 }

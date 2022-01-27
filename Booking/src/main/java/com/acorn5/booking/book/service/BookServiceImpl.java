@@ -1157,13 +1157,12 @@ public class BookServiceImpl implements BookService {
 	
 
 	@Override
-	public Map<String, Object> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView) {
+	public List<BookDto> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView) {
 		String clientID = "Wp0rct7jHFnQmQ6dv44f";
 		String clientSecret = "zSBrAXrY3q";
 		
-		Map<String, Object> data = null;
-        String image = null;
-        String isbn = null;
+		List<BookDto> list = null;
+
         try {
             URL url;
             url = new URL("https://openapi.naver.com/v1/search/"
@@ -1187,25 +1186,37 @@ public class BookServiceImpl implements BookService {
          
            
             int eventType = parser.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) { 
+            BookDto b = null;
+            while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
-                case XmlPullParser.END_DOCUMENT:
+                case XmlPullParser.END_DOCUMENT: // 문서의 끝
                     break;
-                case XmlPullParser.START_DOCUMENT: //문서의 시작이면 해쉬맵객체 생성
-                    data = new HashMap<String, Object>();
+                case XmlPullParser.START_DOCUMENT:
+                    list = new ArrayList<BookDto>();
                     break;
                 case XmlPullParser.END_TAG: {
-                    break;
+                    String tag = parser.getName();
+                    if(tag.equals("item"))
+                    {
+                        list.add(b);
+                        b = null;
+                    }
                 }
                 case XmlPullParser.START_TAG: {
-                    String tag = parser.getName(); // < > 이면 태그이름을 얻음
-                    switch (tag) { 
-                    case "image": //태그이름이 image이면
-                        image = parser.nextText(); //String 값을 저장
+                    String tag = parser.getName();
+                    switch (tag) {
+                    case "item":
+                        b = new BookDto();
                         break;
-                    case "isbn": //태그이름이 isbn이면 
-                        isbn = parser.nextText(); //값을 String 으로 저장
-                  
+                    case "image":
+                        if(b != null)
+                            b.setImage(parser.nextText());
+                        break;
+                    case "isbn":
+                        if(b != null)
+                            b.setIsbn(parser.nextText());
+                            
+                        break;
                     }
                     
                 }
@@ -1217,9 +1228,8 @@ public class BookServiceImpl implements BookService {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        data.put("image", image);
-        data.put("isbn", isbn);  //해쉬맵객체에 put해주고
-        return data; //해쉬맵객체를 리턴
+
+        return list; //해쉬맵객체를 리턴
     }
 	
 	@Override

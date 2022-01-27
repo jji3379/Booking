@@ -33,7 +33,7 @@ public interface BookService {
 	//by 욱현, 로그인된 아이디의 최근검색어가 없는경우 도서 추천_2021308
 	public List<BookDto> searchRecommendBook(int display,int start,String sort, String query, ModelAndView mView);
 	//부킹서비스용
-	public Map<String, Object> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView);
+	public List<BookDto> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView);
 	//by준익, 검색어 페이징_2021.03.09 
 	public Page<BookDto> conditionSearch(String keyword, int display, Pageable pageable);
 	//by욱현.최근검색키워드를 recentsearch 칼럼에 담기위한 비즈니스로직_2021308

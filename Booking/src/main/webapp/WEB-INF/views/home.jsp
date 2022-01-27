@@ -193,25 +193,24 @@
 </body>
 <script>
    //by욱현. booking서비스(랜덤 책 추천 기능) ajax요청처리_2021226
-   $("#bookingBtn").on("click", function(){
-      
       $.ajax({
          url:"${pageContext.request.contextPath }/booking.do",
-         method:"POST",
+         method:"get",
          success:function(data){
-            console.log(data);
-            let map = data; //해쉬맵을 배열로 받기
-            let image = map['image']; //배열에서 키값으로 값얻기
-            let isbn = map['isbn'];
-            //요소의 속성 변경
-            $('#bookimage').attr("src", image);
+       	 var i = 0; 
+	     $("#bookingBtn").on("click", function(){
+			i++;		
+           	//요소의 속성 변경
+            $('#bookimage').attr("src", data[i].image);
             if(isbn!=""){
-            	$('#bookA').attr("href", "detail/bookDetail.do?d_isbn="+isbn);
+            	$('#bookA').attr("href", "bookDetail.do?d_isbn="+data[i].isbn);
             }            
+		 })
+			
          }   
       })
       
-   })
+      
    
    // by욱현.추천도서에 carousel 적용위한 외부 자바스크립트 로드_2021227
    
