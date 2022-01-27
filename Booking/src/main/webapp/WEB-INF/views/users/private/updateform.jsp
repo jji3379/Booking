@@ -15,8 +15,10 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<h4>안녕하세요 ,</h4>
-			<span>${loginId } </span>님!
+			<a href="${pageContext.request.contextPath }/users/private/info.do">
+				<h4>안녕하세요 ,</h4>
+				<span>${loginId } </span>님!
+			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
@@ -107,7 +109,7 @@
 								<input type="hidden" id="profileImg" value="${dto.profile}" />
 								<div class="profile-buttons">
 									<button type="submit">업로드</button>
-									<a href="javascript:deleteProfile();">삭제</a>
+									<a onclick="return deleteProfile();">삭제</a>
 								</div>
 							</form>
 						</c:otherwise>
@@ -135,7 +137,14 @@
 									<col style="width:27%">
 								</colgroup>
 								<tr >
-									<td rowspan="10"><h6 id="interest">> 관심사</label></h6></td>
+									<td rowspan="10">
+										<div id="maxlength_chk">
+											<h6 id="interest">> 관심사</label></h6>
+											<div class="hidden-box">
+												<input type="checkbox" name="chk_care" id="chk_care"/>
+											</div>
+										</div>
+									</td>
 								</tr>
 								<tr class="interestChk" >
 									<td><label for="novel"><input onclick="CountChecked(this)" type="checkbox" name="care" id="novel" value="100"/> 소설</label></td>
@@ -231,6 +240,50 @@
 			location.reload();
 		}
 	}
+	
+	function CountChecked(obj){
+		var count = 0;
+		var care = $('input[name=care]');
+		var chk_care = $('input[id=chk_care]');
+		let care_validate = document.querySelector('label[for="chk_care"]');
+		for(var i = 0; i < care.length; i++){
+			if(care[i].checked){
+				count++;
+			}
+		}
+		//by 준영, 관심사 한가지 이상 선택하게하는 validation
+		if(count == 0){
+			chk_care.click();
+		}else if(count >= 1 && count <= 3){
+			if(chk_care.is(":checked") == false){
+				chk_care.click();
+			}
+		}else if(count >= 3 ){
+			if(chk_care.is(":checked") == true){
+				chk_care.click();
+				document.querySelector('label[for="chk_care"]').textContent='최대 3가지만 선택하세요';
+			}
+			return false;
+		}
+	}
+	
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
+			
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
+	
 </script>
 <script>
 	var profileImg = $('#profileImg').val();
@@ -361,18 +414,18 @@
 	
 	//욱현.프로필이미지 삭제_2021323
 	function deleteProfile(){
-		let inputId = $("#id").val();
-		$.ajax({
-			url:"${pageContext.request.contextPath }/users/private/delete_profile.do",
-			method:"POST",
-			data:"inputId="+inputId,
-			success:function(){
-				console.log("문어병장황준성");
+		var deleteConfirm = confirm("프로필 이미지를 삭제 하시겠습니까?");
+		if(deleteConfirm == true) {
+			$.ajax({
+				url:"${pageContext.request.contextPath }/v1/users/${id}/profile",
+				method:"delete",
+			}).done(function(response){
 				location.reload();
-			}
-		})
+			});
+		} else {
+			return false;
+		}
 	}
-	
 </script>
 </body>
 </html>

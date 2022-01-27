@@ -272,8 +272,8 @@ public class UsersViewController {
 	//by욱현. 프로필이미지경로 db에서 삭제_2021323
 	@RequestMapping("/users/private/delete_profile.do")
 	@ResponseBody
-	public void deleteProfile(@RequestParam Users inputId) {
-		usersService.deleteProfile(inputId);
+	public void deleteProfile(@RequestParam Long id) {
+		usersService.deleteProfile(id);
 	}
 		
 }

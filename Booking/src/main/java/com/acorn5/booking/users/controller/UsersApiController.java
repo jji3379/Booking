@@ -101,4 +101,9 @@ public class UsersApiController {
 		return usersService.getPwd(id, pwd);
 	}
 	
+	@RequestMapping(value = "/users/{id}/profile", method = RequestMethod.DELETE)
+	public void deleteProfile(@PathVariable Long id) {
+		usersService.deleteProfile(id);
+	}
+	
 }

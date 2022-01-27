@@ -51,7 +51,7 @@ public interface UsersService {
 	//관심사와 이메일정보 얻기
 	public Users getCareEmail(Long id);
 	
-	public void deleteProfile(Users inputId);
+	public void deleteProfile(Long id);
 	
 	public Page<Review> getMyReview(Long id, Pageable pageable);
 

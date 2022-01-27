@@ -342,8 +342,11 @@ public class UsersServiceImpl implements UsersService{
 		return dto;
 	}
 	@Override
-	public void deleteProfile(Users inputId) {
-		usersRepository.delete(inputId);
+	public void deleteProfile(Long id) {
+		Users user = usersRepository.findById(id);
+		user.setProfile(null);
+		usersRepository.save(user);
+		//usersRepository.delete(inputId);
 		//dao.deleteProfile(inputId);
 	}
 
