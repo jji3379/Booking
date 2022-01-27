@@ -35,7 +35,7 @@ public interface BookService {
 	//부킹서비스용
 	public Map<String, Object> bookingRecommendBook(String d_catg, int display, int start, String sort, ModelAndView mView);
 	//by준익, 검색어 페이징_2021.03.09 
-	public List<BookDto> conditionSearch(String keyword,int display, int start, HttpServletRequest request, ModelAndView mView);
+	public Page<BookDto> conditionSearch(String keyword, int display, Pageable pageable);
 	//by욱현.최근검색키워드를 recentsearch 칼럼에 담기위한 비즈니스로직_2021308
 	public void recentSearchInput(String keyword, Long id);
 }

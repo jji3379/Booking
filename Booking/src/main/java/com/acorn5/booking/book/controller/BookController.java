@@ -186,7 +186,8 @@ public class BookController {
 				// by 우석, view page 에서 cartitem 불러오기_210315
 				cartservice.listCart(mView, request);
 			}
-          mView.addObject("conditionSearch",service.conditionSearch(keyword, 8, start, request, mView));
+          //mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, pageable);
+			mView.addObject("keyword", keyword);
        }
         mView.setViewName("bookList/conditionSearch.page");
         return mView;

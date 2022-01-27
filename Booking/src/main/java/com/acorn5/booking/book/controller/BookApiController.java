@@ -54,4 +54,17 @@ public class BookApiController {
     	//bookService.bestSeller("1", 50, 1, "count", pageable);
     	return reviewService.getBookReview(isbn, pageable);
     }
+    
+    @RequestMapping("/book-search")
+    public Page<BookDto> getSearchBook(String keyword, Pageable pageable, HttpServletRequest request){
+    	Long id=(Long)request.getSession().getAttribute("id");
+    	ModelAndView mView = new ModelAndView();
+    	
+    	if (id != null) {
+    		// by 우석, view page 에서 cartitem 불러오기_210315
+    		cartservice.listCart(mView, request);
+    	}
+    	//bookService.bestSeller("1", 50, 1, "count", pageable);
+    	return bookService.conditionSearch(keyword, 10, pageable);
+    }
 }

@@ -1223,40 +1223,41 @@ public class BookServiceImpl implements BookService {
     }
 	
 	@Override
-	public List<BookDto> conditionSearch(String keyword, int display, int start,
-            HttpServletRequest request, ModelAndView mView){
+	public Page<BookDto> conditionSearch(String keyword, int display, Pageable pageable){
 		String clientId = "g77o0632rEdwZNPM9S2i"; // 애플리케이션 클라이언트 아이디값"
 		String clientSecret = "ZbTjii_qWZ"; // 애플리케이션 클라이언트 시크릿값"
 
-		String condition = request.getParameter("condition"); // by 준익, 조건 상태 얻어오기_2021.03.09
-		start = Integer.parseInt(request.getParameter("start")); // by 준익, 페이징 적용을 위한 start 값 얻어오기_2021.03.09
+		//String condition = request.getParameter("condition"); // by 준익, 조건 상태 얻어오기_2021.03.09
+		//start = Integer.parseInt(request.getParameter("start")); // by 준익, 페이징 적용을 위한 start 값 얻어오기_2021.03.09
 		List<BookDto> list = null; // by 준익, XmlPullparser로 parsing 한 값 집어 넣을 list(item)_2021.03.09
 
 		BufferedReader br = null; // by 준익, api 정보를 읽어올 BufferedReader 필드_2021.03.09
 		XmlParsing par1 = new XmlParsing(); // by 준익, total 태그를 얻어오기 위해 새로 만든 클래스_2021.03.09
 		String total = null; // by 준익, total 값을 담아서 넘겨주기 위한 필드_2021.03.09
 		
+		List<Review> reviewAllList = reviewRepository.findAll();
+        List<String> reviewIsbnList = new ArrayList();
+        for (int i = 0; i < reviewAllList.size(); i++) {
+			reviewIsbnList.add(reviewAllList.get(i).getIsbn());
+		}
+		
 		try {
 			// total parsing start 
 			URL url = null;
+			String sort = "";
+			if(pageable.getSort().toString().contains("sim")) {
+				sort = "sim";
+			} else if(pageable.getSort().toString().contains("count")) {
+				sort = "count";
+			} else if(pageable.getSort().toString().contains("date")) {
+				sort = "date";
+			}
 			// by 준익, 검색조건에 따른 url 값 적용_2021.03.09
-			if (condition == null || condition.equals("title_content") || condition.equals("")) { // by 준익, 네비바에서 바로 검색한경우 이거나 제목+내용 검색인 경우_2021.03.09
 				url = new URL("https://openapi.naver.com/v1/search/" + "book.xml?query=" // by 준익, 일반검색 query keyword 사용_2021.03.09
 						+ URLEncoder.encode(keyword, "UTF-8") 
 						+ ("&display=" + display) 
-						+ ("&start=" + start));
-			} else if (condition.equals("title")) { // by 준익, 검색 조건을 제목으로 한 경우_2021.03.09
-				url = new URL("https://openapi.naver.com/v1/search/" + "book_adv.xml?d_titl=" // by 준익, 상세검색 d_titlk eyword 사용_2021.03.09
-						+ URLEncoder.encode(keyword, "UTF-8") 
-						+ ("&display=" + display) 
-						+ ("&start=" + start));
-			} else if (condition.equals("writer")) { // by 준익, 검색 조겅르 저자로 한 경우_2021.03.09
-				url = new URL("https://openapi.naver.com/v1/search/" + "book_adv.xml?d_auth=" // by 준익, 상세 검색 d_auth keyword 사용_2021.03.09
-						+ URLEncoder.encode(keyword, "UTF-8") 
-						+ ("&display=" + display) 
-						+ ("&start=" + start));
-			}
-
+						+ ("&start=" + (pageable.getPageNumber()*display+Integer.valueOf(1)))
+						+ ("&sort=" + sort));
 			// by 준익, parsing에 필요한 responseCode 를 사용하기 위한 접근 제어_2021.03.09
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -1309,6 +1310,7 @@ public class BookServiceImpl implements BookService {
 
 			int eventType = parser.getEventType();
 			BookDto b = null;
+			String isbn = "";
 			while (eventType != XmlPullParser.END_DOCUMENT) {
 				switch (eventType) {
 				case XmlPullParser.END_DOCUMENT: // 문서의 끝
@@ -1364,7 +1366,13 @@ public class BookServiceImpl implements BookService {
 						break;
 					case "isbn":
 						if (b != null)
-							b.setIsbn(parser.nextText());
+	                    	isbn = parser.nextText();
+	                        b.setIsbn(isbn);
+	                        
+                        if(reviewIsbnList.contains(isbn)) {
+                        	b.setReviewRating(reviewAllList.get(reviewIsbnList.indexOf(isbn)).getRatingAvg());
+                        	b.setReviewCount((long) Collections.frequency(reviewIsbnList, isbn));
+                        }
 						break;
 					case "description":
 						if (b != null)
@@ -1395,7 +1403,7 @@ public class BookServiceImpl implements BookService {
 			e.printStackTrace();
 		}
 		
-		keyword = request.getParameter("keyword");
+		//keyword = request.getParameter("keyword");
 		// 만일 키워드가 넘어오지 않는다면
 		if (keyword == null) {
 			// 키워드와 검색 조건에 빈 문자열을 넣어준다.
@@ -1404,6 +1412,7 @@ public class BookServiceImpl implements BookService {
 		}
 
 		// < 페이징 처리 > -----------------------------------------------------
+/*
 		// 한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT = display; // by 준익, 한 페이지에 표시할 개수 display 넣어줌_2021.02.28
 		// 하단 페이지를 몇개씩 표시할 것인지
@@ -1445,7 +1454,9 @@ public class BookServiceImpl implements BookService {
 		if (endPageNum > totalPageCount) {
 			endPageNum = totalPageCount; // 보정해 준다.
 		}
+		*/
 		// view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
+		/*
 		mView.addObject("list", list);
 		mView.addObject("total", total);
 		mView.addObject("start", start);
@@ -1460,8 +1471,9 @@ public class BookServiceImpl implements BookService {
 		mView.addObject("totalRow", totalRow);
 		mView.addObject("condition", condition); // 검색 조건이 있을 경우
 		mView.addObject("keyword", keyword); // 검색 조건이 있을 경우
-
-		return list;
+*/
+		
+		return new PageImpl<BookDto>(list, pageable, Integer.parseInt(total));
 	}
 
 	@Override
