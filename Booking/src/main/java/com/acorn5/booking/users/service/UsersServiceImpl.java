@@ -151,7 +151,7 @@ public class UsersServiceImpl implements UsersService{
 		//1. 폼전송되는 아이디와 비밀번호를 읽어온다.
 		String loginId = loginDto.getLoginId(); 
 				//request.getParameter("loginId");
-		String pwd = loginDto.getPwd(); 
+		String pwd = loginDto.getPwd().toLowerCase(); 
 				//request.getParameter("pwd");
 		
 		/*
