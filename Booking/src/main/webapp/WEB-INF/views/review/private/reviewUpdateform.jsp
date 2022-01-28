@@ -154,7 +154,7 @@
 	    		$.ajax({
 	    			url:"${pageContext.request.contextPath}/v1/review/${dto.id}",
 	    			method:"put",
-	    			dataType : "json",
+	    			//dataType : "json",
 	    			contentType : "application/json; charset=utf-8",
 	    			data : JSON.stringify(data),
 	    			success:function(data) {

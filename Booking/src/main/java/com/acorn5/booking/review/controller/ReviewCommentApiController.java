@@ -1,6 +1,7 @@
 package com.acorn5.booking.review.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class ReviewCommentApiController {
 		@Autowired
 		private CartService cartservice;
 
-		@RequestMapping(value = "/review/reply", method = RequestMethod.POST)
+		@CrossOrigin(methods = RequestMethod.PUT)
+		@RequestMapping(value = "/review/reply", method = RequestMethod.PUT)
 		public void update(@RequestBody ReviewDtl dto) {
 			// by남기, 수정할 리뷰의 정보를 dto에서 가져온다_210303
 			service.updateComment(dto);

@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,7 @@ public class ReviewApiController {
 		}
 		
 		// by남기, 리뷰 수정 요청 처리_210303
+		@CrossOrigin(methods = RequestMethod.PUT)
 		@RequestMapping(value = "/review/{id}", method = RequestMethod.PUT)
 		public void update(@PathVariable("id") Long id, @RequestBody Review review) {
 			// by남기, 수정할 리뷰의 정보를 dto에서 가져온다_210303

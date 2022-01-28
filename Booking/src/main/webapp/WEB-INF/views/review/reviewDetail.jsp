@@ -98,7 +98,6 @@
 	        	</div>
 				<div class="comment-box">
 		        	<h3>전체 댓글 <span id="total-reply"></span> 개</h3>
-					<!-- by남기, 댓글 목록 _210303 -->
 					<div class="comments">
 						<table>							
 							<colgroup>
@@ -106,53 +105,54 @@
 								<col style="width:75%"> 
 							</colgroup>
 							<c:forEach var="tmp" items="${reviewCommentList }">
-							<!-- 기본 tr, 삭제표시 tr 분기 start -->
-								<!-- 원댓글, 대댓글 tr 분기 start -->
+
+								<!-- 대댓글 -->
 								<c:choose>
 									<c:when test="${tmp.id ne tmp.commentGroup }">
 										<!-- 대댓글 tr -->
 										<tr class="tr-comment tr-reply"> 
-											<th class="td-userId tr-comment">
-											</th>
+											<th class="td-userId tr-comment"></th>
 											<!-- 댓댓글 td-content -->
 											<td class="td-content tr-comment" >
 												<a data-num="${tmp.id }" href="javascript:" class="reply-link">
 													<b>${tmp.writer.loginId }</b>
+													<!-- 대댓글 div start-->
 													<div class="comment-reply">
 														<span>
-														<svg class="reply-icon" width="1em" height="1em"
-															viewBox="0 0 16 16" class="bi bi-arrow-return-right"
-															fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								  						<path fill-rule="evenodd"
-																d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z" />
-								  						<path fill-rule="evenodd"
-																d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z" /></svg>
+															<svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										  						<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z" />
+										  						<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z" />
+									  						</svg>
 													
-														<i>@<b>${tmp.target_id.loginId }</b></i></span>
+															<i>@<b>${tmp.target_id.loginId }</b></i>
+														</span>
 														<span id="reply-content">${tmp.content }</span>
+														
+														<!-- 작성자일 경우 대댓글 수정, 삭제 출력 -->
 														<div class="content-regdate">
 															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-												    			<a data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</a>
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</a>
+												    			<a data-num="${tmp.id }" href="javascript:" class="update-link">수정</a>
+																<a data-num="${tmp.id }" href="javascript:" class="delete-link">삭제</a>
 															</c:if>
 														</div>
+														
 													</div>
+													<!-- 대댓글 div end -->
 												</a>
 											</td>
 										</tr>
+										<!-- 대댓글을 달 수 있는 히든 tr start -->
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
-												<form class="comment-form reply-form" action="private/reviewComment_insert.do" method="post">
+												<form class="comment-form reply-form" action="private/reviewComment_insert" method="post">
 													<input type="hidden" name="refGroup" value="${dto.id }" /> 
 													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
 													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
 													<textarea name="content"></textarea>
 													<button class="replyBtn" type="submit">등록</button>
 												</form> 
-												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
+												<!-- 작성자 이면 수정폼 출력 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
 													<form class="comment-form commentUpdate-form">
 														<textarea name="content" id="content${tmp.id }">${tmp.content }</textarea>
@@ -161,13 +161,17 @@
 												</c:if>
 											</td>
 										</tr>
+										<!-- 대댓글 히든 tr end -->
 									</c:when>
+									
+									
 									<c:otherwise>
-										<!-- 원댓글 tr -->
+										<!-- 댓글 tr -->
 										<tr class="tr-comment">
 											<th class="td-userId tr-comment">
 												<span>${tmp.writer.loginId }</span>
 											</th>
+											<!-- 댓글 content start -->
 											<td class="td-content tr-comment">
 												<a data-num="${tmp.id }" href="javascript:" class="reply-link">
 													<div class="comment-full">
@@ -175,26 +179,26 @@
 														<div class="content-regdate">
 															<span>${tmp.regdate }</span> 
 															<c:if test="${tmp.writer.id eq sessionScope.id }">
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="update-link">수정</a>
-																<a data-num="${tmp.id }" href="javascript:"
-																	class="delete-link">삭제</a>
+																<a data-num="${tmp.id }" href="javascript:" class="update-link">수정</a>
+																<a data-num="${tmp.id }" href="javascript:" class="delete-link">삭제</a>
 															</c:if>
 														</div>
 													</div>
 												</a>
-											</td>
-										</tr>
+											</td><!-- 댓글 content end -->
+										</tr><!-- 댓글 tr end -->
+										
+										<!-- 댓글의 대댓글 입력 폼 start -->
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
-												<form class="comment-form reply-form" action="private/reviewComment_insert.do" method="post">
+												<form class="comment-form reply-form" action="private/reviewComment_insert" method="post">
 													<input type="hidden" name="refGroup" value="${dto.id }" /> 
 													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
 													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" /> 
 													<textarea name="content"></textarea>
 													<button class="replyBtn" type="button">등록</button>
 												</form> 
-												<!-- by남기, 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 _210303 -->
+												<!-- 작성자가 같을 경우 수정 출력 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
 													<form class="comment-form commentUpdate-form">
 														<textarea name="content" id="content${tmp.id }">${tmp.content }</textarea>
@@ -202,11 +206,10 @@
 													</form>
 												</c:if>
 											</td>
-										</tr>
+										</tr><!-- 댓글의 대댓글 입력 폼 end -->
+										
 									</c:otherwise>
-								</c:choose>
-								<!-- 원댓글, 대댓글 tr 분기 end -->
-							<!-- 기본 tr, 삭제표시 tr 분기 end -->
+								</c:choose><!-- 원댓글, 대댓글 tr 분기 end -->
 							</c:forEach>
 						</table>
 					</div>
@@ -392,15 +395,16 @@
 
 		$.ajax({
 			url:"${pageContext.request.contextPath }/v1/review/reply",
-			method:"post",
-			dataType : "json",
+			method:"put",
+			//dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(data),
 			success:function(data) {
 				location.reload();
 			},
 			error : function(data) {
-				location.reload();
+				//location.reload();
+				console.log("실패");
 			}
 		});
 	});
