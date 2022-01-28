@@ -85,7 +85,7 @@
 			<div class="account-form">
 				<h2>기본 정보</h2>
 				<div class="profile-box">
-					<img id="preImg" src="${dto.profile }" alt="" />
+					<img id="preImg" src="${pageContext.request.contextPath }${dto.profile }" alt="" />
 					<c:choose>
 						<c:when test="${empty dto.profile }">
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
@@ -196,7 +196,7 @@
 </div>
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
-	/* $.ajax({
+	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
 		method:"GET",
 		dataType : "json",
@@ -217,7 +217,7 @@
 	for (var i = 0; i < careList.length; i++) {
 		$('input:checkbox[value=' + careList[i] + ']').attr("checked", true);
 		
-	} */
+	}
 
 	//프로필 미리보기
 
