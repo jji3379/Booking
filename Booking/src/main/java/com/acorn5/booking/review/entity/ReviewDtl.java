@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,10 +23,11 @@ import com.acorn5.booking.users.entity.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@TableGenerator(name = "REVIEW_DTL_SEQ_GENERATOR", table = "REVIEW_DTL_SEQ", pkColumnValue = "REVIEW_DTL_SEQ", allocationSize = 1)
 @Table(name = "BK_BOOK_REVIEW_DTL")
 public class ReviewDtl {
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(strategy = GenerationType.TABLE, generator = "REVIEW_DTL_SEQ_GENERATOR")
 	@Column(name = "REVIEW_COMMENT_ID")
 	private Long id; // 댓글 번호
 	

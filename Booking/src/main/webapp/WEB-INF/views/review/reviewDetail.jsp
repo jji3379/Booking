@@ -196,7 +196,7 @@
 													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
 													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" /> 
 													<textarea name="content"></textarea>
-													<button class="replyBtn" type="button">등록</button>
+													<button class="replyBtn" type="submit">등록</button>
 												</form> 
 												<!-- 작성자가 같을 경우 수정 출력 -->
 											 	<c:if test="${tmp.writer.id eq sessionScope.id }">
