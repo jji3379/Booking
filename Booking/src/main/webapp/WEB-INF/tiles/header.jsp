@@ -10,7 +10,7 @@
 	<div class="mainWrap">
 		<div class="center">
 			<div class="logo">
-				<a href="${pageContext.request.contextPath }">
+				<a href="/">
 					<img id="nav-logo" src="${pageContext.request.contextPath }/resources/images/bookinglogo.svg"/>
 				</a>
 			</div>

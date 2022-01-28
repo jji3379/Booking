@@ -99,7 +99,7 @@
 							</form>
 						</c:when>
 						<c:otherwise>
-							<form name="profile"  method="post" 
+							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
 								enctype="multipart/form-data" id="profileForm">
 								<label for="image"></label>
 								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" style="display:none;"/>
@@ -113,7 +113,7 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<form id="myProfile-form"  action="${pageContext.request.contextPath }/users/private/update" method="post" >
+				<form action="${pageContext.request.contextPath }/users/private/update" method="post" id="myProfile-form">
 					<div class="account-inputBox">
 						<div class="account-formGroup">
 							<div class="account-label"><label for="id">아이디</label></div>
@@ -219,17 +219,45 @@
 		
 	}
 
-	//프로필 미리보기
+	//by준영, 현재시간 출력
+	let today = new Date();
 
+	$('#date').html(today.toLocaleString());
+
+	//sidebar ajax
+	$('#side-profile').on('click', function() {
+		function updateProfile() {
+			$.ajax({
+				url : "updateform.do",
+				method : "GET",
+				success : function(data) {
+					$(".content").html(data); //by 준영, 해당 문자열을 #simList div 에 html 로 추가_210222
+				},
+
+			})
+		}
+	})
+
+	//회원탈퇴묻기
+	function deleteConfirm() {
+		let isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
+		if (isDelete) {
+			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
+		} else {
+			location.reload();
+		}
+	}
+</script>
+<script>
 	var profileImg = $('#profileImg').val();
 	
-
+/*
 	if( profileImg != null ){
 		$('#preImg').attr('src', profileImg );
 	}else{
 		$('#preImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
 	}
-	
+	*/
 	/*
 	var request = new XMLHttpRequest();
 	request.open("POST", "${pageContext.request.contextPath }", true);
