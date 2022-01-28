@@ -63,7 +63,7 @@
          <div class="section">
             <div class="section-name">나의 쇼핑</div>
             <div class="linkList">
-               <a id="side-order" class="link" href="my_order.do">주문 내역</a>
+               <a id="side-order" class="link" href="${pageContext.request.contextPath }/users/private/my_order.do">주문 내역</a>
                <a class="link" href=""></a>
                <a class="link" href=""></a>
             </div>
@@ -71,9 +71,9 @@
          <div class="section">
             <div class="section-name">계정 관리</div>
             <div class="linkList">
-               <a id="side-profile" class="link" href="updateform.do">계정정보 수정</a>
-               <a id="side-pwd" class="link" href="pwd_updateform.do">비밀번호 수정</a>
-               <a id="side-recent" class="link" href="recentSearch.do">최근 검색 기록</a>
+               <a id="side-profile" class="link" href="${pageContext.request.contextPath }/users/private/updateform.do">계정정보 수정</a>
+               <a id="side-pwd" class="link" href="${pageContext.request.contextPath }/users/private/pwd_updateform.do">비밀번호 수정</a>
+               <a id="side-recent" class="link" href="${pageContext.request.contextPath }/users/private/recentSearch.do">최근 검색 기록</a>
             </div>
          </div>
          <div class="section">

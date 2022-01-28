@@ -38,9 +38,18 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-					<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-					<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
-					<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
+					<c:choose>
+						<c:when test="${empty dto.profile }">
+							<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
+						</c:when>
+						<c:otherwise>
+							<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="${pageContext.request.contextPath }/${dto.profile }" alt="" /></a>
+						</c:otherwise>
+					</c:choose>
+					<div class="user-box" >
+						<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
+						<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
+					</div>
 				</div>
 				</c:when>
 				<c:otherwise>

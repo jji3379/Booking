@@ -204,7 +204,23 @@
 	</div>
 </div>
 <script>
-
+	//작성글, 작성 댓글, 북카트, 나의 정보 호출
+	$.ajax({
+		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		method:"GET",
+		dataType : "json",
+		async: false,
+		success:function(data) {
+			
+			$("#reviewCount").html(data.review.totalElements);
+			$("#replyCount").html(data.reviewDtl.totalElements);
+			$("#cartCount").html(data.cart.totalElements);
+			
+		},
+		error : function(data) {
+			console.log("오류");
+		}
+	});
 	var myCare = "${care}"; 
 	var careList = myCare.split(',');
 	for (var i = 0; i < careList.length; i++) {
