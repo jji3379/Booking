@@ -93,11 +93,15 @@ body {
 	}
 	.Users > a > img {
 		width: 45px;
-    	border-radius: 1.25rem;
+		height: 45px;
+		border: 1px solid #e5e5e5;
+    	border-radius: 2.25rem;
    	    position: relative;
     	top: 13px;
 	}
-	
+	.user-box{
+		display: inline-block;
+	}
 	.navWrap {
 		font-size: 25px;
 		width: 100%;
