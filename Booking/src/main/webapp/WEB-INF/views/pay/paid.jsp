@@ -17,7 +17,6 @@
 		margin-left:10px;
 		background-color:#135fa1;
 	}
-	
 </style>
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>
