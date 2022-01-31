@@ -140,9 +140,6 @@
 									<td rowspan="10">
 										<div id="maxlength_chk">
 											<h6 id="interest">> 관심사</label></h6>
-											<div class="hidden-box">
-												<input type="checkbox" name="chk_care" id="chk_care"/>
-											</div>
 										</div>
 									</td>
 								</tr>
@@ -221,11 +218,18 @@
 			console.log("오류");
 		}
 	});
+	
+	
+	
+	
 	var myCare = "${care}"; 
 	var careList = myCare.split(',');
 	for (var i = 0; i < careList.length; i++) {
 		$('input:checkbox[value=' + careList[i] + ']').attr("checked", true);
 		
+	}
+	if( careList.length >= 3 ) {
+        $('[name="care"]:not(:checked)').attr("disabled", "disabled");
 	}
 
 	//by준영, 현재시간 출력
@@ -258,29 +262,14 @@
 	}
 	
 	function CountChecked(obj){
-		var count = 0;
-		var care = $('input[name=care]');
-		var chk_care = $('input[id=chk_care]');
-		let care_validate = document.querySelector('label[for="chk_care"]');
-		for(var i = 0; i < care.length; i++){
-			if(care[i].checked){
-				count++;
-			}
-		}
-		//by 준영, 관심사 한가지 이상 선택하게하는 validation
-		if(count == 0){
-			chk_care.click();
-		}else if(count >= 1 && count <= 3){
-			if(chk_care.is(":checked") == false){
-				chk_care.click();
-			}
-		}else if(count >= 3 ){
-			if(chk_care.is(":checked") == true){
-				chk_care.click();
-				document.querySelector('label[for="chk_care"]').textContent='최대 3가지만 선택하세요';
-			}
-			return false;
-		}
+		
+		var care = $('input[name=care]:checked').length;
+		if( care >= 3 ) {
+			console.log(care);
+            $('[name="care"]:not(:checked)').attr("disabled", "disabled");
+        }else if( care < 3 ) {
+        	$('input[name=care]').removeAttr("disabled");
+        }
 	}
 	
 	$.ajax({
@@ -300,8 +289,6 @@
 		}
 	});
 	
-</script>
-<script>
 	var profileImg = "${dto.profile }";
 	
 
