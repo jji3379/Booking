@@ -24,28 +24,12 @@
 			    </form>
 			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
 		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
-		    		<c:choose>
-		    			<c:when test="${empty count}">
-		    			
-		    			</c:when>
-		    			<c:otherwise>
-		    				<span class="cartBadge">${count}</span>
-		    			</c:otherwise>
-		    		</c:choose>	
-			    	
 			   	</a>
 			</div>
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-					<c:choose>
-						<c:when test="${empty dto.profile }">
-							<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="https://ssl.pstatic.net/static/common/myarea/myInfo.gif" alt="" /></a>
-						</c:when>
-						<c:otherwise>
-							<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img src="${pageContext.request.contextPath }/${dto.profile }" alt="" /></a>
-						</c:otherwise>
-					</c:choose>
+						<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img id="userProfileImg" src="${pageContext.request.contextPath }/${profile }" alt="" /></a>
 					<div class="user-box" >
 						<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
@@ -82,6 +66,31 @@
 		
 	</div>
 <script>
+	var loginCheck = "${sessionScope.id}";
+	if(loginCheck != "") {
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/cart-profile",
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(data) {
+				$(".cart-box").html('<span class="cartBadge">'+data.length+'</span>')
+
+				var profileImg = data[0].userId.profile;
+				console.log(profileImg);
+
+				if( profileImg != "" ){
+					$('#userProfileImg').attr('src', "${pageContext.request.contextPath}"+profileImg );
+				}else{
+					$('#userProfileImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
+				}
+			},
+			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+	
 	//by 준영 리뷰리스트 로딩끝나고 헤더호출
 	$('#header').hide();
 	$('#main').ready(function(){
