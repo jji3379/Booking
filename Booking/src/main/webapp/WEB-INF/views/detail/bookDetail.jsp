@@ -66,6 +66,8 @@
 					<input id="priceP" type="hidden" name="price" value="${b.price }"/>
 					<input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
 					<input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
+					<input type="text" id="publisherP" name="isbn" value="${b.publisher }" hidden/>
+					<input type="text" id="authorP" name="isbn" value="${b.author }" hidden/>
 					<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
 					<button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
 					<a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
@@ -214,7 +216,6 @@
 						first: '«', 
 						last: '»', 
 						onPageClick: function (event, page) { 
-							console.info("current page : " + page); 
 						} 
 					}).on('page', function (event, page) { 
 						pagingList(page-1);
@@ -292,7 +293,6 @@
 					first: '«', 
 					last: '»', 
 					onPageClick: function (event, page) { 
-						console.info("current page : " + page); 
 					} 
 				}).on('page', function (event, page) { 
 					var sortValue = $(".sortWrap").find(".active").attr('id');
@@ -304,7 +304,6 @@
 				});
 			},
 			error : function(data) {
-				console.log("오류");
 			}
 		});
 	}
@@ -323,9 +322,7 @@
 			var dataText = "("+data+")";
 			var int_part = Math.trunc(data);
 			var float_part = Number((data-int_part).toFixed(2));
-			console.log(data);			
-			console.log(int_part);
-			console.log(float_part);
+			
 			var intValue = "";
 			//숫자형 평점을 total-value 에 출력
 			$('.total-value').html(dataText);
@@ -410,8 +407,6 @@
             method:"GET",
             data:"d_auth="+inputAuth,
             success:function(auth){
-            	console.log(auth.length + '개 있다');
-            	console.log(auth.length);
             	if(auth.length == 0){
             		var simList = '';
             		simList += '<div></div>'
@@ -467,13 +462,15 @@
        var d_price = $("#d_priceP").val();
        var count = $("#countP").val();
        var isbn=$("#isbnP").val();
+       var publisher = $('#publisherP').val();
+       var author = $('#authorP').val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }else if(d_price != ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
        console.log(data);
        if(id == ""){
@@ -502,13 +499,15 @@
        var d_price = $("#d_priceP").val();
        var count = $("#countP").val();
        var isbn=$("#isbnP").val();
+       var publisher = $('#publisherP').val();
+       var author = $('#authorP').val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author  };
        }else if(d_price != ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
        console.log(data);
        if(id == ""){

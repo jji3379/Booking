@@ -35,6 +35,8 @@ public class Cart {
     private int price;//책 정가
     private int d_price;//책 할인가
     private int count;// 갯수
+    private String publisher;// 책 출판사
+    private String author;//책 저자
     
     @Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -96,6 +98,18 @@ public class Cart {
 	}
 	public void setIndate(Date indate) {
 		this.indate = indate;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
 	}
     
 }
