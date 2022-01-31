@@ -39,15 +39,8 @@ public class UsersViewController {
 	@Autowired
 	private UsersService usersService;
 	
-	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	@Autowired
-	private CartService cartservice;
-	
 	//@Autowired //by욱현.리뷰서비스를 사용하기 위해 di_2021309
 	private ReviewService reviewService;
-	
-	//@Autowired //by욱현.비밀번호, 회원정보 수정 폼에서도 프로필이미지를 볼수있게 하기위해_2021315
-	//UsersDao dao;
 	
 	//by욱현. 개인 정보 수정 요청 처리_2021222
 	@RequestMapping(value = "/users/private/update", 
@@ -65,10 +58,6 @@ public class UsersViewController {
 		Long id = (Long) request.getSession().getAttribute("id");
 		Users userDetail = usersService.getInfo(id);
 		
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		//String id = (String)session.getAttribute("id");
 		//UsersDto dto= dao.getData(id);
 		mView.addObject("dto", userDetail);
@@ -100,10 +89,6 @@ public class UsersViewController {
 	@RequestMapping("/users/private/pwd_updateform")
 	public ModelAndView pwd_updateform(ModelAndView mView ,HttpServletRequest request) {
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		
 		//Users dto= dao.getData(id);
     	Users dto = usersService.getInfo(id);
@@ -125,10 +110,6 @@ public class UsersViewController {
 	public ModelAndView info(ModelAndView mView, HttpServletRequest request, Pageable pageable) {
 		
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		//Users userDetail = usersService.getInfo(id);
 		
 		mView.addObject("reviewCount", usersService.getMyReview(id, pageable).getNumberOfElements());
@@ -217,10 +198,6 @@ public class UsersViewController {
 	@RequestMapping("/users/private/my_review.do")
 	public ModelAndView myReview(ModelAndView mView, HttpServletRequest request, Pageable pageable) {
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		usersService.getMyReview(id, pageable);
 		mView.setViewName("users/private/my_review.page");
 				
@@ -230,26 +207,15 @@ public class UsersViewController {
 	@RequestMapping("/users/private/my_reply.do")
 	public ModelAndView myReply(HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
-		
 		mView.setViewName("users/private/my_reply.page");
-				
+			
 		return mView;
 	}
 	//by욱현.내가 쓴 리뷰 모아보기 페이지 요청 처리_2021309
 		@RequestMapping("/users/private/recentSearch.do")
-		public ModelAndView myRecent(HttpSession session, ModelAndView mView, HttpServletRequest request) {
-			Long id = (Long) request.getSession().getAttribute("id");
-			if (id != null) {
-				// by 우석, view page 에서 cartitem 불러오기_210315
-				cartservice.listCart(mView, request);
-			}
-			
+		public ModelAndView myRecent(HttpSession session, ModelAndView mView, HttpServletRequest request) {			
 			mView.setViewName("users/private/recentSearch.page");
-					
+			
 			return mView;
 		}
 	
@@ -265,6 +231,7 @@ public class UsersViewController {
 		data.put("care", care);
 		data.put("email", email);
 		data.put("image", image);
+		
 		return data;
 	}
 	

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
+import com.acorn5.booking.pay.repository.CartRepository;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.users.dto.UserInfoDto;
@@ -111,4 +113,9 @@ public class UsersApiController {
 		usersService.deleteRecentSearch(searchId);
 	}
 	
+	@GetMapping("/user/{id}/cart-profile")
+	public List<Cart> getCartAndProfile(@PathVariable Long id) {
+		
+		return usersService.getCartAndProfile(id);
+	}
 }

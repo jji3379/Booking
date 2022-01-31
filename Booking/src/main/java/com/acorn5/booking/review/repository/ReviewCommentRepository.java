@@ -16,7 +16,8 @@ import com.acorn5.booking.users.entity.Users;
 @Repository
 public interface ReviewCommentRepository extends JpaRepository<ReviewDtl, Long>{
 	
-	@Query(value = "SELECT MAX(review_comment_id)+1 FROM BK_BOOK_REVIEW_DTL", nativeQuery = true)
+	@Query(value = "SELECT sequence_next_hi_value\r\n" + 
+			"FROM REVIEW_DTL_SEQ", nativeQuery = true)
 	Long findByNextId();
 	
 	List<ReviewDtl> findByRefGroup(Review refGroup);

@@ -57,9 +57,6 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 	@Autowired
 	private SearchRepository searchRepository; 
 	
-	@Autowired
-    private CartService cartservice;
-	
     /**
      * Tiles를 사용하지 않은 일반적인 형태
      */    
@@ -122,7 +119,6 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 			String careList[] = users.getCare().split(",");
 			
 			// 2. 로그인 해서 최근 검색어 기반으로 추천
-			cartservice.listCart(mView, request);
 
 			if (searchList.size() > 5) { // 최근 검색어가 5개 이상 있을 경우
 				System.out.println("검색어 5개 이상");

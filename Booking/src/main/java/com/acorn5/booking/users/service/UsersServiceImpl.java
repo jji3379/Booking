@@ -450,5 +450,20 @@ public class UsersServiceImpl implements UsersService{
 	public void deleteRecentSearch(Long id) {
 		searchRepository.delete(id);
 	}
+	@Override
+	public List<Cart> getCartAndProfile(Long id) {
+		
+		QUsers qUsers = QUsers.users;
+		QCart qCart = QCart.cart;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		
+		List<Cart> headerInfo = queryFactory.selectFrom(qCart)
+				.join(qCart.userId, qUsers)
+				.fetchJoin()
+				.where(qUsers.id.eq(id))
+				.fetch();
+		
+		return headerInfo;
+	}
 
 }
