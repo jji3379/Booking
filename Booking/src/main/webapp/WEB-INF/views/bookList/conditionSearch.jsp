@@ -164,7 +164,10 @@
 									
 									bookSearchList += '<li class="grid-li bd-price">'
 										bookSearchList += '<div>'
-											bookSearchList += '<span class="book-price">'+data.content[i].price+' 원</span> → <span class="discount">'+data.content[i].discount+' 원</span>'
+											bookSearchList += '<span class="book-price">'+data.content[i].price+' 원</span>'
+											if(data.content[i].discount != ""){
+												bookSearchList += '→ <span class="discount">'+data.content[i].discount+' 원</span>'
+											}
 										bookSearchList += '</div>'
 									bookSearchList += '</li>'
 										
