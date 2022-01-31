@@ -93,16 +93,24 @@
 					}
 				});
 			</script>
-			<c:forEach var="p" items="${list }" varStatus="status">
+			<c:forEach var="pay" items="${list }" varStatus="status">
 			<ul>
 				<li>
 					<div class="checkBox valign">
-						<input type="checkbox" name="chBox" class="chBox" value="${p.id }"/>
+						<input type="checkbox" name="chBox" class="chBox" value="${pay.id }"/>
 					</div>
-					<div class="orderImage valign"><img id="Bimg"src="${p.image }"/></div>
-					<div class="orderSubject valign">${p.title}</div>
-					<div class="orderQuantity valign">${p.count} 개</div>
-					<div class="orderPrice valign">${p.d_price * p.count} 원</div>
+					<div class="orderImage valign"><img id="Bimg"src="${pay.image }"/></div>
+					<div class="orderSubject valign">${pay.title}</div>
+					<div class="orderQuantity valign">${pay.count} 개</div>
+					<div class="orderPrice valign">${pay.d_price * pay.count} 원</div>
+		            <input id="image${status.count }" value="${pay.image }" type="hidden"/>
+		            <input id="title${status.count }" value="${pay.title }" type="hidden"/>
+		            <input id="price${status.count }" value="${pay.price }" type="hidden"/>
+		            <input id="d_price${status.count }" value="${pay.d_price }" type="hidden"/>
+		            <input id="count${status.count }" value="${pay.count }" type="hidden"/>    
+		            <input id="isbn${status.count }" type="hidden" value="${pay.isbn }" />
+		            <input id="publisher${status.count }" type="hidden" value="${pay.publisher }" />
+		            <input id="author${status.count }" type="hidden" value="${pay.author }" />
 				</li>
 			</ul>	
 			</c:forEach>
@@ -371,8 +379,6 @@
 		location.replace("${pageContext.request.contextPath }/");
 	}
 	
-	
-	
 	$("#check_module").click(function () {
 		//by준영, 항목 필수기입처리_210321
 		var buyer = $("#normalRecipientNm").val();
@@ -406,7 +412,7 @@
 		}
 		
 		var IMP = window.IMP; // 생략가능
-		IMP.init('imp02317087');
+		IMP.init('imp35026428');
 		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 		IMP.request_pay({
@@ -461,7 +467,47 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				location.href="order_insertform.do";
+				
+				var totalPayCount = "${list.size()}";
+				var dataArray = [];
+				for(var i=1; i<=totalPayCount; i++) { //각 로우별로 값을 추출해 전송한다.
+					var image = $('#'+'image'+i).val();//이미지
+						var title = $('#'+'title'+i).val();//제목
+					var price = $('#'+'price'+i).val(); // 정가
+					var d_price = $('#'+'d_price'+i).val();//할인가
+					var count = $('#'+'count'+i).val();//책별 갯수
+					var isbn = $('#'+'isbn'+i).val(); //책별 isbn
+					var publisher = $('#'+'publisher'+i).val(); //책별 isbn
+					var author = $('#'+'author'+i).val(); //책별 author
+					
+					var data = {
+						buyer_id:${sessionScope.id}, 
+						image:image, 
+						title:title, 
+						price:price,
+				        d_price:d_price, 
+				        count:count, 
+				        isbn:isbn , 
+				        publisher:publisher, 
+				        author:author,
+				        totalPrice:total
+				    }; 
+					dataArray.push(data);
+				}
+				
+	            $.ajax({
+	               url:"${pageContext.request.contextPath }/pay/orderInsert",
+		   		   method:"post",
+				   dataType : "json",
+				   contentType : "application/json; charset=utf-8",
+				   data : JSON.stringify(dataArray),
+	               success : function(){
+						location.href="paid";
+	               },error(data){
+	               	console.log("오류");
+	               }
+	            })
+				
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;

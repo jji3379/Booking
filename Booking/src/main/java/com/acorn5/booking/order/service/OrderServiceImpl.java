@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	//by욱현, my_order에 테이블에 담기_210317
 	@Override
-	public OrderDtl orderInsert(OrderDtl dto, HttpServletRequest request) {
+	public List<OrderDtl> orderInsert(List<OrderDtl> dto, HttpServletRequest request) {
 		// 전송된 파라미터들을 받는다.
 		// form 으로 전송하면 안되는건가???
 		/*
@@ -82,15 +82,22 @@ public class OrderServiceImpl implements OrderService {
 		Users users = new Users();
 		Long loginId=(Long)request.getSession().getAttribute("id");
 		Order order = new Order();
+		int orderCount = 0;
 		if(loginId != null) {
 			users.setId(loginId);
 			order.setBuyer(users);
-			//dto.setBuyer(users);
-			//dto객체 전달해서 db수정
+			order.setTotalPrice(dto.get(0).getTotalPrice());
+			for (int i = 0; i < dto.size(); i++) {
+				orderCount += dto.get(i).getCount();
+			}
+			order.setOrderCount(orderCount);
 		}
 		Order newOrder = orderRepository.save(order);
-		dto.setOrderNum(newOrder);
-		return orderDtlRepository.save(dto);
+		for (int i = 0; i < dto.size(); i++) {
+			dto.get(i).setOrderNum(newOrder);
+			orderDtlRepository.save(dto.get(i));
+		}
+		return dto;
 		//dao.insertOrder(dto);
 	}
 
@@ -128,6 +135,7 @@ public class OrderServiceImpl implements OrderService {
 				.join(qOrder.buyer, qUsers)
 				.fetchJoin()
 				.where(qOrder.buyer.eq(buyerId))
+				.orderBy(qOrder.id.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchResults();
