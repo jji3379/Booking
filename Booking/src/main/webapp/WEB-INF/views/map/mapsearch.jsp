@@ -16,8 +16,8 @@
 	<div class="partners">
 		<ul>
 			<li><img src="${pageContext.request.contextPath }/resources/images/ypbooks.png" alt="" /></li>
-			<li><img src="${pageContext.request.contextPath }/resources/images/yes24.png" alt="" /></li>
-			<li><img src="${pageContext.request.contextPath }/resources/images/kyobo.png" alt="" /></li>
+			<li><img src="${pageContext.request.contextPath }/resources/images/yes24.PNG" alt="" /></li>
+			<li><img src="${pageContext.request.contextPath }/resources/images/kyobo.PNG" alt="" /></li>
 			<li><img src="${pageContext.request.contextPath }/resources/images/aladin.png" alt="" /></li>
 		</ul>
 	</div>
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4c306e0509bf683d53438aecf1510d22&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8afd53bb39defee189ba302611b46a2&libraries=services"></script>
 <script>
 //마커를 담을 배열입니다
 var markers = [];
