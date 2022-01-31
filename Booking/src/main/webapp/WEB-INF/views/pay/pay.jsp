@@ -365,9 +365,10 @@
 		}
 		total=parseInt(price)+shipFee;
 		$(".totalR").text(total+" 원");
-	}else{
-		alert("상품을 최소 한개 이상 담아주세요");	
-		location.replace("${pageContext.request.contextPath }/home.do");
+	}
+	if($('font').text() == 0){
+		alert("상품을 최소 한 개 이상 담아주세요");	
+		location.replace("${pageContext.request.contextPath }/");
 	}
 	
 	
