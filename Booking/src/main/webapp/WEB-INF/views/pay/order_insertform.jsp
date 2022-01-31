@@ -7,15 +7,15 @@
 <head>
 <meta charset=UTF-8">
 <title>Insert title here</title>
-<jsp:include page="../include/resource.jsp"></jsp:include>
+<style>
+	
+</style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp">
-   <jsp:param value="BS" name="thisPage"/>
-</jsp:include>
    <table class="table">
        <thead class="thead-light">
        <tr>
+       	 <th>장바구니번호</th>
          <th>주문번호</th>
          <th>구매자</th>
          <th>이미지</th>
@@ -28,17 +28,19 @@
      <tbody>
           <form id="form" action="pay.do" method="post">
            <c:forEach var="o" items="${list}" varStatus="status">
-            <tr>
-              <td id="c_id${status.count }" hidden>${o.id }</td><!-- 장바구니번호 -->
-              <td id="o_id${status.count }"></td>
-            <td id="buyer${status.count }">${o.userId.loginId }</td>
-            <td id="image${status.count }">${o.image }</td>
-            <td id="title${status.count }">${o.title }</td>
-            <td id="price${status.count }">${o.price }</td>
-            <td id="d_price${status.count }">${o.d_price }</td>
-            <td id="count${status.count }">${o.count }</td>    
-            <td id="status" hidden>${fn:length(list)}</td>
-            <td id="isbn${status.count }" hidden>${o.isbn }</td>
+           	<tr>
+	            <td id="c_id${status.count }" hidden>${o.id }</td><!-- 장바구니번호 -->
+	            <td id="o_id${status.count }"></td>
+	            <td id="buyer${status.count }">${o.userId.loginId }</td>
+	            <td id="image${status.count }">${o.image }</td>
+	            <td id="title${status.count }">${o.title }</td>
+	            <td id="price${status.count }">${o.price }</td>
+	            <td id="d_price${status.count }">${o.d_price }</td>
+	            <td id="count${status.count }">${o.count }</td>    
+	            <td id="status" hidden>${fn:length(list)}</td>
+	            <td id="isbn${status.count }" hidden>${o.isbn }</td>
+	            <td id="publisher${status.count }" hidden>${o.publisher }</td>
+	            <td id="author${status.count }" hidden>${o.author }</td>
           </tr>
          </c:forEach>
          </form>
@@ -63,9 +65,11 @@
          let d_price = $('#d_price'+[i]).text();//할인가
          let count = $('#count'+[i]).text();//책별 갯수
          let isbn = $('#isbn'+[i]).text(); //책별 isbn
+         let publisher = $('#publisher'+[i]).text(); //책별 isbn
+         let author = $('#author'+[i]).text(); //책별 author
          (function(){ //for문을 돌때마다 호출되는 익명함수
         	var data = {buyer_id:${sessionScope.id}, image:image, title:title, price:price,
-                d_price:d_price, count:count, isbn:isbn }; 
+                d_price:d_price, count:count, isbn:isbn , publisher:publisher, author:author }; 
          console.log(data);
             $.ajax({
                url:"${pageContext.request.contextPath }/pay/orderInsert",
@@ -75,7 +79,7 @@
 			   data : JSON.stringify(data),
                success : function(){
                   if(i==totalnum) { //장바구니에 담긴 책의 종류를 모두 post전송을 했다면 paid.do로 이동한다.
-                     location.href = "${pageContext.request.contextPath }/pay/paid.do";
+                     location.replace = "${pageContext.request.contextPath }/pay/paid.do";
                   }
                }
                
