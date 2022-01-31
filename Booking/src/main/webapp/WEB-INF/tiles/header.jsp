@@ -24,6 +24,7 @@
 			    </form>
 			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
 		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
+		    		<span id="cartCount"></span>
 			   	</a>
 			</div>
 			<c:choose>
@@ -74,8 +75,11 @@
 			dataType : "json",
 			async: false,
 			success:function(data) {
-				$(".cart-box").html('<span class="cartBadge">'+data.length+'</span>')
-
+				//$(".cart-box").html('<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>')
+				//$(".cart-box").html('<span class="cartBadge">'+data.length+'</span>')
+				$("#cartCount").html(data.length)
+				$("#cartCount").addClass("cartBadge")
+				
 				var profileImg = data[0].userId.profile;
 				console.log(profileImg);
 

@@ -11,19 +11,11 @@ import com.acorn5.booking.pay.service.CartService;
 
 @Controller
 public class MapController {
-	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	@Autowired
-    private CartService cartservice;
 	
 	@RequestMapping("/map/mapsearch")
-	public ModelAndView mapsearch(ModelAndView mView,HttpServletRequest request) {
-		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
+	public ModelAndView mapsearch(ModelAndView mView) {
+		
 		mView.setViewName("map/mapsearch.page");
         return mView;
-		
 	}
 }

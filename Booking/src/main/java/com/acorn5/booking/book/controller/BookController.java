@@ -30,9 +30,7 @@ import com.acorn5.booking.users.repository.UsersRepository;
 public class BookController {
     @Autowired
     private BookService service; 
-    //by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-    @Autowired
-    private CartService cartservice;
+
     //@Autowired
 	//private UsersDao dao;
 
@@ -48,10 +46,7 @@ public class BookController {
     								HttpServletRequest request, ModelAndView mView){
 		
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
+		
     	
 		mView.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mView, sort)); //by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 : 10)_2021.02.28 
 		mView.setViewName("bookList/CategoryList.page");
@@ -62,10 +57,7 @@ public class BookController {
     @RequestMapping("/bookList/bestSeller.do")
     public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort, HttpServletRequest request, ModelAndView mView){
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
+		
 		//mView.addObject("bestSeller", service.bestSeller("1", 10, 1, "count"));
 		mView.setViewName("bookList/bestSeller.page");
         return mView;
@@ -80,9 +72,7 @@ public class BookController {
 			mView.addObject("bookDetail", service.bookDetail(d_isbn, 1));
 		}
 		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			cartservice.listCart(mView, request);
-		}
+		
 		mView.setViewName("detail/bookDetail.page");
         return mView;
     }
@@ -119,7 +109,6 @@ public class BookController {
 				String careList[] = users.getCare().split(",");
 				
 				// 2. 로그인 해서 최근 검색어 기반으로 추천
-				cartservice.listCart(mView, request);
 
 				if (searchList.size() > 5) { // 최근 검색어가 5개 이상 있을 경우
 					System.out.println("검색어 5개 이상");
@@ -149,9 +138,7 @@ public class BookController {
 			Collections.shuffle(searchRecommendList);
 			mView.addObject("reviewBookList", searchRecommendList);
 		}
-		if (id != null) {
-			cartservice.listCart(mView, request);
-		}
+		
 		mView.setViewName("review/reviewBookList");
         return mView;
     }
@@ -160,11 +147,6 @@ public class BookController {
     @RequestMapping("/review/private/reviewInsertform.do")
     public ModelAndView reviewBook(@RequestParam(required=false)String d_isbn, HttpServletRequest request){
         ModelAndView mView = new ModelAndView();
-		Long id = (Long) request.getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		
         if(d_isbn !=null)
         {
@@ -183,8 +165,6 @@ public class BookController {
 			Long id = (Long) session.getAttribute("id");
 			if (id != null) {
 				service.recentSearchInput(keyword, id);
-				// by 우석, view page 에서 cartitem 불러오기_210315
-				cartservice.listCart(mView, request);
 			}
           //mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, pageable);
 			mView.addObject("keyword", keyword);

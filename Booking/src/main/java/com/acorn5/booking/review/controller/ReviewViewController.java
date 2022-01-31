@@ -58,23 +58,10 @@ public class ReviewViewController {
 	@Autowired
 	private ReviewCommentRepository reviewCommentRepository;
 	
-	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	@Autowired
-	private CartService cartservice;
-	
 	// by남기, 글 목록 요청처리_210303
 	@RequestMapping("/review")
 	public String list(ModelAndView mView ,HttpServletRequest request) {
-		
-		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			cartservice.listCart(mView, request);
-		}
-		
-		//Page<Review> review = service.getList(request);
-		//model.addAttribute("pageNum", review.getNumber());
-		// by남기, view page 로 forward 이동해서 응답_210303
-		//mView.setViewName("review/reviewList");
+
 		return "review/reviewList.page"; 
 	}
 	
@@ -85,7 +72,6 @@ public class ReviewViewController {
 		// by남기, 자세히 보여줄 글번호가 파라미터로 넘어온다_210303
 		//Review review = service.getDetail(id);
 		//String writer = review.getWriter().getLoginId();
-		Long loginId=(Long)request.getSession().getAttribute("id");
 		Review dto=reviewRepository.findReviewDetail(id);
 		reviewRepository.addViewCount(id);
 		
@@ -100,10 +86,7 @@ public class ReviewViewController {
 				.orderBy(qReviewDtl.commentGroup.asc())
 				.fetch();
 				//reviewCommentRepository.findByRefGroup(id);
-		ModelAndView mView = new ModelAndView();
-		if (loginId != null) { // by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
+
 		// by남기, view page 로 forward 이동해서 응답_210303
 		model.addAttribute("reviewId", id);
 		model.addAttribute("reviewCommentList", reviewCommentList);
@@ -139,12 +122,7 @@ public class ReviewViewController {
 	@RequestMapping("/private/review/update/{reviewId}")
 	public ModelAndView updateform(@PathVariable Long reviewId,
 			ModelAndView mView, HttpServletRequest request) {
-		// by남기, 수정할 리뷰의 글번호가 파라미터로 넘어온다_210303
-		//service.getDetail(num);
-		Long id = (Long) request.getSession().getAttribute("id");
-		if (id != null) {
-			cartservice.listCart(mView, request);
-		}
+		
 		// by남기, view page 로 forward 이동해서 응답_210303
 		mView.addObject("dto", service.getDetail(reviewId));
 		mView.setViewName("review/private/reviewUpdateform.page");
