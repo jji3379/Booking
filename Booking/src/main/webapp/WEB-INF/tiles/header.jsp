@@ -58,7 +58,7 @@
 				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
 			</li>
 			<li>
-		        <a href="${pageContext.request.contextPath }/map/mapsearch.do">서점 찾기</a>
+		        <a href="${pageContext.request.contextPath }/map">서점 찾기</a>
 		    </li>
 		</ul>
 	</div>

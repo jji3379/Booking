@@ -12,10 +12,10 @@ import com.acorn5.booking.pay.service.CartService;
 @Controller
 public class MapController {
 	
-	@RequestMapping("/map/mapsearch")
-	public ModelAndView mapsearch(ModelAndView mView) {
+	@RequestMapping("/map")
+	public String mapsearch(ModelAndView mView) {
 		
-		mView.setViewName("map/mapsearch.page");
-        return mView;
+		//mView.setViewName("map/mapsearch.page");
+        return "map/mapsearch.page";
 	}
 }
