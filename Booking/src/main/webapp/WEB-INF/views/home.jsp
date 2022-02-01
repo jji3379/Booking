@@ -28,7 +28,7 @@
 				<ul class="cards__container">
 					<li class="box">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[0].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[0].isbn}" id="isbn">
 								<div class="img-wrapper">
 							  		<img class="card-img-top" src="${list[0].image }" />
 							   	</div>
@@ -41,7 +41,7 @@
 					</li>
 					<li class="box">
 						<div class="card">
-							<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[1].isbn}" id="isbn">
+							<a href="${pageContext.request.contextPath }/book/${list[1].isbn}" id="isbn">
 								<div class="img-wrapper">
 								  	<img class="card-img-top" src="${list[1].image }" />
 								</div>
@@ -54,7 +54,7 @@
 					</li>
 					<li class="box">
 						<div class="card">
-						     <a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[2].isbn}" id="isbn">
+						     <a href="${pageContext.request.contextPath }/book/${list[2].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[2].image }" />
 						  		</div>
@@ -67,7 +67,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[3].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[3].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[3].image }" />
 					  			</div>
@@ -80,7 +80,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[4].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[4].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[4].image }" />
 						  		</div>
@@ -93,7 +93,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[5].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[5].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[5].image }" />
 					  			</div>
@@ -106,7 +106,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[6].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[6].isbn}" id="isbn">
 								<div class="img-wrapper">
 						    		<img class="card-img-top" src="${list[6].image }" />
 						  		</div>
@@ -119,7 +119,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[7].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[7].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[7].image }" />
 						  		</div>
@@ -132,7 +132,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[8].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[8].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[8].image }" />
 						   		</div>
@@ -145,7 +145,7 @@
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
-						   	<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${list[9].isbn}" id="isbn">
+						   	<a href="${pageContext.request.contextPath }/book/${list[9].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[9].image }" />
 						  		</div>
@@ -203,7 +203,7 @@
            	//요소의 속성 변경
             $('#bookimage').attr("src", data[i].image);
             if(isbn!=""){
-            	$('#bookA').attr("href", "bookDetail.do?d_isbn="+data[i].isbn);
+            	$('#bookA').attr("href", "book/"+data[i].isbn);
             }            
 		 })
 			

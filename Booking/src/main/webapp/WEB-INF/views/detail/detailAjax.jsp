@@ -7,7 +7,7 @@
     <c:forEach var="b" items="${detailAjax }">
     <ul class="simAjax">
         <li>
-            <a href="bookDetail.do?d_isbn=${b.isbn }">
+            <a href="book/${b.isbn }">
             	<img src="${b.image}" alt="" />
             	<p class="bookT">${b.title }</p>
             </a>        	

@@ -191,7 +191,7 @@
 						
 						bestSellerList += '<td>'
 							bestSellerList += '<div>'
-								bestSellerList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
+								bestSellerList += '<a href="${pageContext.request.contextPath }/book/'+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
 							bestSellerList += '</div>'
 						bestSellerList += '</td>'
 						

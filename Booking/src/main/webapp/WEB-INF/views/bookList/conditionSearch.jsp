@@ -142,7 +142,7 @@
 						
 						bookSearchList += '<td>'
 							bookSearchList += '<div>'
-								bookSearchList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
+								bookSearchList += '<a href="${pageContext.request.contextPath }/book/'+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
 							bookSearchList += '</div>'
 						bookSearchList += '</td>'
 						

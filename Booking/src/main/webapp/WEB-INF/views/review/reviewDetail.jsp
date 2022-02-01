@@ -43,7 +43,7 @@
 				</div>
 				<tr>
 					<td class="tdImg" rowspan="4"><a
-						href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${dto.isbn}">
+						href="${pageContext.request.contextPath }/book/${dto.isbn}">
 							<img id="image" src="${dto.imagePath }" />
 					</a></td>
 				</tr>

@@ -37,11 +37,11 @@
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-5">
 							<div class=" h-100">
-								<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
+								<a href="${pageContext.request.contextPath }/book/${b.isbn}">
 									<img src="${b.image }" class="card-img-top img-wrapper cardBook">
 								</a>
 								<div  class="card-body">
-									<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
+									<a href="${pageContext.request.contextPath }/book/${b.isbn}">
 										<p class="card-title ellipsis2">${b.title }</p>
 									</a>
 									<small class="card-text ellipsis">${b.author }</small>
