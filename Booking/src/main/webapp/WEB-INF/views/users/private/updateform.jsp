@@ -87,7 +87,7 @@
 			<div class="account-form">
 				<h2>기본 정보</h2>
 				<div class="profile-box">
-					<img id="preImg" src="" alt="" />
+					<img id="preImg" src="" alt="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/>
 					<c:choose>
 						<c:when test="${empty dto.profile }">
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
