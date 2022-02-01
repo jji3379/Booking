@@ -261,7 +261,7 @@
 	}); 
 	$(document).ready(function(){
 	   $.ajax({
-           url:"${pageContext.request.contextPath }/bookList/bestSeller.do?d_cont=1",
+           url:"${pageContext.request.contextPath }/bestSeller?d_cont=1",
            method:"GET",
            data:"&sort=count",
            success:function(data){

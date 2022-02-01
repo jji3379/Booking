@@ -27,7 +27,7 @@ import com.acorn5.booking.users.repository.SearchRepository;
 import com.acorn5.booking.users.repository.UsersRepository;
  
 @Controller
-public class BookController {
+public class BookViewController {
     @Autowired
     private BookService service; 
 
@@ -41,7 +41,7 @@ public class BookController {
 	private SearchRepository searchRepository; 
     
     //by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
-    @RequestMapping("/CategoryList.do") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
+    @RequestMapping("/category") //by 준익, bookList 폴더에 있는 CategoryList 파일에 적용_2021.02.28 
     public ModelAndView categoryList(@RequestParam("d_catg")String d_catg, int start, String sort, //by 준익, 카테고리별로 적용 받기 위해서 d_catg, 페이징 값을 얻기 위한 start 값 받기_2021.02.28
     								HttpServletRequest request, ModelAndView mView){
 		
@@ -54,7 +54,7 @@ public class BookController {
     }
 	
     //by준영, bookList.jsp 에 cont, sort 를 인자로 리스트 검색하는 서비스_210222
-    @RequestMapping("/bookList/bestSeller.do")
+    @RequestMapping("/bestSeller")
     public ModelAndView bestSeller(@RequestParam(required=false)String d_cont,String sort, HttpServletRequest request, ModelAndView mView){
 		Long id = (Long) request.getSession().getAttribute("id");
 		

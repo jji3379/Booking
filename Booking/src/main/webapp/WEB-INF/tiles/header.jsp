@@ -49,10 +49,10 @@
 	<div class="navWrap">
 		<ul class="Btns">
 			<li>
-				<a href="${pageContext.request.contextPath }/CategoryList.do?d_catg=100&sort=count&start=1">전체도서</a>
+				<a href="${pageContext.request.contextPath }/category?d_catg=100&sort=count&start=1">전체도서</a>
 			</li>
 			<li>
-	        	<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">베스트셀러 </a>
+	        	<a href="${pageContext.request.contextPath }/bestSeller">베스트셀러 </a>
 	     	</li>
 			<li>
 				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
