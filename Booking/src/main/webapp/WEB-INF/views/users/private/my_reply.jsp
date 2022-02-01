@@ -186,7 +186,7 @@
 							reviewList += '<tbody>'
 					
 							for(var i=0; i<data.reviewDtl.content.length; i++){				
-								reviewList += '<tr class="myPost-tr">'
+								reviewList += '<tr class="myPost-tr reply-tbody" data-num="'+data.reviewDtl.content[i].id+'" onclick="javascript:">'
 									reviewList += '<td>'+((data.reviewDtl.number*5)+i+1)+'</td>'
 									reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
 									reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
@@ -253,7 +253,7 @@
 						reviewList += '<tbody>'
 				
 						for(var i=0; i<data.reviewDtl.content.length; i++){				
-							reviewList += '<tr class="myPost-tr">'
+							reviewList += '<tr class="myPost-tr reply-tbody" data-num="'+data.reviewDtl.content[i].refGroup.id+'" onclick="javascript:">'
 								reviewList += '<td>'+(i+1)+'</td>'
 								reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
 								reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
@@ -286,6 +286,11 @@
 		}
 	});
 	
+	//by준영, 작성댓글 클릭시 detail 링크 
+	$(document).on("click",".reply-tbody", function(){
+		var id = $(this).attr("data-num");
+		location.href="${pageContext.request.contextPath }/review/"+id;
+	});
 </script>
 </body>
 </html>

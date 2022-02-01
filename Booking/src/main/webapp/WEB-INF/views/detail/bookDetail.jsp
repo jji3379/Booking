@@ -65,9 +65,9 @@
 					<input id="titleP" type="hidden" name="title" value="${b.title }" />
 					<input id="priceP" type="hidden" name="price" value="${b.price }"/>
 					<input id="d_priceP" type="hidden" name="d_price" value="${b.discount }"/>
-					<input type="text" id="isbnP" name="isbn" value="${b.isbn }" hidden/>
-					<input type="text" id="publisherP" name="isbn" value="${b.publisher }" hidden/>
-					<input type="text" id="authorP" name="isbn" value="${b.author }" hidden/>
+					<input type="hidden" id="isbnP" name="isbn" value="${b.isbn }" />
+					<input type="hidden" id="publisherP" name="publisher" value="${b.publisher }" />
+					<input type="hidden" id="authorP" name="author" value="${b.author }"/>
 					<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
 					<button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
 					<a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
@@ -472,7 +472,7 @@
        }else if(d_price != ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
-       console.log(data);
+      
        if(id == ""){
           $('#modal-open').trigger('click');
        }else{
@@ -509,7 +509,6 @@
        }else if(d_price != ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
-       console.log(data);
        if(id == ""){
           $('#modal-open').trigger('click');
        }else{

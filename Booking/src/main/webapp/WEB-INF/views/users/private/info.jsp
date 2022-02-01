@@ -220,7 +220,7 @@
 	    success:function(data){
 	    	var orderList = "";		        	
         	for (var i=0; i<data.content.length; i++) {
-	        	orderList += '<tr>'
+	        	orderList += '<tr class="recent" data-num="'+data.content[i].id+'" onclick="javascript:" >'
 		        	orderList += '<td>'
 			        	orderList += '<div>총 '+data.content[i].orderCount+'개 상품</div>'
 		        	orderList += '</td>'
@@ -239,7 +239,11 @@
 			console.log("오류");
 		}
 	})
-	
+	//by준영, 최근구매목록 클릭시 detail 링크 
+	$(document).on("click",".recent", function(){
+		var id = $(this).attr("data-num");
+		location.href="${pageContext.request.contextPath}/users/private/myOrder/detail/"+id;
+	});
 	// 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
 		url:"${pageContext.request.contextPath}/v1/users/${id}",
