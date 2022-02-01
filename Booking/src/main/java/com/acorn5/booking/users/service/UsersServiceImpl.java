@@ -227,16 +227,7 @@ public class UsersServiceImpl implements UsersService{
 	//by욱현.dto정보를 얻어내는 로직 _2021222
 	@Override
 	public Users getInfo(Long id) {
-		//로그인된 아이디를 읽어와서
-		//개인정보를 읽어온다.
-		//Users dto= dao.getData(id);
-		UserInfoDto userinfo = new UserInfoDto();
-		Users dto = new Users();
-		if (id != null) {
-			dto = usersRepository.findById(id);
-		}
-		
-		return dto;
+		return usersRepository.findById(id);
 	}
 	
 	//by욱현.회원탈퇴 관련 비즈니스 로직_2021222
@@ -450,20 +441,4 @@ public class UsersServiceImpl implements UsersService{
 	public void deleteRecentSearch(Long id) {
 		searchRepository.delete(id);
 	}
-	@Override
-	public List<Cart> getCartAndProfile(Long id) {
-		
-		QUsers qUsers = QUsers.users;
-		QCart qCart = QCart.cart;
-		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-		
-		List<Cart> headerInfo = queryFactory.selectFrom(qCart)
-				.join(qCart.userId, qUsers)
-				.fetchJoin()
-				.where(qUsers.id.eq(id))
-				.fetch();
-		
-		return headerInfo;
-	}
-
 }

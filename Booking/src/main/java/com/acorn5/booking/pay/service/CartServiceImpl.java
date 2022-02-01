@@ -89,4 +89,12 @@ public class CartServiceImpl implements CartService {
 			cartRepository.delete(myCart.get(i).getId());
 		}
 	}
+	
+	@Override
+	public List<Cart> getCart(Long id) {
+		Users user = new Users();
+		user.setId(id);
+		
+		return cartRepository.findByUserId(user);
+	}
 }

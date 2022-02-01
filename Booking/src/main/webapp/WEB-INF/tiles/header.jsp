@@ -24,13 +24,13 @@
 			    </form>
 			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
 		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
-		    		<span id="cartCount"></span>
+		    		<span id="cartCountNum"></span>
 			   	</a>
 			</div>
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-						<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img id="userProfileImg" src="${pageContext.request.contextPath }/${profile }" alt="" /></a>
+						<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img id="userProfileImg" src="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/></a>
 					<div class="user-box" >
 						<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
@@ -70,26 +70,38 @@
 	var loginCheck = "${sessionScope.id}";
 	if(loginCheck != "") {
 		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/cart-profile",
+			url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/profile",
 			method:"GET",
 			dataType : "json",
 			async: false,
 			success:function(data) {
-				//$(".cart-box").html('<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>')
-				//$(".cart-box").html('<span class="cartBadge">'+data.length+'</span>')
-				$("#cartCount").html(data.length)
-				$("#cartCount").addClass("cartBadge")
-				
-				var profileImg = data[0].userId.profile;
-				console.log(profileImg);
+				var profileImg = data.profile;
 
 				if( profileImg != "" ){
-					$('#userProfileImg').attr('src', "${pageContext.request.contextPath}"+profileImg );
+					$('#userProfileImg').attr('src', '${pageContext.request.contextPath}'+profileImg);
 				}else{
 					$('#userProfileImg').attr('src', 'https://ssl.pstatic.net/static/common/myarea/myInfo.gif');
 				}
 			},
 			error : function(data) {
+				console.log("오류");
+			}
+		});
+	}
+	
+	if(loginCheck != "") {
+		$.ajax({
+			url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/cart",
+			method:"GET",
+			dataType : "json",
+			async: false,
+			success:function(cartData) {
+				if(cartData.length != 0){
+					$("#cartCountNum").html(cartData.length);
+					$("#cartCountNum").addClass("cartBadge");
+				}
+			},
+			error : function(cartData) {
 				console.log("오류");
 			}
 		});

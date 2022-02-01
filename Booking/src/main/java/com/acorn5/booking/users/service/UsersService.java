@@ -62,6 +62,4 @@ public interface UsersService {
 	public Page<Search> getMySearch(Long id, Pageable pageable);
 	
 	public void deleteRecentSearch(Long id);
-	
-	public List<Cart> getCartAndProfile(Long id);
 }
