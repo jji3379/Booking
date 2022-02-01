@@ -4,6 +4,19 @@
 <html>
 <head>
 <style>
+	#headset{
+		width:85px;
+		height:85px;
+	}
+	#btn1{
+		margin-right:10px;
+		background-color:#135fa1;
+		
+	}
+	#btn2{
+		margin-left:10px;
+		background-color:#135fa1;
+	}
 </style>
 <meta charset="UTF-8">
 <title>책과의 즉석만남 Booking</title>

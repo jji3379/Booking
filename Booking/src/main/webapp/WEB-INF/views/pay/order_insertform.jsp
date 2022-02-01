@@ -12,11 +12,11 @@
 </style>
 </head>
 <body>
+   <div id="status"><c:out value="${fn:length(list)}"></c:out></div>
    <table class="table">
        <thead class="thead-light">
        <tr>
-       	 <th>장바구니번호</th>
-         <th>주문번호</th>
+         <!-- <th>주문번호</th> -->
          <th>구매자</th>
          <th>이미지</th>
          <th>제목</th>
@@ -30,14 +30,13 @@
            <c:forEach var="o" items="${list}" varStatus="status">
            	<tr>
 	            <td id="c_id${status.count }" hidden>${o.id }</td><!-- 장바구니번호 -->
-	            <td id="o_id${status.count }"></td>
+<%-- 	        <td id="o_id${status.count }"></td> --%>
 	            <td id="buyer${status.count }">${o.userId.loginId }</td>
 	            <td id="image${status.count }">${o.image }</td>
 	            <td id="title${status.count }">${o.title }</td>
 	            <td id="price${status.count }">${o.price }</td>
 	            <td id="d_price${status.count }">${o.d_price }</td>
 	            <td id="count${status.count }">${o.count }</td>    
-	            <td id="status" hidden>${fn:length(list)}</td>
 	            <td id="isbn${status.count }" hidden>${o.isbn }</td>
 	            <td id="publisher${status.count }" hidden>${o.publisher }</td>
 	            <td id="author${status.count }" hidden>${o.author }</td>
@@ -53,9 +52,9 @@
    //let ran = Math.floor(Math.random()*10000 + 1);// 난수
    
    // by욱현.각 구매책의 정보를 post방식으로 pay.do에 전송_2021317
-   let totalnum = $('#status').text(); // 총 책의 갯수
+   let totalnum = parseInt(document.querySelector('#status').textContent); // 총 책의 갯수
    //let o_id = ran; //주문번호
-   $(window).ready(function(){ //페이지 로딩완료시 함수호출
+   document.ready(function(){ //페이지 로딩완료시 함수호출
       for(let i=1; i<=totalnum; i++) { //각 로우별로 값을 추출해 전송한다.
          //$("#o_id"+[i]).text(o_id); //row의 주문번호 표시
          let buyer = $('#buyer'+[i]).text();//구매자
@@ -85,8 +84,7 @@
                	console.log("오류");
                }
             })
-         })();
-         
+         });
       }
    });
 </script>
