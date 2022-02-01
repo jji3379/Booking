@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -43,6 +44,11 @@ public class OrderDtl {
 	@ManyToOne
 	@JoinColumn(name = "orderNum")
 	private Order orderNum;
+	
+	@Transient
+	private int totalPrice;
+	@Transient
+	private int orderCount;
 	
 	public Long getId() {
 		return id;
@@ -110,4 +116,16 @@ public class OrderDtl {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public int getOrderCount() {
+		return orderCount;
+	}
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}	
 }

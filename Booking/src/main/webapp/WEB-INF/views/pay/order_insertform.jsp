@@ -80,8 +80,9 @@
                   if(i==totalnum) { //장바구니에 담긴 책의 종류를 모두 post전송을 했다면 paid.do로 이동한다.
                      location.replace = "${pageContext.request.contextPath }/pay/paid.do";
                   }
+               },error(data){
+               	console.log("오류");
                }
-               
             })
          });
       }

@@ -82,6 +82,19 @@ public class CartServiceImpl implements CartService {
 	//by_준영, 결제완료시 해당상품 삭제_210314
 	@Override
 	public void deletPay(Long id,HttpServletRequest request) {
-		cartRepository.delete(id); 
+		Users user = new Users();
+		user.setId(id);
+		List<Cart> myCart = cartRepository.findByUserId(user);
+		for (int i = 0; i < myCart.size(); i++) {
+			cartRepository.delete(myCart.get(i).getId());
+		}
+	}
+	
+	@Override
+	public List<Cart> getCart(Long id) {
+		Users user = new Users();
+		user.setId(id);
+		
+		return cartRepository.findByUserId(user);
 	}
 }

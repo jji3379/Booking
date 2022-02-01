@@ -131,10 +131,10 @@
 						<div class="info-account">
 							<div>
 								<span>아이디</span>
-								<input type="text" value="catcat3" disabled/>
+								<input type="text" id="userLoginId" disabled/>
 								<br />
 								<span>이메일</span>
-								<input type="text" value="catcat3@naver.com" disabled/>
+								<input type="text" id="userEmail" disabled/>
 							</div>
 							<div style="flex:0.0076;"></div>
 							<div class="scroll-box9">
@@ -247,6 +247,8 @@
 		dataType : "json",
 		async: false,
 		success:function(data) {
+	    	$("#userLoginId").val(data.user.loginId);
+	    	$("#userEmail").val(data.user.email);
 			
 			var myCare = data.user.care; 
 			var careList = myCare.split(',');

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.acorn5.booking.filter.LoginDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.pay.repository.CartRepository;
+import com.acorn5.booking.pay.service.CartService;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.users.dto.UserInfoDto;
@@ -35,6 +36,9 @@ public class UsersApiController {
 	
 	@Autowired
 	private UsersService usersService;
+
+	@Autowired
+	private CartService cartService;
 	
 	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 	public Users login(HttpServletRequest request,
@@ -113,9 +117,13 @@ public class UsersApiController {
 		usersService.deleteRecentSearch(searchId);
 	}
 	
-	@GetMapping("/user/{id}/cart-profile")
-	public List<Cart> getCartAndProfile(@PathVariable Long id) {
-		
-		return usersService.getCartAndProfile(id);
+	@GetMapping("/user/{id}/profile")
+	public Users getProfile(@PathVariable Long id) {
+		return usersService.getInfo(id);
+	}
+	
+	@GetMapping("/user/{id}/cart")
+	public List<Cart> getCart(@PathVariable Long id) {
+		return cartService.getCart(id);
 	}
 }

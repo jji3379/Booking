@@ -214,7 +214,10 @@
 									
 									bestSellerList += '<li class="grid-li bd-price">'
 										bestSellerList += '<div>'
-											bestSellerList += '<span class="book-price">'+data[i].price+' 원</span> → <span class="discount">'+data[i].discount+' 원</span>'
+											bestSellerList += '<span class="book-price">'+data[i].price+' 원</span>'
+											if(data[i].discount != ""){
+												bestSellerList += '→ <span class="discount">'+data[i].discount+' 원</span>'
+											}
 										bestSellerList += '</div>'
 									bestSellerList += '</li>'
 										

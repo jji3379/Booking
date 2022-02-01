@@ -78,8 +78,8 @@ public class PayController {
 	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/paid")
 	public String deletePaid(HttpServletRequest request) {
-		Long id=(Long)request.getSession().getAttribute("id");
-		service.deletPay(id,request);
+		//Long id=(Long)request.getSession().getAttribute("id");
+		//service.deletPay(id,request);
 		return "pay/paid.page";
 	}
 }

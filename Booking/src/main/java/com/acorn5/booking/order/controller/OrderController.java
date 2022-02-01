@@ -44,10 +44,12 @@ public class OrderController {
 	
 	//by욱현. 결제한 책들을 my_order 테이블에 저장하기_2021317
 	@RequestMapping(value = "/pay/orderInsert", method = RequestMethod.POST)
-	public ResponseEntity<OrderDtl> orderInsert(@RequestBody OrderDtl dto, HttpServletRequest request) {
+	public ResponseEntity<List<OrderDtl>> orderInsert(@RequestBody List<OrderDtl> dto, HttpServletRequest request) {
 		//dto객체 전달해서 db수정
 		//orderRepository.save(dto);
-		OrderDtl order = orderService.orderInsert(dto, request);
+		Long id = (Long) request.getSession().getAttribute("id");
+		cartservice.deletPay(id, request);
+		List<OrderDtl> order = orderService.orderInsert(dto, request);
 		return ResponseEntity.ok(order);
 	}
 	
@@ -73,10 +75,6 @@ public class OrderController {
 				HttpServletRequest request) {
 			//뷰페이지에서 프로필이미지 로드를 위한 로직 
 			Long id = (Long) session.getAttribute("id");
-			if (id != null) {
-				// by 우석, view page 에서 cartitem 불러오기_210315
-				cartservice.listCart(mView, request);
-			}
 			Users dto = usersRepository.findById(id);  
 					//dao.getData(id);
 			mView.addObject("dto", dto);
@@ -90,11 +88,6 @@ public class OrderController {
 	public ModelAndView orderDetail(@PathVariable Long orderId ,HttpSession session, ModelAndView mView,
 			HttpServletRequest request) {
 		//뷰페이지에서 프로필이미지 로드를 위한 로직 
-		Long id = (Long) session.getAttribute("id");
-		if (id != null) {
-			// by 우석, view page 에서 cartitem 불러오기_210315
-			cartservice.listCart(mView, request);
-		}
 		//Users dto = usersRepository.findById(id);  
 				//dao.getData(id);
 		mView.addObject("orderId", orderId);
