@@ -22,7 +22,7 @@
 			        <input name="start" value="1" hidden/>
 			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
-			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
+			    <a class="cart-box" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart" id="cartBtn">
 		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
 		    		<span id="cartCountNum"></span>
 			   	</a>
@@ -30,9 +30,9 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-						<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img id="userProfileImg" src="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/></a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info" class="userImg "><img id="userProfileImg" src="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/></a>
 					<div class="user-box" >
-						<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info" class="member" >${loginId } 님</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 					</div>
 				</div>

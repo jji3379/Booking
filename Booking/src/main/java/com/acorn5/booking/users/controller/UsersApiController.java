@@ -9,9 +9,13 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,35 +44,36 @@ public class UsersApiController {
 	@Autowired
 	private CartService cartService;
 	
-	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
-	public Users login(HttpServletRequest request,
-			HttpServletResponse response, @RequestBody LoginDto loginDto) {
-		//로그인에 관련된 로직을 서비스를 통해서 처리한다.
-		//usersService.loginLogic(request, response, loginDto);
-		//view page  로 forward  이동해서 응답
-		return usersService.loginLogic(request, response, loginDto);
-	}
-	
-	@RequestMapping(value = "/users/signup", method = RequestMethod.GET)
-	public boolean signup (@RequestParam("loginId") String loginId) {
+	// 아이디 중복 확인 api
+	@GetMapping(value = "/users/signup") // user-id/{loginId}
+	public boolean isAvailableId(@RequestParam("loginId") String loginId) {
+		
 		return usersService.isExistId(loginId);
 	}
 	
-	@RequestMapping(value = "/users/signup", method = RequestMethod.POST)
-	public Users signup(@RequestBody Users dto) {
-		//usersService.addUser(dto);
+	// 유저 회원 등록 api
+	@PostMapping(value = "/users/signup") // user
+	public Users insertUser(@RequestBody Users dto) {
+		
 		return usersService.addUser(dto);
 	}
+	
+	
+	// 로그인 처리 api
+	@PostMapping(value = "/users/login") 
+	public Users doLogin(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginDto loginDto) {
 
-	// 나의 리뷰 조회
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	public UserInfoDto myinfo(@PathVariable Long id, Pageable pageable) {
+		return usersService.loginLogic(request, response, loginDto);
+	}
+
+	// 유저 정보 조회 api
+	@GetMapping(value = "/users/{id}") // user/{id}
+	public UserInfoDto getUserinfo(@PathVariable Long id, Pageable pageable) {
 		UserInfoDto userinfo = new UserInfoDto();
 		usersService.getInfo(id);
 		usersService.getMyReview(id, pageable);
 		usersService.getMyCart(id, pageable);
 		usersService.getMyReply(id, pageable);
-		
 		
 		userinfo.setUser(usersService.getInfo(id));
 		userinfo.setReview(usersService.getMyReview(id, pageable));
@@ -77,53 +82,67 @@ public class UsersApiController {
 		
 		return userinfo;
 	}
-	
-	// 나의 리뷰 조회
-	@RequestMapping(value = "/users/review/{id}", method = RequestMethod.GET)
-	public Page<Review> myReview(@PathVariable Long id, Pageable pageable) {
+
+	// 유저 리뷰 조회 api
+	@GetMapping(value = "/users/review/{id}") // user/{id}/review
+	public Page<Review> getUserReview(@PathVariable Long id, Pageable pageable) {
+		
 		return usersService.getMyReview(id, pageable);
 	}
-	
-	// 나의 리뷰 조회
-	@RequestMapping(value = "/users/reply/{id}", method = RequestMethod.GET)
-	public Page<ReviewDtl> myReply(@PathVariable Long id, Pageable pageable) {
+
+	// 유저 댓글 조회 api
+	@GetMapping(value = "/users/reply/{id}") // user/{id}/reply
+	public Page<ReviewDtl> getUserReply(@PathVariable Long id, Pageable pageable) {
+		
 		return usersService.getMyReply(id, pageable);
 	}
 
-	// 나의 리뷰 조회
-	@RequestMapping(value = "/users/cart/{id}", method = RequestMethod.GET)
-	public Page<Cart> myCart(@PathVariable Long id, Pageable pageable) {
+	// 유저 장바구니 조회 api
+	@GetMapping(value = "/users/cart/{id}") // user/{id}/cart
+	public Page<Cart> getUserCart(@PathVariable Long id, Pageable pageable) {
+		
 		return usersService.getMyCart(id, pageable);
 	}
 
-	// 나의 리뷰 조회
-	@RequestMapping(value = "/users/search/{id}", method = RequestMethod.GET)
-	public Page<Search> mySearch(@PathVariable Long id, Pageable pageable) {
+	// 유저 최근 검색어 조회 api
+	@GetMapping(value = "/users/search/{id}") // user/{id}/search
+	public Page<Search> getUserSearch(@PathVariable Long id, Pageable pageable) {
+		
 		return usersService.getMySearch(id, pageable);
 	}
 
-	@RequestMapping(value = "/users/pwdCheck/{id}", method = RequestMethod.GET)
-	public boolean getPwd(@PathVariable Long id, String pwd) {
+	// 비밀번호 확인 api
+	@GetMapping(value = "/users/pwdCheck/{id}") // user/{id}/pwd-check
+	public boolean isSamePwd(@PathVariable Long id, String pwd) {
+		
 		return usersService.getPwd(id, pwd);
 	}
-	
-	@RequestMapping(value = "/users/{id}/profile", method = RequestMethod.DELETE)
+
+	// 프로필 이미지 조회 api
+	@GetMapping("/user/{id}/profile")
+	public Users getProfile(@PathVariable Long id) {
+		
+		return usersService.getInfo(id);
+	}
+
+	// 프로필 이미지 삭제 api
+	@DeleteMapping(value = "/users/{id}/profile") // user/{id}/profile
 	public void deleteProfile(@PathVariable Long id) {
+		
 		usersService.deleteProfile(id);
 	}
 
-	@RequestMapping(value = "/users/{id}/search/{searchId}", method = RequestMethod.DELETE)
+	// 최근 검색어 삭제 api
+	@DeleteMapping(value = "/users/{id}/search/{searchId}") // users -> user
 	public void deleteSearch(@PathVariable Long id, @PathVariable Long searchId) {
+		
 		usersService.deleteRecentSearch(searchId);
 	}
-	
-	@GetMapping("/user/{id}/profile")
-	public Users getProfile(@PathVariable Long id) {
-		return usersService.getInfo(id);
-	}
-	
+
+	// 유저 장바구니 조회 api
 	@GetMapping("/user/{id}/cart")
 	public List<Cart> getCart(@PathVariable Long id) {
+		
 		return cartService.getCart(id);
 	}
 }

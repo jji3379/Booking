@@ -69,6 +69,7 @@ public class OrderController {
 		//mView.setViewName("users/private/my_order");
 		return orderService.getMyOrder(id, request);
 	}
+	/*
 	//by욱현. 주문조회 디테일 페이지
 		@RequestMapping("/users/private/my_order.do")
 		public ModelAndView my_order(HttpSession session, ModelAndView mView,
@@ -83,6 +84,7 @@ public class OrderController {
 			mView.setViewName("users/private/my_order.page");
 			return mView;
 		}
+		*/
 	//by욱현. 주문조회 디테일 페이지
 	@RequestMapping("/users/private/myOrder/detail/{orderId}")
 	public ModelAndView orderDetail(@PathVariable Long orderId ,HttpSession session, ModelAndView mView,

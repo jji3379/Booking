@@ -28,14 +28,15 @@ public class PayController {
 	public void insertCart(Cart dto,HttpServletRequest request) {
 		service.insertCart(dto,request);
 	}
-	
+/*	
 	//by준영, 북카트 리스트_210308
 	@RequestMapping("/pay/cart")
 	public ModelAndView listCart(ModelAndView mView, HttpServletRequest request){
 		service.listCart(mView, request); 
 		mView.setViewName("pay/cart.page");
 		return mView;
-	}	
+	}
+	*/	
 	//by준영, 주문테이블 저장양식_210316
 	@RequestMapping("/pay/order_insertform")
 	public ModelAndView listCart2(ModelAndView mView, HttpServletRequest request){

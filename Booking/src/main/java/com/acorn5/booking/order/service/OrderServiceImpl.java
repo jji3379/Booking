@@ -168,6 +168,7 @@ public class OrderServiceImpl implements OrderService {
 				.fetchJoin()
 				.where(qOrder.buyer.eq(buyerId)
 						.and(qOrder.regdate.between(startDate, endDate)))
+				.orderBy(qOrder.id.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchResults();
