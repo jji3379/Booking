@@ -243,8 +243,10 @@
 								bookSearchList += '<input id="titleP'+i+'" type="hidden" name="title" value="'+data.content[i].title+'" />'
 								bookSearchList += '<input id="priceP'+i+'" type="hidden" name="price" value="'+data.content[i].price+'"/>'
 								bookSearchList += '<input id="d_priceP'+i+'" type="hidden" name="d_price" value="'+data.content[i].discount+'"/>'
-								bookSearchList += '<input type="text'+i+'" id="isbnP" name="isbn" value="'+data.content[i].isbn+'" hidden/>'
-								bookSearchList += '<input type="text'+i+'" id="countP" name="count" value="1" hidden/>'
+								bookSearchList += '<input id="publisherP'+i+'" type="hidden"  name="publisher" value="'+data.content[i].publisher+'" />'
+								bookSearchList += '<input id="authorP'+i+'" type="hidden"  name="author" value="'+data.content[i].author+'" />'
+								bookSearchList += '<input id="isbnP'+i+'" type="hidden"  name="isbn" value="'+data.content[i].isbn+'" />'
+								bookSearchList += '<input id="countP'+i+'"  type="hidden"  name="count" value="1" />'
 
 								bookSearchList += '<div>'
 									bookSearchList += '<button class="cart btn" type="button" id="insertBtn" onclick="insert('+i+')">장바구니</button>'
@@ -308,22 +310,28 @@
 	
 	 //by준영, 장바구니 로그인 필터 기능_210311
     //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315
-    var id="${id}";
+    
+    console.log(id);
     function insert(i){
-       var image = $('#'+'imageP'+i).val();
+ 	   var id = $("#idP"+i).val();
+	   var image = $('#'+'imageP'+i).val();
        var title = $('#'+'titleP'+i).val();
        var price = $('#'+'priceP'+i).val();
        var d_price = $('#'+'d_priceP'+i).val();
-       var count = $('#'+'countP').val();
+       var count = $('#'+'countP'+i).val();
        var isbn=$('#'+'isbnP'+i).val();
+       var publisher = $('#publisherP'+i).val();
+       var author = $('#authorP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }else if(d_price != ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+    	   data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
+
+	   console.log(data);
        if(id == ""){
           $('#modal-open').trigger('click');
        }else{
@@ -344,19 +352,22 @@
     }
     
     function direct(i){
+       var id = $("#idP"+i).val();
        var image = $('#'+'imageP'+i).val();
        var title = $('#'+'titleP'+i).val();
        var price = $('#'+'priceP'+i).val();
        var d_price = $('#'+'d_priceP'+i).val();
-       var count = $('#'+'countP').val();
+       var count = $('#'+'countP'+i).val();
        var isbn=$('#'+'isbnP'+i).val();
+       var publisher = $('#publisherP'+i).val();
+       var author = $('#authorP'+i).val();
        
        var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }else if(d_price != ""){
-          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn };
+          data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : d_price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
        }
        console.log(data);
        if(id == ""){
