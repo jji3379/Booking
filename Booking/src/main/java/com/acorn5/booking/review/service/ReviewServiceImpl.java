@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import com.acorn5.booking.review.dto.ReviewSearchDto;
 import com.acorn5.booking.review.entity.QReview;
 import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
@@ -90,15 +89,12 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, ReviewSearchDto searchDto) {
-		String keyword = searchDto.getKeyword(); 
-		String condition = searchDto.getCondition();
+	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, String condition, String keyword) {
 
 		if(keyword==null){
 			keyword="";
 			condition=""; 
 		}
-
 		
 		QReview qReview = QReview.review;
 		QUsers qUsers = QUsers.users;

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.acorn5.booking.review.dto.ReviewSearchDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.entity.Users;
@@ -37,12 +35,12 @@ public class ReviewApiController {
 			return service.getList(request, pageable);
 		}
 
-		// 조건 검색 리뷰 조회 api
-		@PostMapping(value = "/review/search")
+		// 리뷰 검색 조회 api
+		@GetMapping(value = "/review/{condition}/{keyword}")
 		public Page<Review> getSearchReview(HttpServletRequest request, Pageable pageable,
-				@RequestBody ReviewSearchDto searchDto) {
+				@PathVariable String condition, @PathVariable String keyword) {
 			
-			return service.getConditionSearchList(request, pageable, searchDto);
+			return service.getConditionSearchList(request, pageable, condition, keyword);
 		}
 		
 		// 리뷰 등록 api
@@ -79,7 +77,7 @@ public class ReviewApiController {
 		}
 		
 		// by준익, 글 상세정보 요청처리_210303  
-		@RequestMapping(value = "/review/rating/{isbn}", method = RequestMethod.GET)
+		@RequestMapping(value = "/review/{isbn}/rating", method = RequestMethod.GET)
 		public String reviewAvgRating(@PathVariable String isbn) {
 			return String.format("%.1f", service.reviewAvgRating(isbn));
 		}
