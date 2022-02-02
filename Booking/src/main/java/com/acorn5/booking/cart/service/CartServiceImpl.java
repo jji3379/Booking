@@ -1,4 +1,4 @@
-package com.acorn5.booking.pay.service;
+package com.acorn5.booking.cart.service;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.pay.entity.Cart;
-import com.acorn5.booking.pay.repository.CartRepository;
+import com.acorn5.booking.cart.entity.Cart;
+import com.acorn5.booking.cart.repository.CartRepository;
 import com.acorn5.booking.users.entity.Users;
 
 @Service
@@ -49,8 +49,8 @@ public class CartServiceImpl implements CartService {
 	}
 	//by, 카트 개별 삭제 요청처리_210310
 	@Override
-	public void deleteCart(Cart c_id) {
-		cartRepository.delete(c_id);
+	public void deleteCart(Long id) {
+		cartRepository.delete(id);
 	}
 	//by준영, 체크된 카트 삭제_210313
 	@Override

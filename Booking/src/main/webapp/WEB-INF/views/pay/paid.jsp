@@ -69,7 +69,7 @@
          </div>
          <div class="order-footer">
             <a class="btn home" href="${pageContext.request.contextPath }/home.do" >계속 쇼핑하기</a> 
-            <a class="btn order" href="../users/private/my_order.do" >구매내역 확인</a>
+            <a class="btn order" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order" >구매내역 확인</a>
          </div>
       </div>
    </div>

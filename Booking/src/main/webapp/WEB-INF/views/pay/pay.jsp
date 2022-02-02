@@ -53,7 +53,6 @@
 			<script>
 			//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 				function deleteChk(){
-					var url ="deleteCart.do";
 					var valueArr = new Array();
 					var list =$("input[name='chBox']");
 					for(var i=0; i< list.length; i++){
@@ -66,13 +65,13 @@
 					}else{
 						var chk = confirm("정말 삭제하시겠습니까");
 						$.ajax({
-							url:url,
-							type:'post',
+							url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
+							type:'delete',
 							traditional :true,
 							data:{'valueArr' : valueArr},
 							success:function(){
 								if(chk){
-									location.replace("pay.do");	
+									location.replace("${pageContext.request.contextPath }/user/${sessionScope.id}/pay");
 								}else{
 									return false;
 								}
@@ -496,13 +495,13 @@
 				}
 				
 	            $.ajax({
-	               url:"${pageContext.request.contextPath }/pay/orderInsert",
+	               url:"${pageContext.request.contextPath }/v1/pay/order",
 		   		   method:"post",
 				   dataType : "json",
 				   contentType : "application/json; charset=utf-8",
 				   data : JSON.stringify(dataArray),
 	               success : function(){
-						location.href="paid";
+						location.href="${pageContext.request.contextPath }/pay/order/paid";
 	               },error(data){
 	               	console.log("오류");
 	               }

@@ -323,7 +323,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -336,7 +335,7 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
@@ -362,7 +361,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -374,11 +372,11 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
-                location.href = "${pageContext.request.contextPath }/pay/pay.do";
+                location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/pay";
              }
           })
        }   

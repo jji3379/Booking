@@ -1,4 +1,4 @@
-package com.acorn5.booking.pay.entity;
+package com.acorn5.booking.cart.entity;
 
 import java.util.Date;
 

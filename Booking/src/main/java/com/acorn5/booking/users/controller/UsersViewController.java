@@ -133,6 +133,7 @@ public class UsersViewController {
 	// by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")
 	public String signupForm() {
+		
 		return "users/signup_form.page";
 	}
 
@@ -163,15 +164,11 @@ public class UsersViewController {
 			HttpServletRequest request) {
 		Long id = (Long) session.getAttribute("id");
 		Users dto = usersRepository.findById(id);  
-		mView.addObject("dto", dto);
 		
+		mView.addObject("dto", dto);
 		mView.setViewName("users/private/my_order.page");
+		
 		return mView;
 	}
 	
-	@RequestMapping("/user/{id}/cart")
-	public String listCart(@PathVariable Long id){
-
-		return "pay/cart.page";
-	}	
 }
