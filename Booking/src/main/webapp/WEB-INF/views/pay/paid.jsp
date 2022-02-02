@@ -76,7 +76,7 @@
 </div>
 <script>
 $.ajax({ 
-   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
     method:"get",
     success:function(data){
     	$("#orderNumber").html(data.content[0].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[0].id+"").padStart(8,'0'));

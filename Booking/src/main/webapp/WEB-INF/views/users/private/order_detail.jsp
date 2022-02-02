@@ -169,7 +169,7 @@
 	});
 
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/myOrder/detail/${orderId}",
+		url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order/${orderId}",
 		method:"GET",
 		dataType : "json",
 		async: false,

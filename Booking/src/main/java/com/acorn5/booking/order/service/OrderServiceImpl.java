@@ -135,11 +135,6 @@ public class OrderServiceImpl implements OrderService {
 		//회원의 주문내역 전체 얻기 
 		Users buyerId = new Users();
 		buyerId.setId(id);
-		//List<Order> list = orderDtlRepository.findByBuyer(buyerId); 
-				//dao.getMyOrder((String)session.getAttribute("id"));
-		//주문번호 끼리 묶기
-		//List<OrderSum> orderList = new ArrayList<OrderSum>();
-		//orderRepository.findByBuyer(buyerId);
 
 		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());		
 		JPAQueryFactory query = new JPAQueryFactory(em);
