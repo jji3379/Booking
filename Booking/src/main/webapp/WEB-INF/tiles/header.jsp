@@ -55,7 +55,7 @@
 	        	<a href="${pageContext.request.contextPath }/bestSeller">베스트셀러 </a>
 	     	</li>
 			<li>
-				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
+				<a href="${pageContext.request.contextPath }/reviews">도서리뷰 </a>
 			</li>
 			<li>
 		        <a href="${pageContext.request.contextPath }/map">서점 찾기</a>

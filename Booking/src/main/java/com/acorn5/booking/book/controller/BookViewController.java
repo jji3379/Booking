@@ -29,11 +29,9 @@ import com.acorn5.booking.users.repository.UsersRepository;
  
 @Controller
 public class BookViewController {
-    @Autowired
-    private BookService service; 
 
-    //@Autowired
-	//private UsersDao dao;
+	@Autowired
+    private BookService bookService; 
 
     @Autowired
     private UsersRepository usersRepository;
@@ -43,11 +41,11 @@ public class BookViewController {
     
 	// by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
 	@RequestMapping("/category") 
-	public ModelAndView categoryList(@RequestParam("d_catg") String d_catg, int start, String sort,
+	public ModelAndView getCategoryList(@RequestParam("d_catg") String d_catg, int start, String sort,
 			HttpServletRequest request, ModelAndView mView) {
 
 		// by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 :10)_2021.02.28
-		mView.addObject("categoryList", service.pagingCategory("1", 10, start, d_catg, request, mView, sort));
+		mView.addObject("categoryList", bookService.pagingCategory("1", 10, start, d_catg, request, mView, sort));
 		mView.setViewName("bookList/CategoryList.page");
 
 		return mView;
@@ -61,10 +59,10 @@ public class BookViewController {
     
     //by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222
     @RequestMapping("/book/{isbn}")
-    public ModelAndView bookDetail(@PathVariable String isbn){
+    public ModelAndView getBookDetail(@PathVariable String isbn){
     	ModelAndView mView = new ModelAndView();
 		if (isbn != null) {
-			mView.addObject("bookDetail", service.bookDetail(isbn, 1));
+			mView.addObject("bookDetail", bookService.bookDetail(isbn, 1));
 		}
 		
 		mView.setViewName("detail/bookDetail.page");
@@ -77,20 +75,22 @@ public class BookViewController {
     	ModelAndView mView = new ModelAndView();
 		
     	if (d_auth != null) {
-			mView.addObject("detailAjax", service.detailAjax(d_auth, 30, sort));
+			mView.addObject("detailAjax", bookService.detailAjax(d_auth, 30, sort));
 		}
 		mView.setViewName("detail/detailAjax");
+		
         return mView;
     }
 	
     
     //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
-    @RequestMapping("/review/reviewBookList.do")
-    public ModelAndView reviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request,HttpSession session){    
+    @RequestMapping("/review/book")
+    public ModelAndView getReviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request,HttpSession session){    
 		ModelAndView mView = new ModelAndView();
 		Long id = (Long) session.getAttribute("id");
+		
 		if (keyword != null) {
-			mView.addObject("reviewBookList", service.searchBookList(keyword, 8, 1, request, mView));
+			mView.addObject("reviewBookList", bookService.searchBookList(keyword, 8, 1, request, mView));
 		} else {
 			Users userId = new Users();
 			List<BookDto> searchRecommendList = new ArrayList<BookDto>();
@@ -102,30 +102,26 @@ public class BookViewController {
 				Users users = usersRepository.findById(id);
 				String careList[] = users.getCare().split(",");
 				
-				// 2. 로그인 해서 최근 검색어 기반으로 추천
 
 				if (searchList.size() > 5) { // 최근 검색어가 5개 이상 있을 경우
-					System.out.println("검색어 5개 이상");
 					for (int i = 0; i < 5; i++) {
 						if (searchList.get(i).getKeyword() != null) {
-							searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+							searchRecommendList.addAll(bookService.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
 						} 
 					}
 				} else if(searchList.size() > 0 && searchList.size() < 5) { // 최근 검색 기록이 0보다 크고 5보다 작을 때
-					System.out.println("검색어 5개 이하");
 					for (int i = 0; i < searchList.size(); i++) {
 						if (searchList.get(i).getKeyword() != null) {
-							searchRecommendList.addAll(service.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
+							searchRecommendList.addAll(bookService.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
 						}
 					}
 					// 나머지는 관심사로 채우기
 					for (int i = 0; i < careList.length; i++) {
-						searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));		
+						searchRecommendList.addAll(bookService.careRecommendBook(careList[i], 50, 1, "count", mView));		
 					}
 				} else if(searchList.isEmpty()){ // 최근 검색어가 없을 경우
-					System.out.println("검색어 없는 경우");
 					for (int i = 0; i < careList.length; i++) {
-						searchRecommendList.addAll(service.careRecommendBook(careList[i], 50, 1, "count", mView));
+						searchRecommendList.addAll(bookService.careRecommendBook(careList[i], 50, 1, "count", mView));
 					}
 				}
 			}
@@ -137,34 +133,23 @@ public class BookViewController {
         return mView;
     }
     
-    //by남기, reviewInsertform.jsp 에 d_isbn 을 인자로 도서 정보를 가져오는 서비스_210303
-    @RequestMapping("/review/private/reviewInsertform.do")
-    public ModelAndView reviewBook(@RequestParam(required=false)String d_isbn, HttpServletRequest request){
-        ModelAndView mView = new ModelAndView();
-		
-        if(d_isbn !=null)
-        {
-            mView.addObject("reviewBook", service.bookReview(d_isbn, 1));
-        }
-        mView.setViewName("review/private/reviewInsertform.page");
-        return mView;
-    }
-    // by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
-    @RequestMapping("/bookList/conditionSearch.do")
-    public ModelAndView conditionSearch(@RequestParam(required=false)String keyword,int start,
-          HttpServletRequest request, ModelAndView mView){    
-       if(keyword !=null) { 
-			// by욱현.검색시 최근검색어 칼럼에 검색키워드를 담기_2021308
+	// by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
+	@RequestMapping("/bookList/conditionSearch.do")
+	public ModelAndView conditionSearch(@RequestParam(required = false) String keyword, int start,
+			HttpServletRequest request, ModelAndView mView) {
+		if (keyword != null) {
 			HttpSession session = request.getSession();
 			Long id = (Long) session.getAttribute("id");
+			
 			if (id != null) {
-				service.recentSearchInput(keyword, id);
+				bookService.recentSearchInput(keyword, id);
 			}
-          //mView.addObject("conditionSearch",service.conditionSearch(keyword, 10, pageable);
 			mView.addObject("keyword", keyword);
-       }
-        mView.setViewName("bookList/conditionSearch.page");
-        return mView;
-    }
+		}
+		
+		mView.setViewName("bookList/conditionSearch.page");
+		
+		return mView;
+	}
 }
 

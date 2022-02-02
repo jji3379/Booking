@@ -70,7 +70,7 @@
 					<input type="hidden" id="authorP" name="author" value="${b.author }"/>
 					<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
 					<button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
-					<a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
+					<a href="${pageContext.request.contextPath }/new-review/${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
 	        	</td>
 	       	</tr>
         </table>

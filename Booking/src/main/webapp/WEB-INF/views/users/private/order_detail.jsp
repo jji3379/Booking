@@ -185,7 +185,7 @@
 				discountPrice += data[i].d_price;
 				
 				orderDetail += '<div class="orderDetail-tr">'
-					orderDetail += '<a href="${pageContext.request.contextPath}/review_directInsertform.do?d_isbn='+data[i].isbn+'">'
+					orderDetail += '<a href="${pageContext.request.contextPath}/new-review/'+data[i].isbn+'">'
 						orderDetail += '<img class="left" src="'+data[i].image+'" alt="" />'
 						orderDetail += '<div class="right">'
 							orderDetail += '<div>'+data[i].publisher+'</div>'

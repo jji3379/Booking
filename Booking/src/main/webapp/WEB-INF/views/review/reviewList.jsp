@@ -116,14 +116,14 @@
 			alert("로그인이 필요합니다.");
 			$('#modal-open').trigger('click');
 		}else{
-			location.href="private/reviewInsertform.do";
+			location.href="new-review";
 		}
 	});
 	
 	// 기본 리뷰 조회
 	function pagingList(page, sort) {
 		$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review?page="+page+"&sort="+sort,
+		url:"${pageContext.request.contextPath}/v1/reviews?page="+page+"&sort="+sort,
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -354,7 +354,7 @@
 	}
 	
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review",
+		url:"${pageContext.request.contextPath}/v1/reviews",
 		method:"GET",
 		dataType : "json",
 		async: false,

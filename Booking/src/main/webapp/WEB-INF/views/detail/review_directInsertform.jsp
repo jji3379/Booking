@@ -163,7 +163,7 @@ $(document).ready(function () {
     			contentType : "application/json; charset=utf-8",
     			data : JSON.stringify(data),
     			success:function(data) {
-    				location.href="${pageContext.request.contextPath }/review";
+    				location.href="${pageContext.request.contextPath }/reviews";
     			},
     			error : function(data) {
     				alert('저장 실패');

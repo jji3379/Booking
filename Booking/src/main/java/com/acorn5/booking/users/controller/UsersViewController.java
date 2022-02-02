@@ -122,10 +122,13 @@ public class UsersViewController {
 
 	// by욱현.로그인 폼 요청 처리_2021222
 	@RequestMapping("/users/login_form")
-	public String loginform() {
-		
-		return "users/login_form";
-	}
+		public ModelAndView loginform(HttpServletRequest request, ModelAndView mView) {
+			usersService.loginformLogic(request, mView);
+			
+			mView.setViewName("users/login_form");
+			
+			return mView;
+		}
 
 	// by욱현.회원가입폼_2021222
 	@RequestMapping("/signup_form")

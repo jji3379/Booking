@@ -35,13 +35,11 @@ public interface ReviewService {
 	public Review getDetail(Long num);
 	
 	// by남기, 댓글을 저장하는 메소드_210303
-	public void saveComment(HttpServletRequest request);
+	public ReviewDtl saveComment(HttpServletRequest request);
 	// by남기, 댓글 삭제_210303
 	public void deleteComment(Long replyId);
 	// by남기, 댓글 수정_210303
 	public void updateComment(ReviewDtl dto);
-	// by남기, 댓글 추가 응답_210303
-	public void moreCommentList(HttpServletRequest request);
 	
 	// by준익, 책 별 리뷰 조회
 	public Page<Review> getBookReview(String isbn, Pageable pageable);
