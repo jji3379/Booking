@@ -265,6 +265,11 @@
 		    <version>4.1.4</version>
 		    <scope>provided</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.springframework.hateoas</groupId>
+		    <artifactId>spring-hateoas</artifactId>
+		    <version>0.18.0.RELEASE</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
