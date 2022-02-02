@@ -65,7 +65,7 @@ public class BookViewController {
     }
     
     //by준영, bookAjax.jsp 에 저자를 인자로 리스트 검색하는 서비스_210222
-    @RequestMapping("/detailAjax")
+    @RequestMapping("/detailAjax.do")
     public ModelAndView bookAjax(@RequestParam(required=false)String d_auth,String sort){
     	ModelAndView mView = new ModelAndView();
 		

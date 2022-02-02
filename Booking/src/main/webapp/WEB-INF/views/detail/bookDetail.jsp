@@ -403,7 +403,7 @@
     var inputAuth=$("#auth").text();
     function bookAuthor(){
         $.ajax({ 
-           url:"detailAjax?sort=sim",
+           url:"${pageContext.request.contextPath}/detailAjax.do?sort=sim",
             method:"GET",
             data:"d_auth="+inputAuth,
             success:function(auth){
@@ -419,7 +419,7 @@
             
         })
     }
-    //bookAuthor();
+    bookAuthor();
     
     //by준영, 리뷰 폴드 기능
     $(document).on('click','.more', function(){

@@ -78,4 +78,9 @@ public class ReviewApiController {
 			service.deleteContent(id);
 		}
 		
+		// by준익, 글 상세정보 요청처리_210303  
+		@RequestMapping(value = "/review/rating/{isbn}", method = RequestMethod.GET)
+		public String reviewAvgRating(@PathVariable String isbn) {
+			return String.format("%.1f", service.reviewAvgRating(isbn));
+		}
 }
