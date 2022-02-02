@@ -212,7 +212,7 @@
 	
 	// 최근 주문내역 호출
 	$.ajax({
-	   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+	   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
 	    method:"post",
 		dataType : "json",
 		contentType : "application/json; charset=utf-8",
@@ -242,7 +242,7 @@
 	//by준영, 최근구매목록 클릭시 detail 링크 
 	$(document).on("click",".recent", function(){
 		var id = $(this).attr("data-num");
-		location.href="${pageContext.request.contextPath}/users/private/myOrder/detail/"+id;
+		location.href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/"+id;
 	});
 	// 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({

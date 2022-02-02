@@ -314,7 +314,7 @@
 	
 	// by 준익, 리뷰 평균 평점 호출 api
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
+		url:"${pageContext.request.contextPath}/v1/review/"+isbn+"/rating",
 		method:"GET",
 		dataType : "json",
 		async: false,

@@ -174,24 +174,21 @@
 		}
 	});
 	function termOrder(page) {
-		var data = {
-				startDate:$("#startDate").val(),
-				endDate:$("#endDate").val()
-			};
-		
+		var startDate = $("#startDate").val();
+		var endDate = $("#endDate").val();
+				
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
-	        method:"post",
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order/"+startDate+"/"+endDate+"?page="+page,
+	        method:"get",
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
 	        success:function(data){
 	        	var orderList = "";
 		        	orderList += '<ul class="order-list">'
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
@@ -235,7 +232,7 @@
 	
 	function allDateOrder(page) {
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order?page="+page,
 	        method:"get",
 	        success:function(data){
 	        	var orderList = "";
@@ -244,7 +241,7 @@
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
@@ -285,7 +282,7 @@
 	// 초기 로딩
 	$(document).ready(function(){
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
 	        method:"get",
 	        success:function(data){
 	        	var orderList = "";
@@ -293,7 +290,7 @@
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
