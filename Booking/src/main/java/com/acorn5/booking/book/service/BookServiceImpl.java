@@ -12,9 +12,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +23,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,8 +39,6 @@ import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.parsing.XmlParsing;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.repository.ReviewRepository;
-import com.acorn5.booking.users.dao.UsersDao;
-import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.SearchRepository;
@@ -51,9 +46,6 @@ import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
-	//의존 객체 DI
-	//@Autowired
-	//private UsersDao dao; //recentsearch 저장 로직을위한 di준비
 	
 	@PersistenceContext
 	EntityManager em;

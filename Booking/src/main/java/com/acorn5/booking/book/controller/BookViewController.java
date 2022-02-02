@@ -3,7 +3,6 @@ package com.acorn5.booking.book.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,15 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.service.BookService;
-import com.acorn5.booking.pay.service.CartService;
-import com.acorn5.booking.users.dao.UsersDao;
-import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.SearchRepository;

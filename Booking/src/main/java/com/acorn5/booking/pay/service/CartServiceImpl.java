@@ -1,8 +1,6 @@
 package com.acorn5.booking.pay.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.jdo.annotations.Transactional;
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.pay.dao.CartDao;
-import com.acorn5.booking.pay.dto.CartDto;
 import com.acorn5.booking.pay.entity.Cart;
 import com.acorn5.booking.pay.repository.CartRepository;
 import com.acorn5.booking.users.entity.Users;
-import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class CartServiceImpl implements CartService {
