@@ -50,9 +50,10 @@ public class UsersViewController {
 	// by욱현.프로필 이미지 업로드 요청 처리_2021222
 	@RequestMapping("/users/private/profile_upload")
 	public String profile_upload(MultipartFile image, HttpServletRequest request) {
+		Long id = (Long) request.getSession().getAttribute("id");
 		usersService.saveProfileImage(image, request);
 
-		return "redirect:/users/private/updateform.do";
+		return "redirect:/user/"+id+"/account";
 	}
 
 	// by욱현.비밀번호 수정 요청 처리_2021222
