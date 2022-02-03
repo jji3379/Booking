@@ -86,6 +86,7 @@
 		<div class="content">
 			<div class="myReply">
 				<h1>작성 댓글 보기</h1>
+		<!-- 
 				<table class="myReply-tb">
 					<caption>Total : 3</caption>
 					<colgroup>						
@@ -123,6 +124,7 @@
 						</tr>
 					</tbody>
 				</table>
+		 -->
 				<nav id = "paging">
 				</nav>
 			</div>

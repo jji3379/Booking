@@ -86,6 +86,7 @@
 		<div class="content">
 			<div class="myPost">
 				<h1>작성 글 보기</h1>
+		<!-- 
 				<table class="myPost-tb">
 					<caption>Total : 3</caption>
 					<colgroup>						
@@ -128,6 +129,7 @@
 						</tr>
 					</tbody>
 				</table>
+		 -->
 				<nav id = "paging">
 				</nav>
 			</div>
