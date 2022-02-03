@@ -51,12 +51,6 @@ public class CartServiceImpl implements CartService {
 		cartRepository.delete(id);
 	}
 
-	// by준영, 체크된 카트 삭제_210313
-	@Override
-	public void deleteChk(Long ajaxMsg) {
-		cartRepository.delete(ajaxMsg);
-	}
-
 	// by준영, 북카트 내 도서 수량변경_210310
 	@Override
 	@Transactional

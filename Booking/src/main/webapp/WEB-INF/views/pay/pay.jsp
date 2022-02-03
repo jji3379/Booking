@@ -47,7 +47,7 @@
 					<label for="allCheck">전체 선택</label>
 				</dt>
 				<dd class="deleteBtn">
-					<button id="selectDeleteBtn" type="submit" class="btn" onClick="deleteChk(this)" >선택 삭제</button> 
+					<button id="selectDeleteBtn" type="submit" class="btn" onClick="deleteChk()" >선택 삭제</button> 
 				</dd> 
 			</div>
 			<script>
@@ -60,24 +60,26 @@
 							valueArr.push(list[i].value);	
 						}
 					}
+					
 					if(valueArr.length == 0){
 						alert("선택된 항목이 없습니다.");
 					}else{
 						var chk = confirm("정말 삭제하시겠습니까");
-						$.ajax({
-							url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
-							type:'delete',
-							traditional :true,
-							data:{'valueArr' : valueArr},
-							success:function(){
-								if(chk){
-									location.replace("${pageContext.request.contextPath }/user/${sessionScope.id}/pay");
-								}else{
-									return false;
+						for(var j=0; j<valueArr.length; j++){
+							$.ajax({
+								url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart/"+valueArr[j],
+								type:'delete',
+								traditional :true,
+								data:{'valueArr' : valueArr},
+								success:function(){
+									if(chk && j == valueArr.length){
+										location.replace("${pageContext.request.contextPath }/user/${sessionScope.id}/pay");
+									}else{
+										return false;
+									}
 								}
-								
-							}
-						})
+							})
+						}
 					}
 				}
 			</script>

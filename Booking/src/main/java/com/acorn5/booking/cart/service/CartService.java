@@ -18,9 +18,6 @@ public interface CartService {
 	// by, 카트 개별 삭제 요청처리_210310
 	public void deleteCart(Long id);
 
-	// by준영, 체크된 카트 삭제_210313
-	public void deleteChk(Long ajaxMsg);
-
 	// by준영, 북카트 내 도서 수량변경_210310
 	public void update(Cart dto);
 
