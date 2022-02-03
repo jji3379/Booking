@@ -202,21 +202,13 @@
 	todayDate.setDate(todayDate.getDate() - 7);
 	var startDate = todayDate.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
 	
-	$("#startDate").val(startDate);
-	$("#endDate").val(endDate);
-
-	var data = {
-			startDate:$("#startDate").val(),
-			endDate:$("#endDate").val()
-		};
-	
 	// 최근 주문내역 호출
 	$.ajax({
-	   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
-	    method:"post",
-		dataType : "json",
+	   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order/"+startDate+"/"+endDate,
+	    method:"get",
+		//dataType : "json",
 		contentType : "application/json; charset=utf-8",
-		data : JSON.stringify(data),
+		//data : JSON.stringify(data),
 	    success:function(data){
 	    	var orderList = "";		        	
         	for (var i=0; i<data.content.length; i++) {
