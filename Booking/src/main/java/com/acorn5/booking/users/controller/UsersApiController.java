@@ -54,7 +54,7 @@ public class UsersApiController {
 	
 	
 	// 로그인 처리 api
-	@PostMapping(value = "/user/login") 
+	@PostMapping(value = "/users/login") 
 	public Users doLogin(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginDto loginDto) {
 
 		return usersService.loginLogic(request, response, loginDto);

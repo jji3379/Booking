@@ -44,20 +44,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 @Service
 public class UsersServiceImpl implements UsersService{
 	
-	//by욱현.dao객체 di시키기위해 준비_2021222
-	//@Autowired
-	//private UsersDao dao;
-	
-	//회원탈퇴시 해당 해원의 기록을 모두 삭제하기 위해 di
-	//@Autowired
-	//private ReviewCommentDao reviewCommentDao;
-	//@Autowired
-	//private ReviewDao reviewDao;
-	//@Autowired
-	//private CartDao cartDao;
-	//@Autowired
-	//private OrderDao orderDao;
-	
 	@PersistenceContext
 	EntityManager em;
 	

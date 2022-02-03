@@ -101,7 +101,7 @@ public class UsersViewController {
 		return "users/logout";
 	}
 
-	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, LoginDto loginDto) throws IOException {
 		usersService.loginLogic(request, response, loginDto);
 

@@ -10,7 +10,7 @@
 				<h2 class="title">북킹 로그인</h2>
 			</div>
 			<div class="popup-body">	
-				<form id="loginForm" class="loginForm" novalidate="" action="${pageContext.request.contextPath }/user/login" method="post">
+				<form id="loginForm" class="loginForm" novalidate="" action="${pageContext.request.contextPath }/users/login" method="post">
 					<%-- 원래 가려던 목적지 정보를 url 이라는 파라미터 명으로 전송될수 있도록 한다. --%>
 					<input type="hidden" id="url" name="url" value="${url }"/>
 					<div class="errorValid-off">아이디 혹은 비밀번호가 잘못 입력되었습니다.</div>
@@ -105,7 +105,7 @@
 			case 0:
 				$.ajax({
 					type : 'POST',
-					url:"${pageContext.request.contextPath}/v1/user/login",
+					url:"${pageContext.request.contextPath}/v1/users/login",
 					dataType : "json",
 					contentType : "application/json; charset=utf-8",
 					data : JSON.stringify(loginData),
