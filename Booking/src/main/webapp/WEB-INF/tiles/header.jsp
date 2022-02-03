@@ -40,7 +40,7 @@
 				<c:otherwise>
 				<div class="Users">
 					<a href="#"  class="nonMember" id="modal-open" data-toggle="modal" data-target="#login">로그인</a>
-					<a href="${pageContext.request.contextPath }/signup_form.do"  class="nonMember">회원가입</a>
+					<a href="${pageContext.request.contextPath }/signup"  class="nonMember">회원가입</a>
 				</div>
 				</c:otherwise>
 			</c:choose>

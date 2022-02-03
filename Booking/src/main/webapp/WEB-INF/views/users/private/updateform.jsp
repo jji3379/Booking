@@ -203,7 +203,7 @@
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -272,25 +272,7 @@
         }
 	}
 	
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			
-			$("#reviewCount").html(data.review.totalElements);
-			$("#replyCount").html(data.reviewDtl.totalElements);
-			$("#cartCount").html(data.cart.totalElements);
-			
-		},
-		error : function(data) {
-			console.log("오류");
-		}
-	});
-	
 	var profileImg = "${dto.profile }";
-	
 
 	if( profileImg != "" ){
 		$('#preImg').attr('src', "${pageContext.request.contextPath}"+profileImg );
@@ -386,7 +368,7 @@
 		var deleteConfirm = confirm("프로필 이미지를 삭제 하시겠습니까?");
 		if(deleteConfirm == true) {
 			$.ajax({
-				url:"${pageContext.request.contextPath }/v1/users/${id}/profile",
+				url:"${pageContext.request.contextPath }/v1/user/${id}/profile",
 				method:"delete",
 			}).done(function(response){
 				location.reload();

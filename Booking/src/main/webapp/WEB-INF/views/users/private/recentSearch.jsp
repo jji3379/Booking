@@ -134,7 +134,7 @@
 	$('#date').html(today.toLocaleString());
 		
     $.ajax({ 
-       	url:"${pageContext.request.contextPath}/v1/users/search/${sessionScope.id}",
+       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/search",
         method:"GET",
         dataType : "json",
         success:function(data){
@@ -157,7 +157,7 @@
     
     // 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -177,7 +177,7 @@
 		var deleteConfirm = confirm("최근 검색어를 삭제 하시겠습니까?");
 		if(deleteConfirm == true) {
 			$.ajax({
-				url:"${pageContext.request.contextPath }/v1/users/${id}/search/"+searchId,
+				url:"${pageContext.request.contextPath }/v1/user/${id}/search/"+searchId,
 				method:"delete",
 			}).done(function(response){
 				location.reload();
@@ -195,7 +195,7 @@
 				var checkVal = $(this).val();
 				if (deleteConfirm == true) {
 					$.ajax({
-						url:"${pageContext.request.contextPath }/v1/users/${id}/search/"+checkVal,
+						url:"${pageContext.request.contextPath }/v1/user/${id}/search/"+checkVal,
 						method:"delete",
 					}).done(function(response){
 						location.reload();

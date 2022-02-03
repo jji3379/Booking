@@ -13,9 +13,8 @@ import com.acorn5.booking.cart.service.CartService;
 public class MapController {
 	
 	@RequestMapping("/map")
-	public String mapsearch(ModelAndView mView) {
+	public String mapsearch() {
 		
-		//mView.setViewName("map/mapsearch.page");
         return "map/mapsearch.page";
 	}
 }

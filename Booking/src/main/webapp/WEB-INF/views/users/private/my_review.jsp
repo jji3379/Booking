@@ -143,7 +143,7 @@
 	
 	function pagingList(page) {
 		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/users/${id}?page="+page,
+			url:"${pageContext.request.contextPath}/v1/user/${id}?page="+page,
 			method:"GET",
 			dataType : "json",
 			async: false,
@@ -217,75 +217,6 @@
 		var id = $(this).attr("data-num");
 		location.href="${pageContext.request.contextPath }/review/"+id;
 	});
-	/*
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			$("#reviewCount").html(data.review.totalElements);
-			$("#replyCount").html(data.reviewDtl.totalElements);
-			$("#cartCount").html(data.cart.totalElements);
-			
-			reviewList = "";
-				reviewList += '<div class="myPost">'
-					reviewList += '<h1>작성 글 보기</h1>'
-					reviewList += '<table class="myPost-tb">'
-						reviewList += '<caption>Total : '+data.review.totalElements+'</caption>'
-						reviewList += '<colgroup>'
-							reviewList += '<col style="width:8%"/>'
-							reviewList += '<col style="width:42%"/>'
-							reviewList += '<col style="width:20%"/>'
-							reviewList += '<col style="width:10%"/>'
-							reviewList += '<col style="width:10%"/>'						
-						reviewList += '</colgroup>'
-						reviewList += '<thead>'
-							reviewList += '<tr class="myPost-tr">'
-								reviewList += '<th>번호</th>'
-								reviewList += '<th>제목</th>'
-								reviewList += '<th>날짜</th>'
-								reviewList += '<th>조회 수</th>'
-								reviewList += '<th>댓글 수</th>'
-							reviewList += '</tr>'
-						reviewList += '</thead>'
-						reviewList += '<tbody>'
-				
-						for(var i=0; i<data.review.content.length; i++){				
-							reviewList += '<tr class="myPost-tr">'
-								reviewList += '<td>'+(i+1)+'</td>'
-								reviewList += '<td class="myPost-tdTitle">'+data.review.content[i].reviewTitle+'</td>'
-								reviewList += '<td>'+data.review.content[i].regdate+'</td>'
-								reviewList += '<td>'+data.review.content[i].viewCount+'</td>'
-								reviewList += '<td>'+data.review.content[i].replyCount+'</td>'
-							reviewList += '</tr>'				
-						}
-						reviewList += '</tbody>'
-					reviewList += '</table>'
-					reviewList += '<nav id = "paging">'
-					reviewList += '</nav>'
-				reviewList += '</div>'
-			$(".content").html(reviewList);
-				
-			window.pagObj = $('#paging').twbsPagination({ 
-				totalPages: data.review.totalPages, // 호출한 api의 전체 페이지 수 
-				startPage: data.review.number+1, 
-				visiblePages: 5, 
-				prev: "‹", 
-				next: "›", 
-				first: '«', 
-				last: '»', 
-				onPageClick: function (event, page) { 
-				} 
-			}).on('page', function (event, page) { 
-				pagingList(page-1);
-			});
-		},
-		error : function(data) {
-			console.log("오류");
-		}
-	});
-	*/
 	
 </script>
 </body>

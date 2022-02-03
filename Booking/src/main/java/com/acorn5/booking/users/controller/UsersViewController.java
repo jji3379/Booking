@@ -27,9 +27,6 @@ public class UsersViewController {
 	@Autowired
 	private UsersService usersService;
 	
-	@Autowired
-	private UsersRepository usersRepository;
-	
 	// by욱현. 개인 정보 수정 요청 처리_2021222
 	@RequestMapping(value = "/users/private/update", method = RequestMethod.POST)
 	public String update(Users dto, HttpSession session, ModelAndView mView) {
@@ -103,7 +100,7 @@ public class UsersViewController {
 		return "users/logout";
 	}
 
-	@RequestMapping(value = "/users/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, LoginDto loginDto) throws IOException {
 		usersService.loginLogic(request, response, loginDto);
 
@@ -131,7 +128,7 @@ public class UsersViewController {
 		}
 
 	// by욱현.회원가입폼_2021222
-	@RequestMapping("/signup_form")
+	@RequestMapping("/signup")
 	public String signupForm() {
 		
 		return "users/signup_form.page";
@@ -157,18 +154,5 @@ public class UsersViewController {
 
 		return "users/private/recentSearch.page";
 	}
-		
-	//by욱현. 주문조회 디테일 페이지
-	@RequestMapping("/user/{id}/order")
-	public ModelAndView my_order(HttpSession session, ModelAndView mView,
-			HttpServletRequest request) {
-		Long id = (Long) session.getAttribute("id");
-		Users dto = usersRepository.findById(id);  
-		
-		mView.addObject("dto", dto);
-		mView.setViewName("users/private/my_order.page");
-		
-		return mView;
-	}
-	
+
 }
