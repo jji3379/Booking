@@ -15,7 +15,7 @@
 				</a>
 			</div>
 			<div class="search">
-				<form id="searchForm" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get" >  
+				<form id="searchForm" action="${pageContext.request.contextPath }/book/search" method="get" >  
 			        <input id="searchBook" type="text" aria-label="Search"
 			           name="keyword" placeholder="검색어를 입력하세요"/>
 			        <input name="pageNum" value="1" hidden/>

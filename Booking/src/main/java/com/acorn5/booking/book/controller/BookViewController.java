@@ -129,7 +129,7 @@ public class BookViewController {
     }
     
 	// by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
-	@RequestMapping("/bookList/conditionSearch.do")
+	@RequestMapping("/book/search")
 	public ModelAndView conditionSearch(@RequestParam(required = false) String keyword, int start,
 			HttpServletRequest request, ModelAndView mView) {
 		if (keyword != null) {
