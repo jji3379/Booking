@@ -172,6 +172,7 @@ public class ReviewServiceImpl implements ReviewService{
 		review.setReviewTitle(dto.getReviewTitle());
 		review.setContent(dto.getContent());
 		review.setRating(dto.getRating());
+		review.setSpoCheck(dto.getSpoCheck());
 
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		QReview qReview = QReview.review;

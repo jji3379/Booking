@@ -72,7 +72,7 @@
 		</div>
 		<div class="list-menu">
 			<ul >
-				<li><a class="listBtn" href="${pageContext.request.contextPath }/review">목록보기</a></li>
+				<li><a class="listBtn" href="${pageContext.request.contextPath }/reviews">목록보기</a></li>
 				<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
 					<li><a class="listBtn" href="${pageContext.request.contextPath }/review/${dto.id }/edit">수정</a></li>
 					<li><a class="listBtn" href="#" onclick="deleteReview();">삭제</a></li>
@@ -215,46 +215,7 @@
 					</div>
 					<div class="comment-paging">    
 						<nav id = "paging">
-							<ul class="pagination justify-content-center">
-								<c:choose>
-									<c:when test="${!list.first}">
-										<li class="page-item">
-											<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item disabled">
-											<a class="page-link" href="javascript:">&lt;</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-								<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
-									<c:choose>
-										<c:when test="${i eq list.number }">
-											<li class="page-item active">
-												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item">
-												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${endPageNum lt totalPageCount }">
-										<li class="page-item">
-											<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item disabled">
-											<a class="page-link" href="javascript:">&gt;</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
+
 						</nav>
 					</div>
 				</div>
@@ -265,12 +226,12 @@
 
 	// 해당 리뷰에 해당하는 댓글들 조회
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review/reply/${reviewId}",
+		url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
 		method:"GET",
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			$("#total-reply").html(data);
+			$("#total-reply").html(data.replyCount);
 		},
 		error : function(data) {
 			console.log("오류");
@@ -420,7 +381,7 @@
 				method:"DELETE",
 			}).done(function(response){
 				alert("리뷰가 삭제 되었습니다.");
-				window.location = '${pageContext.request.contextPath}/review'; 
+				window.location = '${pageContext.request.contextPath}/reviews'; 
 			});
 		}
 		

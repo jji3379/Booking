@@ -158,7 +158,7 @@
 	    			contentType : "application/json; charset=utf-8",
 	    			data : JSON.stringify(data),
 	    			success:function(data) {
-	    				location.href="${pageContext.request.contextPath }/review";
+	    				location.href="${pageContext.request.contextPath }/review/${dto.id}";
 	    			},
 	    			error : function(data) {
 	    				console.log('저장 실패');
