@@ -159,7 +159,7 @@
 				<td id="total"></td>
 			</tbody>
 		</table>
-		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }">계속 쇼핑하기</a>
+		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }/">계속 쇼핑하기</a>
 		<a id="pay" type="button" class="btn payBtn" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pay">주문하기</a>
 	</div>
 </div>
