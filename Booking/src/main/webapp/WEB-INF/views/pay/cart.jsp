@@ -38,7 +38,7 @@
 	<div class="allCheckWrap">
 		<span>
 			<span class="allCheck">
-				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
+				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">전체선택</label> 
 			</span>
 			전체선택
 			<button id="selectDeleteBtn" type="submit" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 

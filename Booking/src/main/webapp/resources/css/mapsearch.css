@@ -48,6 +48,8 @@
 		border-top: 1px solid #41495c;
 		border-left: 1px solid #41495c;
 		border-right: 1px solid #41495c;
+		border-top-left-radius: 0.25rem;
+    	border-top-right-radius: 0.25rem;
 	}
 	.partners > ul{
 		display: table;
