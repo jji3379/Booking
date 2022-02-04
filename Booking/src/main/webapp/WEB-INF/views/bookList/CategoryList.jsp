@@ -17,19 +17,19 @@
 			<div class="col-10">
 				<ul class="nav nav-tabs">
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'count' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg }&sort=count&start=1">인기도서</a>
+						<a class="g-i nav-link ${param.sort eq 'count' ? 'active' : ''}" href="${pageContext.request.contextPath }/category?d_catg=${d_catg }&sort=count&start=1">인기도서</a>
 					</li>
 					<li class="nav-item">
 						<p class="nav-link blank"></p>
 					</li>
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'date' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg }&sort=date&start=1">최신도서</a></li>
+						<a class="g-i nav-link ${param.sort eq 'date' ? 'active' : ''}" href="${pageContext.request.contextPath }/category?d_catg=${d_catg }&sort=date&start=1">최신도서</a></li>
 					</li>
 					<li class="nav-item">
 						<p class="nav-link blank"></p>
 					</li>
 					<li class="nav-item">
-						<a class="g-i nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/CategoryList.do?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
+						<a class="g-i nav-link ${param.sort eq 'sim' ? 'active' : ''}" href="${pageContext.request.contextPath }/category?d_catg=${d_catg}&sort=sim&start=1">추천도서</a>
 					</li>
 					
 				</ul>
@@ -37,11 +37,11 @@
 					<c:forEach var="b" items="${categoryList}"><!-- by 준익, pagingCategoryList 컨트롤러 적용된 list_2021.02.28 -->
 						<div class="col mb-5">
 							<div class=" h-100">
-								<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
+								<a href="${pageContext.request.contextPath }/book/${b.isbn}">
 									<img src="${b.image }" class="card-img-top img-wrapper cardBook">
 								</a>
 								<div  class="card-body">
-									<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${b.isbn}">
+									<a href="${pageContext.request.contextPath }/book/${b.isbn}">
 										<p class="card-title ellipsis2">${b.title }</p>
 									</a>
 									<small class="card-text ellipsis">${b.author }</small>
@@ -57,7 +57,7 @@
 						<c:when test="${startPageNum != 1 }">
 							<!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
 							<li class="page-item"><a class="page-link"
-								href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">&lt;</a>
+								href="category?d_catg=${d_catg}&sort=${sort}&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
@@ -73,12 +73,12 @@
 								<!-- by 준익, 순서가 pageNum 과 같을 때 -->
 								<li class="page-item active">
 									<!-- by 준익, active 활성화_2021.02.28 --> <a class="page-link"
-									href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+									href="category?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 								</li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+									href="category?d_catg=${d_catg}&sort=${sort}&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -87,7 +87,7 @@
 						<c:when test="${endPageNum lt totalPageCount }">
 							<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을   -->
 							<li class="page-item"><a class="page-link"
-								href="CategoryList.do?d_catg=${d_catg}&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">&gt;</a>
+								href="category?d_catg=${d_catg}&sort=${sort}&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">&gt;</a>
 							<!— by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 —></li>
 						</c:when>
 						<c:otherwise>

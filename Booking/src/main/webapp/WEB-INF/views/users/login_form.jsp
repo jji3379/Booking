@@ -33,7 +33,7 @@
 				</form>
 			</div>
 			<div class="popup-foot"> 
-				<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup_form.do">회원가입</a></span>
+				<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup">회원가입</a></span>
 			</div>	
 		</div>		
 	</div>

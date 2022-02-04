@@ -15,14 +15,14 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<a href="${pageContext.request.contextPath }/users/private/info.do">
+			<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info">
 				<h4>안녕하세요 ,</h4>
 				<span>${loginId } </span>님!
 			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
-				<a class="bd-card" href="my_review.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/review">
 					<dl id="top-post" class="card">
 						<dt class="label">
 							<span>작성글 ></span>
@@ -33,7 +33,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card" href="my_reply.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/reply">
 					<dl id="top-reply" class="card">
 						<dt class="label">
 							<span>작성 댓글 ></span>
@@ -44,7 +44,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card last" href="${pageContext.request.contextPath }/pay/cart.do">
+				<a class="bd-card last" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart">
 					<dl class="card">
 						<dt class="label">
 							<span>북카트 ></span>
@@ -63,7 +63,7 @@
 			<div class="section">
 				<div class="section-name">나의 쇼핑</div>
 				<div class="linkList">
-					<a id="side-order" class="link" href="my_order.do">주문 내역</a>
+					<a id="side-order" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order">주문 내역</a>
 					<a class="link" href=""></a>
 					<a class="link" href=""></a>
 				</div>
@@ -71,9 +71,9 @@
 			<div class="section">
 				<div class="section-name">계정 관리</div>
 				<div class="linkList">
-					<a id="side-profile" class="link" href="updateform.do">계정정보 수정</a>
-					<a id="side-pwd" class="link" href="pwd_updateform.do">비밀번호 수정</a>
-					<a id="side-recent" class="link" href="recentSearch.do">최근 검색 기록</a>
+					<a id="side-profile" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/account">계정정보 수정</a>
+					<a id="side-pwd" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pwd">비밀번호 수정</a>
+					<a id="side-recent" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/search">최근 검색 기록</a>
 				</div>
 			</div>
 			<div class="section">
@@ -88,7 +88,7 @@
 				<li class="part">
 					<div class="part-header">
 						<span>최근 주문내역</span>
-						<a href="my_order.do">주문전체보기 ></a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/order">주문전체보기 ></a>
 					</div>
 						<input type="hidden" id="startDate" name="startDate" value=""/>
 						<input type="hidden" id="endDate" name="endDate" value=""/>
@@ -125,7 +125,7 @@
 				<li class="part">
 					<div class="part-header">
 						<span>내 계정 정보</span>
-						<a href="updateform.do">변경하기 ></a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/account">변경하기 ></a>
 					</div>
 					<div class="part-body">
 						<div class="info-account">
@@ -202,21 +202,13 @@
 	todayDate.setDate(todayDate.getDate() - 7);
 	var startDate = todayDate.toLocaleDateString().replace('. ','-').replace('. ','-').replace('.','');
 	
-	$("#startDate").val(startDate);
-	$("#endDate").val(endDate);
-
-	var data = {
-			startDate:$("#startDate").val(),
-			endDate:$("#endDate").val()
-		};
-	
 	// 최근 주문내역 호출
 	$.ajax({
-	   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
-	    method:"post",
-		dataType : "json",
+	   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order/"+startDate+"/"+endDate,
+	    method:"get",
+		//dataType : "json",
 		contentType : "application/json; charset=utf-8",
-		data : JSON.stringify(data),
+		//data : JSON.stringify(data),
 	    success:function(data){
 	    	var orderList = "";		        	
         	for (var i=0; i<data.content.length; i++) {
@@ -242,11 +234,11 @@
 	//by준영, 최근구매목록 클릭시 detail 링크 
 	$(document).on("click",".recent", function(){
 		var id = $(this).attr("data-num");
-		location.href="${pageContext.request.contextPath}/users/private/myOrder/detail/"+id;
+		location.href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/"+id;
 	});
 	// 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,

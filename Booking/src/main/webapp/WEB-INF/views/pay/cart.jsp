@@ -41,7 +41,7 @@
 				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck"></label> 
 			</span>
 			전체선택
-			<button id="selectDeleteBtn" type="submit" class="selectDelete_btn" onClick="deleteChk(this)" >선택 삭제</button> 
+			<button id="selectDeleteBtn" type="button" class="selectDelete_btn" onClick="deleteChk()" >선택 삭제</button> 
 		</span>
 		<script>
 			//by준영, 체크박스 전체선택,전체해제 기능_210307
@@ -58,7 +58,6 @@
 	<script>
 		//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 		function deleteChk(){
-			var url ="deleteCart.do";
 			var valueArr = new Array();
 			var list =$("input[name='chBox']");
 			for(var i=0; i< list.length; i++){
@@ -70,20 +69,22 @@
 				alert("선택된 항목이 없습니다.");
 			}else{
 				var chk = confirm("정말 삭제하시겠습니까");
-				$.ajax({
-					url:url,
-					type:'post',
-					traditional :true,
-					data:{'valueArr' : valueArr},
-					success:function(){
-						if(chk){
-							location.replace("cart.do");	
-						}else{
-							return false;
+				for(var j=0; j<valueArr.length; j++) {
+					$.ajax({
+						url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart/"+valueArr[j],
+						type:'delete',
+						traditional :true,
+						data:{'valueArr' : valueArr},
+						success:function(){
+							if(chk && j == valueArr.length){
+								location.replace("${pageContext.request.contextPath }/user/${sessionScope.id}/cart");
+							}else{
+								return false;
+							}
 						}
-						
-					}
-				})
+					})
+				}
+				
 			}
 		}
 	</script>
@@ -138,9 +139,9 @@
 		            <!-- 갯수*물품가 의 배열의 합 -->
 		            <c:set var= "sum" value="${sum + (c.d_price * c.count)}"/>
 				<td class="td-public">
-					<form action="delete.do" method="post">
+					<form>
 		            	<input name="id" type="hidden" value="${c.id}" />
-		            	<button type="submit" class="btn deleteBtn"   onClick="submit(this)" >삭제</button>
+		            	<button type="button" class="btn deleteBtn"   onClick="deleteCart(${c.id})" >삭제</button>
 					</form>
 				</td>	
 	        </tr>
@@ -160,12 +161,26 @@
 				<td id="total"></td>
 			</tbody>
 		</table>
-		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }">계속 쇼핑하기</a>
-		<a id="pay" type="button" class="btn payBtn" href="pay.do">주문하기</a>
+		<a id="home" type="button" class="btn homeBtn" href="${pageContext.request.contextPath }/">계속 쇼핑하기</a>
+		<a id="pay" type="button" class="btn payBtn" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pay">주문하기</a>
 	</div>
 </div>
 </body>
 <script>
+	function deleteCart(cartId){
+		var deleteConfirm = confirm("해당 책을 삭제 하시겠습니까?");
+		if(deleteConfirm == true) {
+			$.ajax({
+				url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart/"+cartId,
+				method:"delete",
+			}).done(function(response){
+				location.reload();
+			});
+		} else {
+			return false;
+		}
+	}
+
 	//by준영, 배송비 책정로직_210317
 	var price = $("#price").text();//물품가격
 	var shipFee = null;

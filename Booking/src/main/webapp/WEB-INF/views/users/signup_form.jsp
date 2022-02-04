@@ -203,8 +203,10 @@ function CountChecked(obj){
 		return false;
 	}
 }
+
 //by 준영, Validate.js 라이브러리 
 $(document).ready(function () { 
+	var loginId = $("#signupId").val();
 	//영문숫자만
     jQuery.validator.addMethod("alphanumeric", function (value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -224,15 +226,9 @@ $(document).ready(function () {
             	minlength:5, 
             	maxlength:10, 
             	alphanumeric: true,
-	            remote : {            	
-				    url : '${pageContext.request.contextPath }/v1/users/signup',
-				    type : "get",
-				    data : {
-				    	loginId : function() {
-				    		return $("#signupId").val();
-				    	}
-				    }
-				    
+	            remote : {
+				    url : '${pageContext.request.contextPath }/v1/signup'+loginId,
+				    type : "get"
 	            }
             },
             pwd: {required:true, minlength:5, maxlength:10},
@@ -291,7 +287,7 @@ $(document).ready(function () {
            	};
            		
            	$.ajax({
-           		url:"${pageContext.request.contextPath }/v1/users/signup",
+           		url:"${pageContext.request.contextPath }/v1/user",
            		method:"post",
            		dataType : "json",
            		contentType : "application/json; charset=utf-8",

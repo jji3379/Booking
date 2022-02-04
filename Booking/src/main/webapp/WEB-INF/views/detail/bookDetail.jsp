@@ -70,7 +70,7 @@
 					<input type="hidden" id="authorP" name="author" value="${b.author }"/>
 					<button class="btn btn-outline-light" id="insertBtn" type="button" onclick="insert()">장바구니</button>
 					<button class="btn btn-outline-light" id="directBtn" onclick="direct()">바로구매  </button>
-					<a href="${pageContext.request.contextPath }/review_directInsertform.do?d_isbn=${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
+					<a href="${pageContext.request.contextPath }/new-review/${b.isbn }" class="btn btn-outline-light" id="reviewBtn"> 리뷰쓰기</a>
 	        	</td>
 	       	</tr>
         </table>
@@ -314,7 +314,7 @@
 	
 	// by 준익, 리뷰 평균 평점 호출 api
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
+		url:"${pageContext.request.contextPath}/v1/review/"+isbn+"/rating",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -403,7 +403,7 @@
     var inputAuth=$("#auth").text();
     function bookAuthor(){
         $.ajax({ 
-           url:"detailAjax.do?sort=sim",
+           url:"${pageContext.request.contextPath}/detailAjax.do?sort=sim",
             method:"GET",
             data:"d_auth="+inputAuth,
             success:function(auth){
@@ -465,7 +465,6 @@
        var publisher = $('#publisherP').val();
        var author = $('#authorP').val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -477,13 +476,13 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
                 var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
                 if(chk){
-                   location.href = "${pageContext.request.contextPath }/pay/cart.do";
+                   location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/cart";
                 }else{
                    return false;
                 }
@@ -502,7 +501,6 @@
        var publisher = $('#publisherP').val();
        var author = $('#authorP').val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author  };
@@ -513,11 +511,11 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
-                location.href = "${pageContext.request.contextPath }/pay/pay.do";
+                location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/pay";
              }
           })
        }   

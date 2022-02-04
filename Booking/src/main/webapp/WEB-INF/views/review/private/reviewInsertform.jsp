@@ -98,7 +98,7 @@
 <script>
 	//by 준영, 책선택 팝업창 띄우기
 	$('#bookSearch').click(function(){ 
-		var popUrl = "${pageContext.request.contextPath }/review/reviewBookList.do?";
+		var popUrl = "${pageContext.request.contextPath }/review/book";
 		//screen.width : 현재 운영체제의 너비
 		//screen.height : 현재 운영체제의 높이
 		w = 700; //팝업창의 너비
@@ -189,7 +189,7 @@
 	    			contentType : "application/json; charset=utf-8",
 	    			data : JSON.stringify(data),
 	    			success:function(data) {
-	    				location.href="${pageContext.request.contextPath }/review";
+	    				location.href="${pageContext.request.contextPath }/reviews";
 	    			},
 	    			error : function(data) {
 	    				alert('저장 실패');

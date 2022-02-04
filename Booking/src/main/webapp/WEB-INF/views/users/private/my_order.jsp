@@ -17,14 +17,14 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<a href="${pageContext.request.contextPath }/users/private/info.do">
+			<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info">
 				<h4>안녕하세요 ,</h4>
 				<span>${loginId } </span>님!
 			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
-				<a class="bd-card" href="my_review.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/review">
 					<dl id="top-post" class="card">
 						<dt class="label">
 							<span>작성글 ></span>
@@ -35,7 +35,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card" href="my_reply.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/reply">
 					<dl id="top-reply" class="card">
 						<dt class="label">
 							<span>작성 댓글 ></span>
@@ -46,7 +46,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card last" href="${pageContext.request.contextPath }/pay/cart.do">
+				<a class="bd-card last" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart">
 					<dl class="card">
 						<dt class="label">
 							<span>북카트 ></span>
@@ -65,7 +65,7 @@
 			<div class="section">
 				<div class="section-name">나의 쇼핑</div>
 				<div class="linkList">
-					<a id="side-order" class="link" href="my_order.do">주문 내역</a>
+					<a id="side-order" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order">주문 내역</a>
 					<a class="link" href=""></a>
 					<a class="link" href=""></a>
 				</div>
@@ -73,9 +73,9 @@
 			<div class="section">
 				<div class="section-name">계정 관리</div>
 				<div class="linkList">
-					<a id="side-profile" class="link" href="updateform.do">계정정보 수정</a>
-					<a id="side-pwd" class="link" href="pwd_updateform.do">비밀번호 수정</a>
-					<a id="side-recent" class="link" href="recentSearch.do">최근 검색 기록</a>
+					<a id="side-profile" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/account">계정정보 수정</a>
+					<a id="side-pwd" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pwd">비밀번호 수정</a>
+					<a id="side-recent" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/search">최근 검색 기록</a>
 				</div>
 			</div>
 			<div class="section">
@@ -123,7 +123,7 @@
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -151,7 +151,7 @@
 	$('#date').html(today.toLocaleString());
 	// 작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -174,24 +174,21 @@
 		}
 	});
 	function termOrder(page) {
-		var data = {
-				startDate:$("#startDate").val(),
-				endDate:$("#endDate").val()
-			};
-		
+		var startDate = $("#startDate").val();
+		var endDate = $("#endDate").val();
+				
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
-	        method:"post",
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order/"+startDate+"/"+endDate+"?page="+page,
+	        method:"get",
 			dataType : "json",
 			contentType : "application/json; charset=utf-8",
-			data : JSON.stringify(data),
 	        success:function(data){
 	        	var orderList = "";
 		        	orderList += '<ul class="order-list">'
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
@@ -235,7 +232,7 @@
 	
 	function allDateOrder(page) {
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}?page="+page,
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order?page="+page,
 	        method:"get",
 	        success:function(data){
 	        	var orderList = "";
@@ -244,7 +241,7 @@
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	
@@ -285,7 +282,7 @@
 	// 초기 로딩
 	$(document).ready(function(){
 	    $.ajax({ 
-	       	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+	       	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
 	        method:"get",
 	        success:function(data){
 	        	var orderList = "";
@@ -293,7 +290,7 @@
 		        	
 		        	for (var i=0; i<data.content.length; i++) {
 			        	orderList += '<li class="order">'
-				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/users/private/myOrder/detail/'+data.content[i].id+'">'
+				        	orderList += '<a id="orderDetail'+[i]+'" href="${pageContext.request.contextPath}/user/${sessionScope.id}/order/'+data.content[i].id+'">'
 					        	orderList += '<div class="order-td-L">'
 						        	orderList += '<div class="myOrder-num">'+data.content[i].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[i].id+"").padStart(8,'0')+'</div>'
 						        	orderList += '<div class="myOrder-date">'+data.content[i].regdate+'</div>'	

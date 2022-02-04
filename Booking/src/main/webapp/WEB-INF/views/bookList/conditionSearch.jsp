@@ -142,7 +142,7 @@
 						
 						bookSearchList += '<td>'
 							bookSearchList += '<div>'
-								bookSearchList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
+								bookSearchList += '<a href="${pageContext.request.contextPath }/book/'+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
 							bookSearchList += '</div>'
 						bookSearchList += '</td>'
 						
@@ -323,7 +323,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -336,13 +335,13 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
                 var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
                 if(chk){
-                   location.href = "${pageContext.request.contextPath }/pay/cart.do";
+                   location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/cart";
                 }else{
                    return false;
                 }
@@ -362,7 +361,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -374,11 +372,11 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
-                location.href = "${pageContext.request.contextPath }/pay/pay.do";
+                location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/pay";
              }
           })
        }   

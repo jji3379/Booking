@@ -191,7 +191,7 @@
 						
 						bestSellerList += '<td>'
 							bestSellerList += '<div>'
-								bestSellerList += '<a href="${pageContext.request.contextPath }/bookDetail.do?d_isbn='+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
+								bestSellerList += '<a href="${pageContext.request.contextPath }/book/'+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
 							bestSellerList += '</div>'
 						bestSellerList += '</td>'
 						
@@ -356,7 +356,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val(); 
      
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
     	   console.log(data);
@@ -370,13 +369,13 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+             url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
                 var chk = confirm("상품을 담았습니다 북카트로 이동하시겠습니까?");
                 if(chk){
-                   location.href = "${pageContext.request.contextPath }/pay/cart.do";
+                   location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/cart";
                 }else{
                    return false;
                 }
@@ -396,7 +395,6 @@
        var publisher = $('#publisherP'+i).val();
        var author = $('#authorP'+i).val();
        
-       var url ="${pageContext.request.contextPath }/pay/insert.do";
        var data = null;
        if(d_price == ""){
           data={'id' : id ,'image' : image ,'title' : title ,'price' : price ,'d_price' : price ,'count' : count, 'isbn' : isbn , 'publisher' : publisher , 'author' : author };
@@ -408,92 +406,15 @@
           $('#modal-open').trigger('click');
        }else{
           $.ajax({
-             url:url,
+        	 url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart",
              method:'post',
              data: data,
              success:function(data){
-                location.href = "${pageContext.request.contextPath }/pay/pay.do";
+                location.href = "${pageContext.request.contextPath }/user/${sessionScope.id}/pay";
              }
           })
        }   
     }
-	
-	var isbn = $('#bookIsbn').text();
-	// by 준익, 리뷰 평균 평점 호출 api
-	/*
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review/rating/"+isbn,
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			var dataText = "("+data+")";
-			var int_part = Math.trunc(data);
-			var float_part = Number(Number((data-int_part).toFixed(2)));
-			var intValue = "";
-			//숫자형 평점을 total-value 에 출력
-			$('.total-value').html(dataText);
-			
-			//평점의 정수부분 +1개 만큼 별 생성하고
-			switch(int_part) {
-			case 0 :
-				intValue += ('<span>★</span>')
-				break;
-			case 1 :
-				intValue += ('<span>★</span><span>★</span>')
-				break;
-			case 2 :
-				intValue += ('<span>★</span><span>★</span><span>★</span>')
-				break;
-			case 3 :
-				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span>')
-				break;
-			case 4 :
-				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
-				break;
-			case 5 :
-				intValue += ('<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>')
-				break;
-			}
-			$('.starValue').html(intValue);
-			//평점의 소수부분 만큼 마지막 별점을 커스텀한다
-			switch(float_part) {
-			case 0.0 :
-				$('.star-fill').children().last().css({'width':'0%','overflow':'hidden'});
-				break;
-			case 0.1 :
-				$('.star-fill').children().last().css({'width':'4%','overflow':'hidden'});
-				break;
-			case 0.2 :
-				$('.star-fill').children().last().css({'width':'6%','overflow':'hidden'});
-				break;
-			case 0.3 :
-				$('.star-fill').children().last().css({'width':'7.2%','overflow':'hidden'});
-				break;
-			case 0.4 :
-				$('.star-fill').children().last().css({'width':'8.1%','overflow':'hidden'});
-				break;
-			case 0.5 :
-				$('.star-fill').children().last().css({'width':'8.9%','overflow':'hidden'});
-				break;
-			case 0.6 :
-				$('.star-fill').children().last().css({'width':'9.9%','overflow':'hidden'});
-				break;
-			case 0.7 :
-				$('.star-fill').children().last().css({'width':'11.25%','overflow':'hidden'});
-				break;
-			case 0.8 :
-				$('.star-fill').children().last().css({'width':'12.5%','overflow':'hidden'});
-				break;
-			case 0.9 :
-				$('.star-fill').children().last().css({'width':'13.8%','overflow':'hidden'});
-				break;
-			}
-		},
-		error : function(data) {
-		}
-	});
-	*/
 
 </script>
 </body>

@@ -18,7 +18,7 @@
 			
 		</div>
 		<div class="form-head">
-			<form id="search-popup" class="formBox" action="reviewBookList.do" method="get">
+			<form id="search-popup" class="formBox" action="${pageContext.request.contextPath }/review/book" method="get">
 				<input name="start" value="1" hidden /> <label for="condition"></label>
 				<select class="form-control" name="condition" id="condition">
 					<option  value="title_content"
@@ -64,7 +64,7 @@
 						<c:when test="${startPageNum != 1 }">
 							<!-- by 준익, 시작페이지가 1이 아닌경우 pageNum 과 start 값 로직_2021.02.28 -->
 							<li class="page-item">
-							<a class="page-link" href="reviewBookList.do?keyword=${encodedK }&condition=${condition }&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">&lt;</a>
+							<a class="page-link" href="${pageContext.request.contextPath }/review/book?keyword=${encodedK }&condition=${condition }&pageNum=${startPageNum-1 }&start=${(startPageNum-2)*PAGE_ROW_COUNT+1}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
@@ -81,12 +81,12 @@
 								<!-- by 준익, 순서가 pageNum 과 같을 때 -->
 								<li class="page-item active">
 									<!-- by 준익, active 활성화_2021.02.28 --> <a class="page-link"
-									href="reviewBookList.do?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+									href="${pageContext.request.contextPath }/review/book?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 								</li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="reviewBookList.do?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
+									href="${pageContext.request.contextPath }/review/book?keyword=${encodedK }&condition=${condition }&pageNum=${i}&start=${(i-1)*PAGE_ROW_COUNT+1}">${i }</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -95,7 +95,7 @@
 						<c:when test="${endPageNum lt totalPageCount }">
 							<!-- by 준익, 현재 페이지 끝 값이 전체 페이지끝 보다 작을때 비활성화  -->
 							<li class="page-item">
-								<a class="page-link" href="reviewBookList.do?keyword=${encodedK }&condition=${condition }&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">&gt;</a>
+								<a class="page-link" href="${pageContext.request.contextPath }/review/book?keyword=${encodedK }&condition=${condition }&pageNum=${endPageNum+1}&start=${(endPageNum)*PAGE_ROW_COUNT+1 }">&gt;</a>
 								<!-- by 준익, 다음페이지 숫자가 나오게 하는 로직_2021.02.28 -->
 							</li>
 						</c:when>

@@ -68,15 +68,15 @@
               </div>
          </div>
          <div class="order-footer">
-            <a class="btn home" href="${pageContext.request.contextPath }/home.do" >계속 쇼핑하기</a> 
-            <a class="btn order" href="../users/private/my_order.do" >구매내역 확인</a>
+            <a class="btn home" href="${pageContext.request.contextPath }/" >계속 쇼핑하기</a> 
+            <a class="btn order" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order" >구매내역 확인</a>
          </div>
       </div>
    </div>
 </div>
 <script>
 $.ajax({ 
-   	url:"${pageContext.request.contextPath}/v1/users/myOrder/${sessionScope.id}",
+   	url:"${pageContext.request.contextPath}/v1/user/${sessionScope.id}/order",
     method:"get",
     success:function(data){
     	$("#orderNumber").html(data.content[0].regdate.replace('-','').replace('-','').slice(0,8)+(data.content[0].id+"").padStart(8,'0'));

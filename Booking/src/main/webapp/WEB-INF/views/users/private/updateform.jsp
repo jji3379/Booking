@@ -15,14 +15,14 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<a href="${pageContext.request.contextPath }/users/private/info.do">
+			<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info">
 				<h4>안녕하세요 ,</h4>
 				<span>${loginId } </span>님!
 			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
-				<a class="bd-card" href="my_review.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/review">
 					<dl id="top-post" class="card">
 						<dt class="label">
 							<span>작성글 ></span>
@@ -33,7 +33,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card" href="my_reply.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/reply">
 					<dl id="top-reply" class="card">
 						<dt class="label">
 							<span>작성 댓글 ></span>
@@ -44,7 +44,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card last" href="${pageContext.request.contextPath }/pay/cart.do">
+				<a class="bd-card last" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart">
 					<dl class="card">
 						<dt class="label">
 							<span>북카트 ></span>
@@ -63,7 +63,7 @@
 			<div class="section">
 				<div class="section-name">나의 쇼핑</div>
 				<div class="linkList">
-					<a id="side-order" class="link" href="my_order.do">주문 내역</a>
+					<a id="side-order" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order">주문 내역</a>
 					<a class="link" href=""></a>
 					<a class="link" href=""></a>
 				</div>
@@ -71,9 +71,9 @@
 			<div class="section">
 				<div class="section-name">계정 관리</div>
 				<div class="linkList">
-					<a id="side-profile" class="link" href="updateform.do">계정정보 수정</a>
-					<a id="side-pwd" class="link" href="pwd_updateform.do">비밀번호 수정</a>
-					<a id="side-recent" class="link" href="recentSearch.do">최근 검색 기록</a>
+					<a id="side-profile" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/account">계정정보 수정</a>
+					<a id="side-pwd" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pwd">비밀번호 수정</a>
+					<a id="side-recent" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/search">최근 검색 기록</a>
 				</div>
 			</div>
 			<div class="section">
@@ -203,7 +203,7 @@
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -272,25 +272,7 @@
         }
 	}
 	
-	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
-		method:"GET",
-		dataType : "json",
-		async: false,
-		success:function(data) {
-			
-			$("#reviewCount").html(data.review.totalElements);
-			$("#replyCount").html(data.reviewDtl.totalElements);
-			$("#cartCount").html(data.cart.totalElements);
-			
-		},
-		error : function(data) {
-			console.log("오류");
-		}
-	});
-	
 	var profileImg = "${dto.profile }";
-	
 
 	if( profileImg != "" ){
 		$('#preImg').attr('src', "${pageContext.request.contextPath}"+profileImg );
@@ -380,39 +362,13 @@
 	$("#care").on("input", function(){
 		care = $("#care").val();
 	})
-	/*
-	//db에 저장된 모델(버튼을 누르는 동시에 데이터를 받아 대조)
-	document.querySelector("#btn")
-	.addEventListener("click", function(event){//이미지를 선택했을때 실행할 함수 등록
-	
-		let inputId = $("#id").val();
-		
-		$.ajax({
-			url:"${pageContext.request.contextPath }/users/private/check_update.do",
-			method:"POST",
-			data:"inputId="+inputId,
-			success:function(data){
- 				console.log(data);
-				let currentCare = data["care"];
-				let currentEmail = data["email"];
-				let currentProfile = "/booking" + data["image"];
-				if(care==currentCare && email==currentEmail ) {
-					alert("수정되지 않았습니다.");
-					event.preventDefault();//폼 전송 막기
-				} else {
-					$("#myProfile-form").trigger("submit");
-				}
-			}
-		})
-	});
-	*/
 	
 	//욱현.프로필이미지 삭제_2021323
 	function deleteProfile(){
 		var deleteConfirm = confirm("프로필 이미지를 삭제 하시겠습니까?");
 		if(deleteConfirm == true) {
 			$.ajax({
-				url:"${pageContext.request.contextPath }/v1/users/${id}/profile",
+				url:"${pageContext.request.contextPath }/v1/user/${id}/profile",
 				method:"delete",
 			}).done(function(response){
 				location.reload();

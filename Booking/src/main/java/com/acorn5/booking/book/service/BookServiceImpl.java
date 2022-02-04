@@ -12,9 +12,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +23,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,8 +39,6 @@ import com.acorn5.booking.book.dto.BookDto;
 import com.acorn5.booking.book.parsing.XmlParsing;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.repository.ReviewRepository;
-import com.acorn5.booking.users.dao.UsersDao;
-import com.acorn5.booking.users.dto.UsersDto;
 import com.acorn5.booking.users.entity.Search;
 import com.acorn5.booking.users.entity.Users;
 import com.acorn5.booking.users.repository.SearchRepository;
@@ -51,9 +46,6 @@ import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
-	//의존 객체 DI
-	//@Autowired
-	//private UsersDao dao; //recentsearch 저장 로직을위한 di준비
 	
 	@PersistenceContext
 	EntityManager em;
@@ -256,8 +248,7 @@ public class BookServiceImpl implements BookService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-            //Test에서 했던 방식은 DOM방식이기때문에? 
-            //그래서 이렇게 해도 된다?!??!??!? 
+ 
             List<Review> reviewAllList = reviewRepository.findAll();
             List<String> reviewIsbnList = new ArrayList();
             for (int i = 0; i < reviewAllList.size(); i++) {
@@ -382,9 +373,6 @@ public class BookServiceImpl implements BookService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-            //Test에서 했던 방식은 DOM방식이기때문에? 
-            //그래서 이렇게 해도 된다?!??!??!? 
-       
             
             int eventType = parser.getEventType();
             BookDto b = null;
@@ -498,10 +486,6 @@ public class BookServiceImpl implements BookService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-            //Test에서 했던 방식은 DOM방식이기때문에? 
-            //그래서 이렇게 해도 된다?!??!??!? 
-            
-            
             
             int eventType = parser.getEventType();
             BookDto b = null;
@@ -965,9 +949,6 @@ public class BookServiceImpl implements BookService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-            //Test에서 했던 방식은 DOM방식이기때문에? 
-            //그래서 이렇게 해도 된다?!??!??!? 
-           
             
             int eventType = parser.getEventType(); //받은 xml을 읽다가 이벤트에서 특정 상수를 반환 
             //하여 eventType에 저장 
@@ -1044,7 +1025,6 @@ public class BookServiceImpl implements BookService {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        //mView.addObject("list", list);
         
         return list;
     }
@@ -1150,7 +1130,6 @@ public class BookServiceImpl implements BookService {
         } catch (Exception e) {
             e.printStackTrace();
         } 
-        //mView.addObject("list", list);
         
         return list;
     }
@@ -1172,8 +1151,6 @@ public class BookServiceImpl implements BookService {
                     + (sort !=null ? "&sort=" + sort : "")
 					+ (display != 0 ? "&display=" + display : "") 
 					+ (start != 0 ? "&start=" + start : ""));
-  
-
  
             URLConnection urlConn = url.openConnection(); 
             urlConn.setRequestProperty("X-Naver-Client-Id", clientID); 
@@ -1183,7 +1160,6 @@ public class BookServiceImpl implements BookService {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(
                     new InputStreamReader(urlConn.getInputStream()));
-         
            
             int eventType = parser.getEventType();
             BookDto b = null;
@@ -1237,8 +1213,6 @@ public class BookServiceImpl implements BookService {
 		String clientId = "g77o0632rEdwZNPM9S2i"; // 애플리케이션 클라이언트 아이디값"
 		String clientSecret = "ZbTjii_qWZ"; // 애플리케이션 클라이언트 시크릿값"
 
-		//String condition = request.getParameter("condition"); // by 준익, 조건 상태 얻어오기_2021.03.09
-		//start = Integer.parseInt(request.getParameter("start")); // by 준익, 페이징 적용을 위한 start 값 얻어오기_2021.03.09
 		List<BookDto> list = null; // by 준익, XmlPullparser로 parsing 한 값 집어 넣을 list(item)_2021.03.09
 
 		BufferedReader br = null; // by 준익, api 정보를 읽어올 BufferedReader 필드_2021.03.09
@@ -1268,6 +1242,7 @@ public class BookServiceImpl implements BookService {
 						+ ("&display=" + display) 
 						+ ("&start=" + (pageable.getPageNumber()*display+Integer.valueOf(1)))
 						+ ("&sort=" + sort));
+				
 			// by 준익, parsing에 필요한 responseCode 를 사용하기 위한 접근 제어_2021.03.09
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -1413,75 +1388,9 @@ public class BookServiceImpl implements BookService {
 			e.printStackTrace();
 		}
 		
-		//keyword = request.getParameter("keyword");
-		// 만일 키워드가 넘어오지 않는다면
 		if (keyword == null) {
-			// 키워드와 검색 조건에 빈 문자열을 넣어준다.
-			// 클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서
 			keyword = "";
 		}
-
-		// < 페이징 처리 > -----------------------------------------------------
-/*
-		// 한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT = display; // by 준익, 한 페이지에 표시할 개수 display 넣어줌_2021.02.28
-		// 하단 페이지를 몇개씩 표시할 것인지
-		final int PAGE_DISPLAY_COUNT = 5;
-
-		// 보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		int pageNum = 1;
-		// 페이지 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
-
-		// 만일 페이지 번호가 파라미터로 넘어 온다면
-		if (strPageNum != null) {
-			// 숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
-			pageNum = Integer.parseInt(strPageNum);
-		}
-
-		// 보여줄 페이지의 시작 ROWNUM
-		int startRowNum = 1 + (pageNum - 1) * PAGE_ROW_COUNT;
-		// 보여줄 페이지의 끝 ROWNUM
-		int endRowNum = pageNum * PAGE_ROW_COUNT;
-
-		// 하단 시작 페이지 번호
-		int startPageNum = 1 + ((pageNum - 1) / PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
-		// 하단 끝 페이지 번호
-		int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
-
-		// 전체 row 의 갯수를 담을 지역변수를 미리 만든다.
-		int totalRow = 0; // by 준익, totalRow 를 담을 변수 선언_2021.03.09
-
-		if (Integer.parseInt(total) >= 1000) { // by 준익, 검색 개수가 1000이 넘을 경우_2021.03.09
-			totalRow = 1000; // by 준익, 네이버 도서 api start 값이 최대 1000 이므로 totalRow=1000 으로 고정_2021.03.09  
-		} else { // by 준익, total 이 1000을 넘지 않는경우_2021.03.09  
-			totalRow = Integer.parseInt(total); // by 준익, 검색 개수에 대한 페이징 처리를 위해 totalRow=검색 개수로 지정_2021.03.09 
-		}
-
-		// 전체 페이지의 갯수 구하기
-		int totalPageCount = (int) Math.ceil(totalRow / (double) PAGE_ROW_COUNT);
-		// 끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
-		if (endPageNum > totalPageCount) {
-			endPageNum = totalPageCount; // 보정해 준다.
-		}
-		*/
-		// view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
-		/*
-		mView.addObject("list", list);
-		mView.addObject("total", total);
-		mView.addObject("start", start);
-		mView.addObject("display", display);
-		mView.addObject("PAGE_DISPLAY_COUNT", PAGE_DISPLAY_COUNT);
-		mView.addObject("pageNum", pageNum);
-		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);
-		mView.addObject("totalPageCount", totalPageCount);
-		mView.addObject("PAGE_ROW_COUNT", PAGE_ROW_COUNT);
-		mView.addObject("encodedK", encodedK);
-		mView.addObject("totalRow", totalRow);
-		mView.addObject("condition", condition); // 검색 조건이 있을 경우
-		mView.addObject("keyword", keyword); // 검색 조건이 있을 경우
-*/
 		
 		return new PageImpl<BookDto>(list, pageable, Integer.parseInt(total));
 	}
@@ -1490,10 +1399,11 @@ public class BookServiceImpl implements BookService {
 	public void recentSearchInput(String keyword, Long id) {
 		Users userId = new Users();
 		userId.setId(id);
-		//Users dto = usersRepository.findById(id);
+		
 		Search recentSearch = new Search();
 		recentSearch.setKeyword(keyword);
 		recentSearch.setUserId(userId);
+		
 		searchRepository.save(recentSearch);
 	}
 }

@@ -1,4 +1,4 @@
-package com.acorn5.booking.pay.entity;
+package com.acorn5.booking.cart.entity;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ import com.acorn5.booking.users.entity.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "MY_CART_ITEM_MST")
+@Table(name = "MY_CART_MST")
 public class Cart {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +41,7 @@ public class Cart {
     @Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@CreationTimestamp
-    private Date indate;
+    private Date regdate;
     private String isbn;
     
 	public Long getId() {
@@ -93,12 +93,6 @@ public class Cart {
 	public void setUserId(Users userId) {
 		this.userId = userId;
 	}
-	public Date getIndate() {
-		return indate;
-	}
-	public void setIndate(Date indate) {
-		this.indate = indate;
-	}
 	public String getPublisher() {
 		return publisher;
 	}
@@ -110,6 +104,12 @@ public class Cart {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
     
 }

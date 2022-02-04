@@ -1,13 +1,11 @@
 package com.acorn5.booking.order.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,37 +13,23 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.order.dao.OrderDao;
-import com.acorn5.booking.order.dto.OrderDto;
-import com.acorn5.booking.order.dto.OrderSum;
 import com.acorn5.booking.order.entity.Order;
 import com.acorn5.booking.order.entity.OrderDtl;
 import com.acorn5.booking.order.entity.QOrder;
-import com.acorn5.booking.order.entity.QOrderDtl;
 import com.acorn5.booking.order.repository.OrderDtlRepository;
 import com.acorn5.booking.order.repository.OrderRepository;
-import com.acorn5.booking.review.dao.ReviewDao;
-import com.acorn5.booking.review.dto.ReviewDto;
-import com.acorn5.booking.review.entity.QReview;
-import com.acorn5.booking.review.entity.Review;
+
 import com.acorn5.booking.users.entity.QUsers;
 import com.acorn5.booking.users.entity.Users;
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	//@Autowired
-	//private OrderDao dao;
-	
+
 	@PersistenceContext
 	EntityManager em;
-	
-	//@Autowired
-	//private ReviewDao reviewDao;
 	
 	@Autowired
 	private OrderDtlRepository orderDtlRepository; 
@@ -151,11 +135,6 @@ public class OrderServiceImpl implements OrderService {
 		//회원의 주문내역 전체 얻기 
 		Users buyerId = new Users();
 		buyerId.setId(id);
-		//List<Order> list = orderDtlRepository.findByBuyer(buyerId); 
-				//dao.getMyOrder((String)session.getAttribute("id"));
-		//주문번호 끼리 묶기
-		//List<OrderSum> orderList = new ArrayList<OrderSum>();
-		//orderRepository.findByBuyer(buyerId);
 
 		pageable = new PageRequest(pageable.getPageNumber(), 5, pageable.getSort());		
 		JPAQueryFactory query = new JPAQueryFactory(em);
@@ -168,6 +147,7 @@ public class OrderServiceImpl implements OrderService {
 				.fetchJoin()
 				.where(qOrder.buyer.eq(buyerId)
 						.and(qOrder.regdate.between(startDate, endDate)))
+				.orderBy(qOrder.id.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchResults();

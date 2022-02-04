@@ -47,13 +47,12 @@
 					<label for="allCheck">전체 선택</label>
 				</dt>
 				<dd class="deleteBtn">
-					<button id="selectDeleteBtn" type="submit" class="btn" onClick="deleteChk(this)" >선택 삭제</button> 
+					<button id="selectDeleteBtn" type="submit" class="btn" onClick="deleteChk()" >선택 삭제</button> 
 				</dd> 
 			</div>
 			<script>
 			//by준영, 체크박스 선택한 값을 읽어서 삭제한는 ajax로직_210311
 				function deleteChk(){
-					var url ="deleteCart.do";
 					var valueArr = new Array();
 					var list =$("input[name='chBox']");
 					for(var i=0; i< list.length; i++){
@@ -61,24 +60,26 @@
 							valueArr.push(list[i].value);	
 						}
 					}
+					
 					if(valueArr.length == 0){
 						alert("선택된 항목이 없습니다.");
 					}else{
 						var chk = confirm("정말 삭제하시겠습니까");
-						$.ajax({
-							url:url,
-							type:'post',
-							traditional :true,
-							data:{'valueArr' : valueArr},
-							success:function(){
-								if(chk){
-									location.replace("pay.do");	
-								}else{
-									return false;
+						for(var j=0; j<valueArr.length; j++){
+							$.ajax({
+								url:"${pageContext.request.contextPath }/v1/user/${sessionScope.id}/cart/"+valueArr[j],
+								type:'delete',
+								traditional :true,
+								data:{'valueArr' : valueArr},
+								success:function(){
+									if(chk && j == valueArr.length){
+										location.replace("${pageContext.request.contextPath }/user/${sessionScope.id}/pay");
+									}else{
+										return false;
+									}
 								}
-								
-							}
-						})
+							})
+						}
 					}
 				}
 			</script>
@@ -496,13 +497,13 @@
 				}
 				
 	            $.ajax({
-	               url:"${pageContext.request.contextPath }/pay/orderInsert",
+	               url:"${pageContext.request.contextPath }/v1/pay/order",
 		   		   method:"post",
 				   dataType : "json",
 				   contentType : "application/json; charset=utf-8",
 				   data : JSON.stringify(dataArray),
 	               success : function(){
-						location.href="paid";
+						location.href="${pageContext.request.contextPath }/pay/order/paid";
 	               },error(data){
 	               	console.log("오류");
 	               }

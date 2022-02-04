@@ -1,8 +1,6 @@
-package com.acorn5.booking.pay.service;
+package com.acorn5.booking.cart.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.jdo.annotations.Transactional;
 import javax.servlet.http.HttpServletRequest;
@@ -11,18 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.pay.dao.CartDao;
-import com.acorn5.booking.pay.dto.CartDto;
-import com.acorn5.booking.pay.entity.Cart;
-import com.acorn5.booking.pay.repository.CartRepository;
+import com.acorn5.booking.cart.entity.Cart;
+import com.acorn5.booking.cart.repository.CartRepository;
 import com.acorn5.booking.users.entity.Users;
-import com.acorn5.booking.users.repository.UsersRepository;
 
 @Service
 public class CartServiceImpl implements CartService {
-	//@Autowired
-	//private CartDao cartDao;
-	//by준영, 장바구니 담기(저장) 처리_210308
 	
 	@Autowired
 	CartRepository cartRepository;
@@ -36,12 +28,12 @@ public class CartServiceImpl implements CartService {
 			dto.setUserId(userId);
 			cartRepository.save(dto);
 		}
-		//cartDao.insert(dto);	
 	}
+	
 	//by준영, 북카트 리스트_210308
 	@Override
 	public void listCart(ModelAndView mView, HttpServletRequest request) {
-		Long id=(Long)request.getSession().getAttribute("id");
+		Long id = (Long) request.getSession().getAttribute("id");
 		Users userId = new Users();
 		userId.setId(id);
 		List<Cart> list = cartRepository.findByUserId(userId);
@@ -50,22 +42,16 @@ public class CartServiceImpl implements CartService {
 			mView.addObject("count", basketCount);
 		}
 		mView.addObject("list", list);
-		
+
 	}
-	//by, 카트 개별 삭제 요청처리_210310
+	
+	// by, 카트 개별 삭제 요청처리_210310
 	@Override
-	public void deleteCart(Cart c_id) {
-		cartRepository.delete(c_id);
+	public void deleteCart(Long id) {
+		cartRepository.delete(id);
 	}
-	//by준영, 체크된 카트 삭제_210313
-	@Override
-	public void deleteChk(Long ajaxMsg) {
-		/*
-		 * for(int i = 0; i < c_id.length; i++) { //cartDao.chk_delete(c_id[i]); }
-		 */
-		cartRepository.delete(ajaxMsg);
-	}
-	//by준영, 북카트 내 도서 수량변경_210310
+
+	// by준영, 북카트 내 도서 수량변경_210310
 	@Override
 	@Transactional
 	public void update(Cart dto) {
@@ -73,15 +59,14 @@ public class CartServiceImpl implements CartService {
 		if (id != null) {
 			Cart cart = cartRepository.findById(id);
 			cart.setCount(dto.getCount());
-			cart.setIndate(dto.getIndate());
+			cart.setRegdate(dto.getRegdate());
 			cartRepository.save(cart);
 		}
 	}
-	
-	
-	//by_준영, 결제완료시 해당상품 삭제_210314
+
+	// by_준영, 결제완료시 해당상품 삭제_210314
 	@Override
-	public void deletPay(Long id,HttpServletRequest request) {
+	public void deletPay(Long id, HttpServletRequest request) {
 		Users user = new Users();
 		user.setId(id);
 		List<Cart> myCart = cartRepository.findByUserId(user);
@@ -89,12 +74,12 @@ public class CartServiceImpl implements CartService {
 			cartRepository.delete(myCart.get(i).getId());
 		}
 	}
-	
+
 	@Override
 	public List<Cart> getCart(Long id) {
 		Users user = new Users();
 		user.setId(id);
-		
+
 		return cartRepository.findByUserId(user);
 	}
 }

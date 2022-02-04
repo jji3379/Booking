@@ -43,7 +43,7 @@
 				</div>
 				<tr>
 					<td class="tdImg" rowspan="4"><a
-						href="${pageContext.request.contextPath }/bookDetail.do?d_isbn=${dto.isbn}">
+						href="${pageContext.request.contextPath }/book/${dto.isbn}">
 							<img id="image" src="${dto.imagePath }" />
 					</a></td>
 				</tr>
@@ -72,9 +72,9 @@
 		</div>
 		<div class="list-menu">
 			<ul >
-				<li><a class="listBtn" href="${pageContext.request.contextPath }/review">목록보기</a></li>
+				<li><a class="listBtn" href="${pageContext.request.contextPath }/reviews">목록보기</a></li>
 				<c:if test="${dto.writer.loginId eq sessionScope.loginId }">
-					<li><a class="listBtn" href="${pageContext.request.contextPath }/private/review/update/${dto.id }">수정</a></li>
+					<li><a class="listBtn" href="${pageContext.request.contextPath }/review/${dto.id }/edit">수정</a></li>
 					<li><a class="listBtn" href="#" onclick="deleteReview();">삭제</a></li>
 				</c:if>
 			</ul>
@@ -86,7 +86,7 @@
 	       	<div class="comment-body">
 	       		<div class="registWrap">
 	       			<div class="textarea-box">
-	       				<form class="comment-form reviewInsert-form" action="private/reviewComment_insert.do" method="post">
+	       				<form class="comment-form reviewInsert-form" action="${pageContext.request.contextPath }/v1/review/reply" method="post">
 							<!-- by남기, 원글의 글번호가 refGroup 번호가 된다. _210303 -->
 							<input type="hidden" name="refGroup" value="${dto.id }"/>
 							<!-- by남기, 원글의 작성자가 댓글의 수신자가 된다. _210303 -->
@@ -145,7 +145,7 @@
 										<!-- 대댓글을 달 수 있는 히든 tr start -->
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
-												<form class="comment-form reply-form" action="private/reviewComment_insert" method="post">
+												<form class="comment-form reply-form" action="${pageContext.request.contextPath }/v1/review/reply" method="post">
 													<input type="hidden" name="refGroup" value="${dto.id }" /> 
 													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
 													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" />
@@ -191,7 +191,7 @@
 										<!-- 댓글의 대댓글 입력 폼 start -->
 										<tr id="comment${tmp.id }" class="tr-hidden">
 											<td colspan="2">
-												<form class="comment-form reply-form" action="private/reviewComment_insert" method="post">
+												<form class="comment-form reply-form" action="${pageContext.request.contextPath }/v1/review/reply" method="post">
 													<input type="hidden" name="refGroup" value="${dto.id }" /> 
 													<input type="hidden" name="target_id" value="${tmp.writer.id }" /> 
 													<input type="hidden" name="commentGroup" value="${tmp.commentGroup }" /> 
@@ -215,46 +215,7 @@
 					</div>
 					<div class="comment-paging">    
 						<nav id = "paging">
-							<ul class="pagination justify-content-center">
-								<c:choose>
-									<c:when test="${!list.first}">
-										<li class="page-item">
-											<a class="page-link" href="reviewList.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">&lt;</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item disabled">
-											<a class="page-link" href="javascript:">&lt;</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-								<c:forEach var="i" begin="${startPageNum}" end="${endPageNum }">
-									<c:choose>
-										<c:when test="${i eq list.number }">
-											<li class="page-item active">
-												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li class="page-item">
-												<a class="page-link" href="reviewList.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${endPageNum lt totalPageCount }">
-										<li class="page-item">
-											<a class="page-link" href="reviewList.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">&gt;</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item disabled">
-											<a class="page-link" href="javascript:">&gt;</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</ul>
+
 						</nav>
 					</div>
 				</div>
@@ -265,23 +226,17 @@
 
 	// 해당 리뷰에 해당하는 댓글들 조회
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/review/reply/${reviewId}",
+		url:"${pageContext.request.contextPath}/v1/review/${reviewId}",
 		method:"GET",
 		dataType : "json",
 		async: false,
 		success:function(data) {
-			$("#total-reply").html(data);
+			$("#total-reply").html(data.replyCount);
 		},
 		error : function(data) {
 			console.log("오류");
 		}
 	});
-
-	/* $(document).ready(function(){
-		var review = $('.input-content').val();
-		var content = review.replace(/(<([^>]+)>)/ig,"");
-		$(document).find('.input-content').val(content);
-	}) */
 	
 	// 리뷰 내용 조회
 	$(document).ready(function(){
@@ -365,13 +320,11 @@
 		if(isLogin == false){
 			alert("로그인이 필요합니다.");
 			document.getElementById('modal-open').click();
-			/*
-			location.href="${pageContext.request.contextPath }/users/login_form.do?"+
-					"url=${pageContext.request.contextPath }/review/${dto.id}";
-			*/
+			
 			return false; //폼 전송 막기 		
 		}
 	});
+	
 	//by 준영, 대댓글 작성폼 제출 시 함수
 	$(document).on("submit",".reply-form", function(){
 		//로그인 여부
@@ -383,8 +336,8 @@
 			return false; //폼 전송 막기 		
 		}
 	});
-	//by준영, 댓글 수정 폼 제출 시 함수
 	
+	//by준영, 댓글 수정 폼 제출 시 함수
 	$(document).on("click", ".updateBtn", function(){
 		var replyId=$(this).attr("data-num");
 		var content = $("#content"+replyId).val();
@@ -396,20 +349,16 @@
 		$.ajax({
 			url:"${pageContext.request.contextPath }/v1/review/reply",
 			method:"put",
-			//dataType : "json",
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(data),
 			success:function(data) {
 				location.reload();
 			},
 			error : function(data) {
-				//location.reload();
 				console.log("실패");
 			}
 		});
 	});
-	
-
 	
 	//by 준영, 댓글 수정 폼 제출시 로그인필터
 	$(document).on("submit",".commentUpdate-form", function(){
@@ -418,8 +367,7 @@
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.reload();
-			//location.href="${pageContext.request.contextPath }/users/login_form.do?"+
-				//	"url=${pageContext.request.contextPath }/review/${dto.id}";
+
 			return false; //폼 전송 막기 		
 		}
 	});
@@ -433,7 +381,7 @@
 				method:"DELETE",
 			}).done(function(response){
 				alert("리뷰가 삭제 되었습니다.");
-				window.location = '${pageContext.request.contextPath}/review'; 
+				window.location = '${pageContext.request.contextPath}/reviews'; 
 			});
 		}
 		

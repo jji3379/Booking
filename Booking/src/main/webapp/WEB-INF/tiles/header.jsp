@@ -15,14 +15,14 @@
 				</a>
 			</div>
 			<div class="search">
-				<form id="searchForm" action="${pageContext.request.contextPath }/bookList/conditionSearch.do" method="get" >  
+				<form id="searchForm" action="${pageContext.request.contextPath }/book/search" method="get" >  
 			        <input id="searchBook" type="text" aria-label="Search"
 			           name="keyword" placeholder="검색어를 입력하세요"/>
 			        <input name="pageNum" value="1" hidden/>
 			        <input name="start" value="1" hidden/>
 			        <button type="submit" class="srcBtn" ><img src="${pageContext.request.contextPath }/resources/images/search.svg" alt="" /></button>
 			    </form>
-			    <a class="cart-box" href="${pageContext.request.contextPath }/pay/cart.do" id="cartBtn">
+			    <a class="cart-box" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart" id="cartBtn">
 		    		<img id="cartImg" src="${pageContext.request.contextPath }/resources/images/cart.svg"/>
 		    		<span id="cartCountNum"></span>
 			   	</a>
@@ -30,9 +30,9 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.id }">
 				<div class="Users">
-						<a href="${pageContext.request.contextPath }/users/private/info.do" class="userImg "><img id="userProfileImg" src="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/></a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info" class="userImg "><img id="userProfileImg" src="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/></a>
 					<div class="user-box" >
-						<a href="${pageContext.request.contextPath }/users/private/info.do" class="member" >${loginId } 님</a>
+						<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info" class="member" >${loginId } 님</a>
 						<a href="${pageContext.request.contextPath }/users/logout.do" class="member">로그아웃</a>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 				<c:otherwise>
 				<div class="Users">
 					<a href="#"  class="nonMember" id="modal-open" data-toggle="modal" data-target="#login">로그인</a>
-					<a href="${pageContext.request.contextPath }/signup_form.do"  class="nonMember">회원가입</a>
+					<a href="${pageContext.request.contextPath }/signup"  class="nonMember">회원가입</a>
 				</div>
 				</c:otherwise>
 			</c:choose>
@@ -49,16 +49,16 @@
 	<div class="navWrap">
 		<ul class="Btns">
 			<li>
-				<a href="${pageContext.request.contextPath }/CategoryList.do?d_catg=100&sort=count&start=1">전체도서</a>
+				<a href="${pageContext.request.contextPath }/category?d_catg=100&sort=count&start=1">전체도서</a>
 			</li>
 			<li>
-	        	<a href="${pageContext.request.contextPath }/bookList/bestSeller.do">베스트셀러 </a>
+	        	<a href="${pageContext.request.contextPath }/bestSeller">베스트셀러 </a>
 	     	</li>
 			<li>
-				<a href="${pageContext.request.contextPath }/review">도서리뷰 </a>
+				<a href="${pageContext.request.contextPath }/reviews">도서리뷰 </a>
 			</li>
 			<li>
-		        <a href="${pageContext.request.contextPath }/map/mapsearch.do">서점 찾기</a>
+		        <a href="${pageContext.request.contextPath }/map">서점 찾기</a>
 		    </li>
 		</ul>
 	</div>

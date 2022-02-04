@@ -1,8 +1,6 @@
 package com.acorn5.booking.users.service;
 
 import java.io.File;
-import java.net.URLEncoder;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,28 +17,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn5.booking.cart.entity.Cart;
+import com.acorn5.booking.cart.entity.QCart;
+import com.acorn5.booking.cart.repository.CartRepository;
 import com.acorn5.booking.exception.DBFailException;
 import com.acorn5.booking.filter.LoginDto;
-import com.acorn5.booking.order.dao.OrderDao;
-import com.acorn5.booking.pay.dao.CartDao;
-import com.acorn5.booking.pay.entity.Cart;
-import com.acorn5.booking.pay.entity.QCart;
-import com.acorn5.booking.pay.repository.CartRepository;
-import com.acorn5.booking.review.dao.ReviewCommentDao;
-import com.acorn5.booking.review.dao.ReviewDao;
 import com.acorn5.booking.review.entity.QReview;
 import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 import com.acorn5.booking.review.repository.ReviewCommentRepository;
 import com.acorn5.booking.review.repository.ReviewRepository;
-import com.acorn5.booking.users.dao.UsersDao;
-import com.acorn5.booking.users.dto.UserInfoDto;
-import com.acorn5.booking.users.dto.UsersDto;
+
 import com.acorn5.booking.users.entity.QSearch;
 import com.acorn5.booking.users.entity.QUsers;
 import com.acorn5.booking.users.entity.Search;
@@ -52,20 +43,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
 public class UsersServiceImpl implements UsersService{
-	
-	//by욱현.dao객체 di시키기위해 준비_2021222
-	//@Autowired
-	//private UsersDao dao;
-	
-	//회원탈퇴시 해당 해원의 기록을 모두 삭제하기 위해 di
-	//@Autowired
-	//private ReviewCommentDao reviewCommentDao;
-	//@Autowired
-	//private ReviewDao reviewDao;
-	//@Autowired
-	//private CartDao cartDao;
-	//@Autowired
-	//private OrderDao orderDao;
 	
 	@PersistenceContext
 	EntityManager em;

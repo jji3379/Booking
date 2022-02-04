@@ -15,14 +15,14 @@
 <div class="layout">
 	<div class="header">
 		<div class="primary">
-			<a href="${pageContext.request.contextPath }/users/private/info.do">
+			<a href="${pageContext.request.contextPath }/user/${sessionScope.id}/info">
 				<h4>안녕하세요 ,</h4>
 				<span>${loginId } </span>님!
 			</a>
 		</div>
 		<div class="secondary">
 			<div class="top3">
-				<a class="bd-card" href="my_review.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/review">
 					<dl id="top-post" class="card">
 						<dt class="label">
 							<span>작성글 ></span>
@@ -33,7 +33,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card" href="my_reply.do">
+				<a class="bd-card" href="${pageContext.request.contextPath }/user/${sessionScope.id}/reply">
 					<dl id="top-reply" class="card">
 						<dt class="label">
 							<span>작성 댓글 ></span>
@@ -44,7 +44,7 @@
 						</dd>
 					</dl>
 				</a>
-				<a class="bd-card last" href="${pageContext.request.contextPath }/pay/cart.do">
+				<a class="bd-card last" href="${pageContext.request.contextPath }/user/${sessionScope.id}/cart">
 					<dl class="card">
 						<dt class="label">
 							<span>북카트 ></span>
@@ -63,7 +63,7 @@
 			<div class="section">
 				<div class="section-name">나의 쇼핑</div>
 				<div class="linkList">
-					<a id="side-order" class="link" href="my_order.do">주문 내역</a>
+					<a id="side-order" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/order">주문 내역</a>
 					<a class="link" href=""></a>
 					<a class="link" href=""></a>
 				</div>
@@ -71,9 +71,9 @@
 			<div class="section">
 				<div class="section-name">계정 관리</div>
 				<div class="linkList">
-					<a id="side-profile" class="link" href="updateform.do">계정정보 수정</a>
-					<a id="side-pwd" class="link" href="pwd_updateform.do">비밀번호 수정</a>
-					<a id="side-recent" class="link" href="recentSearch.do">최근 검색 기록</a>
+					<a id="side-profile" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/account">계정정보 수정</a>
+					<a id="side-pwd" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/pwd">비밀번호 수정</a>
+					<a id="side-recent" class="link" href="${pageContext.request.contextPath }/user/${sessionScope.id}/search">최근 검색 기록</a>
 				</div>
 			</div>
 			<div class="section">
@@ -86,6 +86,7 @@
 		<div class="content">
 			<div class="myReply">
 				<h1>작성 댓글 보기</h1>
+		<!-- 
 				<table class="myReply-tb">
 					<caption>Total : 3</caption>
 					<colgroup>						
@@ -123,6 +124,7 @@
 						</tr>
 					</tbody>
 				</table>
+		 -->
 				<nav id = "paging">
 				</nav>
 			</div>
@@ -133,7 +135,7 @@
 <script>
 	//작성글, 작성 댓글, 북카트, 나의 정보 호출
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,
@@ -155,7 +157,7 @@
 	
 	function pagingList(page) {
 		$.ajax({
-			url:"${pageContext.request.contextPath}/v1/users/${id}?page="+page,
+			url:"${pageContext.request.contextPath}/v1/user/${id}?page="+page,
 			method:"GET",
 			dataType : "json",
 			async: false,
@@ -222,7 +224,7 @@
 	
 	
 	$.ajax({
-		url:"${pageContext.request.contextPath}/v1/users/${id}",
+		url:"${pageContext.request.contextPath}/v1/user/${id}",
 		method:"GET",
 		dataType : "json",
 		async: false,

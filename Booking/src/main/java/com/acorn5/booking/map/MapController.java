@@ -7,15 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorn5.booking.pay.service.CartService;
+import com.acorn5.booking.cart.service.CartService;
 
 @Controller
 public class MapController {
 	
-	@RequestMapping("/map/mapsearch")
-	public ModelAndView mapsearch(ModelAndView mView) {
+	@RequestMapping("/map")
+	public String mapsearch() {
 		
-		mView.setViewName("map/mapsearch.page");
-        return mView;
+        return "map/mapsearch.page";
 	}
 }
