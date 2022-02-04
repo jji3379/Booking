@@ -185,6 +185,9 @@
     	background: #fafafa;
     	padding: 7px 0;
     }
+    .allCheck > label {
+    	cursor: pointer;
+    }
     .btn {
     	background: #fff;
 	    cursor: pointer;
