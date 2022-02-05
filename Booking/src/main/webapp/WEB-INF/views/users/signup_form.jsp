@@ -231,7 +231,7 @@ $(document).ready(function () {
 				    type : "get"
 	            }
             },
-            pwd: {required:true, minlength:5, maxlength:10},
+            pwd: {required:true, minlength:5, maxlength:10, alphanumeric: true},
             pwd2: {required:true, equalTo:'#signupPwd'},               
             email: {required:true, email:true},
             chk_care: 'required',
@@ -242,14 +242,17 @@ $(document).ready(function () {
                  required:"필수 입력 항목입니다.",
                  minlength: "최소 5자 이상 입력해 주세요.",
                  maxlength: "최대 10자 이내로 입력해 주세요.",
-                 alphanumeric: "영문 소문자나 숫자 조합으로만 입력해 주세요.",
+                 alphanumeric: "영문 소문자와 숫자 조합으로만 입력해 주세요.",
                  remote : "이미 존재하는 아이디 입니다."
                  },
-            pwd:"필수 입력 항목입니다.",
+            pwd:{
+            	required: "필수 입력 항목입니다.",
+            	minlength: "최소 5자 이상 입력해 주세요.",
+                maxlength: "최대 10자 이내로 입력해 주세요.",
+                alphanumeric: "영문 소문자와 숫자 조합으로만 입력해 주세요."
+            },
             pwd2: {
                 required: "필수 입력 항목입니다.",
-                minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
-                maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
                 equalTo: "암호를 다시 확인하세요" 
                 },
             email: {
