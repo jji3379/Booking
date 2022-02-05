@@ -192,7 +192,7 @@
 									reviewList += '<td>'+((data.reviewDtl.number*5)+i+1)+'</td>'
 									reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
 									reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
-									reviewList += '<td>'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
+									reviewList += '<td class="refGroup-title">'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
 								reviewList += '</tr>'				
 							}
 							reviewList += '</tbody>'
@@ -259,7 +259,7 @@
 								reviewList += '<td>'+(i+1)+'</td>'
 								reviewList += '<td class="myPost-tdTitle">'+data.reviewDtl.content[i].content+'</td>'
 								reviewList += '<td>'+data.reviewDtl.content[i].regdate+'</td>'
-								reviewList += '<td>'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
+								reviewList += '<td class="refGroup-title">'+data.reviewDtl.content[i].refGroup.reviewTitle+'</td>'
 							reviewList += '</tr>'				
 						}
 						reviewList += '</tbody>'

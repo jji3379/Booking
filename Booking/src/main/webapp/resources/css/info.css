@@ -420,13 +420,21 @@ a {
 	    line-height: 28px;
 	    letter-spacing: .2px;
     }
-    .right > span {
+    .bookPrice {
     	padding-right: 4px;
     	font-size: 17px;
     	color: #888888;
 	    line-height: 20px;
 	    letter-spacing: .2px;
     }
+    .bookDiscountPrice {
+    	padding-left: 4px;
+    	font-size: 17px;
+    	color: #888888;
+	    line-height: 20px;
+	    letter-spacing: .2px;
+    }
+    
     .action{
 	    flex: 0 0 155px;
 	    display: flex;
@@ -895,7 +903,12 @@ a {
    		background: #f5f5f5;
    		cursor: pointer;
    	}
-   	
+   	.refGroup-title{
+   		overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+   	}
 	/* my_reply */
    	#paging{
 	    border-bottom: 1px solid #dedede;
