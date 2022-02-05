@@ -120,10 +120,16 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.twbsPagination.js"></script>	
 <script>
 	// 선택한 정렬에 active 추가
-	$(".sortBar").children().children().on("click", (event) => {
+	$("#simSort").on("click", (event) => {
+		$("#simSort").removeClass('active');
+		$("#simSort").css('border-top-left-radius','10px');
+		event.target.className += " active";
+	});
+	$("#countSort, #dateSort").on("click", (event) => {
 		$(".sortBar").children().children().removeClass('active');
 		event.target.className += " active";
 	});
+	
 
 	function bookSearchPaging(start, sort){
 		$.ajax({
@@ -306,7 +312,21 @@
 	
 	$('#date').html(today.toLocaleString() + '&nbsp; 기준');
 	
-	
+	//by준영, 맨위로 가기 버튼
+	$(document).ready(function(){
+		$(window).scroll(function(){
+		    // top button controll
+		    if ($(this).scrollTop() > 500) {
+		        $('#topButton').fadeIn();
+		    } else {
+		        $('#topButton').fadeOut();
+		    }
+		});
+
+		$("#topButtonImg").click(function(){
+			$('html, body').animate({scrollTop:0}, '300');
+		});
+	});
 	
 	 //by준영, 장바구니 로그인 필터 기능_210311
     //by준영, 장바구니로 페이지이동없이 담고 바로 이동할지 묻는 컨펌 로직_210315

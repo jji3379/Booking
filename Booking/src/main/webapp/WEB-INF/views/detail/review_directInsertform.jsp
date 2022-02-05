@@ -74,7 +74,7 @@
 					</tr>
 					<tr>
 						<td class="td-content td-bg"><label id="content-L" for="content"> >  리뷰 내용</label></td>
-						<td class="td-content"><textarea class="form-control" name="content" id="content"></textarea></td>
+						<td class="td-content"><textarea class="form-control" name="content" id="content" placeholder="최대 500자 까지 입력해 주세요."></textarea><span class="textCount">0 / 500</span></td>
 					</tr>
 					<tr>
 						<td class="td-spoCheck td-bg"><strong style="color:#41495c";>※ 스포일러 유무</strong></td>
@@ -95,7 +95,18 @@
 	</form>
 	</div>
 </div>
-<script>	
+<script>
+//리뷰 내용 글자수 제한
+$('#content').keyup(function (e) { 
+	var typing = $(this).val(); // 글자수 세기 
+	$('.textCount').text(typing.length + ' / 500'); 
+	
+	if (typing.length > 500) { // 500자 부터는 타이핑 되지 않도록 
+		$(this).val($(this).val().substring(0, 500)); //500자 넘으면 알림창 뜨도록 
+		alert('글자수는 500자까지 입력 가능합니다.'); 
+	}; 
+});
+
 //by남기, 별점을 클릭할 때 별점 갯수가 증가하거나 감소_210310
 $('#star a').click(function(){ 
 	var starChk = $('input[id=star_Chk]');

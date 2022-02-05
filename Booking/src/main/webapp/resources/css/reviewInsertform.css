@@ -110,6 +110,8 @@
 	    padding: 9px 12px;
 	    outline: none;
 	    box-sizing: border-box;
+	    letter-spacing: 1.3px;
+    	line-height: 1.3;
    	}
    	.form-control{
    		border: 1px solid #e5e5e5;
@@ -141,6 +143,8 @@
 	    box-sizing: border-box;
 	    font-family: '777Balsamtint';
     	font-size: 18px;
+    	letter-spacing: 1.3px;
+    	line-height: 1.3;
    	}
    	#content {
    		resize: none;
@@ -151,9 +155,19 @@
 	    outline: none;
 	    box-sizing: border-box;
 	    font-family: '777Balsamtint';
-    	font-size: 19px;
+    	font-size: 20px;
+    	letter-spacing: 1.3px;
+    	line-height: 1.3;
    	}
-   	
+   	.td-content{
+   		position: relative;
+   	}
+   	.textCount{
+   		position: absolute;
+	    bottom: 25px;
+	    right: 30px;
+	    color: #4b4c4deb;
+   	}
    	.td-bg{
    		background-color: #fbf9fa;
    	}

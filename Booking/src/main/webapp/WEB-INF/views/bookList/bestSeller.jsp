@@ -19,7 +19,7 @@
 				Booking 종합 베스트셀러
 			</h1>
 			<div class="ranking">
-				<ul>
+				<ul class="sortBar">
 					<li class="item"><a id="ranking1" class="rank-sort" href="#" onclick="topBestSeller(1)">1 위 <img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
 					<li class="item"><a id="ranking51" class="rank-sort" href="#" onclick="topBestSeller(51)">51 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
 					<li class="item"><a id="ranking101" class="rank-sort" href="#" onclick="topBestSeller(101)">101 위<img src="//image.aladin.co.kr/img/megaseller/megaseller_rank_dw1.gif" alt="" align="absmiddle"></a></li>
@@ -121,12 +121,23 @@
 		</div>
 	</div>
 <script>
-
+	//선택한 정렬에 active 추가
+	$("#ranking1").on("click", (event) => {
+		$("#ranking1").removeClass('active');
+		$("#ranking1").css('border-top-left-radius','10px');
+		event.target.className += " active";
+	});
+	$("#ranking51, #ranking101, #ranking151").on("click", (event) => {
+		$(".sortBar").children().children().removeClass('active');
+		event.target.className += " active";
+	});
+	
+	
 	var scrollCount = 0;
 	// 초기 호출 함수
 	var start = 1;			
 	$("#ranking1").on("click",function(){
-		start = 1;		
+		start = 1;	
 		$('.load-more').show();
 	})
 	$("#ranking51").on("click",function(){

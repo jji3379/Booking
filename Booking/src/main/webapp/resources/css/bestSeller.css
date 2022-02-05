@@ -11,7 +11,25 @@
 	    margin: 0 0 0 12px;
 	    color: #333333e8;
 	}
-	
+	.rank-sort.active {
+		background: #dbdbdb;
+	    font-weight: bold;
+	    color: #333;
+	    opacity: 0.75;
+	}
+	.item:hover{
+		background: #dbdbdb;
+		font-weight: bold;
+	    opacity: 0.75;
+	}
+	.item:first-child:hover{
+		border-top-left-radius: 10px;
+		background: #dbdbdb;
+	}
+	#ranking1:active{
+		border-top-left-radius: 10px;
+		
+	}
 	.ranking {
 	    border-top-left-radius: 10px;
   		border-top-right-radius: 10px;
@@ -49,15 +67,12 @@
 		text-align: center;
 		border-right: 1px solid #d6d6d6;
 		text-decoration: none;
-		color: #666;
+		color: #41495c;
 	}
 	.rank-sort > img {
 		margin-left: 5px;
 	}
-	.rank-sort.active {
-		background: black;
-		color: #333;
-	}
+	
 	.book-box{
 	
 	}

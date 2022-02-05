@@ -52,17 +52,29 @@
 		text-align: center;
 		border-right: 1px solid #d6d6d6;
 		text-decoration: none;
-		color: #666;
+		color: #41495c;
 	}
 	.search-sort > img {
 		margin-left: 5px;
 	}
 	.search-sort.active {
-		background: #fff;
-		color: #333;
+		background: #dbdbdb;
+	    font-weight: bold;
+	    color: #333;
+	    opacity: 0.75;
 	}
-	.book-box{
-	
+	.item:hover{
+		background: #dbdbdb;
+		font-weight: bold;
+	    opacity: 0.75;
+	}
+	.item:first-child:hover{
+		border-top-left-radius: 10px;
+		background: #dbdbdb;
+	}
+	#simSort:active{
+		border-top-left-radius: 10px;
+		
 	}
 	.book-box > table {
 		padding-top: 10px;

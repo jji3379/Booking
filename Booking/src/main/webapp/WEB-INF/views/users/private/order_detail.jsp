@@ -114,7 +114,7 @@
                         <div>팩토리나인</div>
                         <div>달러구트 꿈 백화점</div>
                         <div>이미예</div>
-                        <span>13800</span>>
+                        <span>13800</span>> 
                         <span>12420</span> 원
                      </div>
                      <div class="action">
@@ -192,8 +192,8 @@
 							orderDetail += '<div>'+data[i].title+'</div>'
 							orderDetail += '<div>'+data[i].author+'</div>'
 							orderDetail += '<div>'+data[i].count+'</div>'
-							orderDetail += '<span>'+data[i].price.toLocaleString()+'</span>>'
-							orderDetail += '<span>'+data[i].d_price.toLocaleString()+'</span> 원'
+							orderDetail += '<span class="bookPrice">'+data[i].price.toLocaleString()+'</span>>'
+							orderDetail += '<span class="bookDiscountPrice">'+data[i].d_price.toLocaleString()+'</span> 원'
 						orderDetail += '</div>'
 						orderDetail += '<div class="action">'
 							orderDetail += '<button>리뷰 작성하기</button>'
@@ -204,12 +204,13 @@
 			$("#orderDetailList").html(orderDetail);
 			
 			$("#originalTotalPrice").html(originalTotalPrice.toLocaleString()+" 원");
-			if(data[0].orderNum.totalPrice >= 20000) {
+			if(originalTotalPrice >= 20000) {
 				$("#deliveryFee").html(0+" 원");
 			}else{
 				$("#deliveryFee").html(2500+" 원");
 			}
 			$("#discountPrice").html(discountPrice-originalTotalPrice+" 원");
+
 			$("#totalPrice").html(data[0].orderNum.totalPrice.toLocaleString()+" 원");
 				
 		},

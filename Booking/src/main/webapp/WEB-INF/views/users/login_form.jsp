@@ -92,6 +92,8 @@
 	//by 준영, 로그인버튼 클릭시 유효성체크 및 제출
 	var loginClickCheck = 0;
 	
+	var alphanumeric = /^(?=.*\d)(?=.*[a-z])[0-9a-z]*$/;
+	
 	function login(){
 		loginClickCheck = 1;
 		var loginId = $("#loginId").val();
@@ -103,22 +105,28 @@
 		
 		switch(error){
 			case 0:
-				$.ajax({
-					type : 'POST',
-					url:"${pageContext.request.contextPath}/v1/users/login",
-					dataType : "json",
-					contentType : "application/json; charset=utf-8",
-					data : JSON.stringify(loginData),
-					success : function(result){
-						$("#url").val(window.location.href);
-						$("#loginForm").submit()
-						$("#popup").fadeOut();
-					},
-					error : function(result) {
-						// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우) 
-						$('.errorValid-off').attr('class','errorValid-on');
-					}
-				});
+				if(!alphanumeric.test(loginId) || !alphanumeric.test(loginPwd)){
+					$('.errorValid-off').attr('class','errorValid-on');
+					$('#loginId').focus();
+					return;
+				}else{
+					$.ajax({
+						type : 'POST',
+						url:"${pageContext.request.contextPath}/v1/users/login",
+						dataType : "json",
+						contentType : "application/json; charset=utf-8",
+						data : JSON.stringify(loginData),
+						success : function(result){
+							$("#url").val(window.location.href);
+							$("#loginForm").submit()
+							$("#popup").fadeOut();
+						},
+						error : function(result) {
+							// 로그인 실패시 (아이디 또는 비밀번호가 틀린 경우) 
+							$('.errorValid-off').attr('class','errorValid-on');
+						}
+					});
+				}
 				break;
 			case 1:
 				if(loginId == '' && loginPwd == ''){
