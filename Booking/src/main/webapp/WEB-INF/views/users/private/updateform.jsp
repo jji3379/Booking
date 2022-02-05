@@ -253,11 +253,11 @@
 
 	//회원탈퇴묻기
 	function deleteConfirm() {
-		let isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if (isDelete) {
+		var isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
+		if (isDelete == true) {
 			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
 		} else {
-			location.reload();
+			return false;
 		}
 	}
 	
@@ -338,16 +338,7 @@
 			}
 		});
 	})
-	
-	//회원탈퇴묻기
-	function deleteConfirm(){
-			let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
-			if(isDelete){
-				location.href="${pageContext.request.contextPath }/users/private/delete.do";
-			} else {
-				location.reload();
-			}
-	}
+
 	//욱현.db에 있는 이메일과 관심사 대조해서 수정을 안했다면 수정완료했다는 메세지 안뜨게 하기_2021323
 	
 	//현재 폼에 입력되어있는 내용
