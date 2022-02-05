@@ -29,19 +29,19 @@
 	 	 	<form id="signupForm" >
 		 	<div class="form-group">
 		 		<label for="id" hidden>아이디</label>
-		 		<input class="form-control" type="text" name="loginId" id="signupId" placeholder="사용하실 ID를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
+		 		<input class="form-control" type="text" name="loginId" id="signupId" placeholder="사용할 ID를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
 		 		<span id="idMsg" class="is-Blank"></span>
 		 		<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
 		 	</div>
 		 	<div class="form-group">
 		 		<label for="pwd" hidden>비밀번호</label>
-		 		<input class="form-control" type="password" name="pwd" id="signupPwd" placeholder="사용하실 패스워드를 입력해주세요. (5글자~10글자 이내)"/>
+		 		<input class="form-control" type="password" name="pwd" id="signupPwd" placeholder="사용할 암호를 입력해주세요. (영문 소문자 5~10글자 이내)"/>
 		 		<span id="pwdMsg" class="is-Blank"></span>
 		 		<div class="invalid-feedback">비밀번호를 형식에 맞게 입력하세요</div>
 		 	</div>
 		 	<div class="form-group">
 		 		<label for="pwd2" hidden>비밀번호 확인</label>
-		 		<input class="form-control" type="password" name="pwd2" id="pwd2" placeholder="패스워드를 다시 입력해주세요." />
+		 		<input class="form-control" type="password" name="pwd2" id="pwd2" placeholder="사용할 암호를 다시 입력해주세요." />
 		 		<span id="pwd2Msg" class="is-Blank"></span>
 		 		<div class="invalid-feedback">비밀번호를 확인 하세요</div>
 		 	</div>
