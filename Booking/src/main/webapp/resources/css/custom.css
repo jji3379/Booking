@@ -394,6 +394,9 @@ body {
 		color: #8d8d8d;
 		margin-top: 13px;
 	}
+	.checkId > label{
+		vertical-align: middle;
+	}
 	#saveId{
 		vertical-align: bottom;
 	}
@@ -403,6 +406,7 @@ body {
 		font-family: '777Balsamtint';
 	}
 	.popup-foot > span {
+		letter-spacing: 1px;
 		font-size: 14px;
 	}
 	.popup-foot > span > a {

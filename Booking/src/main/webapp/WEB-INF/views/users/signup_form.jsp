@@ -209,7 +209,7 @@ $(document).ready(function () {
 	var loginId = $("#signupId").val();
 	//영문숫자만
     jQuery.validator.addMethod("alphanumeric", function (value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])[0-9a-z]*$/.test(value);
     });
     // validate signup form on keyup and submit
     $('#signupForm').validate({
@@ -240,9 +240,9 @@ $(document).ready(function () {
         messages: {
             loginId: {
                  required:"필수 입력 항목입니다.",
-                 minlength: "영문 소문자 5~10글자 이내로 입력해 주세요.",
-                 maxlength: "비밀번호를 최대 10자 이내로 입력해 주세요.",
-                 alphanumeric: "영문이나 숫자로만 입력해 주세요.",
+                 minlength: "최소 5자 이상 입력해 주세요.",
+                 maxlength: "최대 10자 이내로 입력해 주세요.",
+                 alphanumeric: "영문 소문자나 숫자 조합으로만 입력해 주세요.",
                  remote : "이미 존재하는 아이디 입니다."
                  },
             pwd:"필수 입력 항목입니다.",
