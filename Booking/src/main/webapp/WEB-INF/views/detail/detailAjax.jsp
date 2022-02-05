@@ -7,7 +7,7 @@
     <c:forEach var="b" items="${detailAjax }">
     <ul class="simAjax">
         <li>
-            <a href="book/${b.isbn }">
+            <a href="${pageContext.request.contextPath }/book/${b.isbn }">
             	<img src="${b.image}" alt="" />
             	<p class="bookT">${b.title }</p>
             </a>        	
