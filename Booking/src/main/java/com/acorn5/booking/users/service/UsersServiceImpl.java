@@ -1,6 +1,7 @@
 package com.acorn5.booking.users.service;
 
 import java.io.File;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -213,17 +214,30 @@ public class UsersServiceImpl implements UsersService{
 		// ***** 수정 필요 *****
 		//로그인된 아이디를 읽어온다. 
 		Long id=(Long)session.getAttribute("id");
-		//DB 에서 삭제
-		//dao.delete(id);
-		//댓글삭제
-		//reviewCommentDao.delete2(id);
-		//리뷰삭제
-		//reviewDao.delete2(id);
-		//카트에서 삭제
-		//cartDao.delete2(id);
-		//주문내역 삭제
-		//orderDao.delete(id);
-		//로그아웃 처리
+
+		QReviewDtl qReviewDtl = QReviewDtl.reviewDtl;
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		Review review = new Review();
+		Users user = new Users();
+		user.setId(id);
+		
+		List<ReviewDtl> reviewDtl = reviewCommentRepository.findByWriter(user);
+		
+		for (int i = 0; i < reviewDtl.size(); i++) {
+			
+			Long ref_group = reviewDtl.get(i).getRefGroup().getId();
+			review.setId(ref_group);
+			Long reviewDtlId = reviewDtl.get(i).getId();
+			reviewCommentRepository.delete(reviewDtlId);
+			
+			Long totalReply = queryFactory.select(qReviewDtl.count())
+					.from(qReviewDtl)
+					.where(qReviewDtl.refGroup.eq(review))
+					.fetchOne();
+			
+			reviewCommentRepository.updateReplyCount(totalReply, ref_group);
+		}
+		
 		session.removeAttribute("id");
 		usersRepository.delete(id);
 	}
