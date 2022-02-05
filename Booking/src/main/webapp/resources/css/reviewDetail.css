@@ -109,13 +109,12 @@ body{
 	    padding: 0px 5px 6px 0px;
 	}
 	ul.mylist {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    font-size: 18px;
-  
-    max-width: 250px;
-    width: 100%;
+	    list-style: none;
+	    margin: 0px;
+	    padding: 0px;
+	    font-size: 18px;
+	    max-width: 250px;
+	    width: 100%;
 	}
 	
 	.table th, .table td{
@@ -189,7 +188,6 @@ body{
 	}
 	.input-title {
 		font-family: '777Balsamtint';
-		opacity: 0.8;
 		font-size: 20px;
 	    width: 100%;
 	    height: 40px;
@@ -198,6 +196,7 @@ body{
 	    padding: 9px 12px;
 	    outline: none;
 	    box-sizing: border-box;
+	    letter-spacing: 1.25px;
 	}
 	.input-content {
 		font-family: '777Balsamtint';
@@ -492,22 +491,24 @@ body{
 	.td-content {
 	
 	}
+		
 	#review-content{
 		border: 1px solid #e5e5e5;
 		white-space: pre-line;
 		flex: 1;
-		opacity: 0.8;
 	    height: 200px;
 	    border-radius: 2px;
 	    padding: 7px 10px;
 	    box-sizing: border-box;
+	    overflow-y: scroll;
+	    letter-spacing: 1.25px;
+    	line-height: 1.3;
 	}
 	#comment-content{
 		background: #f9f9f9;
 		border: 1px solid #ccc;
 		white-space: pre-line;
 		flex: 1;
-		opacity: 0.8;
 	    border-radius: 2px;
 	    margin: 0 10px;
 	    padding: 5px 8px;
