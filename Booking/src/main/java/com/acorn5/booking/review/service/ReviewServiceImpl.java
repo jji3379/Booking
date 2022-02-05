@@ -187,16 +187,26 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void deleteContent(Long num) {
+	public void deleteContent(Long id) {
 		Review reviewId = new Review();
-		reviewId.setId(num);
+		reviewId.setId(id);
 		List<ReviewDtl> reviewReply = reviewCommentRepository.findByRefGroup(reviewId);
+		Review review = reviewRepository.findById(id);
 
 		for (int i = 0; i < reviewReply.size(); i++) {
 			reviewCommentRepository.delete(reviewReply.get(i).getId());
 		}
 		
-		reviewRepository.delete(num);
+		reviewRepository.delete(id);
+		
+		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		QReview qReview = QReview.review;
+		Double ratingAvg = queryFactory.select(qReview.rating.avg())
+				.from(qReview)
+				.where(qReview.isbn.eq(review.getIsbn()))
+				.fetchOne();
+		
+		reviewRepository.updateRatingAvg(ratingAvg, review.getIsbn());
 	}
 
 	@Override
