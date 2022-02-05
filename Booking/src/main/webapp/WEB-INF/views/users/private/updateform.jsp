@@ -257,7 +257,7 @@
 		if (isDelete) {
 			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
 		} else {
-			location.reload();
+			return false;
 		}
 	}
 	

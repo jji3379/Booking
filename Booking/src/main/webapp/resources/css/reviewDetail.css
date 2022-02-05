@@ -211,7 +211,7 @@ body{
 	}
 	.tr-review > th, .tr-review > td {
 		padding: 7px 3px;
-    	font-size: 18px;
+    	font-size: 20px;
     	opacity: 0.8;
     }
    	
@@ -362,7 +362,7 @@ body{
 	}
 	.comment-form > textarea {
 		font-family: '777Balsamtint';
-		font-size: 17px;
+		font-size: 18px;
 		float:left;
 	    color: #333;
 	    width: 950px;
@@ -377,6 +377,8 @@ body{
 	    border-left: 1px solid #999;
 	    border-bottom: 1px solid #ccc;
 	    border-right: 1px solid #ccc;
+        letter-spacing: 1.3px;
+    	line-height: 1.2;
 	}
 	.commentBtn {
 		font-family: '777Balsamtint';
@@ -394,7 +396,7 @@ body{
 	}
 	.reply-form > textarea {
 		font-family: '777Balsamtint';
-		font-size: 17px;
+		font-size: 18px;
 		float:left;
 	    color: #333;
 	    margin-left: 140px;
@@ -409,6 +411,8 @@ body{
 	    border-left: 1px solid #999;
 	    border-bottom: 1px solid #ccc;
 	    border-right: 1px solid #ccc;
+	    letter-spacing: 1.3px;
+    	line-height: 1.2;
 	}
 	.replyBtn {
 		font-family: '777Balsamtint';
@@ -426,11 +430,11 @@ body{
 	}
 	.commentUpdate-form > textarea {
 		font-family: '777Balsamtint';
-		font-size: 17px;
+		font-size: 18px;
 		float:left;
 	    color: #333;
-	    margin-left: 75px;
-	    width: 909px;
+	    margin-left: 140px;
+	    width: 840px;
 	    height: 45px;
 	    padding: 8px;
 	    resize: none;
@@ -440,6 +444,8 @@ body{
 	    border-left: 1px solid #999;
 	    border-bottom: 1px solid #ccc;
 	    border-right: 1px solid #ccc;
+        letter-spacing: 1.3px;
+    	line-height: 1.2;
 	}
 	.updateBtn {
 		font-family: '777Balsamtint';
@@ -513,17 +519,20 @@ body{
 	    margin: 0 10px;
 	    padding: 5px 8px;
 	    box-sizing: border-box;
+        letter-spacing: 1px;
+    	line-height: 1.2;
 	}
 	#reply-content{
 		background: #f9f9f9;
 	    border: 1px solid #e5e5e5;
 	    white-space: pre-line;
 	    flex: 1;
-	    opacity: 0.8;
 	    border-radius: 5px;
 	    margin:0px 4px 0 8px;
 	    padding: 5px 8px;
 	    box-sizing: border-box;
+        letter-spacing: 1px;
+    	line-height: 1.2;
 	}
 	.content-regdate {
 		display: inline-block;
