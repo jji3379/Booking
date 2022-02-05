@@ -85,12 +85,13 @@
      	 </div>
       <div class="content">
          <div class="order-info">
-            <div class="orderDetail-num">주문번호 <span id="orderDetailNum">1234567890</span></div>
-            <div class="orderDetail-date">주문일자 <span id="orderDate">2022/01/02</span></div>
+            <div class="orderDetail-num">주문번호 <span id="orderDetailNum"></span></div>
+            <div class="orderDetail-date">주문일자 <span id="orderDate"></span></div>
          </div>
          <div class="orderDetail-tb">
             <h3>booking</h3>
             <div class="orderDetail-tbody" id="orderDetailList">
+               <!-- 
                <div class="orderDetail-tr">
                   <a href="">
                      <img class="left" src="https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?type=m1&udate=20210813" alt="" />
@@ -122,26 +123,27 @@
                      </div>
                   </a>
                </div>
+                -->
             </div>
             <div class="orderDetail-payment">
                <h3>결제 정보</h3>
                <div class="orderDetail-rows">
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">상품가</div>
-                     <div class="orderDetail-price" id="originalTotalPrice">13800 원</div>
+                     <div class="orderDetail-price" id="originalTotalPrice"></div>
                   </div>
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">할인</div>
-                     <div class="discount orderDetail-price" id="discountPrice">-1380 원</div>
+                     <div class="discount orderDetail-price" id="discountPrice"></div>
                   </div>
                   <div class="orderDetail-row">
                      <div class="orderDetail-label">배송비</div>
-                     <div class="orderDetail-price" id="deliveryFee">2500 원</div>
+                     <div class="orderDetail-price" id="deliveryFee"></div>
                   </div>
                   <hr style="margin: 15px 0;"/>
                   <div class="final-price orderDetail-row">
                      <div class="orderDetail-label">최종결제 금액</div>
-                     <div class="orderDetail-price" id="totalPrice">14920 원</div>
+                     <div class="orderDetail-price" id="totalPrice"></div>
                   </div>
                </div>
             </div>
@@ -219,7 +221,6 @@
 		}
 	});
 
-	
 </script>
 </body>
 </html>
