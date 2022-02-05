@@ -59,10 +59,11 @@ public class UsersViewController {
 
 	// by욱현.비밀번호 수정 요청 처리_2021222
 	@RequestMapping("/users/private/pwd_update")
-	public String pwd_update(ModelAndView mView, Users dto, HttpServletRequest request, HttpSession session) {
+	public ModelAndView pwd_update(ModelAndView mView, Users dto, 
+			HttpServletRequest request, HttpSession session) {
 		usersService.updateUserPwd(mView, dto, request, session);
-		
-		return "users/private/pwd_update";
+		mView.setViewName("users/private/pwd_update");
+		return mView;
 	}
 
 	// by욱현.비밀번호 수정 폼 요청 처리_2021222

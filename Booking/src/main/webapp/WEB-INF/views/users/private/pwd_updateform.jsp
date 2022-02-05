@@ -89,7 +89,7 @@
 		<div class="content">
 			<div class="pwd-updateform">
 				<h2>비밀번호 변경</h2>
-				<form  id="myPwd-form" method="post" action="pwd_update.do">
+				<form  id="myPwd-form" method="post" action="${pageContext.request.contextPath }/users/private/pwd_update">
 					<div class="myForm-header">
 						<p class="contxt">안전한 비밀번호로 내정보를 보호하세요</p>
 						<p class="contxt contxt_list"><em>다른 아이디/사이트에서 사용한 적 없는 비밀번호</em></p>
