@@ -27,10 +27,10 @@ public class CartViewController {
 	
 	//by준영, 북카트 내 도서 수량변경_210310
 	@RequestMapping("/pay/update")
-	public String update(Cart dto) {
+	public String update(Cart dto, HttpServletRequest request) {
 		cartService.update(dto);
-		
-		return "pay/update";
+		Long id = (Long) request.getSession().getAttribute("id");
+		return "redirect:/user/"+id+"/cart";
 	}
 	//by준영, 결제시 주소입력창_210318
 	@RequestMapping("/user/{id}/pay")

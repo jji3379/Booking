@@ -126,7 +126,7 @@
 		            <td class="td-public">${c.price} 원</td>
 		            <td class="td-public"><font color="red">${c.d_price}</font> 원</td>
 		            <td class="td-public">
-			            <form action="update.do" method="post">
+			            <form action="${pageContext.request.contextPath }/pay/update" method="post">
 			            	<input type="hidden" name="id" value="${c.id }" />
 			            	<button type="button" class="minus btn">-</button>
 							<input type="number" name="count" class="numBox" min="1" max="100" value="${c.count }" readonly="readonly" style="width:25px"/>
