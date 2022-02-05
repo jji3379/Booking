@@ -29,10 +29,11 @@ public class UsersViewController {
 	
 	// by욱현. 개인 정보 수정 요청 처리_2021222
 	@RequestMapping(value = "/users/private/update", method = RequestMethod.POST)
-	public String update(Users dto, HttpSession session, ModelAndView mView) {
+	public String update(Users dto, HttpSession session) {
+		Long id = (Long) session.getAttribute("id");
 		usersService.updateUser(dto, session);
 		
-		return "users/private/update";
+		return "redirect:/user/"+id+"/account";
 	}
 
 	// by욱현.개인정보 수정폼 요청 처리_2021222
