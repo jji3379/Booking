@@ -1,7 +1,10 @@
 package com.acorn5.booking.order.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.users.entity.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -35,6 +40,9 @@ public class Order {
 	private Date regdate;//주문일
 	private int totalPrice; //총 주문금액
 	private int orderCount;
+	
+	@OneToMany(mappedBy = "orderNum", cascade = CascadeType.REMOVE)
+	private List<OrderDtl> orderDtl = new ArrayList<OrderDtl>();
 	
 	public Long getId() {
 		return id;

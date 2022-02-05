@@ -20,8 +20,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.acorn5.booking.cart.entity.Cart;
+import com.acorn5.booking.order.entity.Order;
 import com.acorn5.booking.order.entity.OrderDtl;
 import com.acorn5.booking.review.entity.Review;
+import com.acorn5.booking.review.entity.ReviewDtl;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -41,19 +43,25 @@ public class Users {
 	private Date regdate;
 	private String care;
 	private String recentSearch;
-	/*
+
 	@OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
 	private List<Review> review = new ArrayList<Review>();
 
+	@OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
+	private List<ReviewDtl> reviewDtl = new ArrayList<ReviewDtl>();
+	
+	@OneToMany(mappedBy = "target_id", cascade = CascadeType.REMOVE)
+	private List<ReviewDtl> targetId = new ArrayList<ReviewDtl>();
+	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
 	private List<Cart> cart = new ArrayList<Cart>();
 	
 	@OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
 	private List<Order> order = new ArrayList<Order>();
-
+	
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE)
 	private List<Search> search = new ArrayList<Search>();
-	*/
+	
 	public Long getId() {
 		return id;
 	}
