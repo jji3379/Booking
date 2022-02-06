@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <title>제목</title>
     <style>
+    	#Wrap{
+    		position:relative;
+    		min-height:100%;
+    	}
         #header{    
         	width:100%;
 	    }
@@ -16,6 +20,9 @@
          	height: 100%; 
         }
         #footer{
+        	position:absolute;
+    		bottom:0;
+    		width:100%;	
         	clear: both;
         }
     </style>
@@ -23,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <div>
+    <div id="Wrap">
 	    <div id="header"><tiles:insertAttribute name="header" /></div>
 	    <div id="main">
 	    	<tiles:insertAttribute name="body" />

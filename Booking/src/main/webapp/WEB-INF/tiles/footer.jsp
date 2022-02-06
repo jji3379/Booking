@@ -2,17 +2,24 @@
 
     <div class="footer-basic">
         <footer>
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-            <div class="footer-body">
-	            <ul class="list-inline">
-	                <li class="list-inline-item"><a href="#">Home</a></li>
-	                <li class="list-inline-item"><a href="#">Services</a></li>
-	                <li class="list-inline-item"><a href="#">About</a></li>
-	                <li class="list-inline-item"><a href="#">Terms</a></li>
-	                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-	            </ul>
-	            <p class="copyright">Booking © 2022</p>            
+       		<div class="footer-main">Contact</div>
+        	<div class="footer-body">
+   	            <ul class="list-inline">
+	                <li class="list-inline-item">Front-End Developer</li>
+	                <li class="list-inline-item">Back-End Developer</li>
+	            </ul>     
             </div>
+            <div class="footer-icon">
+	            <div class="social contact-jjy">
+		            <a href="https://github.com/jjy321501/"><i class="icon ion-social-github"></i></a>
+		            <a href="https://mail.naver.com/write/popup?srvid=note&to=jjy321501@naver.com"><i class="iconify" data-icon="ion:mail-outline"></i></a>
+	            </div>
+	            <div class="social contact-jji">
+	            	<a href="https://github.com/jji3379/"><i class="icon ion-social-github"></i></a>
+		            <a href="https://mail.naver.com/write/popup?srvid=note&to=jji3379@naver.com"><i class="iconify" data-icon="ion:mail-outline"></i></a>
+	            </div>
+	        </div>
+            <p class="copyright">Booking © 2022</p> 
         </footer>
     </div>
 <script>

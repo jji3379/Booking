@@ -6,7 +6,9 @@ html, body {
 }
 	
 body {
-	padding: 0;
+	margin:0;
+    padding:0;
+    height:100%;
 }	
    
 @font-face {
@@ -77,6 +79,7 @@ body {
 	    border-radius: 20px;
 	    border: 1px solid #bbb;
 	    padding: 10px 12px;
+	    letter-spacing: 2px;
 	}
 	.Users {
 		position: absolute;
@@ -401,19 +404,26 @@ body {
 		vertical-align: bottom;
 	}
 	.popup-foot {
-		margin-top: 35px;
+		margin-top: 40px;
 		text-align: center;
 		font-family: '777Balsamtint';
 	}
 	.popup-foot > span {
-		letter-spacing: 1px;
-		font-size: 14px;
+		letter-spacing: 1.3px;
+		font-size: 15px;
 	}
 	.popup-foot > span > a {
-		font-size: 14px;
+		font-size: 16px;
 		text-decoration: underline;
+		letter-spacing: 1.3px;
+		cursor: pointer;
 		color: #000;
 	}
+	.tester{
+		display: block;
+		margin-bottom: 10px;
+	}
+	
 	
 	.submitBtn {
 		font-family: '777Balsamtint';
@@ -435,14 +445,25 @@ body {
 	
 	
 	/*--- /header ---*/
+	.footer-main{
+		font-size: 23px;
+	    text-align: center;
+	    letter-spacing: 5px;
+	    font-weight: bold;
+	    color: #333333b3;
+	    padding-bottom: 10px;
+	}
 	.footer-basic {
 		padding:30px 0;
 		background-color:#f8f9fa;
 		color:#4b4c4d;
 		border-top: 1px solid #e5e5e5;
+		font-family: '777Balsamtint';
 	}
 	.footer-body{
 		font-family: '777Balsamtint';
+		color: #8d8d8d;
+		padding-bottom: 15px;
 	}
 	.footer-basic ul {
 		display: table;
@@ -468,10 +489,12 @@ body {
 	.footer-basic ul a:hover {
 		opacity:1;
 	}
-	
+	.footer-icon{
+		text-align: center;
+	}
 	.footer-basic .social {
-		text-align:center;
-		padding-bottom:25px;
+		display: inline-block;
+		padding-bottom:10px;
 	}
 	
 	.footer-basic .social > a {
@@ -493,9 +516,18 @@ body {
 	}
 
 	.footer-basic .copyright {
-		margin-top:15px;
+		margin-top:20px;
 		text-align:center;
 		font-size:18px;
 		color:#aaa;
 		margin-bottom:0;
+	}
+	.iconify{
+		margin: -4px;
+	}
+	.contact-jjy{
+		margin-right: 13px;
+	}
+	.contact-jji{
+		margin-left: 13px;
 	}
