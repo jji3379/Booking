@@ -33,7 +33,8 @@
 				</form>
 			</div>
 			<div class="popup-foot"> 
-				<span>회원이 아니신가요? <a href="${pageContext.request.contextPath }/signup">회원가입</a></span>
+				<span class="tester">테스터이신가요? <a onClick="tester()">테스터 로그인</a></span>
+				<span class="regist">회원이 아니신가요? <a  href="${pageContext.request.contextPath }/signup">회원가입</a></span>
 			</div>	
 		</div>		
 	</div>
@@ -118,7 +119,7 @@
 						data : JSON.stringify(loginData),
 						success : function(result){
 							$("#url").val(window.location.href);
-							$("#loginForm").submit()
+							$("#loginForm").submit();
 							$("#popup").fadeOut();
 						},
 						error : function(result) {
@@ -178,6 +179,28 @@
 		}
 	})
 	
+	//테스터용 로그인 구현
+	function tester(){
+		$("#loginId").val('test1');
+		$("#pwd").val('test1');
+		var loginId = $("#loginId").val();
+		var loginPwd = $("#pwd").val();
+		var testerData = {loginId : loginId , pwd : loginPwd };
+		
+		$.ajax({
+			type : 'POST',
+			url:"${pageContext.request.contextPath}/v1/users/login",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			data : JSON.stringify(testerData),
+			success : function(result){
+				$("#url").val(window.location.href);
+				$("#loginForm").submit();
+				$("#popup").fadeOut();
+			}
+		});
+		alert('테스터용 계정입니다 편하게 테스트 해주세요.');
+	}
 </script>
 </body>
 </html>
