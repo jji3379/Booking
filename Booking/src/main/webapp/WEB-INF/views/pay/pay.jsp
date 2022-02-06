@@ -499,7 +499,7 @@
 				   contentType : "application/json; charset=utf-8",
 				   data : JSON.stringify(dataArray),
 	               success : function(){
-						location.href="${pageContext.request.contextPath }/pay/order/paid";
+						location.replace="${pageContext.request.contextPath }/pay/order/paid";
 	               },error(data){
 	               	console.log("오류");
 	               }

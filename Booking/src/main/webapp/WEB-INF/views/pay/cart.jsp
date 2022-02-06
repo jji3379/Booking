@@ -131,7 +131,7 @@
 			            	<button type="button" class="minus btn">-</button>
 							<input type="number" name="count" class="numBox" min="1" max="100" value="${c.count }" readonly="readonly" style="width:25px"/>
 			            	<button type="button" class="plus btn">+</button>
-			            	<button type="submit" class="updateBtn btn" onClick="submit(this)" >변경</button>
+			            	<button type="button" class="updateBtn btn" onClick="update(this)" >변경</button>
 			            </form>
 		            </td>
 		            <td class="td-public">${c.d_price * c.count} 원</td>
@@ -233,8 +233,9 @@
 	});
 	
 	//by준영, 클릭한 항목 을 제출하는 기능_210314
-	function submit(elClickedObj){
-		elClickedObj.form.submit();
+	function update(obj){
+		alert('수량이 변경되었습니다.');
+		obj.form.submit();
 	}
 </script>
 </html>
