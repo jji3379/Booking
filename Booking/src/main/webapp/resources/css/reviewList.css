@@ -99,7 +99,7 @@ h1 {
     white-space: nowrap;
     display: inline-block;
     text-overflow: ellipsis;
-	
+    letter-spacing: 1.2px;
 }
 .spoAlert {
     -webkit-filter: blur(2px);
@@ -122,6 +122,7 @@ h1 {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 	margin: 5px 20px;
+	letter-spacing: 1px;
 }
 
 .card-body-description::-webkit-scrollbar {
@@ -274,9 +275,7 @@ h1 {
 #search{
 
 }
-#page{
-	flex: 0.45;
-}
+
 .searchBar{
 	width: 165px;
     border-radius: 20px;
@@ -360,7 +359,7 @@ h1 {
     font-size: 16px;
     width: 160px;
     margin-right: 35px;
-    border-radius: 5px;
+    border-radius: 15px;
     border: 1px solid #bbb;
     padding: 10px 12px;
     background: #fff;

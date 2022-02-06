@@ -277,7 +277,7 @@ a {
 	.dateBtn{
 		min-width: 65px;
 	    border: 0;
-	    border-radius: 2px;
+	    border-radius: 3px;
 	    padding: 0 17px;
 	    height: 32px;
 	    background-color: rgb(10, 10, 10);
@@ -489,55 +489,65 @@ a {
     
     }
     .account-form > h2{
-   	    margin: 10px 0 30px 0;
-    	padding: 7px 0;
+   	    margin: 10px 0 0 0;
+    	padding: 0;
     	border-bottom: 1px solid #333;
     }
     .profile-box{
-    	display: flex;
-    	border-bottom: 1px dashed #e5e5e5;
-    	padding:0px 10px 10px 5px;
-    	margin-bottom: 20px;
+    	background: #fafafa;
+	    width: 450px;
+	    min-height: 145px;
+	    margin-bottom: 5px;
+	    padding-top: 20px;
+	    border-bottom: 1px dashed #e5e5e5;
+	    text-align: center;
     }
     #profileForm {
-    	padding-left: 15px;
     	padding-top: 8px;
     }
     #profileForm > input {
     	display: flex;
     }
+    .profile-buttons{
+    	width:450px;
+    }
     .profile-buttons > button {
-   	    min-width: 65px;
+        display: block;
+	    margin: 0 auto;
+	    min-width: 405px;
 	    border: 0;
-	    border-radius: 1px;
+	    border-radius: 26px;
 	    padding: 0 17px;
-	    height: 30px;
-	    background-color: rgb(10, 10, 10);
+	    height: 40px;
+	    background-color: #86b3e3;
 	    color: rgb(255, 255, 255);
 	    cursor: pointer;
 	    font-size: 16px;
+	    letter-spacing: 5px;
 	    font-family: '777Balsamtint';
     }
     .profile-buttons > a{
-    	display: block;
-    	text-align: center;
-    	min-width: 30px;
+   	    text-align: center;
+	    display: block;
+	    margin: 5px auto;
+	    width: 374px;
 	    border: 0;
-	    border-radius: 1px;
-	    margin-top: 3px;
+	    border-radius: 26px;
 	    padding: 0 17px;
-	    height: 30px;
-	    line-height: 1.88;
-	    background-color: rgb(10, 10, 10);
+	    height: 38px;
+	    background-color: #333333;
 	    color: rgb(255, 255, 255);
 	    cursor: pointer;
 	    font-size: 16px;
+	    letter-spacing: 5px;
 	    font-family: '777Balsamtint';
+	    margin-bottom: 10px;
+	    line-height: 2.5;
     }
     
     .account-inputBox{
     	width: 452px;
-    	padding:10px 0;
+    	padding: 20px 0;
     }
     .account-formGroup{
     	width: 100%;
@@ -569,6 +579,11 @@ a {
     	height: 75px;
     	border: 1px solid #e5e5e5;
     	border-radius: 2.5rem;
+    }
+    #preImg:hover{
+    	cursor: pointer;
+    	border: 2px solid #bbb;
+       	border-radius: 2.5rem; 
     }
     .account-updateform{
     	width: 100%;
@@ -616,7 +631,7 @@ a {
     .account-save{
     	min-width: 120px;
 	    border: 0;
-	    border-radius: 1px;
+	    border-radius: 25px;
 	    padding: 0px 28px;
 	    height: 44px;
    	    background-color: rgb(10, 10, 10);
@@ -705,7 +720,7 @@ a {
 	    background: black;
 	    color: #fff;
 	    border: 0;
-	    border-radius: 1px;
+	    border-radius: 20px;
 	    font-family: '777Balsamtint';
     	font-size: 17px;
     	cursor: pointer;
@@ -717,7 +732,7 @@ a {
 	    border: 1px solid #bfbfbf;
     	background: #fff;
 	    color: #333;
-	    border-radius: 1px;
+	    border-radius: 20px;
 	    font-family: '777Balsamtint';
     	font-size: 17px;
     	cursor: pointer;
@@ -759,7 +774,7 @@ a {
    	#selectDeleteBtn{
    		min-width: 65px;
 	    border: 0;
-	    border-radius: 1px;
+	    border-radius: 18px;
 	    padding: 0 17px;
 	    height: 32px;
 	    background-color: #86b3e3;
@@ -797,7 +812,7 @@ a {
    	.recent-btn{
    		min-width: 65px;
 	    border: 0;
-	    border-radius: 1px;
+	    border-radius: 15px;
 	    padding: 0 17px;
 	    height: 30px;
 	    background-color: rgb(10, 10, 10);

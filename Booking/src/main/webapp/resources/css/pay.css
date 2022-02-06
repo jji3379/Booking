@@ -189,6 +189,7 @@
 	}
 	.orderList li{
 		display:contents;
+	    font-size: 18px;
 	}
 	.allCheckBox{
 		height: 28px;
@@ -219,7 +220,7 @@
 	}
 	.addressWrapDl{
 		padding:0px 2px 0px 8px;
-		font-size: 12px;
+		font-size: 13px;
 	    font-family: "dotum", "sans-serif";
 	    color: #666;
 	    margin:0;
@@ -457,11 +458,12 @@
 	    background-size: 67px;
 	}
 	.addressNoticeList{
-		display:table-cell;
-		padding:15px 0px 25px 0px;
-		font-size: 12px;
+		display: table-cell;
+	    padding: 15px 0px 25px 0px;
+	    font-size: 13px;
 	    font-family: "dotum", "sans-serif";
 	    color: #666;
+	    white-space: nowrap;
 	    list-style: initial;
 	}
 	.addressNoticeList ul{
@@ -501,18 +503,20 @@
 		border-top:2px solid #a0a0a0;
 	}
 	.itemPriceL{
+	    font-size: 18px;
 		float: left;
 		padding: 10px 0;
 		
 	}
 	.itemPriceR{
+	    font-size: 18px;
 		text-align: end;
 		padding: 10px 0;
 	}
 	.totalL{
 		float: left;
 		padding: 13px 0 5px 0;
-	    font-size: 16px;
+	    font-size: 20px;
 	    font-weight: bold;
 	    color: #86b3e3;
 	}
@@ -525,12 +529,14 @@
 	}
 	.shipFeeL{
 		float: left;
+	    font-size: 18px;
 		padding: 5px 0 5px 0;
 	    border-bottom: 1px dashed #e5e5e5;
 		
 	}
 	.shipFeeR{
 		text-align: end;
+	    font-size: 18px;
 		padding: 5px 0 5px 0;
 		border-bottom: 1px dashed #e5e5e5;
 		

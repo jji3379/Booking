@@ -298,8 +298,9 @@ body{
    .reviewList > li {
       background: #fafafa;
       position: relative;
-       padding: 16px 20px 13px 20px;
-       border-bottom: 1px solid #ddd;
+      padding: 16px 20px 13px 20px;
+      border-bottom: 1px solid #ddd;
+      letter-spacing: 1px;
    } 
    .title-box {
       display: table;
@@ -660,6 +661,7 @@ body{
       padding: 5px; 
    }
    #simList{
+   	  scroll-behavior: smooth;
       font-family: '777Balsamtint';
       width: 140px;
       height: 279px;
