@@ -85,7 +85,7 @@
 		</div>
 		<div class="content">
 			<div class="account-form">
-				<h2>기본 정보</h2>
+				<h2>프로필 정보</h2>
 				<div class="profile-box">
 					<img id="preImg" src="" alt="" onerror="this.src='https://ssl.pstatic.net/static/common/myarea/myInfo.gif'"/>
 					<c:choose>
@@ -95,10 +95,11 @@
 								<label for="image"></label>
 								<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG" style="display:none;"/>
 								<input type="hidden" id="profileImg" name = "target_url">
-								<div class="profile-buttons" style="padding-top:40px;">
-									<button type="submit">업로드</button>
+								<div class="profile-buttons">
+									<button type="submit">프로필 저장</button>
 								</div>
 							</form>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<form name="profile" action="${pageContext.request.contextPath }/users/private/profile_upload" method="post" 
@@ -108,13 +109,16 @@
 								<input type="hidden" name = "target_url">
 								<input type="hidden" id="profileImg" value="${dto.profile}" />
 								<div class="profile-buttons">
-									<button type="submit">업로드</button>
+									<button type="submit">프로필 저장</button>
 									<a onclick="return deleteProfile();">삭제</a>
 								</div>
 							</form>
+							</div>
+							
 						</c:otherwise>
 					</c:choose>
-				</div>
+				
+				<h2>계정 정보</h2>
 				<form action="${pageContext.request.contextPath }/users/private/update" method="post" id="myProfile-form">
 					<div class="account-inputBox">
 						<div class="account-formGroup">
@@ -192,7 +196,7 @@
 						</div>	
 					</div>
 					<div>
-						<button type="javascript:" id="updateBtn" class="account-save">저장</button>
+						<button type="javascript:" id="updateBtn" class="account-save">수정</button>
 						<a href="javascript:deleteConfirm();" class="account-delete" >회원탈퇴</a>
 					</div>
 				</form>
@@ -253,12 +257,18 @@
 
 	//회원탈퇴묻기
 	function deleteConfirm() {
-		var isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
-		if (isDelete == true) {
-			location.href = "${pageContext.request.contextPath}/users/private/delete.do";
-		} else {
+		if('${id}' != '84'){ // 테스터 계정이 아니라면
+			var isDelete = confirm(" 회원님 정말로 탈퇴 하시겠습니까?");
+			if (isDelete == true) {
+				location.href = "${pageContext.request.contextPath}/users/private/delete.do";
+			} else {
+				return false;
+			}
+		}else{
+			alert('테스터계정은 탈퇴기능이 제한됩니다.');
 			return false;
 		}
+		
 	}
 	
 	function CountChecked(obj){
