@@ -250,10 +250,21 @@ a {
 	    text-align: center;
 	    cursor: pointer;
 	}
+	.myOrder-dateSort-main > a:hover{
+		background: #f9f9f9;
+		border: 1px solid #e5e5e5;
+	    cursor: pointer;
+	}
+	.datepicker:hover{
+		background: #f9f9f9;
+		border: 1px solid #e5e5e5;
+		cursor: pointer;
+	}
 	.datepicker-div{
 		width: 120px;
 		margin-right:10px;
     	position: relative;
+    	cursor: pointer;
 	}
 	.input-date{
 		width: 100%;
@@ -582,7 +593,7 @@ a {
     }
     #preImg:hover{
     	cursor: pointer;
-    	border: 2px solid #bbb;
+    	border: 1px solid #bbb;
        	border-radius: 2.5rem; 
     }
     .account-updateform{
