@@ -10,6 +10,7 @@
 	href="${pageContext.request.contextPath }/resources/css/bookDetail.css">
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	
 </style>
 </head>
 <body>
@@ -31,8 +32,17 @@
 						</div>
 					</div>
 					<tr>
-						<td class="tdImg" rowspan='6'><a id="image" href="${b.link }"><img
-								src="${b.image}" /></a></td>
+						<td class="tdImg" rowspan='6'>
+							<div style="position:relative;">
+								<a id="image" href="${b.link }">
+									<img src="${b.image}" />
+									<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
+							  	</a>
+							</div>
+						</td>
 					</tr>
 					<tr class="book-info">
 						<td colspan="2" class="tdInfo">

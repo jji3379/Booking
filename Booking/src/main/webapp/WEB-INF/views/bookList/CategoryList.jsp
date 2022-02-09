@@ -8,6 +8,9 @@
 <meta charset=UTF-8">
 <title>책과의 즉석만남 Booking</title>
 <link rel="stylesheet" href="resources/css/categoryList.css">
+<style>
+	
+</style>
 </head>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <body>
@@ -38,14 +41,18 @@
 						<div class="col mb-5">
 							<div class=" h-100">
 								<a href="${pageContext.request.contextPath }/book/${b.isbn}">
-									<img src="${b.image }" class="card-img-top img-wrapper cardBook">
+									<img src="${b.image }" class="card-img-top cardBook">
+									<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 								</a>
-								<div  class="card-body">
-									<a href="${pageContext.request.contextPath }/book/${b.isbn}">
-										<p class="card-title ellipsis2">${b.title }</p>
-									</a>
-									<small class="card-text ellipsis">${b.author }</small>
-								</div>
+							</div>
+							<div  class="card-body">
+								<a href="${pageContext.request.contextPath }/book/${b.isbn}">
+									<p class="card-title ellipsis2">${b.title }</p>
+								</a>
+								<small class="card-text ellipsis">${b.author }</small>
 							</div>
 						</div>
 					</c:forEach>

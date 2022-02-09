@@ -201,8 +201,13 @@
 						bestSellerList += '</td>'
 						
 						bestSellerList += '<td>'
-							bestSellerList += '<div>'
-								bestSellerList += '<a href="${pageContext.request.contextPath }/book/'+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img"></a>'
+							bestSellerList += '<div style="position:relative">'
+								bestSellerList += '<a href="${pageContext.request.contextPath }/book/'+data[i].isbn+'"><img src="'+data[i].image+'" class="book-img">'
+									bestSellerList += '<span class="mask">'
+										bestSellerList += '<span class="bg1"></span>'
+										bestSellerList += '<span class="bg2"></span>'
+									bestSellerList += '</span>'
+								bestSellerList += '</a>'
 							bestSellerList += '</div>'
 						bestSellerList += '</td>'
 						

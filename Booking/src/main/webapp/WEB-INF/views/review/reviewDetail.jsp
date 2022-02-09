@@ -42,10 +42,17 @@
 					</div>
 				</div>
 				<tr>
-					<td class="tdImg" rowspan="4"><a
-						href="${pageContext.request.contextPath }/book/${dto.isbn}">
-							<img id="image" src="${dto.imagePath }" />
-					</a></td>
+					<td class="tdImg" rowspan="4">
+						<div style="position:relative;">
+							<a href="${pageContext.request.contextPath }/book/${dto.isbn}">
+								<img id="image" src="${dto.imagePath }" />
+								<span class="mask">
+							  		<span class="bg1"></span>
+							  		<span class="bg2"></span>
+						  		</span>
+							</a>
+						</div>
+					</td>
 				</tr>
 				<tr class="book-info">
 					<td colspan="2" class="tdInfo">

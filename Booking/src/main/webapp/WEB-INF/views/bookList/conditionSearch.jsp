@@ -147,8 +147,13 @@
 						bookSearchList += '</td>'
 						
 						bookSearchList += '<td>'
-							bookSearchList += '<div>'
-								bookSearchList += '<a href="${pageContext.request.contextPath }/book/'+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img"></a>'
+							bookSearchList += '<div style="position:relative">'
+								bookSearchList += '<a href="${pageContext.request.contextPath }/book/'+data.content[i].isbn+'"><img src="'+data.content[i].image+'" class="book-img">'
+									bookSearchList += '<span class="mask">'
+										bookSearchList += '<span class="bg1"></span>'
+										bookSearchList += '<span class="bg2"></span>'
+									bookSearchList += '</span>'
+								bookSearchList += '</a>'
 							bookSearchList += '</div>'
 						bookSearchList += '</td>'
 						

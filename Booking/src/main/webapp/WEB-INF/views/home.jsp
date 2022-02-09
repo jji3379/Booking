@@ -9,6 +9,9 @@
 <title>책과의 즉석만남 Booking</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js" integrity="sha512-c5JDIvikBZ6tuz+OyaFsHKvuyg+tCug3hf41Vmmd5Yz9H5anj4vZOqlBV5PJoEbBJGFCgKoRT9YAgko4JS6/Qw==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resources/css/home.css">
+<style>
+	
+</style>
 </head>
 <body>
 	<div class="container" > <!-- container -->
@@ -31,25 +34,33 @@
 						   	<a href="${pageContext.request.contextPath }/book/${list[0].isbn}" id="isbn">
 								<div class="img-wrapper">
 							  		<img class="card-img-top" src="${list[0].image }" />
+							  		<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 							   	</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text"><strong>${list[0].title }</strong></p>
-								<small class="card-text">${list[0].author }</small>
-					      	</div>
 				  		</div>
+				  		<div class="card-body">
+							<p class="card-text"><strong>${list[0].title }</strong></p>
+							<small class="card-text">${list[0].author }</small>
+				      	</div>
 					</li>
 					<li class="box">
 						<div class="card">
 							<a href="${pageContext.request.contextPath }/book/${list[1].isbn}" id="isbn">
 								<div class="img-wrapper">
 								  	<img class="card-img-top" src="${list[1].image }" />
+									<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 								</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text"><strong>${list[1].title }</strong></p>
-								<small class="card-text">${list[1].author }</small>
-							</div>
+						</div>
+						<div class="card-body">
+							<p class="card-text"><strong>${list[1].title }</strong></p>
+							<small class="card-text">${list[1].author }</small>
 						</div>
 					</li>
 					<li class="box">
@@ -57,104 +68,136 @@
 						     <a href="${pageContext.request.contextPath }/book/${list[2].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[2].image }" />
+						  			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						  		</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text"><strong>${list[2].title }</strong></p>
-								<small class="card-text">${list[2].author }</small>
-					      	</div>
 					 	</div>
+						<div class="card-body">
+							<p class="card-text"><strong>${list[2].title }</strong></p>
+							<small class="card-text">${list[2].author }</small>
+				      	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card">
 						   	<a href="${pageContext.request.contextPath }/book/${list[3].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[3].image }" />
+					  				<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 					  			</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text" ><strong>${list[3].title }</strong></p>
-								<small class="card-text" >${list[3].author }</small>
-					    	</div>
 						</div>
+						<div class="card-body">
+							<p class="card-text" ><strong>${list[3].title }</strong></p>
+							<small class="card-text" >${list[3].author }</small>
+				    	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card">
 						   	<a href="${pageContext.request.contextPath }/book/${list[4].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[4].image }" />
+						  			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						  		</div>
 							</a>
-							<div class="card-body" >
-								<p class="card-text" ><strong>${list[4].title }</strong></p>
-								<small class="card-text" >${list[4].author }</small>
-						   	</div>
 						</div>
+						<div class="card-body" >
+							<p class="card-text" ><strong>${list[4].title }</strong></p>
+							<small class="card-text" >${list[4].author }</small>
+					   	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card">
 						   	<a href="${pageContext.request.contextPath }/book/${list[5].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[5].image }" />
+					  				<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 					  			</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text"><strong>${list[5].title }</strong></p>
-								<small class="card-text" >${list[5].author }</small>
-					    	</div>
 						</div>
+						<div class="card-body">
+							<p class="card-text"><strong>${list[5].title }</strong></p>
+							<small class="card-text" >${list[5].author }</small>
+				    	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card">
 						   	<a href="${pageContext.request.contextPath }/book/${list[6].isbn}" id="isbn">
 								<div class="img-wrapper">
 						    		<img class="card-img-top" src="${list[6].image }" />
+						  			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						  		</div>
 							</a>
-							<div class="card-body" >
-								<p class="card-text" ><strong>${list[6].title }</strong></p>
-								<small class="card-text" >${list[6].author }</small>
-					    	</div>
 						</div>
+						<div class="card-body" >
+							<p class="card-text" ><strong>${list[6].title }</strong></p>
+							<small class="card-text" >${list[6].author }</small>
+				    	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
 						   	<a href="${pageContext.request.contextPath }/book/${list[7].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[7].image }" />
+						  			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						  		</div>
 							</a>
-							<div class="card-body">
-								<p class="card-text" ><strong>${list[7].title }</strong></p>
-								<small class="card-text" >${list[7].author }</small>
-					    	</div>
 						</div>
+						<div class="card-body">
+							<p class="card-text" ><strong>${list[7].title }</strong></p>
+							<small class="card-text" >${list[7].author }</small>
+				    	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
 						   	<a href="${pageContext.request.contextPath }/book/${list[8].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[8].image }" />
+						   			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						   		</div>
 							</a>
-							<div class="card-body" >
-								<p class="card-text" ><strong>${list[8].title }</strong></p>
-								<small class="card-text" >${list[8].author }</small>
-					    	</div>
 						</div>
+						<div class="card-body" >
+							<p class="card-text" ><strong>${list[8].title }</strong></p>
+							<small class="card-text" >${list[8].author }</small>
+				    	</div>
 					</li>
 					<li class="box box--hide">
 						<div class="card mb-3">
 						   	<a href="${pageContext.request.contextPath }/book/${list[9].isbn}" id="isbn">
 								<div class="img-wrapper">
 						  			<img class="card-img-top" src="${list[9].image }" />
+						  			<span class="mask">
+								  		<span class="bg1"></span>
+								  		<span class="bg2"></span>
+							  		</span>
 						  		</div>
 							</a>
-							<div class="card-body" >
-								<p class="card-text" ><strong>${list[9].title }</strong></p>
-								<small class="card-text" >${list[9].author }</small>
-					      	</div>
 						</div>
+						<div class="card-body" >
+							<p class="card-text" ><strong>${list[9].title }</strong></p>
+							<small class="card-text" >${list[9].author }</small>
+				      	</div>
 					</li>
 				</ul>
 			</div>  <!-- /cards-wrapper -->
@@ -171,10 +214,16 @@
 					  		<img src="resources/images/bookingBtn.svg"/>
 					  	</a>
 					</div>
-					<div class="col-6" >
-						<a id="bookA">
-							<img id="bookimage" src="resources/images/message.svg"/>
-						</a>
+					<div class="col-6">
+						<div id="bookingBook">
+							<a id="bookA">
+								<img id="bookimage" src="resources/images/message.svg"/>
+								<span class="mask-booking">
+							  		<span class="bg1-booking"></span>
+							  		<span class="bg2-booking"></span>
+						  		</span>
+							</a>
+						</div>
 					</div>
 					<script>
 						var bimg = document.getElementById("bookimage");

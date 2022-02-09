@@ -101,8 +101,8 @@ html, body {
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 }
-	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-.img-wrapper:hover{
+	/* .card-img-top 에 마우스가 hover 되었을때 적용할 css */
+.card-img-top:hover{
    /* 원본 크기의 1.1 배로 확대 시키기*/
     transform: scale(1.02);
     transition: transform 0.3s ease-out;
@@ -110,12 +110,13 @@ html, body {
    
   .cardBook {
      border-radius:1px;
-  	 height: 260px;
+     z-index:60;
+  	 height: 235px;
   	 box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
   .card-body {
   	font-family: '777Balsamtint';
-  	padding: 10px;
+  	padding: 8px;
  	text-align: center;
 	text-overflow: elipsis;
 	over-flow: hidden;
@@ -212,9 +213,12 @@ a {
 
 .mb-5,
 .my-5 {
-  margin-bottom: 80px;
+  margin-bottom: 75px;
 }
 
+.h-100{
+	position:relative;
+}
 .row {
   display: -ms-flexbox;
   display: flex;
@@ -237,7 +241,7 @@ a {
 .card-img-bottom {
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  width: 100%;
+  width: 90%;
 }
 .pagination {
   display: -ms-flexbox;
@@ -285,7 +289,7 @@ a {
   right: auto;
   left: 100%;
   margin-top: 0;
-  margin-left: 0.125rem;
+  margin-left: -0.875rem;
 }
 .dropdown-menu {
   position: absolute;
@@ -324,3 +328,34 @@ a {
 .dropleft {
   position: relative;
 }
+.mask{
+		overflow: hidden;
+	    position: absolute;
+	    top: 0px;
+	    left: 0px;
+	    z-index: 0;
+	    display: block;
+	    width: 90.5%;
+	    height: 98%;
+	    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all.png) no-repeat;
+	}
+	.bg1{
+	    display: block;
+	    z-index: 30;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    width: 6px;
+	    height: 4px;
+	    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all2.png) no-repeat;
+	}
+	.bg2{
+	    display: block;
+	    z-index: 20;
+	    position: absolute;
+	   	bottom: -1px;
+    	right: 0px;
+	    width: 100%;
+	    height: 100%;	
+	    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all3.png) 100% 100% no-repeat;
+	}

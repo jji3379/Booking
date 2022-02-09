@@ -88,7 +88,9 @@
 		margin-left: 30px;
 		width: 32px;
 		height: 32px;
-		
+	}
+	.Lbutton > img:hover{
+		transform: scale(1.1);
 	}
 	.Rbutton {
 		display: inline;
@@ -101,6 +103,9 @@
 		width: 32px;
 		height: 32px;
 	}
+	.Rbutton > img:hover{
+		transform: scale(1.1);
+	}
 	
 	.B-logo {
 		font-family: '777Balsamtint';
@@ -108,7 +113,7 @@
 		width: 180px;
 		position: relative;
 		top: -20px;
-		left: 120px;
+		left: 140px;
 	}
 	.row {
 		text-align: center;
@@ -119,8 +124,6 @@
 	.col-6{
 		margin: auto;
 	}
-	
-	
 	.rec-title {
 		position: absolute;
 		top: 75px;
@@ -146,7 +149,7 @@
       }
       /* card 이미지 부모요소의 높이 지정 */
    .img-wrapper{
-      height: 260px;
+      height: 240px;
       /* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
       transition: transform 0.3s ease-out;
    }
@@ -156,7 +159,7 @@
       transform: scale(1.02);
    }
    
-	.card .card-text{
+	.card-text{
 	/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
@@ -165,8 +168,8 @@
 		text-align:center;
    }
    .card-img-top{
-   		height:260px; 
-   		width:12rem;
+   		height:240px; 
+   		width:10.8rem;
    }
    
    #card{
@@ -195,10 +198,14 @@
    		width:250px; 
    		height:200px;
    }
+   .recommend{
+   		position: relative;
+   }
    #bookimage {
-   		height:210px; 
-   		width:210px;
-   		border-radius: 2px;
+   		height: 220px;
+	    width: 172px;
+	    border-radius: 2px;
+	    background: beige;
    }
    
    /* img  가  가운데 정렬 되도록 */
@@ -282,13 +289,14 @@
 
 .box {
    margin: 13px;
-    width: 12rem;
-    height: 295px;
+    width: 10.8rem;
+    height: 240px;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    display: flow-root;
     /* transition: 1s all; */
 }
 
@@ -297,11 +305,11 @@
 }
 
 .box:nth-child(2) {
-  left: 1%;
+  left: 0%;
 }
 
 .box:nth-child(4) {
-  left: -1%;
+  left: 0%;
 }
 
 .box:nth-child(4n + 1) {
@@ -309,11 +317,11 @@
 }
 
 .box:nth-child(1) {
-  left: 1%;
+  left: 0%;
 }
 
 .box:nth-child(5) {
-  left: -1%;
+  left: 0%;
 }
 .card-img-top {
 	border-radius: 2px;
@@ -333,22 +341,22 @@
 }
 
 .row {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
 }
 
 
 .col-6 {
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
+  width: 50%;
 }
 
-
+#bookingBook{
+	position: relative;
+    height: 216px;
+    width: 174px;
+    margin: auto;
+}
 .card {
   position: relative;
   display: -ms-flexbox;
@@ -414,6 +422,69 @@
  .box--hide {
     display: none;
 }
+.mask{
+	overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: block;
+    width: 102%;
+    height: 100%;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all.png) no-repeat;
+}
+.bg1{
+	display: block;
+    z-index: 30;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0px;
+    height: 4px;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all2.png) no-repeat;
+}
+.bg2{
+	display: block;
+    z-index: 20;
+    position: absolute;
+    bottom: 0;
+    right: 3px;
+    width: 100%;
+    height: 100%;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all3.png) 100% 100% no-repeat;
+}
+.mask-booking{
+	overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    height: 102%;
+    z-index: 60;
+    display: block;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all.png) no-repeat;
+}
+.bg1-booking{
+	display: block;
+    z-index: 50;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 4px;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all2.png) no-repeat;
+}
+.bg2-booking{
+	display: block;
+    z-index: 40;
+    position: absolute;
+    bottom: 0px;
+    right: 1px;
+    width: 100%;
+    height: 100%;
+    background: url(https://ssl.pstatic.net/static/book/sp_thumb_all3.png) 100% 100% no-repeat;
+}
+
 
 .move-out-from-left {
     animation: moveOutLeft 0.5s ease-in-out;

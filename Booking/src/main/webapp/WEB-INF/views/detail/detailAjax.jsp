@@ -6,9 +6,13 @@
 	
     <c:forEach var="b" items="${detailAjax }" varStatus="status">
     <ul class="simAjax">
-        <li>
+        <li style="position:relative;">
             <a href="${pageContext.request.contextPath }/book/${b.isbn }">
             	<img src="${b.image}" alt="" />
+				<span class="mask-ajax">
+			  		<span class="bg1-ajax"></span>
+			  		<span class="bg2-ajax"></span>
+		  		</span>
             	<p class="bookT">${b.title }</p>
         		<p class="bookT down"  data-num="${fn:length(detailAjax)}"></p>
             </a>        	
