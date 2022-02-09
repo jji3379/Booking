@@ -5,10 +5,6 @@ www.acornsbook.me
 - Java, Spring, Mybatis, Oracle DB
 - Html, CSS, Javascript, JQuery, Ajax, BootStrap
 - Apache Tomcat
- 
-# 사용한 Api
- 네이버 도서 Api | Kakao Map Api | KG 이니시스 결제 Api
- ----------- | -------------- | -------------
 
 # 구현 기능
 Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
