@@ -525,7 +525,7 @@ a {
     .profile-buttons > button {
         display: block;
 	    margin: 0 auto;
-	    min-width: 405px;
+	    min-width: 327px;
 	    border: 0;
 	    border-radius: 26px;
 	    padding: 0 17px;
@@ -541,7 +541,7 @@ a {
    	    text-align: center;
 	    display: block;
 	    margin: 5px auto;
-	    width: 374px;
+	    width: 295px;
 	    border: 0;
 	    border-radius: 26px;
 	    padding: 0 17px;
