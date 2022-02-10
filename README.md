@@ -23,6 +23,9 @@ Home | 전체도서 | 도서 리뷰 | 지도 | 회원 관리 | 결제
 |                  | 책 상세 정보   | 댓글, 답글    |               | 회원 탈퇴
 |                  |               | 조회수        |               |
 
+### ERD
+<img src="https://i.ibb.co/Ct3tjYk/erd.png" border="0">
+
 ### Rest Api
 ### API 샘플 정보
 Method | Url           | 출력 포맷     | 설명
