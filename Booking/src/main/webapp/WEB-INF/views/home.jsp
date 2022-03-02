@@ -20,7 +20,7 @@
 		<div class="C-logo"><strong>${sessionScope.loginId }</strong>님을 위한 추천도서</div>
 		</c:when>
 		<c:otherwise>
-		<div class="C-logo">북킹이 엄선한 이달의 추천</div>
+		<div class="C-logo">북킹이 엄선한 이달의 추천 Jenkins 테스트</div>
 		</c:otherwise>
 		</c:choose>
 		<div class="top"> <!-- by욱현. 추천도서에 carousel css 적용_2021227 -->
