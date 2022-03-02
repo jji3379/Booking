@@ -1,4 +1,4 @@
-### *도서 추천 웹 서비스 Booking* (www.acornsbook.me)
+### *도서 추천 웹 서비스 Booking* (www.acornbook.me)
 
 ### 개발 목적
 - 사용자의 관심사 위주의 정보들을 제공해 주는 것을 목표로 개발되었습니다.
