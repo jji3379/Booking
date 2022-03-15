@@ -25,14 +25,14 @@ public class CartViewController {
 		return mView;
 	}
 	
-	//by준영, 북카트 내 도서 수량변경_210310
 	@RequestMapping("/pay/update")
 	public String update(Cart dto, HttpServletRequest request) {
 		cartService.update(dto);
 		Long id = (Long) request.getSession().getAttribute("id");
+		
 		return "redirect:/user/"+id+"/cart";
 	}
-	//by준영, 결제시 주소입력창_210318
+
 	@RequestMapping("/user/{id}/pay")
 	public ModelAndView payItem(ModelAndView mView, HttpServletRequest request){
 		cartService.listCart(mView, request); 
@@ -41,7 +41,6 @@ public class CartViewController {
 		return mView;
 	}	
 	
-	//by준영, 결제완료 창_210314
 	@RequestMapping("/pay/order/paid")
 	public String deletePaid(HttpServletRequest request) {
 

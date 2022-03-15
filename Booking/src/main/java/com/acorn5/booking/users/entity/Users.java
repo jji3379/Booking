@@ -111,17 +111,4 @@ public class Users {
 		this.recentSearch = recentSearch;
 	}
 	
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "TEAM_id") private Team team;
-	 */
-	
-
-	/*
-	 * public Team getTeam() { return team; } public void setTeam(Team team) {
-	 * this.team = team; }
-	 */
-	
-	
 }

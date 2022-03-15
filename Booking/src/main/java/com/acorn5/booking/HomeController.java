@@ -68,22 +68,13 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
     }        
     
 	@Autowired
-    private BookService service;//by욱현. 홈페이지에 추천도서를 불러오는 메소드가 담긴 서비스_2021223
-	
-	//@Autowired
-	//private UsersDao dao;
-	
-	//by우석, navbar cartitem count 보이기위한 cartservice 주입_20210315
-	//@Autowired
-	//private CartService cartservice;
+    private BookService service;
 	
 	@RequestMapping("/") 
 	public ModelAndView home(HttpSession session,HttpServletRequest request) {
 		
 		ModelAndView mView = new ModelAndView();
 		Long id = (Long) session.getAttribute("id");
-		//by 우석, view page 에서 cartitem 불러오기_210315
-		
 			
 		Users userId = new Users();
 		List<BookDto> searchRecommendList = new ArrayList<BookDto>();
@@ -129,7 +120,6 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 		Collections.shuffle(searchRecommendList);
 		mView.addObject("list", searchRecommendList);
 			
-		//mView.addObject("dto", dto);//by욱현. 뷰페이지로 로그인된 회원의 회원정보 전달_2021225
 		mView.setViewName("home.page");
 		
 		return mView;
@@ -156,8 +146,8 @@ private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeContr
 			}
 		} else { // 로그인 안했을 경우 종류 별로 랜덤으로 추천
 			recommendList = service.bookingRecommendBook(categoryNum[0].toString(), 100, 1, "count", mView);
-		}		
-		// 뷰페이지로 이동 후 자바스크립트로 추출 (ajax로 그부분만 뿌려주기)
+		}
+		
 		Collections.shuffle(recommendList);
 		return recommendList;
 	}

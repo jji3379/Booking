@@ -16,16 +16,15 @@ import com.acorn5.booking.users.entity.Users;
 @Repository
 public interface ReviewCommentRepository extends JpaRepository<ReviewDtl, Long>{
 	
-	@Query(value = "SELECT sequence_next_hi_value\r\n" + 
-			"FROM REVIEW_DTL_SEQ", nativeQuery = true)
+	@Query(value = "SELECT sequence_next_hi_value FROM REVIEW_DTL_SEQ", nativeQuery = true)
 	Long findByNextId();
-	
+
 	List<ReviewDtl> findByRefGroup(Review refGroup);
-	
+
 	ReviewDtl findById(Long id);
 
 	List<ReviewDtl> findByWriter(Users id);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "update Review r set r.replyCount = ?1 where r.id = ?2")

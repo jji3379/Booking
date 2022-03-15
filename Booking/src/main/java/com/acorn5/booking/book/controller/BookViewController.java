@@ -34,12 +34,10 @@ public class BookViewController {
 	@Autowired
 	private SearchRepository searchRepository; 
     
-	// by 준익, 카테고리별 페이징 검색을 위한 컨트롤러_2021.02.28
 	@RequestMapping("/category") 
 	public ModelAndView getCategoryList(@RequestParam("d_catg") String d_catg, int start, String sort,
 			HttpServletRequest request, ModelAndView mView) {
 
-		// by 준익, categoryList 에 pagingCategory 서비스를 거친 값들을 넣어준다 (목차 : 1, 화면에 출력할 개수 :10)_2021.02.28
 		mView.addObject("categoryList", bookService.pagingCategory("1", 10, start, d_catg, request, mView, sort));
 		mView.setViewName("bookList/CategoryList.page");
 
@@ -52,7 +50,6 @@ public class BookViewController {
 		return "bookList/bestSeller.page";
 	}
     
-    //by준영, bookDetail.jsp 에 isbn 을 인자로 리스트(리스트지만 한권) 검색하는 서비스_210222
     @RequestMapping("/book/{isbn}")
     public ModelAndView getBookDetail(@PathVariable String isbn){
     	ModelAndView mView = new ModelAndView();
@@ -64,7 +61,6 @@ public class BookViewController {
         return mView;
     }
     
-    //by준영, bookAjax.jsp 에 저자를 인자로 리스트 검색하는 서비스_210222
     @RequestMapping("/detailAjax.do")
     public ModelAndView bookAjax(@RequestParam(required=false)String d_auth,String sort){
     	ModelAndView mView = new ModelAndView();
@@ -78,7 +74,6 @@ public class BookViewController {
     }
 	
     
-    //by남기, reviewBookList.jsp 에 keyword 를 인자로 리스트 검색하는 서비스_210303 
     @RequestMapping("/review/book")
     public ModelAndView getReviewBookList(@RequestParam(required=false)String keyword, HttpServletRequest request,HttpSession session){    
 		ModelAndView mView = new ModelAndView();
@@ -89,7 +84,7 @@ public class BookViewController {
 		} else {
 			Users userId = new Users();
 			List<BookDto> searchRecommendList = new ArrayList<BookDto>();
-			if (id != null) { // 로그인을 한 경우
+			if (id != null) { 
 				userId.setId(id);
 				
 				// 중복을 제거한 리스트
@@ -110,7 +105,7 @@ public class BookViewController {
 							searchRecommendList.addAll(bookService.searchRecommendBook(50, 1, "count", searchList.get(i).getKeyword(), mView));
 						}
 					}
-					// 나머지는 관심사로 채우기
+					// 나머지는 관심사
 					for (int i = 0; i < careList.length; i++) {
 						searchRecommendList.addAll(bookService.careRecommendBook(careList[i], 50, 1, "count", mView));		
 					}
@@ -128,7 +123,6 @@ public class BookViewController {
         return mView;
     }
     
-	// by 준익, 조건 검색 페이징 컨트롤러_2021.03.09
 	@RequestMapping("/book/search")
 	public ModelAndView conditionSearch(@RequestParam(required = false) String keyword, int start,
 			HttpServletRequest request, ModelAndView mView) {

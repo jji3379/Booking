@@ -18,17 +18,17 @@ import com.acorn5.booking.review.service.ReviewService;
 @RequestMapping("/v1")
 public class ReviewCommentApiController {
 
-		@Autowired
-		private ReviewService reviewService;
-		
-		@CrossOrigin(methods = RequestMethod.PUT)
-		@PutMapping(value = "/review/reply")
-		public void update(@RequestBody ReviewDtl dto) {
-			reviewService.updateComment(dto);
-		}
-		
-		@DeleteMapping(value = "/review/reply/{id}")
-		public void delete(@PathVariable Long id) {
-			reviewService.deleteComment(id);
-		}
+	@Autowired
+	private ReviewService reviewService;
+	
+	@CrossOrigin(methods = RequestMethod.PUT)
+	@PutMapping(value = "/review/reply")
+	public void update(@RequestBody ReviewDtl dto) {
+		reviewService.updateComment(dto);
+	}
+	
+	@DeleteMapping(value = "/review/reply/{id}")
+	public void delete(@PathVariable Long id) {
+		reviewService.deleteComment(id);
+	}
 }

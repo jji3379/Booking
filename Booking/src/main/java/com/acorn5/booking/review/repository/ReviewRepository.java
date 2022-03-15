@@ -17,16 +17,17 @@ import com.acorn5.booking.users.entity.Users;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	Review findById(Long id);
+
 	List<Review> findByIsbn(String isbn);
 
 	List<Review> findByWriter(Users id);
-	
+
 	@Query(value = "select r from Review r join fetch r.writer")
 	List<Review> findAllReivew();
 
 	@Query(value = "select r from Review r join fetch r.writer where r.id = ?1")
 	Review findReviewDetail(Long id);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "update Review r set r.viewCount = r.viewCount + 1 where r.id = ?1")

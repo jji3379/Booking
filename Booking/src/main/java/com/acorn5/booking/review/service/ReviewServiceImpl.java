@@ -135,32 +135,25 @@ public class ReviewServiceImpl implements ReviewService{
 		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
 	}
 	
-	
-	// by남기, 저장된 이미지를 얻어오고 이미지 파일을 MultipartFile 객체에 담아주는 메소드 _210303
 	@Override
 	public String saveImage(MultipartFile image, HttpServletRequest request) {
-		// by남기, 원본 파일명 _210303
 		String orgFileName=image.getOriginalFilename();
-		// by남기, webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로) _210303
 		String realPath=request.getServletContext().getRealPath("/upload");
-		// by남기, 저장할 파일의 상세 경로 _210303
 		String filePath=realPath+File.separator;
-		// by남기, 디렉토리를 만들 파일 객체 생성 _210303
 		File upload=new File(filePath);
-		if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
-			upload.mkdir(); //만들어 준다.
+		
+		if(!upload.exists()) { 
+			upload.mkdir(); 
 		}
-		// by남기, 저장할 파일 명을 구성한다 _210303
+		
 		String saveFileName=
 				System.currentTimeMillis()+orgFileName;
 		try {
-			// by남기, upload 폴더에 파일을 저장한다 _210303
 			image.transferTo(new File(filePath+saveFileName));
-			System.out.println(filePath+saveFileName);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		// by남기, 업로드 경로를 리턴한다 _210303
+		
 		return "/upload/"+saveFileName;
 	}
 	
@@ -261,7 +254,6 @@ public class ReviewServiceImpl implements ReviewService{
 		return reply;
 	}
 
-	// by남기, 리뷰의 댓글을 삭제하는 메소드 _210303
 	@Override
 	@Transactional
 	public void deleteComment(Long replyId) {
@@ -277,10 +269,9 @@ public class ReviewServiceImpl implements ReviewService{
 		
 		reviewCommentRepository.updateReplyCount(totalReply, comment.getRefGroup().getId());
 	}
-	// by남기, 리뷰의 댓글을 수정하는 메소드 _210303
+	
 	@Override
 	public void updateComment(ReviewDtl dto) {
-		//reviewCommentDao.update(dto);
 		ReviewDtl comment = reviewCommentRepository.findById(dto.getId());
 		comment.setContent(dto.getContent());
 		
