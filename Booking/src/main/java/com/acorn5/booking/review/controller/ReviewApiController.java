@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.acorn5.booking.review.dto.ReviewListDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.service.ReviewService;
 import com.acorn5.booking.users.entity.Users;
@@ -30,14 +31,14 @@ public class ReviewApiController {
 
 	// 전체 리뷰 조회 api
 	@GetMapping(value = "/reviews") 
-	public Page<Review> getReviewList(HttpServletRequest request, Pageable pageable) {
+	public Page<ReviewListDto> getReviewList(HttpServletRequest request, Pageable pageable) {
 		
 		return service.getList(request, pageable);
 	}
 
 	// 리뷰 검색 조회 api
 	@GetMapping(value = "/review/{condition}/{keyword}")
-	public Page<Review> getSearchReview(HttpServletRequest request, Pageable pageable,
+	public Page<ReviewListDto> getSearchReview(HttpServletRequest request, Pageable pageable,
 			@PathVariable String condition, @PathVariable String keyword) {
 		
 		return service.getConditionSearchList(request, pageable, condition, keyword);

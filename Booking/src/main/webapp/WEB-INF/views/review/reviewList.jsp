@@ -177,7 +177,7 @@
 					}
 					
 					reviewList += '</div>'
-					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
+					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].loginId+'</p>'
 					reviewList += '</div>'
 					
 					if(data.content[i].spoCheck == 'Y'){
@@ -292,7 +292,7 @@
 					}
 					
 					reviewList += '</div>'
-					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
+					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].loginId+'</p>'
 					reviewList += '</div>'
 					
 					if(data.content[i].spoCheck == 'Y'){
@@ -402,7 +402,7 @@
 					}
 					
 					reviewList += '</div>'
-					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].writer.loginId+'</p>'
+					reviewList += '<p class = "card-body-nickname"> 작성자: '+data.content[i].loginId+'</p>'
 					reviewList += '</div>'
 	
 					if(data.content[i].spoCheck == 'Y'){

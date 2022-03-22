@@ -107,6 +107,7 @@
 								</tr>
 							</thead>
 							<tbody id="recentOrderList">
+								<!-- 
 								<tr>
 									<td>
 										<div>총 1개 상품</div>
@@ -118,6 +119,7 @@
 										<div class="order-num">1234567890</div>
 									</td>
 								</tr>
+								 -->
 							</tbody>
 						</table>
 					</div>

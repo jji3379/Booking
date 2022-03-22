@@ -6,15 +6,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.acorn5.booking.review.dto.ReviewListDto;
 import com.acorn5.booking.review.entity.Review;
 import com.acorn5.booking.review.entity.ReviewDtl;
 
 public interface ReviewService {
 	public Review saveContent(Review dto);
 
-	public Page<Review> getList(HttpServletRequest request, Pageable pageable);
+	public Page<ReviewListDto> getList(HttpServletRequest request, Pageable pageable);
 
-	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, String condition,
+	public Page<ReviewListDto> getConditionSearchList(HttpServletRequest request, Pageable pageable, String condition,
 			String keyword);
 
 	public String saveImage(MultipartFile image, HttpServletRequest request);

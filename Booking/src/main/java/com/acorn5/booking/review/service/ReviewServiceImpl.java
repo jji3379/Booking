@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.acorn5.booking.review.dto.ReviewListDto;
 import com.acorn5.booking.review.entity.QReview;
 import com.acorn5.booking.review.entity.QReviewDtl;
 import com.acorn5.booking.review.entity.Review;
@@ -26,6 +28,7 @@ import com.acorn5.booking.users.entity.Users;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Service
@@ -60,9 +63,8 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Override
 	@Transactional
-	public Page<Review> getList(HttpServletRequest request, Pageable pageable) {
+	public Page<ReviewListDto> getList(HttpServletRequest request, Pageable pageable) {
 		QReview qReview = QReview.review;
-		QUsers qUsers = QUsers.users;
 		
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 		pageable = new PageRequest(pageable.getPageNumber(), 8, pageable.getSort());
@@ -77,19 +79,28 @@ public class ReviewServiceImpl implements ReviewService{
 			orderCondition = qReview.regdate.desc(); // 최신순 정렬
 		}
 		
-		QueryResults<Review> list = queryFactory.selectFrom(qReview)
-				.join(qReview.writer, qUsers)
-				.fetchJoin()
+		QueryResults<ReviewListDto> list = queryFactory.select(Projections.fields(ReviewListDto.class, 
+				qReview.id
+				, qReview.imagePath
+				, qReview.spoCheck
+				, qReview.reviewTitle
+				, qReview.rating
+				, qReview.content
+				, qReview.viewCount
+				, qReview.replyCount
+				, qReview.regdate
+				, qReview.writer.loginId))
+				.from(qReview)
 				.orderBy(orderCondition, qReview.regdate.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchResults();
 			
-		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+		return new PageImpl<ReviewListDto>(list.getResults(), pageable, list.getTotal());
 	}
 	
 	@Override
-	public Page<Review> getConditionSearchList(HttpServletRequest request, Pageable pageable, String condition, String keyword) {
+	public Page<ReviewListDto> getConditionSearchList(HttpServletRequest request, Pageable pageable, String condition, String keyword) {
 
 		if(keyword==null){
 			keyword="";
@@ -97,9 +108,10 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		QReview qReview = QReview.review;
-		QUsers qUsers = QUsers.users;
 		JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+		
 		pageable = new PageRequest(pageable.getPageNumber(), 8, pageable.getSort());
+		
 		OrderSpecifier<?> orderCondition = null;
 		if (pageable.getSort() != null && pageable.getSort().toString().contains("viewCount")) {
 			orderCondition = qReview.viewCount.desc(); // 조회순 정렬
@@ -123,16 +135,25 @@ public class ReviewServiceImpl implements ReviewService{
 			builder.and(qReview.isbn.contains(keyword));
 		}
 		
-		QueryResults<Review> list = queryFactory.selectFrom(qReview)
-				.join(qReview.writer, qUsers)
-				.fetchJoin()
+		QueryResults<ReviewListDto> list = queryFactory.select(Projections.fields(ReviewListDto.class, 
+				qReview.id
+				, qReview.imagePath
+				, qReview.spoCheck
+				, qReview.reviewTitle
+				, qReview.rating
+				, qReview.content
+				, qReview.viewCount
+				, qReview.replyCount
+				, qReview.regdate
+				, qReview.writer.loginId))
+				.from(qReview)
 				.where(builder)
 				.orderBy(orderCondition, qReview.regdate.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetchResults();
 			
-		return new PageImpl<Review>(list.getResults(), pageable, list.getTotal());
+		return new PageImpl<ReviewListDto>(list.getResults(), pageable, list.getTotal());
 	}
 	
 	@Override
